@@ -4,11 +4,23 @@ This session will introduce participants to fundamental concepts in [R][Python] 
 
 By the end of the session, participants should feel familar with [RStudio][Jupyter Notebook] as an environemnt for interactive analsysis in [R][Python], be able to identify and articulate use cases for common data structures, and know a few key ways to get additional help when they run into trouble.
 
+* what is r
+* what is an IDE
+* vector, matrix, list, dataframe
+* what is a function
+* basic arithmetic functions
+
 **[R][Python]: Importing Data**
 
 This session will address importing Excel and comma seperated value files into R for analysis. Topics covered include variable naming, variable assignment, missing values on import, assigning appropriate data types to variables, and saving data as R data objects.
 
 By the end of the session, participants should be able to import data stored in tabular format (Excel, csv), standardize missing values for subsequent tidying and analysis.
+
+* read.csv with options, readxl() 
+* variable naming conventions
+* assign data to variable
+* character, numeric, and factor data
+* export as .RData file
 
 **[R][Python]: Exploring Data**
 
@@ -16,17 +28,28 @@ This session will introduce participants to common tasks of initial data explora
 
 By the end of the session, participants should be able to use a suite of tools to comprehensivley describe their data and establish if it meets underlying criteria for subsequent analysis.
 
-**[R][Python]: Subsetting Data**
+* count NA values
+* count complete rows
+* summary stats
+* hist(), plot() - this is not a lesson on data visualization
+
+**[R][Python]: Subsetting & Filtering Data**
 
 This session will explore the variety of ways that data can be subset in [R][Python].  Working with data frames and vectors, data frames, and lists, participants will learn the nuances of extracting portions of a larger data set for analysis.
 
 By the end of this session, participants will be proficient in extracting observartions, variables, and values from their data and be aware of when attributes of the extracted data will be lost or maintained for further analysis.
 
+* [], [[]], subset(), which(), filter()[dplyr], select()[dplyr]
+
 **[R][Python]: Iterating Over Data**
 
-This session will revisit the vector underpinnings of [R][andas], introduce the apply() family of functions for iterating, or looping, over objects, and introduce for loops for those instances when no pre-existing solutiong exists.
+This session will revisit the vector underpinnings of [R][pandas], introduce the apply() family of functions for iterating, or looping, over objects, and introduce for loops for those instances when no pre-existing solutiong exists.
 
 By the end of this session, participants will be able to efficiently apply looped constructs to their data, using pre-existing tools in [R][pandas], and be familiar with the basics of constructing for loops to handle repeated tasks.
+
+* vector basics
+* apply()
+* for loops
 
 **[R][Python]: Conditions**
 
@@ -34,17 +57,17 @@ This session will introduce conditionals in [R][Python], addressing those times 
 
 By the end of this session, participants will be able effectively implement simple if else constructs into the data analysis pipelines.
 
-**R: TidyVerse**
-
-This sesson will introduce particpants to the basics of tidyverse, a family of packages for R designed to facilitate the data analysis workflow. This session will cover common tasks in an analysis pipeline, including subsetting, splitting, merging, and reshaping data, along with pipe notation to simplify your code.
-
-By the end of this session, participants will be able to undertake common base R tasks within TidyVerse, recognize some of the issues of using both base R and TidyVerse syntax and data structures, and be in a better position to choose the best approach in R for the data tasks they're tackling.
+* vectorized operations (ifelse)
+* if else statements
+* switch(), where()[dplyr]
 
 **[R][Python]: Data Visualization**
 
 This session will introduce [ggplot][altair/plotnine/matplotlib] for data visualization. Common visualizations, including bar charts, histograms, scatterplots, etc will be covered.
 
 By the end of this session participants will be able to build, annotate, and customize common data visualizations.
+
+* ggplot
 
 **[R][Python]: Generating Reports**
 
@@ -78,6 +101,9 @@ By the end of this session, participants will be able to navigate the DMP Assist
 
 **Introduction to the Unix Shell pt. 1: Navigating Files and Directories**
 
+*do we need to say that this is BASH?*
+*https://www.educative.io/answers/how-to-install-git-bash-in-windows*
+
 The command line interface can seem daunting to new users, but it is a very powerful tool that, with some foundational understanding, can be used for a number of different computational and data management tasks.  
 
 This session is aimed at those who have little to no experience with the command line, and will begin by introducing the Unix Shell and its functions, and then will cover the basics of navigating files and directories.
@@ -89,6 +115,8 @@ Prerequisites:
 * Download and be able to open the shell software [here](https://carpentries.github.io/workshop-template/install_instructions/#the-bash-shell)
 * Download [shell-lesson-data.zip](shell-lesson-data.zip) and move the file to your Desktop.
 * Unzip/extract the file. **Let your instructor know if you need help with this step**. You should end up with a new folder called shell-lesson-data on your Desktop.
+
+* list commands covered
 
 **Introduction to the Unix Shell pt. 2: Working with Files and Directories**
 
@@ -105,6 +133,8 @@ Prerequisites:
 * Download [shell-lesson-data.zip](shell-lesson-data.zip) and move the file to your Desktop.
 * Unzip/extract the file. **Let your instructor know if you need help with this step**. You should end up with a new folder called shell-lesson-data on your Desktop.
 
+* list commands covered
+
 **Introduction to GitHub** 
 
 When working on a project with multiple collaborators, issues can arise when people are working on the same document at the same time.  If the group has to take turns working individually, a lot of time can be lost waiting for the other to finish, but if they work on their own copies and share them back and forth, things can be lost, overwritten, or duplicated.
@@ -120,9 +150,14 @@ Prerequisites:
 * Basic familiarity with Unix commands (which can be acquired in the Unix Shell workshops).
 * As part of this lesson, you will need to set up a GitHub account prior to joining, which can be done [here](https://github.com/)
 
+* authenticate machine
+* set up global options - username, email, text editor
+* pull, push, branch, merge, gitignore
+* resolve conflict 
+
 **Introduction to GitHub Pages pt. 1**
 
-Building on concepts covered in Introduction to GitHub, this session will introduce GitHub pages as a way to create a personal website or blog, or create a website for your project.  After introducing the concept of GitHub pages, we will then go through the steps of generating a GitPages website, and will introduce markdown as a way to add content to your pages, as well as how to push (save) content to the website. 
+Building on concepts covered in Introduction to GitHub *and Unix Shell*, this session will introduce GitHub pages as a way to create a personal website or blog, or create a website for your project.  After introducing the concept of GitHub pages, we will then go through the steps of generating a GitPages website, and will introduce markdown as a way to add content to your pages, as well as how to push (save) content to the website. 
 
 By the end of this session, participants will be able to initiate a website on GitHub pages, and be able to add content to the website.
 
@@ -131,9 +166,25 @@ Prerequisites:
 * Basic familiarity with Unix commands (which can be acquired in the Unix Shell workshops).
 * As part of this lesson, you will need to set up a GitHub account prior to joining, which can be done [here](https://github.com/)
 
+* touch a readme and licence md file
+* git init
+* set up git repo
+* git push
+* publish to pages
+* touch index.md and repeat
+* add img directory and insert images, add hyperlinks
+
 **Introduction to GitHub Pages pt. 2**
 
 Building on concepts covered in Introduction to GitHub and Introduction to GitHub Pages pt. 1, this session will go deeper into the capabilities of GitHub pages, exploring how to implement themes to your pages and customizing content.
+
+* theme documentation
+* markdown and yaml
+* css and scss
+
+* add yaml to pages
+* add theme
+* add custom css (inspect and asset folder)
 
 
 

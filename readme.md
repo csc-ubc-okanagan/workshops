@@ -86,7 +86,7 @@ By the end of this session, participants will become familiar with the command l
 
 Prerequisites: 
 
-* Download and be able to open the shell software [here](https://carpentries.github.io/workshop-template/install_instructions/#shel)
+* Download and be able to open the shell software [here](https://carpentries.github.io/workshop-template/install_instructions/#the-bash-shell)
 * Download [shell-lesson-data.zip](shell-lesson-data.zip) and move the file to your Desktop.
 * Unzip/extract the file. **Let your instructor know if you need help with this step**. You should end up with a new folder called shell-lesson-data on your Desktop.
 
@@ -101,7 +101,7 @@ By the end of this session, participants will be able to create, edit, move, and
 Prerequisites: 
 
 * Familiarity with the basics of navigating files and directories with Unix commands, which can be acquired in Introduction to the Unix Shell pt. 1: Navigating Files and Directories.
-* Download and be able to open the shell software [here](https://carpentries.github.io/workshop-template/install_instructions/#shell)
+* Download and be able to open the shell software [here](https://carpentries.github.io/workshop-template/install_instructions/#the-bash-shell)
 * Download [shell-lesson-data.zip](shell-lesson-data.zip) and move the file to your Desktop.
 * Unzip/extract the file. **Let your instructor know if you need help with this step**. You should end up with a new folder called shell-lesson-data on your Desktop.
 

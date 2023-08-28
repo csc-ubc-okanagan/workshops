@@ -72,9 +72,6 @@ By the end of this session, participants will be able to navigate the DMP Assist
 
 **Introduction to the Unix Shell pt. 1: Navigating Files and Directories**
 
-*do we need to say that this is BASH?*
-*https://www.educative.io/answers/how-to-install-git-bash-in-windows*
-
 The command line interface can seem daunting to new users, but it is a very powerful tool that, with some foundational understanding, can be used for a number of different computational and data management tasks.  
 
 This session is aimed at those who have little to no experience with the command line, and will begin by introducing the Unix Shell and its functions, and then will cover the basics of navigating files and directories.

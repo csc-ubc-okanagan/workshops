@@ -11,7 +11,7 @@ By the end of this session, participants will become familiar with the command l
 
 Prerequisites: 
 
-* Download and be able to open the shell software [here](https://carpentries.github.io/workshop-template/install_instructions/#the-bash-shell)
+* If you are using a Windows machine, you will need to download the the shell software [here](https://git-scm.com/download/win)
 * Download [shell-lesson-data.zip](shell-lesson-data.zip) and move the file to your Desktop.
 * Unzip/extract the file. **Let your instructor know if you need help with this step**. You should end up with a new folder called shell-lesson-data on your Desktop.
 

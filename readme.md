@@ -1,5 +1,7 @@
 ## R
 
+This series of introductory workshops are intended for individuals with little to no familiarity with R or similar tools that rely on a scripted environment. They are intended as a low barrier entry into the world of using your computer to engage with data outside of graphical tools like Excel or SPSS.
+
 **R: Fundamental Concepts with RStudio**
 
 This session will introduce participants to fundamental concepts in R that will help them excel at more advanced applications. Topics covered include the application of simple math, core data types and structures, an overview of vector operations, and how to navigate getting help. The workshop will be run using RStudio.
@@ -49,6 +51,8 @@ This session will introduce participants to RMarkdown, a powerful package for in
 By the end of this session, participants will be familiar with the requisite libraries and document structure to create beautiful, reproducible reports for distribution.
 
 ## Python
+
+This series of introductory workshops are intended for individuals with little to no familiarity with Python or similar tools that rely on a scripted environment. They are intended as a low barrier entry into the world of using your computer to engage with data outside of graphical tools like Excel or SPSS.
 
 **Python: Fundamental Concepts with Jupyter Notebook**
 

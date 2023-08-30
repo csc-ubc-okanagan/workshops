@@ -1,3 +1,8 @@
+---
+title: "R: Importing Data"
+pagetitle: "R: Importing Data"
+---
+
 ## Comma Separated Values
 
 ### Base R
@@ -37,11 +42,6 @@ It may also be a good idea to trim excess white space, which is not done by defa
 data_nows <- read.csv("../data/gapminder.csv", strip.white = TRUE)
 ```
 
-<div class = "note">
-My note!
-</div>
-
-> [!NOTE]
 > TRUE and FALSE can be denoted with either `T` and `F` or `TRUE` and `FALSE`. However, `T` and `F` as variable names can be overwritten to point to other objects, whereas `TRUE` and `FALSE` cannot. It is advisable to always use `TRUE` and `FALSE`.
 
 Additional options and their defaults can be found with `?read.table()`.

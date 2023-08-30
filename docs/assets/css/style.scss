@@ -3,6 +3,8 @@
 
 @import "{{ site.theme }}";
 
-.note {
-    border: 1px solid #785643;
-}
+.markdown-body blockquote {
+    padding: 1em;
+    color: #000;
+    border-left: 0.5em solid #2866a4;
+    background: #eaf5ff;

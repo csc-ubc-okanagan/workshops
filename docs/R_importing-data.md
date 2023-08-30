@@ -3,6 +3,8 @@ title: "R: Importing & Exporting Data"
 pagetitle: "R: Importing Data"
 ---
 
+Last Updates: 2023-08-30
+
 # R: Importing & Exporting Data
 
 ## Importing Data
@@ -114,7 +116,7 @@ write.csv(data_custom_na, "gapminder.csv", row.names = FALSE)
 
 Additional options and their defaults can be found with `?write.table` 
 
-`write_csv()` is not much different. Again, it's a simplified wrapper on `write_delim()`, and it's defaults similar to `write.csv()`, which includes column names and missing values coded as "NA". In contrast to `write.csv()`, row names are not included in the output file.
+`write_csv()` is not much different. Again, it's a simplified wrapper on `write_delim()`, and its defaults are similar to `write.csv()`, which includes column names and missing values coded as "NA". In contrast to `write.csv()`, row names are not included in the output file.
 
 ```r
 write_csv(data_readr, "gapminder.csv")
@@ -135,7 +137,7 @@ saveRDS(data_readr, file = "gapminder.RDS")
 
 ```r
 # save to to RData
-save(data_readr, data_custom_na, file = "gapminder.RData)
+save(data_readr, data_custom_na, file = "gapminder.RData")
 ```
 
 Reading these back in is also fairly straight forward...

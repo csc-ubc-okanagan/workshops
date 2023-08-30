@@ -64,7 +64,7 @@ library(readr)
 data_readr <- read_csv("../data/gapminder.csv")
 ```
 
-### Excel
+## Excel
 
 Base R does not include a package for loading in Excel files. For this we'll use the TidyVerse package `readxl`, which can read both legacy `xls` as well as more recent `xlsx` files.
 

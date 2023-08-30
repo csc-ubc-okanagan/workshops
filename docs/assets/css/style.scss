@@ -3,6 +3,10 @@
 
 @import "{{ site.theme }}";
 
+h1:first-of-type {
+    display: none;
+}
+
 .markdown-body blockquote {
     padding: 1em;
     color: #000;

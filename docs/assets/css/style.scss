@@ -8,3 +8,16 @@
     color: #000;
     border-left: 0.5em solid #2866a4;
     background: #eaf5ff;
+}
+
+.markdown-body pre {
+    background-color: #f9f9f9;
+}
+
+.highlight .s2, .highlight .s1 {
+    color: #1174dd;
+  }
+
+  .markdown-body code, .markdown-body tt {
+    background-color: rgba(156, 211, 195, 0.18);
+  }

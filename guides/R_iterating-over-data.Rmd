@@ -1,0 +1,17 @@
+---
+title: "R: Iterating Over Data"
+output:
+  html_document:
+    keep_md: yes
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      eval = TRUE)
+```
+
+We can also generate a count for the entire data frame, using `sapply()` which will run `sum()` across all of the columns [`tapply()` and the family of `apply()` functions will be covered in more detail in a later session.]
+
+```{r}
+sapply(data_gapminder, function(x) sum(is.na(x)))
+```

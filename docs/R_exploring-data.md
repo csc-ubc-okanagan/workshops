@@ -11,6 +11,8 @@ Last Updates: 2023-08-31
 
 ## Missing Values
 
+### is.na()
+
 Missing values in R are coded as `NA`, a special value in R. When importing or tyding your data, it's important to ensure that you're properly identifying missing values, and handling them with the arguments `na.strings`, if using `read.csv()`, or `na`, if using `read_csv()`.
 
 
@@ -41,6 +43,14 @@ typeof(missing_pop)
 ## [1] "logical"
 ```
 
+```r
+head(missing_pop)
+```
+
+```
+## [1] FALSE FALSE FALSE FALSE FALSE FALSE
+```
+
 The logical vector on it's own, is not super helpful. We can generate counts of the `TRUE` values by summing the number of `TRUE` instances in `missing_pop`...
 
 
@@ -63,7 +73,9 @@ sum(is.na(data_gapminder$pop))
 ## [1] 223
 ```
 
-There are a variety of ways of tallying the count of all `NA` values across a data frame, which will be explored in future sessions. In the mean time, another point of interest in looking at missing values is to explore the number of observations for which no data are missing, which can be done with `complete.cases()`. Similar to `is.na()`, `complete.cases()` returnds a logical vector...
+### Complete Cases
+
+Another point of interest in looking at missing values is to explore the number of observations for which no data are missing, which can be done with `complete.cases()`. Similar to `is.na()`, `complete.cases()` returnds a logical vector...
 
 
 ```r
@@ -86,7 +98,7 @@ sum(complete_gapminder)
 ## [1] 853
 ```
 
-And for use later, we can also generate a vector of those which are complete, identified by  their index number. This is done with `which()`
+And for use later, when subsetting, we can also generate a vector of those which are complete, identified by  their index number. This is done with `which()`
 
 
 ```r
@@ -105,7 +117,7 @@ head(which(complete_gapminder))
 
 ### Number of Observations
 
-The length of a single vector can be derived with `length()`
+The number of values in a single vector can be derived with `length()`
 
 
 ```r
@@ -148,7 +160,7 @@ nrow(data_gapminder)
 
 ### Range
 
-The range of our data can be calculated with `range()`.
+The range of your data can be calculated with `range()`.
 
 
 ```r
@@ -159,7 +171,7 @@ range(data_gapminder$year, na.rm = TRUE)
 ## [1] 1952 2007
 ```
 
-If you're only interested in the min or max values individually, this can be done with `min()` and `max()` respectively.
+If you're only interested in the min or max values individually, this can be pulled with `min()` and `max()` respectively.
 
 
 ```r
@@ -300,6 +312,79 @@ summary(data_gapminder)
 ##  NA's   :223         NA's   :219
 ```
 
+## Visualizing Distributions
+
+> Plotting for presentation will be covered in greater detail in a future session.
+
+Basic plotting for distribution analysis is relatively straight forward in base R.
+
+### Distribution of a Single Variable
+
+#### Histograms
+
+You can plot a basic histogram with `hist()`
+
+
+```r
+hist(data_gapminder$gdpPercap)
+```
+
+![](R_exploring-data_files/figure-html/unnamed-chunk-19-1.png)<!-- -->
+
+And you can increase the 'buckets' with the `breaks` argument
+
+
+```r
+hist(data_gapminder$gdpPercap, breaks = 30)
+```
+
+![](R_exploring-data_files/figure-html/unnamed-chunk-20-1.png)<!-- -->
+
+#### Density Plots
+
+A density plot can be generated with `plot()`, but requires the extra step of computing the density of the data with the `density()` function first
+
+
+```r
+dens <- density(data_gapminder$lifeExp, na.rm = TRUE)
+plot(dens)
+```
+
+![](R_exploring-data_files/figure-html/unnamed-chunk-21-1.png)<!-- -->
+
+### Distribution of Two Variables
+
+#### Box Plots
+
+`boxplot()` allows you to facet one variable by another using a tilde `~` to define the relationship
+
+
+```r
+boxplot(data_gapminder$lifeExp ~ data_gapminder$continent)
+```
+
+![](R_exploring-data_files/figure-html/unnamed-chunk-22-1.png)<!-- -->
+
+#### Scatter Plots
+
+`plot()` by default assumes a single variable as in the earlier example, but will generate a scatter plot if provided with two variables, the first assigned to the x-axis, the second to the y-axis.
+
+
+```r
+plot(x = data_gapminder$gdpPercap, y = data_gapminder$lifeExp)
+```
+
+![](R_exploring-data_files/figure-html/unnamed-chunk-23-1.png)<!-- -->
+
+You can also transform you data within the function for quick investigation
+
+
+```r
+# log transform gdp per capita
+plot(x = log(data_gapminder$gdpPercap), y = data_gapminder$lifeExp)
+```
+
+![](R_exploring-data_files/figure-html/unnamed-chunk-24-1.png)<!-- -->
 
 
 

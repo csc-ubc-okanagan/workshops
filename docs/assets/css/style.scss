@@ -22,6 +22,14 @@ h1:first-of-type {
     color: #1174dd;
   }
 
-  .markdown-body code, .markdown-body tt {
+.highlight .nf, .highlight .p, .highlight .n {
+    color: #000000;
+}
+
+.markdown-body code > pre {
+    color: #008000;
+}
+
+.markdown-body code, .markdown-body tt {
     background-color: rgba(156, 211, 195, 0.18);
   }

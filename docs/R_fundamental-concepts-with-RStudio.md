@@ -1,19 +1,10 @@
----
-title: 'R: Fundamental Concepts with RStudio'
-output:
-  html_document:
-    keep_md: yes
----
-
-
-
-Last Updates: 2023-08-31
+Last Updates: 2023-09-01
 
 ## RStudio
 
 R is great for interactive computational analysis, allowing for easy exploration and iteration. Using an IDE - Integrated Development Environment - such as RStudio, facilitates this interactivity, providing you with easy access to a place to quickly code (the console), a place to write saveable scripts (source editor), a place to view the objects that you create (environment pane), and a place to interact with your file system, visual outputs from your code, and help documentation (the miscellaneous pane, for lack of a better word).
 
-![]("docs/assets/images/rstudio.png")
+![]("https://raw.githubusercontent.com/csc-ubc-okanagan/workshops/main/docs/assets/images/rstudio.png")
 
 ## Simple Math
 
@@ -118,6 +109,16 @@ my_variable * 2
 ```
 ##  [1]  2  4  6  8 10 12 14 16 18 20
 ```
+
+> When naming variables in R, keep in mind that variable names:
+>
+> * Should first and foremost be meaningful. This is not a rule, just best practice.
+> * Cannot start with a number or a dot followed by a number.
+> * Cannot contain spaces or hyphens.
+> * Can contain letters, numbers, dots, and underscores.
+>
+> Additionally, some words are reserved and cannot be used, such as if and for. More details can be found with `?make.names`
+
 
 ## Data Types & Structures
 
@@ -324,7 +325,7 @@ list(item_1 = letters,
 
 The function `class()` will tell you what kind of structure your data are held in.
 
-> `class()`, when called on a vector, will report on the data type, which should be read as the type of atomic vector you have. An array is multi-dimensional vector, a matrix is the special case where there are only two dimensions.
+> `class()`, when called on a vector, will report on the data type, which should be read as the type of atomic vector you have. An array is a multi-dimensional vector, a matrix is the special case where there are only two dimensions.
 
 
 ```r

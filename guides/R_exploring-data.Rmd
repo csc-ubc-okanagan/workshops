@@ -69,6 +69,29 @@ And for use later, when subsetting, we can also generate a vector of those which
 head(which(complete_gapminder))
 ```
 
+## Unique values & duplicates
+
+`unique()`, returns a vector of unique values...
+
+```{r}
+unique(data_gapminder$continent)
+```
+
+`duplicated()` returns a logical vector, `TRUE` for values (of a vector) or rows (of a data frame) that are duplicates, `FALSE` if they are unique. Since the first instance of a value is unique, the first value will return `FALSE`, and any subsequent duplicates will return `TRUE`.
+
+```{r}
+# on a vector
+head(duplicated(data_gapminder$continent))
+
+# there are 5 unique continents and 1699 duplicates
+sum(duplicated(data_gapminder$continent))
+
+# on a data frame
+head(duplicated(data_gapminder))
+
+# there are no duplicate values
+sum(duplicated(data_gapminder))
+```
 
 ## Descriptive Statistics
 

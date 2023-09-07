@@ -13,3 +13,5 @@ pagetitle: "Menu"
 
 [R: Subsetting & Filtering Data](R_subsetting-and-filtering-data.html)
 
+[R: Iterating Over Data](R_iterating-over-data.html)
+

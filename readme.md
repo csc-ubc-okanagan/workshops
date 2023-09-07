@@ -1,3 +1,12 @@
+| Directory or File | Description |
+| --- | --- |
+| data/ | Any data files requiring storage for access |
+| docs/ | GitHub Pages pull directory. Place markdown files for rendering here. |
+| guides/ | Originals of what are copied as .md into docs/ |
+| outlines/ | Planning documents. Will likely be deleted. |
+
+# Outlines
+
 ## R
 
 This series of introductory workshops are intended for individuals with little to no familiarity with R or similar tools that rely on a scripted environment. They are intended as a low barrier entry into the world of using your computer to engage with data outside of graphical tools like Excel or SPSS.

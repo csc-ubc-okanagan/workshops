@@ -1,0 +1,1 @@
+Place files (pdf, slides, etc) and images in the `assets/` directory.

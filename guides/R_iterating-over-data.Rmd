@@ -42,7 +42,7 @@ colSums(data_gapminder_num)
 colMeans(data_gapminder_num)
 ```
 
-If you people talking about 'vectorizing your code' generally they mean taking advantage of this construct.
+If you hear people talking about 'vectorizing your code', generally they mean taking advantage of this construct.
 
 ## Functions That Loop For You
 
@@ -118,7 +118,7 @@ There are several variations on `map()` and `map2()` - it's worth consulting the
 
 Vecotrization and pre-existing looping functions will be the fastest and likely simplest way to iterate over your data. When your task is unique, however, you may need to write your own loop. Two common loop constructs are 'for loops' and 'while loops'. Here we cover the former.
 
-'for loops' iterate for a pre-determined number of iterations and take the following basic approach:
+For loops iterate for a pre-determined number of iterations and take the following basic approach:
 
 ```
 for (each value in a list of values using an indexed location) {

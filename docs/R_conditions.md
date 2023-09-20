@@ -1,0 +1,244 @@
+---
+title: "R: Conditions"
+output:
+  html_document:
+    keep_md: yes
+---
+
+
+
+Conditionally iterating over data can be a powerful tool, for such things as catching errors, testing a user input, or, perhaps more commonly in data analysis tasks, creating categorical values from numeric interval or ratio data.
+
+## if else construct
+
+if else statements apply a test to a value, and if it returns `TRUE`, one thing is done, and if it returns `FALSE` an alternative thing is done.
+
+At its simplest, we can do just an if statement, which follows the syntax of
+
+```
+if (test-condition) {
+  do this
+  }
+```
+
+
+```r
+x <- 5
+
+if (x < 6) {
+  print("x is less than 6")
+}
+```
+
+```
+## [1] "x is less than 6"
+```
+
+```r
+if (x == 5) {
+  print("x is equal to 5")
+}
+```
+
+```
+## [1] "x is equal to 5"
+```
+
+```r
+if (x != 2) {
+  print("x is some other number than 2")
+}
+```
+
+```
+## [1] "x is some other number than 2"
+```
+
+The if else construct allows us to string multiple test conditions together, and follows the syntax of
+
+```
+if (test-condition) {
+  do this
+  } else {
+  do this
+}
+```
+
+
+```r
+if (x == 2) {
+  print("x is equal to 2")
+} else {
+  print("x is not equal to 2")
+}
+```
+
+```
+## [1] "x is not equal to 2"
+```
+
+We can begin to string things together with still more test conditions using `else if`
+
+```
+if (test-condition) {
+  do this
+} else if (new test-condition) {
+  do this
+} else if (new test-condition) {
+  do this
+} else {
+  do this
+}
+```
+
+
+```r
+if (x < 5) {
+  print("x is less than 5")
+} else if (x > 5) {
+  print("x is greater than 5")
+} else {
+  print("x is equal to 5")
+}
+```
+
+```
+## [1] "x is equal to 5"
+```
+
+## Iterating over vectors
+
+A more practical implementation of an if else statement would be creating a new variable with values based off of those in another variable. This process can get a little convoluted as it combines an `if else` statement with a `for loop`.
+
+As an example, lets assume that we want to categorize countries based on their GDP as either high, middle, or low income.
+
+
+```r
+# load the data
+library(gapminder)
+gapminder_cond <- gapminder
+
+# create an empty variable to hold our ordered categorical data
+gapminder_cond$income_level <- ordered(NA, levels = c("low-income",
+                                                      "middle-income",
+                                                      "high-income"))
+
+# start the for loop to add values to income-level based on GDP values
+for (i in seq_along(gapminder_cond$income_level)) { # for each item along the dataframe
+  if (gapminder_cond$gdpPercap[i] <= 10000) { # if gdpPercap is LT = 10000
+    gapminder_cond$income_level[i] = 'low-income' # add 'low-income' to that observation's income level variable
+  } else if (gapminder_cond$gdpPercap[i] <= 75000) { # else, if gdpPercap is LT = 75000
+    gapminder_cond$income_level[i] = "middle-income" #  add 'middle-income' to that observation's income level variable
+  } else { # otherwise
+    gapminder_cond$income_level[i] = "high-income"  #  add 'high-income' to that observation's income level variable
+  }
+}
+
+summary(gapminder_cond$income_level)
+```
+
+```
+##    low-income middle-income   high-income 
+##          1312           387             5
+```
+
+This can be cumbersome. Luckily R offers some simpler options for iterating over data with an if else construct.
+
+## ifelse()
+
+R has a built in function, `ifelse()` that allows us to provide a condition, and, if that condition returns `TRUE` to do one thing, and if it returns `FALSE` to do something else. We'll split life expectancy into 'above average' and below average' categories.
+
+
+```r
+# Assign values
+# of 'below-average' if lifeExp is equal to or below 59.47 
+# and 'above-average' if above 59.47
+gapminder_cond$lifeExp_cat <- ifelse(gapminder_cond$lifeExp <= 59.47, "below-average", "above-average")
+
+# assign appropriate data type
+gapminder_cond$lifeExp_cat <- ordered(gapminder_cond$lifeExp_cat, levels = c("below-average", "above-average"))
+
+summary(gapminder_cond$lifeExp_cat)
+```
+
+```
+## below-average above-average 
+##           809           895
+```
+
+`ifelse()` works well when we have a two condition set to work through. One more example, pulled from its documentation, to help avoid an error / warning being thrown or unwanted values being produced...
+
+
+```r
+# create a numeric vector
+some_numbers <- c(6:-4)
+
+# take the square root of each value, which creates a bit of an issue
+sqrt(some_numbers)
+```
+
+```
+## Warning in sqrt(some_numbers): NaNs produced
+```
+
+```
+##  [1] 2.449490 2.236068 2.000000 1.732051 1.414214 1.000000 0.000000      NaN
+##  [9]      NaN      NaN      NaN
+```
+
+```r
+# using if else to test for numbers greater than or equal to 0
+# if true, calculate the square root
+# if false, produce NA
+sqrt(ifelse(some_numbers >= 0, some_numbers, NA))
+```
+
+```
+##  [1] 2.449490 2.236068 2.000000 1.732051 1.414214 1.000000 0.000000       NA
+##  [9]       NA       NA       NA
+```
+
+## case_when()
+
+TidyVerse's dplyr package offers an extension on `ifelse()`, allowing multiple `if else` statements.
+
+Whereas ealier we ran
+
+
+```r
+for (i in seq_along(gapminder_cond$income_level)) { # for each item along the dataframe
+  if (gapminder_cond$gdpPercap[i] <= 10000) { # if gdpPercap is LT = 10000
+    gapminder_cond$income_level[i] = 'low-income' # add 'low-income' to that observation's income level variable
+  } else if (gapminder_cond$gdpPercap[i] <= 75000) { # else, if gdpPercap is LT = 75000
+    gapminder_cond$income_level[i] = "middle-income" #  add 'middle-income' to that observation's income level variable
+  } else { # otherwise
+    gapminder_cond$income_level[i] = "high-income"  #  add 'high-income' to that observation's income level variable
+  }
+}
+```
+
+With `case_when`, we can simply write
+
+
+```r
+library(dplyr)
+
+gapminder_cond$pop_size <- dplyr::case_when(
+  gapminder_cond$pop <= 1000000 ~ "small",
+  gapminder_cond$pop <= 100000000 ~ "medium",
+  gapminder_cond$pop > 100000000 ~ "large"
+)
+
+gapminder_cond$pop_size <- ordered(gapminder_cond$pop_size, levels = c("small", "medium", "large"))
+
+summary(gapminder_cond$pop_size)
+```
+
+```
+##  small medium  large 
+##    180   1447     77
+```
+
+
+
+

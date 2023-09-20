@@ -1,4 +1,13 @@
-Last Updates: 2023-09-01
+---
+title: 'R: Fundamental Concepts with RStudio'
+output:
+  html_document:
+    keep_md: yes
+---
+
+
+
+Last Updates: 2023-08-31
 
 ## RStudio
 
@@ -384,9 +393,9 @@ The fourth is journal publications that accompany the release of specific packag
 
 The fourth is more in depth texts. Many of these are available publicly online, and include titles such as:
 
-* aRrgh: a newcomer’s (angry) guide to R, by Tim Smith and Kevin Ushey - http://arrgh.tim-smith.us/
-* YaRrr! The Pirate’s Guide to R, by Nathaniel D. Phillips - https://bookdown.org/ndphillips/YaRrr/
-* R for Graduate Students, by Wendy Huynh. - https://bookdown.org/yih_huynh/Guide-to-R-Book/
-* Advanced R, by Hadley Wickham - http://adv-r.had.co.nz/Introduction.html
+* aRrgh: a newcomer’s (angry) guide to R, by Tim Smith and Kevin Ushey - [http://arrgh.tim-smith.us/](http://arrgh.tim-smith.us/)
+* YaRrr! The Pirate’s Guide to R, by Nathaniel D. Phillips - [https://bookdown.org/ndphillips/YaRrr/](https://bookdown.org/ndphillips/YaRrr/)
+* R for Graduate Students, by Wendy Huynh. - [https://bookdown.org/yih_huynh/Guide-to-R-Book/](https://bookdown.org/yih_huynh/Guide-to-R-Book/)
+* Advanced R, by Hadley Wickham - [http://adv-r.had.co.nz/Introduction.html](http://adv-r.had.co.nz/Introduction.html)
 
 And through the library, the (O'Reilly platform)[https://resources.library.ubc.ca/page.php?details=oreilly-for-higher-education&id=2460] hosts a plethora of titles related to R.

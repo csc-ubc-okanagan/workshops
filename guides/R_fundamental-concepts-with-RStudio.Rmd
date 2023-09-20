@@ -10,7 +10,7 @@ knitr::opts_chunk$set(echo = TRUE,
                       eval = TRUE)
 ```
 
-Last Updates: 2023-08-31
+Last Updated: `r Sys.Date()`
 
 ## RStudio
 
@@ -211,4 +211,4 @@ The fourth is more in depth texts. Many of these are available publicly online, 
 * R for Graduate Students, by Wendy Huynh. - [https://bookdown.org/yih_huynh/Guide-to-R-Book/](https://bookdown.org/yih_huynh/Guide-to-R-Book/)
 * Advanced R, by Hadley Wickham - [http://adv-r.had.co.nz/Introduction.html](http://adv-r.had.co.nz/Introduction.html)
 
-And through the library, the (O'Reilly platform)[https://resources.library.ubc.ca/page.php?details=oreilly-for-higher-education&id=2460] hosts a plethora of titles related to R.
+And through the library, the [O'Reilly platform](https://resources.library.ubc.ca/page.php?details=oreilly-for-higher-education&id=2460) hosts a plethora of titles related to R.

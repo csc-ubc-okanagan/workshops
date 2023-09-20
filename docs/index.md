@@ -15,3 +15,5 @@ pagetitle: "Menu"
 
 [R: Iterating Over Data](R_iterating-over-data.html)
 
+[R: Conditions](R_conditions.html)
+

@@ -63,11 +63,6 @@ While it might be hard at first to see the value of RDM (but hopefully you alrea
 
 ### The FAIR Principles
 
-
-![](assets/images/fair.png){width=300px}
-
-
-
 <img src="assets/images/fair.png" width="300">
 
 [source](https://www.scienceopen.com/collection/70dd374d-6468-4faa-a532-31ebfa37bbd4)
@@ -201,8 +196,7 @@ Directory structures typically have:
 * Subdirectories (subfolders)
 * Relevant files
 
-![](assets/images/directory1.png){width=300px}
-
+<img src="assets/images/directory1.png" width="300">
 
 ### Hierachy Depth
 
@@ -217,12 +211,11 @@ Directory structures typically have:
 
 A shallow directory structure:
 
-![](assets/images/shallow-directory.png){width=300px}
+<img src="assets/images/shallow-directory.png" width="300">
 
 A deep(er) directory structure:
 
-![](assets/images/deep-directory.png){width=300px}
-
+<img src="assets/images/deep-directory.png" width="300">
 
 **Whiteboard a Plan**
 

@@ -66,7 +66,7 @@ While it might be hard at first to see the value of RDM (but hopefully you alrea
 
 ![](assets/images/fair.png){width=300px}
 
-<img src="/assets/images/fair.png)" width="300 height="300">
+<img src="/assets/images/fair.png)" width="300" height="300">
 
 [source](https://www.scienceopen.com/collection/70dd374d-6468-4faa-a532-31ebfa37bbd4)
 

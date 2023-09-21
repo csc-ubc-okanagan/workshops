@@ -17,3 +17,9 @@ pagetitle: "Menu"
 
 [R: Conditions](R_conditions.html)
 
+[RDM Part 1: The Basics](RDM_pt1-the-basics.html)
+
+[RDM Part 2: Documentation](RDM_pt2-documentation.html)
+
+
+

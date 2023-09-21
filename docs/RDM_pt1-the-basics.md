@@ -116,8 +116,7 @@ In addition to the benefits to your research, the Tri-Agencies have recently rel
 * Can you look at a file name and know what it is?  What about in a year from now?
 * Will others be able to look at your files and know what they are?
 
-![](assets/images/file-names.png)
-
+<img src="assets/images/file-names.png" width="300">
 
 Best practices for human-readable file names:
 

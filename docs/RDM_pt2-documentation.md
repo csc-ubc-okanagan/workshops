@@ -20,7 +20,7 @@ Last Updated: 2023-09-21
 
 ## Why Document Your Data?
 
-![](assets/images/fair.png){width=300px}
+<img src="assets/images/fair.png" width="300">
 
 Documenting data is a key aspect of making your data FAIR (Findable, Accessible, Interoperable, and Reusable).  Not only does it make it easier for others (and your future self!) to find files and navigate directories, but it also helps ensure that data is interpreted correctly.
 

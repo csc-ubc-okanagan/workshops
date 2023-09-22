@@ -28,7 +28,7 @@ Before beginning this lesson, you'll need to do a few things:
 
 ## What is the Unix Shell?
 
-Before introducing the Unix Shell, it may be valuable to start by introducing the graphical user interface (GUI).  This is the mide widely used way to interact with a personal computer, and the one that you are most likely familiar with.  The GUI allows you to see various icons and applications, and to use a mouse to navigate your way through the computational landscape
+Before introducing the Unix Shell, it may be valuable to start by introducing the graphical user interface (GUI).  This is the mide widely used way to interact with a personal computer, and the one that you are most likely familiar with.  The GUI allows you to see various icons and applications, and to use a mouse to navigate your way through the computational landscape.
 
 ![](assets/images/gui.png)
 
@@ -71,7 +71,7 @@ Consider the following scenarios:
 
 You could do this manually, but it's going to be a very long process, and the chance of making mistakes is quite high (and being able to tell if you've made a mistake is an issue in itself!).
 
-<img src="assets/images/bad-time.png" width="400">
+<img src="assets/images/bad-time.jpg" width="400">
 
 [source](https://imgflip.com/i/6r02fx)
 

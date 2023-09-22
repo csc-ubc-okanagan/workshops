@@ -47,8 +47,7 @@ It's worth noting that there are different "brands" of shell that look different
 
 Regardless of the brand/look of shell, each shell begins with where you are in the computer. As an example, these are 3 different shells, all in my personal documents folder:
 
-![](assets/images/terminal-brands.png){width=500px}
-
+<img src="assets/images/terminal-brands.png" width="500">
 
 Each shell also has a **prompt**, which indicates that the shell is waiting for input.  The prompts differ across each type of shell, but can include symbols like '>', '%', '$':
 
@@ -72,7 +71,7 @@ Consider the following scenarios:
 
 You could do this manually, but it's going to be a very long process, and the chance of making mistakes is quite high (and being able to tell if you've made a mistake is an issue in itself!).
 
-![](assets/images/bad-time.jpg){width=400px}
+<img src="assets/images/bad-time.png" width="400">
 
 [source](https://imgflip.com/i/6r02fx)
 
@@ -96,8 +95,7 @@ The below picture illustrates the directory structure of a typical computer.  Wi
 
 When dealing with paths in Unix, directories are denoted by a slash "/", and each "layer" of the directory heirarchy is separated with a slash.  
 
-![](assets/images/path1.png){width=500px}
-
+<img src="assets/images/path1.png" width="500">
 
 ### Exercise
 
@@ -116,33 +114,33 @@ To start off, here are a few useful commands to get started with navigating your
 
 * Stands for "print working directory", and will display the full path of where you currently are on your machine.
 
-![](assets/images/pwd.png){width=300px}
-
+<img src="assets/images/pwd.png" width="300">
 
 `ls`
 
 * Lists the contents of a directory.
 
-![](assets/images/ls.png){width=400px}
+<img src="assets/images/ls.png" width="400">
+
 `cd`
 
 * Change directories
 * Syntax: `cd + {path/to/directory}`
 
-![](assets/images/cd.png){width=400px}
+<img src="assets/images/cd.png" width="400">
 
 `cd..`
 
 * Moves you up one directory
 
-![](assets/images/cd2.png){width=400px}
+<img src="assets/images/cd2.png" width="400">
 
 `cat`
 
 * Prints the whole contents of a file (does not work on directories)
 * Syntax: `cat + {file-name}
 
-![](assets/images/cat.png){width=700px}
+<img src="assets/images/cat.png" width="700">
 
 
 ### Absolute vs. Relative Paths

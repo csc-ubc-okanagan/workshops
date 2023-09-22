@@ -101,8 +101,8 @@ When dealing with paths in Unix, directories are denoted by a slash "/", and eac
 
 Take a look at the following directory structure.
 
-1) What's the path to the Music directory?
-2) What's the path to the S-Club 7 directory?
+* 1) What's the path to the Music directory?
+* 2) What's the path to the S-Club 7 directory?
 
 ![](assets/images/path2-exercise.png)
 
@@ -164,10 +164,10 @@ It should be noted that relative paths only work going down the hierarchy, and n
 
 Using the data files that you downloaded at the beginning of the session, explore the directories and files and answer the following questions:
 
-1) What is the full path to the file `methane.pdb`?
-2) Who is the author of `methane.pdb`?
-3) What command would you type to move from the `proteins` directory to the `shell-lesson-data` directory?
-4) What is the last line of the file `NENE01729A.txt`?
+* 1) What is the full path to the file `methane.pdb`?
+* 2) Who is the author of `methane.pdb`?
+* 3) What command would you type to move from the `proteins` directory to the `shell-lesson-data` directory?* 
+* 4) What is the last line of the file `NENE01729A.txt`?
 
 
 

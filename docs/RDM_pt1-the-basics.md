@@ -145,7 +145,7 @@ Elements to consider in naming files:
 
 Best practices for machine-readable file names:
 
-* Only contain letters in the Englsih alphabet, numbers 0-9, dashes -, and underscores_
+* Only contain letters in the English alphabet, numbers 0-9, dashes -, and underscores_
 * Do no use spaces or special characters such as:
 !@#$%^&*()_=+[]{}|
 * Separate naming elements with underscores and dashes

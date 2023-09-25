@@ -45,7 +45,7 @@ As opposed to this graphical interface that can be navigated with a mouse, the U
 
 It's worth noting that there are different "brands" of shell that look different, but that work the same (more or less.  The truth is actually more nuanced, but for the purposes of this session, you can think of the different types of shells working *almost* the same).  
 
-Regardless of the brand/look of shell, each shell begins with where you are in the computer. As an example, these are 3 different shells, all in my personal documents folder:
+Regardless of the brand/look of shell, each shell begins with some information about where you are in the computer. As an example, these are 3 different shells, all in my personal documents folder:
 
 <img src="assets/images/terminal-brands.png" width="500">
 

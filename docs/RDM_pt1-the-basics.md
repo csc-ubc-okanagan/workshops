@@ -168,7 +168,7 @@ Best practices for machine-readable file names:
   * lldr - Leaf Litter Decomposition Rate
 
 ### Exercise
-```
+`
 **Route A**: Take a file name from your computer and make it more human and machine readable
 
 **Route B**: Take one of the file descriptions below and make a human amd machine readable file name
@@ -180,7 +180,7 @@ Best practices for machine-readable file names:
 * File 3) An audio recording of an interview with Jill Dill.  Jill runs a bike rental shop in Montreal called ‘Jill’s Bikes’.  The interview took place on March 31, 2023.
 
 * File 4) A transcribed word document of the audio recorded interview with Jill Dill. 
-```
+`
 
 ## Managing Directories
 

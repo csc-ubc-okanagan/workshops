@@ -168,7 +168,7 @@ Best practices for machine-readable file names:
   * lldr - Leaf Litter Decomposition Rate
 
 ### Exercise
-
+```
 **Route A**: Take a file name from your computer and make it more human and machine readable
 
 **Route B**: Take one of the file descriptions below and make a human amd machine readable file name
@@ -180,7 +180,7 @@ Best practices for machine-readable file names:
 * File 3) An audio recording of an interview with Jill Dill.  Jill runs a bike rental shop in Montreal called ‘Jill’s Bikes’.  The interview took place on March 31, 2023.
 
 * File 4) A transcribed word document of the audio recorded interview with Jill Dill. 
-
+```
 
 ## Managing Directories
 
@@ -233,15 +233,15 @@ A deep(er) directory structure:
 
 Create folder hierarchies (no need to name any files) for this project, using the below file descriptions to get a sense of how you might structure things.
 
-* File 1)	An audio recording of an interview with John Bon.  John runs a Vietnamese restaurant in Vancouver called ‘Pho Show!’.  The 	interview took place on April 3, 2020.
+* File 1)	An audio recording of an interview with John Bon.  John runs a Vietnamese restaurant in Vancouver called ‘Pho Show!’.  The 	interview took place on April 3, 2023.
 
 * File 2)	A transcribed word document of the audio recorded interview with Jon Bon.  
 
-* File 3)	An audio recording of an interview with George Gorgeous.  George runs a shoe store in Toronto called ‘step2’.  The interview 	took place on March 30, 2020.
+* File 3)	An audio recording of an interview with George Gorgeous.  George runs a shoe store in Toronto called ‘step2’.  The interview 	took place on March 30, 2023.
 
 * File 4)	A transcribed word document of the audio recorded interview with George Porridge.  
 
-* File 5)	An audio recording of an interview with Jill Dill.  Jill runs a bike rental shop in Montreal called ‘Jill’s Bikes’.  The interview took 	place on March 31, 2020.
+* File 5)	An audio recording of an interview with Jill Dill.  Jill runs a bike rental shop in Montreal called ‘Jill’s Bikes’.  The interview took 	place on March 31, 2023.
 
 * File 6)	A transcribed word document of the audio recorded interview with Jill Dill.  
 

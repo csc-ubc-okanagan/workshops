@@ -228,7 +228,7 @@ A deep(er) directory structure:
 
 
 ### Exercise
-
+```
 **Project context**: You are investigating the post-Covid effects on small businesses in Vancouver, Toronto, and Montreal.  The data from this project will be based on interviews with business owners, including both audio recordings and textual transcriptions, and will look at restaurants, hard goods shops, and services-businesses as separate categories.
 
 Create folder hierarchies (no need to name any files) for this project, using the below file descriptions to get a sense of how you might structure things.
@@ -244,7 +244,7 @@ Create folder hierarchies (no need to name any files) for this project, using th
 * File 5)	An audio recording of an interview with Jill Dill.  Jill runs a bike rental shop in Montreal called ‘Jill’s Bikes’.  The interview took 	place on March 31, 2023.
 
 * File 6)	A transcribed word document of the audio recorded interview with Jill Dill.  
-
+```
 
 
 

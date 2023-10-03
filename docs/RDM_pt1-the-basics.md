@@ -5,8 +5,6 @@ output:
     keep_md: yes
 ---
 
-
-
 Last Updated: 2023-09-21
 
 ## Overview

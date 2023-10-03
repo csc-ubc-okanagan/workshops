@@ -27,9 +27,7 @@ Research data are used as primary sources or evidence to support and validate an
 
 ## What is Research Data Management (RDM)?
 
-“Research data management (RDM) involves the active organization and maintenance of data throughout the research process, and suitable archiving of the data at the project’s completion. It is an ongoing activity throughout the data life cycle.” [source](https://www.uottawa.ca/library/research-data-management)
-
-
+RDM are practices and activities over the research life cycle that pertain to the management of research data, including planning, collecting, documenting, storing, sharing, and preserving. RDM is essential at all points of a data’s lifecycle and should be a fundamental part of any project's design and progression.
 
 ### The Research Data Life Cycle
 

@@ -1,3 +1,10 @@
+---
+title: 'Python and Jupyter Notebook'
+output:
+  html_document:
+    keep_md: yes
+---
+
 # Python and Jupyter Notebook
 
 Python excels at interactive computational analysis, enabling extensive data exploration and manipulation. Jupyter Notebook seamlessly complements this capability, offering an interactive environment where users can write code, visualize results, and document their workflow. Through its integrated interface, Jupyter provides versatile cells for code execution, rendering outputs, and adding explanatory markdown annotations, making it a powerful tool for data analysis and scientific computing.

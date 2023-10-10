@@ -48,8 +48,11 @@ Things to include in a readme file:
 Additional best practices include:
 
 * Create README files for logical clusters of related files/data (it's possible you might want to have multiple READMEs for a single project, depending on its complexity and how your projec team is set up)
-* If using multiple README files, format them identically
 * Write your README as a plain text document (as a .txt or .md file)
+* Put a README in the root folder of your project
+* If using multiple README files, place them in sensical locations, format them identically
+* Prepend the filename with an _ so that it shows up at the top of the file list
+* Be sure to update the file as needed!
 
 
 ### Exercise

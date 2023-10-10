@@ -35,7 +35,7 @@ A README file is one that features information about a project that is necessary
 
 Things to include in a readme file:
 
-* Contact information for the researcher(s)\
+* Contact information for the researcher(s)
 * Data collection methods (protocols, sampling, instruments, coverages, etc.)
 * The structure of files
 * Naming conventions for files, if applicable
@@ -62,7 +62,7 @@ Becu, Mariella H. J.; Richardson, John S., 2023, "Leaf litter decomposition rate
 
 * Can you tell what each of the data files is?
 * When you look at a data file, can you understand what each of the variables are?
-* Is there anything you think is missing from teh README, or do you have questions about other aspects of the data?
+* Is there anything you think is missing from the README, or do you have questions about other aspects of the data?
 
 
 ## Data Dictionaries

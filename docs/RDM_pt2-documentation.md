@@ -56,7 +56,8 @@ Additional best practices include:
 
 Let's take a look at some data!
 
-Becu, Mariella H. J.; Richardson, John S., 2023, "Leaf litter decomposition rates in freshwaters differ by ecosystem",[https://doi.org/10.5683/SP3/HTCIG3](https://doi.org/10.5683/SP3/HTCIG3){:target="_blank"} , Borealis, V1, UNF:6:/uVdlJlVi8MIXK6foNe5tQ== [fileUNF] 
+Becu, Mariella H. J.; Richardson, John S., 2023, "Leaf litter decomposition rates in freshwaters differ by ecosystem",
+<a href="https://doi.org/10.5683/SP3/HTCIG3" target="_blank">https://doi.org/10.5683/SP3/HTCIG3</a>
 
 **Look at the README file and at least one of the data files**
 

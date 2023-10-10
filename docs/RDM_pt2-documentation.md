@@ -78,7 +78,8 @@ A data dictionary is a tabular (spreadsheet) file that describes each element of
 
 ### Exercise
 
-Open UBC's Borealis collection, which is UBC's institutional data repository [https://borealisdata.ca/dataverse/ubc](https://borealisdata.ca/dataverse/ubc)
+Open UBC's Borealis collection, which is UBC's institutional data repository 
+<a href="https://borealisdata.ca/dataverse/ubc" target="_blank">https://borealisdata.ca/dataverse/ubc</a>
 
 Using the search function, take a look at a few datasets in your field/discipline and think about the following questions:
 
@@ -88,7 +89,8 @@ Using the search function, take a look at a few datasets in your field/disciplin
 
 ### Exercise
 
-Open Cornell's Guide to Writing "readme" style metadata: [https://data.research.cornell.edu/data-management/sharing/readme/](https://data.research.cornell.edu/data-management/sharing/readme/)
+Open Cornell's Guide to Writing "readme" style metadata: 
+<a href="https://data.research.cornell.edu/data-management/sharing/readme/" target="_blank">https://data.research.cornell.edu/data-management/sharing/readme/</a>
 
 Download the template, and begin filling it out for a current project that you're working on.
 

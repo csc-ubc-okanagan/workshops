@@ -1,11 +1,11 @@
 ---
-title: 'Python and Jupyter Notebook'
+title: 'Importing and Exporting Data with Python'
 output:
   html_document:
     keep_md: yes
 ---
 
-# Workshop 2: Importing and Exporting Data with Python
+# Importing and Exporting Data with Python
 
 ## Introduction
 In this session, we’ll learn how to import data from Excel and CSV files into Python for analysis using the pandas and numpy libraries. By the end of this workshop, participants will be able to import data, handle missing values, assign appropriate data types to variables, and save the data for subsequent analys

@@ -64,7 +64,7 @@ Nano syntax:
   * Your 3 favourite musical artists
   * Your 3 favourite movies
   * Your 3 favourite books
-* Name each .txt file as you see fit`
+* Name each .txt file as you see fit
 
 
 ## More Unix commands
@@ -134,6 +134,8 @@ Starting in the position illustrated in top tree diagram, this command will resu
 ---
 
 ![](assets/images/danger.png){width=300px}
+
+
 [source](https://tenor.com/en-CA/view/spiderman-faint-smell-danger-gun-oops-gif-8382562)
 
 We're now moving on to commands that are a big more dangerous than those that have already been discussed, in that once they're executed, there's no way to undo them.  Considering this, always ensure that you've backed up all your important files so you won't have to deal with any unnecessary headaches.

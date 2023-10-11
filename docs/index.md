@@ -23,5 +23,7 @@ pagetitle: "Menu"
 
 [Introduction to the Unix Shell Part 1: Navigating Files and Directories](UNIX_pt1.html)
 
+[Introduction to the Unix Shell Part 2: Working with Files and Directories](UNIX_pt2.html)
+
 [Python: Fundamental Concepts with Jupyter Notebook](JupyterNotebook_workshop1.html)
 

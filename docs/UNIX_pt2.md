@@ -58,7 +58,7 @@ Nano syntax:
 
 ### Exercise 1
 
-`On your desktop, in your personal directory:
+On your desktop, in your personal directory:
 
 * Create 3 .txt files containing:
   * Your 3 favourite musical artists

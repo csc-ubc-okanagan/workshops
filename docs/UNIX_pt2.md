@@ -89,7 +89,7 @@ Starting in the position illustrated in top tree diagram, this command will resu
 ![](assets/images/cp.png)
 
 
-![](assets/images/cp2.png){width=500px}
+<img src="assets/images/cp2.png" width="500">
 
 
 ### Exercise 2
@@ -133,7 +133,8 @@ Starting in the position illustrated in top tree diagram, this command will resu
 
 ---
 
-![](assets/images/danger.png){width=300px}
+
+<img src="assets/images/danger.png" width="500">
 
 
 [source](https://tenor.com/en-CA/view/spiderman-faint-smell-danger-gun-oops-gif-8382562)
@@ -163,7 +164,7 @@ The `mv` command can also be used to change a file's name while moving it to a n
 
 ---
 
-![](assets/images/danger2.jpg){width=300px}
+<img src="assets/images/danger2.png" width="300">
 
 [source](https://meme-creator.com/meme/146/ralph-in-danger)
 
@@ -194,7 +195,9 @@ Copy a directory
 
 ---
 
-![](assets/images/mess.jpg){width=300px}
+<img src="assets/images/mess.jpg" width="300">
+
+[source](https://www.reddit.com/r/TerrainBuilding/comments/hazxea/update_to_the_parsley_oregano_and_basil_as/)
 
 Moving back to the directory structure you've created on your personal machine, we've made a of a mess!  But that's ok, because it's very common for our files to get messy when working on projects.  With that said, let's finish things up cleaning our files up and putting together a clean structure.
 

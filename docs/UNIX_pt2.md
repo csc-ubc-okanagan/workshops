@@ -138,14 +138,14 @@ Starting in the position illustrated in top tree diagram, this command will resu
 
 [source](https://tenor.com/en-CA/view/spiderman-faint-smell-danger-gun-oops-gif-8382562)
 
-We're now moving on to commands that are a big more dangerous than those that have already been discussed, in that once they're executed, there's no way to undo them.  Considering this, always ensure that you've backed up all your important files so you won't have to deal with any unnecessary headaches.
+We're now moving on to commands that are a bit more dangerous than those that have already been discussed, in that once they're executed, there's no way to undo them.  Considering this, always ensure that you've backed up all your important files so you won't have to deal with any unnecessary headaches.
 
 `mv`
 
 Move a file from one destination to another. This command works with the same syntax as the `cp` command, noting that files are being moved rather than being copied.  The one unique function that `mv` offers in that it can be used to change a file's name, using the following pattern:
 
-* Move a file to the same directory it's in, giving it a new name.
-* Syntax: `mv {/file-path/file-name} {/target-path}`
+* Change a file's name, keeping it in the same directory.
+* Syntax: `mv {file-name} {new-file-name}`
 
 ---
 
@@ -156,12 +156,7 @@ Move a file from one destination to another. This command works with the same sy
 
 ---
 
-The `mv` command can also be used to change a file's name.  
-
-* Change a file's name, keeping it in the same directory.
-* Syntax: `mv {file-name}{new-file name}`
-
-Or
+The `mv` command can also be used to change a file's name while moving it to a new directory.
 
 * Change a file's name, moving it to a new directory.
 * Syntax: `mv {file-path/file-name}{/targer-path/new-file-name}`
@@ -191,10 +186,10 @@ To use the `-r` flag, and any other Unix flag, simply place if after a command, 
 
 Syntax: `{command} + {-flag} + {directory/files}`
 
-* Erase a directory
+Erase a directory
 * Syntax: `rm -r {directory-name}`
 
-* Copy a directory
+Copy a directory
 * Syntax: `cp -r {directory-name}`
 
 ---

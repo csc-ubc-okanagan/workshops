@@ -30,12 +30,11 @@ This session will be geared around building a directory hierarchy, and so we wil
 
 To begin, move to the `Desktop` directory on your computer.
 
-`mkdir`
-
+*`mkdir`
 * Make a new directory
 * Syntax: mkdir + {directory name}
 
-On your Desktop, create a new personal directory (choose whatever name you like*)
+On your Desktop, create a new personal directory (*choose whatever name you like)
 
 ### A quick note on file naming
 
@@ -44,10 +43,7 @@ On your Desktop, create a new personal directory (choose whatever name you like*
 !@#$%^&*()_=+[]{}|
 * Separate naming elements with underscores and dashes
 
-Commands:
-
-* 1) `mkdir + {new-directory-name}`
-* 2) `cd + {new-directory-name}`
+After creating this new directory, move from your `Desktop` to the new directory using the `cd` command.
 
 ### Creating a text file
 

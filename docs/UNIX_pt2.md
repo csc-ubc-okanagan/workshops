@@ -162,7 +162,7 @@ The `mv` command can also be used to change a file's name while moving it to a n
 
 Now we're going to move to a command that contains some danger, in that it will delete a file, with no undo button.  Be cautious with this command, as you won't be able to retrive files that are deleted this way.
 
-<img src="assets/images/danger2.png" width="300">
+<img src="assets/images/danger2.jpg" width="300">
 
 [source](https://meme-creator.com/meme/146/ralph-in-danger)
 

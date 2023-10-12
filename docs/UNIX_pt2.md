@@ -129,13 +129,14 @@ Starting in the position illustrated in top tree diagram, this command will resu
 
 ---
 
+We're now moving on to commands that are a bit more dangerous than those that have already been discussed, in that once they're executed, there's no way to undo them.  Considering this, always ensure that you've backed up all your important files so you won't have to deal with any unnecessary headaches.
 
 <img src="assets/images/danger.png" width="500">
 
 
 [source](https://tenor.com/en-CA/view/spiderman-faint-smell-danger-gun-oops-gif-8382562)
 
-We're now moving on to commands that are a bit more dangerous than those that have already been discussed, in that once they're executed, there's no way to undo them.  Considering this, always ensure that you've backed up all your important files so you won't have to deal with any unnecessary headaches.
+---
 
 `mv`
 

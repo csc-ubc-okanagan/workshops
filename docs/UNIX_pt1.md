@@ -160,14 +160,15 @@ It should be noted that relative paths only work going down the hierarchy, and n
 ![](assets/images/relative-path.png)
 
 
-### Exercise
-
-Using the data files that you downloaded at the beginning of the session, explore the directories and files and answer the following questions:
-
-* 1) What is the full path to the file `methane.pdb`?
-* 2) Who is the author of `methane.pdb`?
-* 3) What command would you type to move from the `proteins` directory to the `shell-lesson-data` directory?* 
-* 4) What is the last line of the file `NENE01729A.txt`?
+> ### Exercise
+>
+> Using the data files that you downloaded at the beginning of the session, explore the directories and files and answer the following >
+> questions:
+> 
+> * What is the full path to the file `methane.pdb`?
+> * Who is the author of `methane.pdb`?
+> * What command would you type to move from the `proteins` directory to the `shell-lesson-data` directory?* 
+> * What is the last line of the file `NENE01729A.txt`?
 
 
 

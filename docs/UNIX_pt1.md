@@ -97,12 +97,12 @@ When dealing with paths in Unix, directories are denoted by a slash "/", and eac
 
 <img src="assets/images/path1.png" width="500">
 
-### Exercise
-
-Take a look at the following directory structure.
-
-* 1) What's the path to the Music directory?
-* 2) What's the path to the S-Club 7 directory?
+> ### Exercise
+> 
+> Take a look at the following directory structure.
+> 
+> * What's the path to the Music directory?
+> * What's the path to the S-Club 7 directory?
 
 ![](assets/images/path2-exercise.png)
 

@@ -52,15 +52,15 @@ Nano syntax:
 * `nano + existing-file-name` (opens text editor to an existing file)
 
 
-### Exercise 1
-
-On your desktop, in your personal directory:
-
-* Create 3 .txt files containing:
-  * Your 3 favourite musical artists
-  * Your 3 favourite movies
-  * Your 3 favourite books
-* Name each .txt file as you see fit
+> ### Exercise 1
+>
+> On your desktop, in your personal directory:
+>
+> * Create 3 .txt files containing:
+>  * Your 3 favourite musical artists
+>  * Your 3 favourite movies
+>  * Your 3 favourite books
+> * Name each .txt file as you see fit
 
 
 ## More Unix commands
@@ -88,10 +88,10 @@ Starting in the position illustrated in top tree diagram, this command will resu
 <img src="assets/images/cp2.png" width="500">
 
 
-### Exercise 2
-
-* In your personal directory, create a new directory called "music"
-* Copy the file with your 3 favourite songs to this new directory, keeping the same file name
+> ### Exercise 2
+>
+> * In your personal directory, create a new directory called "music"
+> * Copy the file with your 3 favourite songs to this new directory, keeping the same file name
 
 ---
 
@@ -106,10 +106,10 @@ Starting in the position illustrated in top tree diagram, this command will resu
 
 
 
-### Exercise 3
-
-* In your personal directory, create a new directory called "movies"
-* Copy the file containing your 3 favourite movies to this new directory, giving the file a new name
+> ### Exercise 3
+>
+> * In your personal directory, create a new directory called "movies"
+> * Copy the file containing your 3 favourite movies to this new directory, giving the file a new name
 
 ---
 
@@ -123,9 +123,9 @@ Starting in the position illustrated in top tree diagram, this command will resu
 
 ---
 
-### Exercise 4
-
-* Copy the file containing your 3 favourite books it is current directory, giving the file a new name.
+> ### Exercise 4
+>
+> * Copy the file containing your 3 favourite books it is current directory, giving the file a new name.
 
 ---
 
@@ -147,10 +147,10 @@ Move a file from one destination to another. This command works with the same sy
 
 ---
 
-**Exercise 5**
-
-In your personal directory, create a new directory called "books"
-Move one of the files containing your 3 favourite books to this new directory, keeping the same file name
+> **Exercise 5**
+> 
+> In your personal directory, create a new directory called "books"
+> Move one of the files containing your 3 favourite books to this new directory, keeping the same file name
 
 ---
 
@@ -200,10 +200,11 @@ Moving back to the directory structure you've created on your personal machine, 
 
 ---
 
-**Exercise 8**
-
-Create three new .txt files: one that contains your favourite breakfast food, one that contains your favourite lunch food, and one that contains your favourite dinner food.
-Recreate the following directory structure with the files you've been working with.  The `my-movies`, `my-music`, `my-books`, and `my-foods` directories contain the .txt files of your favourites.
+> **Exercise 8**
+> 
+> Create three new .txt files: one that contains your favourite breakfast food, one that contains your favourite lunch food, and one that
+> contains your favourite dinner food.
+> Recreate the following directory structure with the files you've been working with.  The `my-movies`, `my-music`, `my-books`, and `my-foods` > directories contain the .txt files of your favourites.
 
 
 ![](assets/images/final-structure.png)

@@ -90,8 +90,8 @@ Starting in the position illustrated in top tree diagram, this command will resu
 
 ### Exercise 2
 
-* 1. In your personal directory, create a new directory called "music"
-* 2. Copy the file with your 3 favourite songs to this new directory, keeping the same file name
+* In your personal directory, create a new directory called "music"
+* Copy the file with your 3 favourite songs to this new directory, keeping the same file name
 
 ---
 
@@ -108,8 +108,8 @@ Starting in the position illustrated in top tree diagram, this command will resu
 
 ### Exercise 3
 
-* 1. In your personal directory, create a new directory called "movies"
-* 2. Copy the file containing your 3 favourite movies to this new directory, giving the file a new name
+* In your personal directory, create a new directory called "movies"
+* Copy the file containing your 3 favourite movies to this new directory, giving the file a new name
 
 ---
 
@@ -148,8 +148,8 @@ Move a file from one destination to another. This command works with the same sy
 
 **Exercise 5**
 
-1. In your personal directory, create a new directory called "books"
-2. Move one of the files containing your 3 favourite books to this new directory, keeping the same file name
+In your personal directory, create a new directory called "books"
+Move one of the files containing your 3 favourite books to this new directory, keeping the same file name
 
 ---
 
@@ -160,11 +160,11 @@ The `mv` command can also be used to change a file's name while moving it to a n
 
 ---
 
+Now we're going to move to a command that contains some danger, in that it will delete a file, with no undo button.  Be cautious with this command, as you won't be able to retrive files that are deleted this way.
+
 <img src="assets/images/danger2.png" width="300">
 
 [source](https://meme-creator.com/meme/146/ralph-in-danger)
-
-Now we're going to move to a command that contains some real danger, in that it will delete a file, with no undo button.  Be cautious with this command, as you won't be able to retrive files that are deleted this way.
 
 `rm`
 
@@ -191,18 +191,18 @@ Copy a directory
 
 ---
 
+Moving back to the directory structure you've created on your personal machine, we've made a of a mess!  But that's ok, because it's very common for our files to get messy when working on projects.  With that said, let's finish things up cleaning our files up and putting together a clean structure.
+
 <img src="assets/images/mess.jpg" width="300">
 
 [source](https://www.reddit.com/r/TerrainBuilding/comments/hazxea/update_to_the_parsley_oregano_and_basil_as/)
-
-Moving back to the directory structure you've created on your personal machine, we've made a of a mess!  But that's ok, because it's very common for our files to get messy when working on projects.  With that said, let's finish things up cleaning our files up and putting together a clean structure.
 
 ---
 
 **Exercise 8**
 
-1. Create three new .txt files: one that contains your favourite breakfast food, one that contains your favourite lunch food, and one that contains your favourite dinner food.
-2. Recreate the following directory structure with the files you've been working with.  The `my-movies`, `my-music`, `my-books`, and `my-foods` directories contain the .txt files of your favourites.
+Create three new .txt files: one that contains your favourite breakfast food, one that contains your favourite lunch food, and one that contains your favourite dinner food.
+Recreate the following directory structure with the files you've been working with.  The `my-movies`, `my-music`, `my-books`, and `my-foods` directories contain the .txt files of your favourites.
 
 
 ![](assets/images/final-structure.png)

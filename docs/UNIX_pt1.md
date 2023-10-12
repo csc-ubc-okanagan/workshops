@@ -162,7 +162,7 @@ It should be noted that relative paths only work going down the hierarchy, and n
 
 > ### Exercise
 >
-> Using the data files that you downloaded at the beginning of the session, explore the directories and files and answer the following >
+> Using the data files that you downloaded at the beginning of the session, explore the directories and files and answer the following
 > questions:
 > 
 > * What is the full path to the file `methane.pdb`?

@@ -11,11 +11,7 @@ Last Updated: 2023-10-11
 
 ## Setup
 
-Before beginning this lesson, you'll need to do a few things:
-
-* 1) Download [shell-lesson-data.zip](https://swcarpentry.github.io/shell-novice/data/shell-lesson-data.zip) and move the file to your desktop
-* 2) Unzip/extract the file.  **Let your instructor know if you need help with this step**.  You should end up with a new folder called `shell-lesson-data` on your Desktop.
-* 3) If you do not already have the shell software installed, you will need to [download and install it](https://carpentries.github.io/workshop-template/install_instructions/#shell)
+Before beginning this lesson, if you do not already have the shell software installed, you will need to [download and install it](https://carpentries.github.io/workshop-template/install_instructions/#shell)
 
 
 ## Overview
@@ -30,7 +26,7 @@ This session will be geared around building a directory hierarchy, and so we wil
 
 To begin, move to the `Desktop` directory on your computer.
 
-*`mkdir`
+`mkdir`
 * Make a new directory
 * Syntax: mkdir + {directory name}
 

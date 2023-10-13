@@ -20,6 +20,8 @@ pagetitle: "Menu"
 
 
 ## Progamming in Python
+[Python: Importing Data Sets](Importing_data_sets.html)
+
 [Python: Fundamental Concepts with Jupyter Notebook](JupyterNotebook_workshop1.html)
 
 [Python: Importing and Exporting Data with Python](Importing_Exporting_Data_Workshop2.html)

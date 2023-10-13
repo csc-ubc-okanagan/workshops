@@ -8,7 +8,7 @@ output:
 # Importing Data Sets
 
 
-### We will the following code to import our data for the workshop.
+### We will use the following code to import our data for the workshop.
 
 ### Three datasets from GitHub are imported:
 * Two in CSV format: gapminder and gapminder_nas.

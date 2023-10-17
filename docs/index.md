@@ -26,6 +26,8 @@ pagetitle: "Menu"
 
 [Python: Importing and Exporting Data with Python](Importing_Exporting_Data_Workshop2.html)
 
+[Python: Exploratory_Data_Analysis](Exploratory_Data_Analysis_Workshop3.html)
+
 
 ## Researcher Toolkit
 

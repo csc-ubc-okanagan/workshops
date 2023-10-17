@@ -34,6 +34,8 @@ pagetitle: "Menu"
 
 [RDM Part 2: Documentation](RDM_pt2-documentation.html)
 
+[RDM Part 3: Data Management Plans](https://ubc-library-rc.github.io/rdm/content/06_Data_Management_Plan.html)
+
 
 ### Introduction to the Unix Shell
 [Introduction to the Unix Shell Part 1: Navigating Files and Directories](UNIX_pt1.html)

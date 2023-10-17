@@ -2,3 +2,6 @@
 ._*
 .Rproj.user
 workshops.Rproj
+
+# ignore html files (md is only file needed)
+*.html

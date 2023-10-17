@@ -10,7 +10,7 @@ knitr::opts_chunk$set(echo = TRUE,
                       eval = TRUE)
 ```
 
-Last Updates: 2023-08-31
+Last Updates: `r Sys.Date()`
 
 ## Missing Values
 
@@ -95,7 +95,7 @@ sum(duplicated(data_gapminder))
 
 ## Descriptive Statistics
 
-> Basic stats fucntions in R generally do not remove NA values by default, and if your data has NA values, they will throw an error. You can avoid these errors with `na.rm = TRUE` as an argument.
+> Basic stats fucntions in R generally do not remove NA values by default, and if your data has NA values, they will return `NA`. You can avoid these errors with `na.rm = TRUE` as an argument.
 
 ### Number of Observations
 

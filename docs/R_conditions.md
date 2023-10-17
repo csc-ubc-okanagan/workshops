@@ -7,6 +7,8 @@ output:
 
 
 
+Last Updates: 2023-10-17
+
 Conditionally iterating over data can be a powerful tool, for such things as catching errors, testing a user input, or, perhaps more commonly in data analysis tasks, creating categorical values from numeric interval or ratio data.
 
 ## if else construct
@@ -200,9 +202,9 @@ sqrt(ifelse(some_numbers >= 0, some_numbers, NA))
 
 ## case_when()
 
-TidyVerse's dplyr package offers an extension on `ifelse()`, allowing multiple `if else` statements.
+Tidyverse's dplyr package offers an extension on `ifelse()`, allowing multiple `if else` statements.
 
-Whereas ealier we ran
+Whereas earlier we ran
 
 
 ```r

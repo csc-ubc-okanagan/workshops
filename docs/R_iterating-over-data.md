@@ -7,6 +7,8 @@ output:
 
 
 
+Last Updates: 2023-10-17
+
 ## Vectorization
 
 In general, R takes care of a lot of iteration for you; this is perhaps why R is based around atomic vectors as a fundamental data structure. When processing your data, R looks at the data type of the vector -- not every value in it -- and frequently passes the task off to code written in a much faster language, like C or Fortran. This helps to keep R code as fast as possible. You can see this by looking at a function's internals - these 'vectorized' functions are often denoted by something like `Primitive` or `Internal`.
@@ -56,7 +58,7 @@ colSums
 ##     else names(z) <- dimnames(x)[[dims + 1L]]
 ##     z
 ## }
-## <bytecode: 0x10cacb820>
+## <bytecode: 0x00000239cebae130>
 ## <environment: namespace:base>
 ```
 
@@ -235,9 +237,9 @@ apply(d, 1, sum)
 ##  [1] 33 36 39 42 45 48 51 54 57 60
 ```
 
-## TidyVerse
+## Tidyverse
 
-The purrr package from TidyVerse provides an equivalent to the `apply()` family of functions, called `map()` and `map2()`. These are constructed to be consistent in how they take their inputs and specific in what they return. `map()` expects one data object, `map2()` expects two data objects. 
+The purrr package from Tidyverse provides an equivalent to the `apply()` family of functions, called `map()` and `map2()`. These are constructed to be consistent in how they take their inputs and specific in what they return. `map()` expects one data object, `map2()` expects two data objects. 
 
 
 ```r
@@ -297,7 +299,7 @@ map2(a, b, sum)
 ## [1] 30
 ```
 
-There are several variations on `map()` and `map2()` - it's worth consulting the documentation if you plan to use the TidyVerse approach:
+There are several variations on `map()` and `map2()` - it's worth consulting the documentation if you plan to use the Tidyverse approach:
 
 * `map()`: https://purrr.tidyverse.org/reference/map.html
 * `map2()`: https://purrr.tidyverse.org/reference/map2.html
@@ -350,26 +352,26 @@ data_gapminder_sample
 ## # A tibble: 20 × 4
 ##     year lifeExp       pop gdpPercap
 ##    <int>   <dbl>     <int>     <dbl>
-##  1  2007    42.1  19951656      824.
-##  2  1962    42.6   2151895      949.
-##  3  1987    56.1   1841240     1422.
-##  4  1977    39.5   6162675     3009.
-##  5  2007    65.5    199579     1598.
-##  6  1962    64.4   2009813     2148.
-##  7  1957    45.2    882134      913.
-##  8  1967    51.4  12760499     3247.
-##  9  1977    75.4 113872473    16610.
-## 10  2007    72.9  44227550     7007.
-## 11  1957    45.1    940458     2315.
-## 12  2007    72.8  27601038    21655.
-## 13  1952    45.3   5441766     4130.
-## 14  1962    68.0  10063000     7550.
-## 15  2002    78.3  10311970    30486.
-## 16  1982    71.3   1497494    31354.
-## 17  1967    57.7  30131000     2029.
-## 18  1962    61.9   3349000     1710.
-## 19  1957    52.1   7739235     1810.
-## 20  2002    74.9 102479927    10742.
+##  1  1972    72.9  22284500    18971.
+##  2  1997    68.0  63327987     8264.
+##  3  1967    46.6    420690     2613.
+##  4  1972    73.5   4991596    18866.
+##  5  1962    44.2   1146757     1056.
+##  6  1977    46.5    228694     3082.
+##  7  1962    49.1  10516500     4957.
+##  8  1952    38.5    863308      576.
+##  9  1967    71.1  52667100    10022.
+## 10  1987    54.9    395114     1316.
+## 11  1997    43.8   6633514      931.
+## 12  1962    69.4   2310904     7106.
+## 13  2002    50.7  67946797      530.
+## 14  1992    71.6   3326498     2497.
+## 15  2007    78.2 301139947    42952.
+## 16  1977    73.5  56059245    14256.
+## 17  1972    40.3   7450606      422.
+## 18  1962    38.4   3628608      428.
+## 19  1962    53.5   3453434     1662.
+## 20  1997    69.5   5783439     5155.
 ```
 
 ```r
@@ -378,7 +380,7 @@ print(log10(data_gapminder_sample$gdpPercap[1]))
 ```
 
 ```
-## [1] 2.915761
+## [1] 4.27808
 ```
 
 ```r
@@ -394,45 +396,45 @@ for (index in seq_along(data_gapminder_sample$gdpPercap)) {
 
 ```
 ## [1] 1
-## [1] 2.915761
+## [1] 4.27808
 ## [1] 2
-## [1] 2.977495
+## [1] 3.917169
 ## [1] 3
-## [1] 3.152779
+## [1] 3.417156
 ## [1] 4
-## [1] 3.478371
+## [1] 4.275685
 ## [1] 5
-## [1] 3.203695
+## [1] 3.023621
 ## [1] 6
-## [1] 3.33204
+## [1] 3.488799
 ## [1] 7
-## [1] 2.96031
+## [1] 3.695222
 ## [1] 8
-## [1] 3.511481
+## [1] 2.7601
 ## [1] 9
-## [1] 4.220379
+## [1] 4.000972
 ## [1] 10
-## [1] 3.845506
+## [1] 3.11925
 ## [1] 11
-## [1] 3.364562
+## [1] 2.968761
 ## [1] 12
-## [1] 4.335555
+## [1] 3.851603
 ## [1] 13
-## [1] 3.615925
+## [1] 2.72432
 ## [1] 14
-## [1] 3.877968
+## [1] 3.397495
 ## [1] 15
-## [1] 4.484099
+## [1] 4.63298
 ## [1] 16
-## [1] 4.496293
+## [1] 4.153997
 ## [1] 17
-## [1] 3.307331
+## [1] 2.624925
 ## [1] 18
-## [1] 3.232916
+## [1] 2.631343
 ## [1] 19
-## [1] 3.257695
+## [1] 3.220667
 ## [1] 20
-## [1] 4.031103
+## [1] 3.712214
 ```
 
 We can store values within a for loop, but they are confined to that for loop and are not accessible outside of it
@@ -447,26 +449,26 @@ for (index in seq_along(data_gapminder_sample$gdpPercap)) {
 ```
 
 ```
-## The log base 10 of the index point 1 is: 2.91576148434958
-## The log base 10 of the index point 2 is: 2.97749454099889
-## The log base 10 of the index point 3 is: 3.15277850725301
-## The log base 10 of the index point 4 is: 3.47837128685849
-## The log base 10 of the index point 5 is: 3.20369500466057
-## The log base 10 of the index point 6 is: 3.33203976552077
-## The log base 10 of the index point 7 is: 2.9603102579863
-## The log base 10 of the index point 8 is: 3.51148118797499
-## The log base 10 of the index point 9 is: 4.22037948985684
-## The log base 10 of the index point 10 is: 3.84550611104731
-## The log base 10 of the index point 11 is: 3.36456160814328
-## The log base 10 of the index point 12 is: 4.33555481758265
-## The log base 10 of the index point 13 is: 3.61592545033292
-## The log base 10 of the index point 14 is: 3.87796765214183
-## The log base 10 of the index point 15 is: 4.48409878922788
-## The log base 10 of the index point 16 is: 4.49629344891365
-## The log base 10 of the index point 17 is: 3.30733087662514
-## The log base 10 of the index point 18 is: 3.23291576584681
-## The log base 10 of the index point 19 is: 3.25769464874627
-## The log base 10 of the index point 20 is: 4.03110295811444
+## The log base 10 of the index point 1 is: 4.27808039981948
+## The log base 10 of the index point 2 is: 3.91716877724031
+## The log base 10 of the index point 3 is: 3.41715630666173
+## The log base 10 of the index point 4 is: 4.2756846000415
+## The log base 10 of the index point 5 is: 3.02362115947219
+## The log base 10 of the index point 6 is: 3.48879895792208
+## The log base 10 of the index point 7 is: 3.69522224658516
+## The log base 10 of the index point 8 is: 2.76010041014319
+## The log base 10 of the index point 9 is: 4.00097178847123
+## The log base 10 of the index point 10 is: 3.11924955698062
+## The log base 10 of the index point 11 is: 2.9687613813918
+## The log base 10 of the index point 12 is: 3.85160263257717
+## The log base 10 of the index point 13 is: 2.72431973268524
+## The log base 10 of the index point 14 is: 3.39749469826406
+## The log base 10 of the index point 15 is: 4.632979883279
+## The log base 10 of the index point 16 is: 4.15399722211687
+## The log base 10 of the index point 17 is: 2.62492535061919
+## The log base 10 of the index point 18 is: 2.6313433883056
+## The log base 10 of the index point 19 is: 3.22066691101895
+## The log base 10 of the index point 20 is: 3.71221396789169
 ```
 
 In order to store the output of a for loop, we first need to create an object to hold the data.
@@ -486,7 +488,7 @@ gdp_percapita_log
 ```
 
 ```
-##  [1] 2.915761 2.977495 3.152779 3.478371 3.203695 3.332040 2.960310 3.511481
-##  [9] 4.220379 3.845506 3.364562 4.335555 3.615925 3.877968 4.484099 4.496293
-## [17] 3.307331 3.232916 3.257695 4.031103
+##  [1] 4.278080 3.917169 3.417156 4.275685 3.023621 3.488799 3.695222 2.760100
+##  [9] 4.000972 3.119250 2.968761 3.851603 2.724320 3.397495 4.632980 4.153997
+## [17] 2.624925 2.631343 3.220667 3.712214
 ```

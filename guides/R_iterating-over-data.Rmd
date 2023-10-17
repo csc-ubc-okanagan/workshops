@@ -12,6 +12,8 @@ knitr::opts_chunk$set(echo = TRUE,
                       warning = FALSE)
 ```
 
+Last Updates: `r Sys.Date()`
+
 ## Vectorization
 
 In general, R takes care of a lot of iteration for you; this is perhaps why R is based around atomic vectors as a fundamental data structure. When processing your data, R looks at the data type of the vector -- not every value in it -- and frequently passes the task off to code written in a much faster language, like C or Fortran. This helps to keep R code as fast as possible. You can see this by looking at a function's internals - these 'vectorized' functions are often denoted by something like `Primitive` or `Internal`.
@@ -97,9 +99,9 @@ d
 apply(d, 1, sum)
 ```
 
-## TidyVerse
+## Tidyverse
 
-The purrr package from TidyVerse provides an equivalent to the `apply()` family of functions, called `map()` and `map2()`. These are constructed to be consistent in how they take their inputs and specific in what they return. `map()` expects one data object, `map2()` expects two data objects. 
+The purrr package from Tidyverse provides an equivalent to the `apply()` family of functions, called `map()` and `map2()`. These are constructed to be consistent in how they take their inputs and specific in what they return. `map()` expects one data object, `map2()` expects two data objects. 
 
 ```{r}
 # install purr if not already installed
@@ -109,7 +111,7 @@ map(data_gapminder_num, sum)
 map2(a, b, sum)
 ```
 
-There are several variations on `map()` and `map2()` - it's worth consulting the documentation if you plan to use the TidyVerse approach:
+There are several variations on `map()` and `map2()` - it's worth consulting the documentation if you plan to use the Tidyverse approach:
 
 * `map()`: https://purrr.tidyverse.org/reference/map.html
 * `map2()`: https://purrr.tidyverse.org/reference/map2.html

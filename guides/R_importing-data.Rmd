@@ -12,7 +12,7 @@ knitr::opts_chunk$set(echo = TRUE,
                       eval = FALSE)
 ```
 
-Last Updates: 2023-08-30
+Last Updates: `r Sys.Date()`
 
 ## Comma Separated Values
 
@@ -29,7 +29,7 @@ using `read.csv()` is as simple as specifying a directory or url from which to i
 data_local <- read.csv("../data/gapminder.csv")
 
 # import from url
-url = 'https://raw.githubusercontent.com/jstaf/gapminder/master/gapminder/gapminder.csv'
+url <- 'https://raw.githubusercontent.com/jstaf/gapminder/master/gapminder/gapminder.csv'
 data_url <- read.csv(url)
 ```
 
@@ -56,7 +56,7 @@ TRUE and FALSE can be denoted with either `T` and `F` or `TRUE` and `FALSE`. How
 
 Additional options and their defaults can be found with `?read.table()`.
 
-### TidyVerse
+### Tidyverse
 
 #### read_csv()
 
@@ -73,14 +73,14 @@ data_readr <- read_csv("../data/gapminder.csv")
 
 ### Excel
 
-Base R does not include a package for loading in Excel files. For this we'll use the TidyVerse package `readxl`, which can read both legacy `xls` as well as more recent `xlsx` files.
+Base R does not include a package for loading in Excel files. For this we'll use the tidyverse package `readxl`, which can read both legacy `xls` as well as more recent `xlsx` files.
 
 ```{r}
 library(readxl)
 data_xls <- read_excel("../data/gapminder.xlsx")
 ```
 
-This is TidyVerse, and so loads a tibble object. If you need or want a data frame, you'll need to adjust for that...
+This is tidyverse, and so `read_excel()` loads a tibble object. If you need or want a data frame, you'll need to adjust for that...
 
 ```{r}
 data_xls_df <- as.data.frame(read_excel("../data/gapminder.xlsx"))

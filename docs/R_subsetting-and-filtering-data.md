@@ -7,7 +7,7 @@ output:
 
 
 
-Last Updates: 2023-08-31
+Last Updates: 2023-10-17
 
 ## Base R
 
@@ -310,9 +310,9 @@ head(am_52_ss)
 ## 301  Colombia  Americas 1952  50.643 12350771  2144.115
 ```
 
-## TidyVerse
+## Tidyverse
 
-The `dplyr` package from TidyVerse draws a good conceptual break between selecting variables and filtering for cases based on values with its `select()` and `filter()` functions.
+The `dplyr` package from Tidyverse draws a good conceptual break between selecting variables and filtering for cases based on values with its `select()` and `filter()` functions.
 
 ### select()
 
@@ -431,4 +431,4 @@ head(filter(data_gapminder, continent == "Americas"))
 ## 6 Argentina  Americas 1977  68.481 26983828 10079.027
 ```
 
-`filter()` works well with other offerings from TidyVerse. And more options can be found here https://dplyr.tidyverse.org/reference/filter.html
+`filter()` works well with other offerings from Tidyverse. And more options can be found here https://dplyr.tidyverse.org/reference/filter.html

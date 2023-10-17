@@ -7,7 +7,7 @@ output:
 
 
 
-Last Updates: 2023-08-31
+Last Updates: 2023-10-17
 
 ## Missing Values
 
@@ -110,10 +110,61 @@ head(which(complete_gapminder))
 ## [1]  2  3  4  5  8 12
 ```
 
+## Unique values & duplicates
+
+`unique()`, returns a vector of unique values...
+
+
+```r
+unique(data_gapminder$continent)
+```
+
+```
+## [1] "Asia"     "Europe"   "Africa"   "Americas" "Oceania"
+```
+
+`duplicated()` returns a logical vector, `TRUE` for values (of a vector) or rows (of a data frame) that are duplicates, `FALSE` if they are unique. Since the first instance of a value is unique, the first value will return `FALSE`, and any subsequent duplicates will return `TRUE`.
+
+
+```r
+# on a vector
+head(duplicated(data_gapminder$continent))
+```
+
+```
+## [1] FALSE  TRUE  TRUE  TRUE  TRUE  TRUE
+```
+
+```r
+# there are 5 unique continents and 1699 duplicates
+sum(duplicated(data_gapminder$continent))
+```
+
+```
+## [1] 1699
+```
+
+```r
+# on a data frame
+head(duplicated(data_gapminder))
+```
+
+```
+## [1] FALSE FALSE FALSE FALSE FALSE FALSE
+```
+
+```r
+# there are no duplicate values
+sum(duplicated(data_gapminder))
+```
+
+```
+## [1] 0
+```
 
 ## Descriptive Statistics
 
-> Basic stats fucntions in R generally do not remove NA values by default, and if your data has NA values, they will throw an error. You can avoid these errors with `na.rm = TRUE` as an argument.
+> Basic stats fucntions in R generally do not remove NA values by default, and if your data has NA values, they will return `NA`. You can avoid these errors with `na.rm = TRUE` as an argument.
 
 ### Number of Observations
 
@@ -329,7 +380,7 @@ You can plot a basic histogram with `hist()`
 hist(data_gapminder$gdpPercap)
 ```
 
-![](R_exploring-data_files/figure-html/unnamed-chunk-19-1.png)<!-- -->
+![](R_exploring-data_files/figure-html/unnamed-chunk-21-1.png)<!-- -->
 
 And you can increase the 'buckets' with the `breaks` argument
 
@@ -338,7 +389,7 @@ And you can increase the 'buckets' with the `breaks` argument
 hist(data_gapminder$gdpPercap, breaks = 30)
 ```
 
-![](R_exploring-data_files/figure-html/unnamed-chunk-20-1.png)<!-- -->
+![](R_exploring-data_files/figure-html/unnamed-chunk-22-1.png)<!-- -->
 
 #### Density Plots
 
@@ -350,7 +401,7 @@ dens <- density(data_gapminder$lifeExp, na.rm = TRUE)
 plot(dens)
 ```
 
-![](R_exploring-data_files/figure-html/unnamed-chunk-21-1.png)<!-- -->
+![](R_exploring-data_files/figure-html/unnamed-chunk-23-1.png)<!-- -->
 
 ### Distribution of Two Variables
 
@@ -363,7 +414,7 @@ plot(dens)
 boxplot(data_gapminder$lifeExp ~ data_gapminder$continent)
 ```
 
-![](R_exploring-data_files/figure-html/unnamed-chunk-22-1.png)<!-- -->
+![](R_exploring-data_files/figure-html/unnamed-chunk-24-1.png)<!-- -->
 
 #### Scatter Plots
 
@@ -374,7 +425,7 @@ boxplot(data_gapminder$lifeExp ~ data_gapminder$continent)
 plot(x = data_gapminder$gdpPercap, y = data_gapminder$lifeExp)
 ```
 
-![](R_exploring-data_files/figure-html/unnamed-chunk-23-1.png)<!-- -->
+![](R_exploring-data_files/figure-html/unnamed-chunk-25-1.png)<!-- -->
 
 You can also transform you data within the function for quick investigation
 
@@ -384,7 +435,7 @@ You can also transform you data within the function for quick investigation
 plot(x = log(data_gapminder$gdpPercap), y = data_gapminder$lifeExp)
 ```
 
-![](R_exploring-data_files/figure-html/unnamed-chunk-24-1.png)<!-- -->
+![](R_exploring-data_files/figure-html/unnamed-chunk-26-1.png)<!-- -->
 
 
 

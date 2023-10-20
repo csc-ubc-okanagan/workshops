@@ -1,4 +1,4 @@
-[https://csc-ubc-okanagan.github.io/workshops/](https://csc-ubc-okanagan.github.io/workshops/0)
+[https://csc-ubc-okanagan.github.io/workshops/](https://csc-ubc-okanagan.github.io/workshops/)
 
 | Directory or File | Description |
 | --- | --- |

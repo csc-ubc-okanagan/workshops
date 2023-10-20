@@ -1,3 +1,5 @@
+[https://csc-ubc-okanagan.github.io/workshops/](https://csc-ubc-okanagan.github.io/workshops/0)
+
 | Directory or File | Description |
 | --- | --- |
 | data/ | Any data files requiring storage for access |

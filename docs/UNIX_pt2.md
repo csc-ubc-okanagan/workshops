@@ -9,6 +9,8 @@ output:
 
 Last Updated: 2023-10-11
 
+# Introduction to the Unix Shell Part 2: Working with Files and Directories
+
 ## Setup
 
 Before beginning this lesson, if you do not already have the shell software installed, you will need to [download and install it](https://carpentries.github.io/workshop-template/install_instructions/#shell)
@@ -209,7 +211,7 @@ Moving back to the directory structure you've created on your personal machine, 
 
 ![](assets/images/final-structure.png)
 
-### Resources
+### References & Resources
 
 * <a href="https://swcarpentry.github.io/shell-novice/">Software Carpentries - The Unix Shell</a>
 * <a href="https://cambiotraining.github.io/hpc-intro/99-unix_cheatsheet.html" target="_blank">Unix Cheat Sheet</a>

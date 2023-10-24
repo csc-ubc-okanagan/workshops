@@ -6,9 +6,6 @@ output:
 ---
 
 
-
-Last Updated: 2023-09-22
-
 # Introduction to the Unix Shell Part 1: Navigating Files and Directories
 
 ## Setup

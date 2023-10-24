@@ -103,8 +103,8 @@ When dealing with paths in Unix, directories are denoted by a slash "/", and eac
 > 
 > * What's the path to the Music directory?
 > * What's the path to the S-Club 7 directory?
->
-> Answer questions in [Padlet](https://padlet.com/nickrochlin/unix-exercise-1-1vny67sx59wxjd4z)
+
+Answer questions in <a href="https://padlet.com/nickrochlin/unix-exercise-1-1vny67sx59wxjd4z" target="_blank">Padlet</a>
 
 ![](assets/images/path2-exercise.png)
 

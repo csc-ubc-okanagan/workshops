@@ -69,7 +69,7 @@ With this in mind, you might be thinking to yourself, "why would I ever want to 
 Consider the following scenarios:
 
 * You have 1,000 spreadsheet files, and want to copy the third line of each file to a new file
-* You are working with 300 pages of narrative text, and you want to copy every sentence with the word "migration" to a new file.
+* You are working with 500 text files, and you want to copy every sentence with the word "migration" to a new file.
 
 You could do this manually, but it's going to be a very long process, and the chance of making mistakes is quite high (and being able to tell if you've made a mistake is an issue in itself!).
 

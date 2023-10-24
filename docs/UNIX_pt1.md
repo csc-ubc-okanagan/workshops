@@ -171,8 +171,8 @@ It should be noted that relative paths only work going down the hierarchy, and n
 > * Who is the author of `methane.pdb`?
 > * What command would you type to move from the `proteins` directory to the `shell-lesson-data` directory?* 
 > * What is the last line of the file `NENE01729A.txt`?
-
-
+>
+> Answer questions in [Padlet](https://padlet.com/nickrochlin/unix-exercise-2-womiyz72vmc3dwax)
 
 
 

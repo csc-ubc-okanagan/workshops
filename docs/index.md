@@ -28,7 +28,7 @@ pagetitle: "Menu"
 
 [Python: Exploratory Data Analysis](Exploratory_Data_Analysis_Workshop3.html)
 
-[Python: Subsetting_and_Filtering_Data](Subsetting_and_Filtering_Data_Workshop4.html)
+[Python: Subsetting and Filtering Data](Subsetting_and_Filtering_Data_Workshop4.html)
 
 
 ## Researcher Toolkit

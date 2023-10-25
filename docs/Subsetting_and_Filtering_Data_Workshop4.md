@@ -362,24 +362,24 @@ When working with a Pandas DataFrame, you can filter your data based on specific
 ## Comparison Operators
 
 
-| Operator | Description            |
-|:--------:|:----------------------:|
-| `!=`     | not equal to           |
-| `==`     | equal to               |
-| `<`      | less than              |
-| `>`      | greater than           |
-| `<=`     | less than or equal to  |
-| `>=`     | equal to or greater than|
+| Operator | Description          |
+|---|---|
+| !=    | not equal to            |
+| ==    | equal to                |
+| <     | less than               |
+| >     | greater than            |
+| <=    | less than or equal to   | 
+| >=    | equal to or greater than|
 
 
 ## Logical Operators
 
 
-| Operator | Description           |
-|:--------:|:---------------------:|
-| `~`      | not (negation)        |
-| `\|`      | or (element-wise OR)  |
-| `&`      | and (element-wise AND)|
+| Operator | Description         |
+|---|---|
+| ~      | not (negation)        |
+| \|     | or (element-wise OR)  |
+| &      | and (element-wise AND)|
 
 
 
@@ -388,6 +388,27 @@ Remember to use parentheses around each condition when combining them with the l
 ```python
 filtered_df = df[(df['column1'] > 10) & (df['column2'] != 'value')]
 
+
+You can also filter your data to specific cases based on conditions. This is done by placing the condition within the subsetting operators.
+
+Conditions include:
+
+| | |
+| --- | --- |
+| != | not equal to |
+| == | equal to |
+| < | less than |
+| > | greater than |
+| <= | less than or equal to |
+| => | equal to or greater than |
+
+And conditions can be strung together with the following operators:
+
+| | |
+| --- | --- |
+| ! | not |
+| \| | or |
+| & | and |
 
 #### Task: Filter the `lifeExp` column to select values greater than 70.
 

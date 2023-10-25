@@ -368,20 +368,7 @@ head(select(data_gapminder, continent:pop))
 
 ```r
 # select numeric columns
-head(select(data_gapminder, is.numeric))
-```
-
-```
-## Warning: Use of bare predicate functions was deprecated in tidyselect 1.1.0.
-## ℹ Please use wrap predicates in `where()` instead.
-##   # Was:
-##   data %>% select(is.numeric)
-## 
-##   # Now:
-##   data %>% select(where(is.numeric))
-## This warning is displayed once every 8 hours.
-## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
-## generated.
+head(select(data_gapminder, where(is.numeric)))
 ```
 
 ```

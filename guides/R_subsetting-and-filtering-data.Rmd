@@ -184,7 +184,7 @@ head(select(data_gapminder, year, lifeExp))
 head(select(data_gapminder, continent:pop))
 
 # select numeric columns
-head(select(data_gapminder, is.numeric))
+head(select(data_gapminder, where(is.numeric)))
 
 # select by negation
 head(select(data_gapminder, !country))

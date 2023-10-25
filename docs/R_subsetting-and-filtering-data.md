@@ -7,11 +7,11 @@ output:
 
 
 
-Last Updates: 2023-10-17
+Last Updates: 2023-10-25
 
 ## Base R
 
-### $
+### `$`
 
 We've already seen that we can select a single variable of a data frame with `$`.
 
@@ -64,7 +64,7 @@ class(item_1)
 ## [1] "character"
 ```
 
-### [ [[
+### `[` and `[[`
 
 You can also subset using single or double square brackets. These provide you with more flexibility than `$`. They can also be more verbose. The primary difference between the two is that `[` preserves the original data structure, while `[[` discards it and simplifies.
 
@@ -221,7 +221,6 @@ head(gapminder_1952)
 
 ```r
 # country and gdp for 1952
-
 gdp_1952 <- data_gapminder[data_gapminder$year == 1952, c(1,6)]
 
 head(gdp_1952)
@@ -237,7 +236,7 @@ head(gdp_1952)
 ## 61   Australia 10039.5956
 ```
 
-### subset()
+### `subset()`
 
 `subset()` allows you to achieve similar results to those above. At its most basic, it takes a data set and a condition on which to subset.
 
@@ -314,7 +313,7 @@ head(am_52_ss)
 
 The `dplyr` package from Tidyverse draws a good conceptual break between selecting variables and filtering for cases based on values with its `select()` and `filter()` functions.
 
-### select()
+### `select()`
 
 `select()` allows you pick columns based on their names. It takes two arguments, a data set, and a set of parameters by which to select columns; that parameter could be a single name, a span of names separated with a `:`, or some other condition, like names starting with, ending with, or containing specific characters, or even by the data type held in the column.
 
@@ -410,9 +409,9 @@ head(select(data_gapminder, !country))
 ## 6      Asia 1977  38.438 14880372  786.1134
 ```
 
-More options can be found here https://dplyr.tidyverse.org/reference/select.html 
+More options can be found here [https://dplyr.tidyverse.org/reference/select.html](https://dplyr.tidyverse.org/reference/select.html). 
 
-### filter()
+### `filter()`
 
 Filter is very similar to subset for working on data frames (it doesn't work on vectors), and follows the same basic approach of requiring a dataset and a condition on which to filter.
 
@@ -431,4 +430,4 @@ head(filter(data_gapminder, continent == "Americas"))
 ## 6 Argentina  Americas 1977  68.481 26983828 10079.027
 ```
 
-`filter()` works well with other offerings from Tidyverse. And more options can be found here https://dplyr.tidyverse.org/reference/filter.html
+`filter()` works well with other offerings from Tidyverse. And more options can be found here [https://dplyr.tidyverse.org/reference/filter.html](https://dplyr.tidyverse.org/reference/filter.html).

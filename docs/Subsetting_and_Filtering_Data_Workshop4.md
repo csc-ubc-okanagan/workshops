@@ -1,9 +1,4 @@
----
-title: 'Subsetting and Filtering Data in Python'
-output:
-  html_document:
-    keep_md: yes
----## Subsetting and Filtering Data
+## Subsetting and Filtering Data
 
 Let's import out libraries in Python.
 
@@ -393,27 +388,6 @@ Remember to use parentheses around each condition when combining them with the l
 ```python
 filtered_df = df[(df['column1'] > 10) & (df['column2'] != 'value')]
 
-
-You can also filter your data to specific cases based on conditions. This is done by placing the condition within the subsetting operators.
-
-Conditions include:
-
-| | |
-| --- | --- |
-| != | not equal to |
-| == | equal to |
-| < | less than |
-| > | greater than |
-| <= | less than or equal to |
-| => | equal to or greater than |
-
-And conditions can be strung together with the following operators:
-
-| | |
-| --- | --- |
-| ! | not |
-| \| | or |
-| & | and |
 
 #### Task: Filter the `lifeExp` column to select values greater than 70.
 

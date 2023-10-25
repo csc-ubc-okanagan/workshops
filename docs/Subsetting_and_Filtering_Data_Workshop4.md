@@ -1,12 +1,4 @@
----
-title: 'Subsetting and Filtering Data in Python'
-output:
-  html_document:
-    keep_md: yes
----
-
-
-## Subsetting and Filtering Data in Python
+## Subsetting and Filtering Data
 
 Let's import out libraries in Python.
 
@@ -369,7 +361,6 @@ When working with a Pandas DataFrame, you can filter your data based on specific
 
 ## Comparison Operators
 
-<center>
 
 | Operator | Description            |
 |:--------:|:----------------------:|
@@ -380,11 +371,9 @@ When working with a Pandas DataFrame, you can filter your data based on specific
 | `<=`     | less than or equal to  |
 | `>=`     | equal to or greater than|
 
-</center>
 
 ## Logical Operators
 
-<center>
 
 | Operator | Description           |
 |:--------:|:---------------------:|
@@ -392,7 +381,7 @@ When working with a Pandas DataFrame, you can filter your data based on specific
 | `\|`      | or (element-wise OR)  |
 | `&`      | and (element-wise AND)|
 
-</center>
+
 
 Remember to use parentheses around each condition when combining them with the logical operators to ensure correct order of operations. For instance:
 

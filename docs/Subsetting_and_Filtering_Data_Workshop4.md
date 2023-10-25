@@ -1,4 +1,9 @@
-## Subsetting and Filtering Data
+---
+title: 'Subsetting and Filtering Data in Python'
+output:
+  html_document:
+    keep_md: yes
+---## Subsetting and Filtering Data
 
 Let's import out libraries in Python.
 

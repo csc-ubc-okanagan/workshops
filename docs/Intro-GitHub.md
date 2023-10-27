@@ -27,31 +27,24 @@ In order to proceed with this lesson there are a couple things you'll need to se
 
 Before we jump into GitHub, it's worth first to have a bit of a discussion about version control. I'm sure all of us are familiar with a situation where a file's versioning can grow out of control:
 
-![](assets/images/version-control.png){width=300px}
+<img src="assets/images/version-control.png" width="300">
 
-[source](https://xkcd.com/1459/)
 
 
 Version control software and tools are a valuable way to record changes you make to a file to help avoid falling into the pits of having numerous nearly identical files. Things like Microsoft Word's 'Track Changes', or Google Doc's 'Version History' are examples of automated version control systems. Version control systems begin with a base version of a document, and then record changes you make each step of the way.  You can start making additions to the document, and then can rewind to the base of the document to review each change you made, eventually arriving at your most recent version.
 
 ![](assets/images/version-control2.png)
 
-[source]([https://swcarpentry.github.io/git-novice/01-basics.html)
 
 
 Once you think of changes as separate from the document itself, you can then think about “playing back” different sets of changes on the base document, ultimately resulting in different versions of that document. For example, two users can make independent sets of changes on the same document.
 
-![](assets/images/version-control3.png){width=500}
-
-[source](https://swcarpentry.github.io/git-novice/01-basics.html)
-
+<img src="assets/images/version-control3.png" width="500">
 
 Unless multiple users make changes to the same section of the document - a conflict - you can incorporate two sets of changes into the same base document.
 
+<img src="assets/images/version-control4.png" width="500">
 
-![](assets/images/version-control4.png){width=500}
-
-[source](https://swcarpentry.github.io/git-novice/01-basics.html)
 
 
 ### Benefits of Using Version Control
@@ -89,13 +82,13 @@ When we use Git on a new computer for the first time, we need to configure a few
 
 To get this started, open your shell terminal window, and enter the following commands:
 
->$ git config --global user.name "Your Name"
->$ git config --global user.email "yourname@domain.name"
+> $ git config --global user.name "Your Name"
+> $ git config --global user.email "yourname@domain.name"
 
 
 If you enter the commands correctly, the shell will merely return a command prompt and no messages. To check your work, ask Git what your configuration is using the same command as above:
 
->git config --list
+> $ git config --list
 
 And the output will be:
 
@@ -109,11 +102,11 @@ As mentioned in the [Introduction to the Unix Shell Part 2](https://csc-ubc-okan
 
 Any text editor can be set up as the default editor for Git. To set Nano as the default editor, enter the following command:
 
->$ git config --global core.editor "nano -w"
+> $ git config --global core.editor "nano -w"
 
 The final thing we need to do is set the name of our default branch to *main*:
 
->$ git config --global init.defaultBranch main
+> $ git config --global init.defaultBranch main
 
 The `init.defaultBranch` value configures git to set the default branch to `main` instead of `master`.
 
@@ -126,8 +119,8 @@ First, move to the `Desktop` directory on your machine.
 
 Next, we're going to create a new directory for our project and enter that directory. To do so, enter the following commands. Feel free to name your directory whatever you'd like, noting appropriate naming conventions!
 
->$ mkdir my-first-repo
->$ cd my-first-repo
+> $ mkdir my-first-repo
+> $ cd my-first-repo
 
 ### Using Git
 
@@ -135,7 +128,7 @@ On a command line interface, Git commands are written as `git + verb + options`,
 
 We will now create an empty git repository to track changes to our project. To do this we will use the `git init` command, which is simply short for initialize.
 
->$ git init
+> $ git init
 
 The output from this command should be:
 
@@ -214,7 +207,8 @@ We will open the file `index.md` using any text editor (for this lesson we are u
 
 This will open a window that looks like this:
 
-![](assets/images/nano.png){width=500}
+<img src="assets/images/nano.png" width="500">
+
 
 Once you have typed `# Hello world!`, click `ctrl + x`, press `Y` to confirm saving the work, and then `enter` to confirm the file name that you are saving to.
 
@@ -534,8 +528,10 @@ Now, let’s have a look at the repository at GitHub again (that is, `https://gi
 ![](assets/images/commit.png)
 
 
+## References
 
-
+[Software Carpentries - Version Control with Git](https://swcarpentry.github.io/shell-novice/)
+[Library Carpentries - Introduction to Git](https://librarycarpentry.org/lc-git/)
 
 
 

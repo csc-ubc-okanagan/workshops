@@ -543,9 +543,8 @@ Our local repository is now out of sync with our remote repository, so let’s f
 > README.md | 1 +
 > 1 file changed, 1 insertion(+)
 > create mode 100644 README.md
->
 
-You can now see that with the `ls` command that the README file is in your repository.
+You can now see with the `ls` command that the README file is in your repository.
 
 When you begin collaborating on more complex projects, you may have to consider more aspects of git functionality, but this should be a good start. Good luck on your git adventures!
 

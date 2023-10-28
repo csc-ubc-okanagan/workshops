@@ -497,6 +497,27 @@ Now, let’s have a look at the repository at GitHub again (that is, `https://gi
 ![](assets/images/commit.png)
 
 
+And if you click on `index.md` you will see that it contains the line `Hello world!', but not the new line we just added.
+
+This is because we haven’t yet pushed our local changes to the remote repository. This might seem like a mistake in design but it is often useful to make a lot of commits for small changes so you are able to make careful revisions later and you don’t necessarily want to push all these changes one by one.
+
+Another benefit of this design is that you can make commits without being connected to internet.
+
+But let's push our changes now, using the `git push` command:
+
+> $ git push
+
+Output:
+
+> Enumerating objects: 5, done.
+> Counting objects: 100% (5/5), done.
+> Writing objects: 100% (3/3), 288 bytes | 288.00 KiB/s, done.
+> Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+> To github.com:<your_github_username/my-first-repo.git
+>   b773359..9d54345  main -> main
+
+And now when we check GitHub, we can see there are now 2 commits.
+
 ## Pulling Changes
 
 When working with others, or when we’re making our own changes from different machines, we need a way of pulling those remote changes back into our local copy. For now, we can see how this works by making a change on the GitHub website and then ‘pulling’ that change back to our computer.

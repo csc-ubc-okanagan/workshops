@@ -360,22 +360,22 @@ Output:
 
 After entering the passphrase a second time, you should receive this confirmation:
 
-> Your identification has been saved in /c/Users/YourName/.ssh/id_ed25519
-> Your public key has been saved in /c/Users/YourName/.ssh/id_ed25519.pub
-> The key fingerprint is:
-> SHA256:SMSPIStNyA00KPxuYu94KpZgRAYjgt9g4BA4kFy3g1o yourname@domain.name
-> The key's randomart image is:
-> +--[ED25519 256]--+
-> |^B== o.          |
-> |%*=.*.+          |
-> |+=.E =.+         |
-> | .=.+.o..        |
-> |....  . S        |
-> |.+ o             |
-> |+ =              |
-> |.o.o             |
-> |oo+.             |
-> +----[SHA256]-----+
+>Your identification has been saved in /c/Users/YourName/.ssh/id_ed25519
+>Your public key has been saved in /c/Users/YourName/.ssh/id_ed25519.pub
+>The key fingerprint is:
+>SHA256:SMSPIStNyA00KPxuYu94KpZgRAYjgt9g4BA4kFy3g1o yourname@domain.name
+>The key's randomart image is:
+>+--[ED25519 256]--+
+>|^B== o.          |
+>|%*=.*.+          |
+>|+=.E =.+         |
+>| .=.+.o..        |
+>|....  . S        |
+>|.+ o             |
+>|+ =              |
+>|.o.o             |
+>|oo+.             |
+>+----[SHA256]-----+
 
 The “identification” is actually the private key. You should never share it. The public key is appropriately named. The “key fingerprint” is a shorter version of a public key.
 

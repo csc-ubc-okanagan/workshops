@@ -171,14 +171,12 @@ Let's check the status of our project again.
 
 Output:
 
->
 > On branch main
 > No commits yet
 > Untracked files:
 >  (use "git add <file>..." to include in what will be committed)
 >
 >    index.md
->
 
 This status is telling us that git has noticed a new file in our directory that we are not yet tracking. With colourised output, the filename will appear in red. To change this, and to tell Git we want to track any changes we make to index.md, we use `git add`.
 
@@ -197,7 +195,6 @@ Output:
 >   (use "git rm --cached <file>..." to unstage)
 >
 >   new file:   index.md
->
 
 If we are using colourised output, we will see that the filename has changed colour (from red to green). Git also tells us that there is a new file to be committed but, before we do that, let’s add some text to the file.
 
@@ -218,21 +215,20 @@ Now let's check the status again:
 
 Output:
 
->On branch main
+> On branch main
 >
->No commits yet
+> No commits yet
 >
->Changes to be committed:
+> Changes to be committed:
 >  (use "git rm --cached <file>..." to unstage)
 >
 >	new file:   index.md
 >
->Changes not staged for commit:
+> Changes not staged for commit:
 >  (use "git add <file>..." to update what will be committed)
 >  (use "git checkout -- <file>..." to discard changes in working directory)
 >
 >	modified:   index.md
->
 
 This lets us know that git has indeed spotted the changes to our file, but that it hasn’t yet staged them, so let’s add the new version of the file to the staging area.
 
@@ -247,7 +243,6 @@ Output:
 >[main (root-commit) e9e8fd3] Add index.md
 > 1 file changed, 1 insertion(+)
 > create mode 100644 index.md
->
 
 We can see that one file has changed and that we made one insertion, which was a line with the text `#Hello, world!`. We can also see the commit message `Add index.md`, which we added by using the `-m`` flag after `git commit`. The commit message is used to record a short, descriptive, and specific summary of what we did to help us remember later on without having to look at the actual changes. If we just run `git commit` without the `-m` option, Git will launch nano (or whatever other editor we configured as `core.editor`) so that we can write a longer message.
 
@@ -312,10 +307,8 @@ We can check that it is setup correctly with the command:
 
 This should result in the following output:
 
->
 > origin  git@github.com:<your_github_username>/hello-world.git (fetch)
 > origin  git@github.com:<your_github_username>/hello-world.git (push)
->
 
 ### SSH Background and Setup
 
@@ -339,9 +332,7 @@ Your output is going to look a little different depending on whether or not SSH 
 
 If you have not set up SSH, your output might look like this:
 
->
 > ls: cannot access '/c/Users/YourName/.ssh': No such file or directory
->
 
 If SSH has been set up on the computer you’re using, the public and private key pairs will be listed. The file names are either `id_ed25519`/`id_ed25519.pub` or `id_rsa`/`id_rsa.pub` depending on how the key pairs were set up.
 
@@ -351,31 +342,24 @@ If you do not have SSH set up, let’s set it up now. Use this command to create
 
 Output:
 
->
 > Generating public/private ed25519 key pair.
 > Enter file in which to save the key (/c/Users/YourName/.ssh/id_ed25519):
->
 
 Because we want to use the default file, you can just press `enter`
 
 Output:
 
->
 > Created directory '/c/Users/YourName/.ssh'.
 > Enter passphrase (empty for no passphrase):
->
 
 Your computer is now asking you for a passphrase to protect this SSH key pair. We recommend that you use a passphrase and that you make a note of it. There is no “reset my password” option for this setup. If you forget your passphrase, you have to delete your existing key pair and do this setup again. It’s not a big deal, but easier if you don’t have to repeat it.
 
 Output:
 
->
 > Enter same passphrase again
->
 
 After entering the passphrase a second time, you should receive this confirmation:
 
-> 
 > Your identification has been saved in /c/Users/YourName/.ssh/id_ed25519
 > Your public key has been saved in /c/Users/YourName/.ssh/id_ed25519.pub
 > The key fingerprint is:
@@ -392,7 +376,6 @@ After entering the passphrase a second time, you should receive this confirmatio
 > |.o.o             |
 > |oo+.             |
 > +----[SHA256]-----+
->
 
 The “identification” is actually the private key. You should never share it. The public key is appropriately named. The “key fingerprint” is a shorter version of a public key.
 
@@ -402,12 +385,10 @@ Now that we have generated the SSH keys, we will find the SSH files when we chec
 
 Output:
 
->
 > drwxr-xr-x 1 YourName 197121   0 Month day time ./
 > drwxr-xr-x 1 YourName 197121   0 Month day time ../
 > -rw-r--r-- 1 YourName 197121 419 Month day time id_ed25519
 > -rw-r--r-- 1 YourName 197121 106 Month day time id_ed25519.pub
->
 
 Now we need to give our public key over to GitHub.
 
@@ -417,9 +398,7 @@ To start, we need to copy the public key. Be sure to include the `.pub` at the e
 
 Output:
 
->
 > ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDmRA3d51X0uu9wXek559gfn6UFNF69yZjChyBIU2qKI yourname@domain.name
->
 
 Copy that entire line of output, and we will paste the copied text into GitHub in the next step.
 
@@ -431,9 +410,7 @@ Now that we've set that up, let's check our authentication from the command line
 
 You'll be prompted to enter your passphrase, and then should get the following output:
 
-> 
 > Hi YourName! You've successfully authenticated, but GitHub does not provide shell access.
->
 
 ## Pushing Changes
 
@@ -443,14 +420,12 @@ Now we have established a connection between the two repositories, but we still 
 
 Output:
 
->
 > Counting objects: 3, done.
 > Writing objects: 100% (3/3), 226 bytes | 0 bytes/s, done.
 > Total 3 (delta 0), reused 0 (delta 0)
 > To https://github.com/<your_github_username/hello-world
 >  * [new branch]      main -> main
 > Branch main set up to track remote branch main from origin.
->
 
 The nickname of our remote repository is “origin” and the default local branch name is “main”. The `-u` flag tells git to remember the parameters, so that next time we can simply run `git push` and Git will know what to do.
 
@@ -460,11 +435,9 @@ When we do a `git push`, we will see Git ‘pushing’ changes upstream to GitHu
 
 Output:
 
->
 > On branch main
 > Your branch is up-to-date with 'origin/main'.
 > nothing to commit, working tree clean
->
 
 Now let's go and add another line to our `index.md` file.  I'm going to add, "And what a world it is!", but feel free to add whatever you'd like.
 
@@ -474,7 +447,6 @@ We can now use the `git diff` command to see changes we have made before making 
 
 Output:
 
->
 > diff --git a/index.md b/index.md
 > index 3b18e51..4325e02 100644
 > --- a/index.md
@@ -483,7 +455,6 @@ Output:
 > hello world
 > +
 > +and what a world it is!
->
 
 The command produces lots of information and it can be a bit overwhelming at first, but let’s go through some key information here:
 
@@ -504,7 +475,6 @@ If we are very forgetful and don't remember what we just did, we can use the `gi
 
 Output:
 
->
 > commit b77335984aad66f77e28aa5cc2d31a7684b08f5e (HEAD -> main, origin/main)
 > Author: Your Name <your_email>
 > Date:   Fri Oct 27 09:41:35 2023 -0700
@@ -516,7 +486,6 @@ Output:
 > Date:   Fri Oct 27 09:34:42 2023 -0700
 >
 >    Add index.md
->
 
 This shows us the two commits we have made and shows the messages we wrote. It is important to try to use meaningful commit messages when we make changes. This is especially important when we are working with other people who might not be able to guess as easily what our short cryptic messages might mean. Note that it is best practice to always write commit messages in the imperative (e.g. ‘Add index.md’, rather than ‘Adding index.md’).
 

@@ -531,8 +531,8 @@ When we begin collaborating on more complex projects, we may have to consider mo
 
 ## References
 
-[Software Carpentries - Version Control with Git](https://swcarpentry.github.io/shell-novice/)
-[Library Carpentries - Introduction to Git](https://librarycarpentry.org/lc-git/)
+* [Software Carpentries - Version Control with Git](https://swcarpentry.github.io/shell-novice/)
+* [Library Carpentries - Introduction to Git](https://librarycarpentry.org/lc-git/)
 
 
 

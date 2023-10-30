@@ -9,7 +9,7 @@ output:
 
 # Introduction to GitHub
 
-Last Updated: 2023-10-27
+Last Updated: 2023-10-30
 
 ## Setup
 
@@ -27,46 +27,77 @@ In order to proceed with this lesson there are a couple things you'll need to se
 
 Before we jump into GitHub, it's worth first to have a bit of a discussion about version control. I'm sure all of us are familiar with a situation where a file's versioning can grow out of control:
 
-<img src="assets/images/version-control.png" width="300">
+![](assets/images/version-control.png){width=300px}
 
+[Source: https://xkcd.com/1459/](https://xkcd.com/1459/)
 
 
 Version control software and tools are a valuable way to record changes you make to a file to help avoid falling into the pits of having numerous nearly identical files. Things like Microsoft Word's 'Track Changes', or Google Doc's 'Version History' are examples of automated version control systems. Version control systems begin with a base version of a document, and then record changes you make each step of the way.  You can start making additions to the document, and then can rewind to the base of the document to review each change you made, eventually arriving at your most recent version.
 
 ![](assets/images/version-control2.png)
 
+[Source: https://swcarpentry.github.io/git-novice/01-basics.html](https://swcarpentry.github.io/git-novice/01-basics.html)
 
+### Version Control with Multiple Editors
 
 Once you think of changes as separate from the document itself, you can then think about “playing back” different sets of changes on the base document, ultimately resulting in different versions of that document. For example, two users can make independent sets of changes on the same document.
 
-<img src="assets/images/version-control3.png" width="500">
+![](assets/images/version-control3.png){width=500}
 
-Unless multiple users make changes to the same section of the document - a conflict - you can incorporate two sets of changes into the same base document.
+[Source: https://swcarpentry.github.io/git-novice/01-basics.html](https://swcarpentry.github.io/git-novice/01-basics.html)
 
-<img src="assets/images/version-control4.png" width="500">
 
+Unless multiple users make changes to the same section of the document - considered a 'conflict' - you can incorporate two sets of changes into the same base document.
+
+
+![](assets/images/version-control4.png){width=500}
+
+[Source: https://swcarpentry.github.io/git-novice/01-basics.html](https://swcarpentry.github.io/git-novice/01-basics.html)
 
 
 ### Benefits of Using Version Control
 
-* **Collaboration**: Version control allows us to define formalized ways we can work together and share writing and code. For example merging together sets of changes from different parties enables co-creation of documents and software across distributed teams.
-* **Versioning**: Having a robust and rigorous log of changes to a file, without renaming files (v1, v2, final_copy)
-* **Rolling Back**: Version control allows us to quickly undo a set of changes. This can be useful when new writing or new additions to code introduce problems.
-* **Understanding**: Version control can help you understand how the code or writing came to be, who wrote or contributed particular parts, and who you might ask to help understand it better.
-* **Backup**: While not meant to be a backup solution, using version control systems mean that your code and writing can be stored on multiple other computers.
+**Collaboration**: Version control allows us to define formalized ways we can work together and share writing and code. For example, merging together sets of changes from different parties enables co-creation of documents and software across distributed teams.
+
+**Versioning**: Having a robust and rigorous log of changes to a file, without renaming files (eg, v1, v2, final_copy)
+
+**Testing**: Version control systems generally allow you to make changes to a local copy of a file, and test the change, before merging those changes with a shared copy.
+
+**Rolling Back**: Version control allows us to quickly undo a set of changes. This can be useful when new writing or new additions to code introduce problems.
+
+**Understanding**: Version control can help you understand how the code or writing came to be, who wrote or contributed particular parts, and who you might ask to help understand it better.
+
+**Backup**: Version control systems generally imply that your code and writing can be stored on multiple other computers.
 
 ---
 
 ## Git and GitHub
 
 
-We often hear the terms ***Git*** and ***GitHub*** used interchangeably, but there are slightly different things.
+We often hear the terms ***Git*** and ***GitHub*** used interchangeably, but they are slightly different things.
 
 ***Git*** is one of the most widely used version control systems in the world. It is a free, open source tool that can be downloaded to your local machine and used for logging all changes made to a group of designated computer files (referred to as a “git repository” or “repo” for short) over time. It can be used to control file versions locally by you alone on your computer, but is perhaps most powerful when employed to coordinate simultaneous work on a group of files shared among distributed groups of people.
 
-Git was originally developed to help software developers work collaboratively on software projects, but it can be and is used for managing revisions to any file type on a computer system, including text documents and spreadsheets. Once installed, interaction with Git is done through the Command Prompt in Windows, or the Terminal on Mac/Linux. Since Word documents contain special formatting, Git unfortunately cannot version control those, nor can it version control PDFs, though both file types can be stored in Git repositories.
 
-***GitHub*** on the other hand is a popular website for hosting and sharing Git repositories remotely. It offers a web interface and provides functionality and a mixture of both free and paid services for working with such repositories. The majority of the content that GitHub hosts is open source software, though increasingly it is being used for other projects such as open access journals (e.g. [Journal of Open Source Software](https://joss.theoj.org/)), blogs, and regularly updated text books
+```bash
+ls -a
+```
+
+
+```bash
+.
+..
+.git
+readme.md
+```
+
+[The output of a git repository - note the `.git` folder, this is the database of tracked changes.
+
+Git was originally developed to help software developers work collaboratively on software projects, but it can be and is used for managing revisions to any plain text file, including markdown and LaTex documents, or spreadsheets stored as comma or tab separated values. Git cannot version control document types that have special formatting or complex structures, such as Word documents and PDFs, though both file types can be stored in Git repositories.
+
+Once installed, interaction with Git is done through the Command Prompt in Windows, or the Terminal on Mac/Linux. 
+
+***GitHub*** on the other hand is a popular website for hosting and sharing Git repositories remotely. It offers a web interface and provides functionality and a mixture of both free and paid services for working with such repositories. The majority of the content that GitHub hosts is open source software, though increasingly it is being used for other projects such as open access journals (e.g. [Journal of Open Source Software](https://joss.theoj.org/)), blogs, and regularly updated text books.
 
 ---
 
@@ -80,174 +111,312 @@ When we use Git on a new computer for the first time, we need to configure a few
 * What your preferred text editor is,
 * The name of your default branch (branches are an important component of Git that we will cover later).
 
+#### name and email
+
 To get this started, open your shell terminal window, and enter the following commands:
 
-> $ git config --global user.name "Your Name"
-> $ git config --global user.email "yourname@domain.name"
 
+```bash
+git config --global user.name "Your Name"
+git config --global user.email "yourname@domain.name"
+```
 
 If you enter the commands correctly, the shell will merely return a command prompt and no messages. To check your work, ask Git what your configuration is using the same command as above:
 
-> $ git config --list
 
-And the output will be:
+```bash
+git config --list
+```
 
->user.name=Your Name
->user.email=yourname@domain.name
+And the output will be something like:
 
 
-**Text Editors**
+```bash
+user.name=Your Name
+user.email=yourname@domain.name
+```
 
-As mentioned in the [Introduction to the Unix Shell Part 2](https://csc-ubc-okanagan.github.io/workshops/UNIX_pt2.html) session, There are many different text editors to choose from. Nano is a text editor that can be used to create and edit plain text files via the command line. When we say ‘plain text’, it can only work with plain character data, and doesn’t work with tables, images, or any other media. For the purpose of this lesson, we are going to use Nano because it’s one of the least complex. As you move forward in your Unix journey, feel free to explore and play with different brands of text editors. For the purpose of this lesson, we will be working on .txt files, but there are other plain-text file types that you are also free to explore.
+#### text editor
 
-Any text editor can be set up as the default editor for Git. To set Nano as the default editor, enter the following command:
+Any text editor can be set up as the default editor for Git. 
 
-> $ git config --global core.editor "nano -w"
+> As covered in [Introduction to the Unix Shell Part 2](https://csc-ubc-okanagan.github.io/workshops/UNIX_pt2.html), there are many different text editors to choose from. Nano is a text editor that can be used to create and edit plain text files via the command line. For the purpose of this lesson, we are going to use Nano because it’s one of the least complex. As you move forward in your Unix or Linux journey, feel free to explore and play with different text editors.
+
+To set Nano as the default editor, enter the following command:
+
+
+```bash
+git config --global core.editor "nano -w"
+```
+
+#### default branch name
 
 The final thing we need to do is set the name of our default branch to *main*:
 
-> $ git config --global init.defaultBranch main
 
-The `init.defaultBranch` value configures git to set the default branch to `main` instead of `master`.
+```bash
+git config --global init.defaultBranch main
+```
 
+With a basic install of Git, the default branch name is `master`, which is problematic for many reasons. We can change it to anything we'd like, but convention currently uses `main`.
 
 ## Creating a Repository
 
-A Git **repository** is a data structure used to track changes to a set of project files over time. Repositories are stored within the same directory as these project files, in a hidden directory called `.git`. We can create a new git repository either by using [GitHub’s web interface](https://github.com/new), or via the command line. Let’s use the command line to create a git repository for the experiments that we’re going to do today.
+A Git **repository** is a data structure used to track changes to a set of project files over time. Repositories are stored within the same directory as these project files, in a hidden directory called `.git` (pictured earlier). We can create a new git repository either by using [GitHub’s web interface](https://github.com/new), or via the command line. Let’s use the command line to create a git repository for the experiments that we’re going to do today.
 
-First, move to the `Desktop` directory on your machine.
+First, move to your `Desktop` directory. On most installs of Windows, MacOS, and Linux, this can be done with:
+
+
+```bash
+cd ~/Desktop
+```
 
 Next, we're going to create a new directory for our project and enter that directory. To do so, enter the following commands. Feel free to name your directory whatever you'd like, noting appropriate naming conventions!
 
-> $ mkdir my-first-repo
-> $ cd my-first-repo
+
+```bash
+mkdir my-first-repo
+cd my-first-repo
+```
 
 ### Using Git
 
-On a command line interface, Git commands are written as `git + verb + options`, where `verb` is what we actually want to do and `options` is additional optional information which may be needed for the `verb`. So let’s get started with our setup.
+On a command line interface, Git commands are written as `git + verb + options`, where `verb` is what we actually want to do and `options` are additional optional information which may be needed for the `verb`. So let’s get started with our setup.
 
 We will now create an empty git repository to track changes to our project. To do this we will use the `git init` command, which is simply short for initialize.
 
-> $ git init
+
+```bash
+git init
+```
 
 The output from this command should be:
 
->Initialized empty Git repository in <you-file-path/repository-name/.git/
+```
+Initialized empty Git repository in {you-file-path/repository-name/.git/}
+```
 
 The `my-first-repo` (or whatever you named your directory) is now a git repository.
 
-If we run the `ls` command now (`ls` lists the content of the directory), the repository might seem empty; however, adding the `-a` flag for all files via `ls -a` will show all hidden files, which in this case includes the new hidden directory `.git`. 
+If we run the `ls` command now (`ls` lists the content of the directory), the repository might seem empty; however, adding the `-a` flag for all files via `ls -a` will show all hidden files, which in this case includes the new hidden directory `.git`.
 
-Note that whenever we use git via the command line, we need to preface each command (or verb) with `git`, so that the computer knows we are trying to get git to do something, rather than some other program.
+
+```bash
+ls -a
+```
+
+
+```bash
+.
+..
+.git
+readme.md
+```
+
+> Note that whenever we use git via the command line, we need to preface each command (or verb) with `git`, so that the computer knows we are trying to get git to do something, rather than some other program.
 
 
 ### Displaying the Current Project's Status
 
 You can run the `git status` command to display the current state of a project:
 
-> $ git status
 
+```bash
+git status
+```
 At this point, the output of this command should be:
 
-> On branch main
-> No commits yet
-> nothing to commit (create/copy files and use "git add" to track)
 
-The output tells us that we are on the main branch (more on this later) and that we have nothing to commit (no unsaved changes).
+```bash
+On branch main
+No commits yet
+nothing to commit (create/copy files and use "git add" to track)
+```
 
-### Two Steps: Adding and Committing
+The output tells us that we are on the main branch (more on this later) and that we have nothing to commit (no changes to record).
 
-We will now create and save our first project file. This is a two-step process. First, we **add** any files for which we want to save the changes to a staging area, then we **commit** those changes to the repository. This two-stage process gives us fine-grained control over what should and should not be included in a particular commit.
+### Three Steps: Adding and Committing
+
+We will now create and save our first project file. This is a three-step process. First, we save changes locally, then we **add** these files to a staging area - letting Git know that we're ready to track, or keep a record of, the changes we made - then we **commit** those changes to the Git repository. This process gives us fine-grained control over what should and should not be included in a particular commit.
+
+#### create a file or save changes locally
 
 Let's create a new file using the `touch` command, which is a quick way to create an empty file.
 
-> $ touch index.md
 
-The `.md` extension above signifies that we have chosen to use the Markdown format, a lightweight markup language with plain text formatting syntax. We will explore Markdown a bit later.
+```bash
+touch readme.md
+```
+
+The `.md` extension above signifies that we have chosen to use the Markdown format, a lightweight markup language with plain text formatting syntax. We will explore Markdown in more depth a bit later.
 
 Let's check the status of our project again.
 
-> $ git status
+
+```bash
+git status
+```
 
 Output:
 
-> On branch main
-> No commits yet
-> Untracked files:
->  (use "git add <file>..." to include in what will be committed)
->
->    index.md
 
-This status is telling us that git has noticed a new file in our directory that we are not yet tracking. With colourised output, the filename will appear in red. To change this, and to tell Git we want to track any changes we make to index.md, we use `git add`.
+```bash
+On branch main
+No commits yet
+Untracked files:
+ (use "git add <file>..." to include in what will be committed)
 
-> $ git add index.md
+readme.md
+```
+
+This status message tells us that Git has noticed a new file in our directory that we are not yet tracking.
+
+## stage changes
+
+To track any changes we make to readme.md, we 'stage' the file with `git add`.
+
+
+```bash
+git add readme.md
+```
 
 This adds our Markdown file to the **staging area** (the area where git checks for file changes). To confirm this we want to use `git status` again.
 
-> $ git status
+
+```bash
+git status
+```
 
 Output:
 
-> On branch main
-> No commits yet
->
-> Changes to be committed:
->   (use "git rm --cached <file>..." to unstage)
->
->   new file:   index.md
 
-If we are using colourised output, we will see that the filename has changed colour (from red to green). Git also tells us that there is a new file to be committed but, before we do that, let’s add some text to the file.
+```bash
+On branch main
+No commits yet
 
-We will open the file `index.md` using any text editor (for this lesson we are using `nano`), and enter `# Hello, world!`. The has character is one way of writing a header with Markdown. Now, let's save the file within the text editor and check if Git has spotted the changes.
+Changes to be committed:
+ (use "git rm --cached <file>..." to unstage)
 
-> nano index.md
+new file:   readme.md
+```
 
-This will open a window that looks like this:
+This status message tells us that there is a new file being tracked, but not yet committed, or 'published'. Before making a commit, let’s add some text to the file.
 
-<img src="assets/images/nano.png" width="500">
+Open the file `readme.md`, and enter `# Hello, world!`. The hash character indicates a header in Markdown. Now, save the file and check if Git has spotted the changes.
 
+
+```bash
+nano readme.md
+```
+
+This will open a window within your terminal that looks like this:
+
+![](assets/images/nano.png){width=500}
 
 Once you have typed `# Hello world!`, click `ctrl + x`, press `Y` to confirm saving the work, and then `enter` to confirm the file name that you are saving to.
 
 Now let's check the status again:
 
-> $ git status
+
+```bash
+git status
+```
 
 Output:
 
-> On branch main
->
-> No commits yet
->
-> Changes to be committed:
->  (use "git rm --cached <file>..." to unstage)
->
->	new file:   index.md
->
-> Changes not staged for commit:
->  (use "git add <file>..." to update what will be committed)
->  (use "git checkout -- <file>..." to discard changes in working directory)
->
->	modified:   index.md
 
-This lets us know that git has indeed spotted the changes to our file, but that it hasn’t yet staged them, so let’s add the new version of the file to the staging area.
+```bash
+On branch main
 
-> $ git add index.md
+No commits yet
 
-Now we are ready to **commit** our first changes. Commit is similar to ‘saving’ a file to Git. However, compared to saving, a commit provides a lot more information about the changes we have made, and this information will remain visible to us later.
+Changes to be committed:
+ (use "git rm --cached <file>..." to unstage)
 
-> $ git commit -m 'Add index.md'
+new file:   readme.md
+
+Changes not staged for commit:
+ use "git add <file>..." to update what will be committed)
+ (use "git checkout -- <file>..." to discard changes in working directory)
+
+ modified:   readme.md
+```
+
+This lets us know that the creation of the file has been staged, and that Git has indeed spotted that we've made changes to our file, but these changes have yet to be staged. So, let’s add these changes to the staging area by adding the changed file again.
+
+
+```bash
+git add readme.md
+```
+
+Now, assuming we're done with our edits for the time being, we are ready to **commit** our first changes. Commit is similar to ‘saving’ a file to Git. However, compared to saving, a commit provides a lot more information about the changes we have made, and this information will remain visible to us later.
+
+`commit` requires that we add a message detailing the changes we've made to the file. To do this, we add the `-m` flag, followed by our message.
+
+
+```bash
+git commit -m 'Add readme.md'
+```
 
 Output:
 
->[main (root-commit) e9e8fd3] Add index.md
-> 1 file changed, 1 insertion(+)
-> create mode 100644 index.md
 
-We can see that one file has changed and that we made one insertion, which was a line with the text `#Hello, world!`. We can also see the commit message `Add index.md`, which we added by using the `-m`` flag after `git commit`. The commit message is used to record a short, descriptive, and specific summary of what we did to help us remember later on without having to look at the actual changes. If we just run `git commit` without the `-m` option, Git will launch nano (or whatever other editor we configured as `core.editor`) so that we can write a longer message.
+```bash
+[main (root-commit) e9e8fd3] Add readme.md
+ 1 file changed, 1 insertion(+)
+ create mode 100644 readme.md
+```
+
+We can see that one file has changed and that we made one insertion, which was a line with the text ‘#Hello, world!’. We can also see the commit message ‘Add readme.md’, which we added by using the `-m` flag after `git commit`. The commit message is used to record a short, descriptive, and specific summary of what we did to help us remember later on without having to look at the actual changes. If we just run `git commit` without the `-m` option, Git will launch nano (or whatever other editor we configured as `core.editor`) forcing you to make a record of the committed changes.
 
 Having made a commit, we now have a permanent record of what was changed, and git has also recorded some additional metadata: who made the commit (you!) and when the commit was made (timestamp). You are building a mini-history of your process of working with the files in this directory.
 
+## Your Commit History
+
+Let's make one more change to our file so that we can see exactly how Git version control is providing us with some insights into the changes made to our document. Open your document...
+
+
+```bash
+nano readme.md
+```
+
+And add a new line to it - soemthing like 'Adding a new line to my document!'. As above, save the changes and exit Nano. Then add and commit your changes...
+
+
+```bash
+git add readme.md
+git commit -m 'added a new line'
+```
+
+Let's look at the log.
+
+
+```bash
+git log
+```
+
+The output should look like something like the following, with changes in reverse chronological order, where each commit has a unique ID, it tells you who made the change, when the made the change, and their comment:
+
+
+```bash
+commit edde876c0fa5cde9fcb71ea2348a411a8b9767d0 (HEAD -> main)
+Author: Mathew Vis-Dunbar <mathew.vis-dunbar@ubc.ca>
+Date:   Mon Oct 30 12:48:56 2023 -0700
+
+    added a new line
+
+commit 1d15b302b40443e99e3dbd7f39d0d63ed0a28715
+Author: Mathew Vis-Dunbar <mathew.vis-dunbar@ubc.ca>
+Date:   Mon Oct 30 12:48:12 2023 -0700
+
+    Add readme.md
+```
+
+## Branching
+
+[create a branch. touch index.md and put in some content. merge the branches.]
+
+[Move SSH and setting up a GitHub repo, push and pull, and push to pages for session 2. In session 3 apply a theme to the github pages and add more content.]
 
 ## Sharing Your Work
 
@@ -295,7 +464,7 @@ To do this, we will use the commands provided by GitHub with the heading **"..or
 
 Let's move back to the shell, and enter the first command:
 
-> $ git remote add origin git@github.com:yourname/hello-world.git
+> $ git remote add origin git@github.com:yourname/my-first-repo.git
 
 Make sure to use the URL for your actual repository user name rather than `yourname`: the only difference should be your username instead of `yourname`.
 
@@ -307,8 +476,10 @@ We can check that it is setup correctly with the command:
 
 This should result in the following output:
 
+>
 > origin  git@github.com:<your_github_username>/hello-world.git (fetch)
 > origin  git@github.com:<your_github_username>/hello-world.git (push)
+>
 
 ### SSH Background and Setup
 
@@ -332,7 +503,9 @@ Your output is going to look a little different depending on whether or not SSH 
 
 If you have not set up SSH, your output might look like this:
 
+>
 > ls: cannot access '/c/Users/YourName/.ssh': No such file or directory
+>
 
 If SSH has been set up on the computer you’re using, the public and private key pairs will be listed. The file names are either `id_ed25519`/`id_ed25519.pub` or `id_rsa`/`id_rsa.pub` depending on how the key pairs were set up.
 
@@ -342,40 +515,48 @@ If you do not have SSH set up, let’s set it up now. Use this command to create
 
 Output:
 
+>
 > Generating public/private ed25519 key pair.
 > Enter file in which to save the key (/c/Users/YourName/.ssh/id_ed25519):
+>
 
 Because we want to use the default file, you can just press `enter`
 
 Output:
 
+>
 > Created directory '/c/Users/YourName/.ssh'.
 > Enter passphrase (empty for no passphrase):
+>
 
 Your computer is now asking you for a passphrase to protect this SSH key pair. We recommend that you use a passphrase and that you make a note of it. There is no “reset my password” option for this setup. If you forget your passphrase, you have to delete your existing key pair and do this setup again. It’s not a big deal, but easier if you don’t have to repeat it.
 
 Output:
 
+>
 > Enter same passphrase again
+>
 
 After entering the passphrase a second time, you should receive this confirmation:
 
->Your identification has been saved in /c/Users/YourName/.ssh/id_ed25519
->Your public key has been saved in /c/Users/YourName/.ssh/id_ed25519.pub
->The key fingerprint is:
->SHA256:SMSPIStNyA00KPxuYu94KpZgRAYjgt9g4BA4kFy3g1o yourname@domain.name
->The key's randomart image is:
->+--[ED25519 256]--+
->|^B== o.          |
->|%*=.*.+          |
->|+=.E =.+         |
->| .=.+.o..        |
->|....  . S        |
->|.+ o             |
->|+ =              |
->|.o.o             |
->|oo+.             |
->+----[SHA256]-----+
+> 
+> Your identification has been saved in /c/Users/YourName/.ssh/id_ed25519
+> Your public key has been saved in /c/Users/YourName/.ssh/id_ed25519.pub
+> The key fingerprint is:
+> SHA256:SMSPIStNyA00KPxuYu94KpZgRAYjgt9g4BA4kFy3g1o yourname@domain.name
+> The key's randomart image is:
+> +--[ED25519 256]--+
+> |^B== o.          |
+> |%*=.*.+          |
+> |+=.E =.+         |
+> | .=.+.o..        |
+> |....  . S        |
+> |.+ o             |
+> |+ =              |
+> |.o.o             |
+> |oo+.             |
+> +----[SHA256]-----+
+>
 
 The “identification” is actually the private key. You should never share it. The public key is appropriately named. The “key fingerprint” is a shorter version of a public key.
 
@@ -385,10 +566,12 @@ Now that we have generated the SSH keys, we will find the SSH files when we chec
 
 Output:
 
+>
 > drwxr-xr-x 1 YourName 197121   0 Month day time ./
 > drwxr-xr-x 1 YourName 197121   0 Month day time ../
 > -rw-r--r-- 1 YourName 197121 419 Month day time id_ed25519
 > -rw-r--r-- 1 YourName 197121 106 Month day time id_ed25519.pub
+>
 
 Now we need to give our public key over to GitHub.
 
@@ -398,7 +581,9 @@ To start, we need to copy the public key. Be sure to include the `.pub` at the e
 
 Output:
 
+>
 > ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDmRA3d51X0uu9wXek559gfn6UFNF69yZjChyBIU2qKI yourname@domain.name
+>
 
 Copy that entire line of output, and we will paste the copied text into GitHub in the next step.
 
@@ -410,7 +595,9 @@ Now that we've set that up, let's check our authentication from the command line
 
 You'll be prompted to enter your passphrase, and then should get the following output:
 
+> 
 > Hi YourName! You've successfully authenticated, but GitHub does not provide shell access.
+>
 
 ## Pushing Changes
 
@@ -420,12 +607,14 @@ Now we have established a connection between the two repositories, but we still 
 
 Output:
 
+>
 > Counting objects: 3, done.
 > Writing objects: 100% (3/3), 226 bytes | 0 bytes/s, done.
 > Total 3 (delta 0), reused 0 (delta 0)
 > To https://github.com/<your_github_username/hello-world
 >  * [new branch]      main -> main
 > Branch main set up to track remote branch main from origin.
+>
 
 The nickname of our remote repository is “origin” and the default local branch name is “main”. The `-u` flag tells git to remember the parameters, so that next time we can simply run `git push` and Git will know what to do.
 
@@ -435,11 +624,13 @@ When we do a `git push`, we will see Git ‘pushing’ changes upstream to GitHu
 
 Output:
 
+>
 > On branch main
 > Your branch is up-to-date with 'origin/main'.
 > nothing to commit, working tree clean
+>
 
-Now let's go and add another line to our `index.md` file.  I'm going to add, "And what a world it is!", but feel free to add whatever you'd like.
+Now let's go and add another line to our `readme.md` file.  I'm going to add, "And what a world it is!", but feel free to add whatever you'd like.
 
 We can now use the `git diff` command to see changes we have made before making a commit.
 
@@ -447,14 +638,16 @@ We can now use the `git diff` command to see changes we have made before making 
 
 Output:
 
-> diff --git a/index.md b/index.md
+>
+> diff --git a/readme.md b/readme.md
 > index 3b18e51..4325e02 100644
-> --- a/index.md
-> +++ b/index.md
+> --- a/readme.md
+> +++ b/readme.md
 > @@ -1 +1,4 @@
 > hello world
 > +
 > +and what a world it is!
+>
 
 The command produces lots of information and it can be a bit overwhelming at first, but let’s go through some key information here:
 
@@ -466,8 +659,8 @@ The command produces lots of information and it can be a bit overwhelming at fir
 
 We can now commit these changes:
 
-> $ git add index.md
-> $ git commit -m 'Add another line to index.md'
+> $ git add readme.md
+> $ git commit -m 'Add another line to readme.md'
 
 If we are very forgetful and don't remember what we just did, we can use the `git log` command to look at what we've been doing with our git repository:
 
@@ -475,29 +668,33 @@ If we are very forgetful and don't remember what we just did, we can use the `gi
 
 Output:
 
+>
 > commit b77335984aad66f77e28aa5cc2d31a7684b08f5e (HEAD -> main, origin/main)
 > Author: Your Name <your_email>
 > Date:   Fri Oct 27 09:41:35 2023 -0700
 > 
->     Add another line to index.md
+>     Add another line to readme.md
 >
 > commit b77335984aad66f77e28aa5cc2d31a7684b08f5e (origin/main)
 > Author: Nick Rochlin <nick.rochlin@ubc.ca>
 > Date:   Fri Oct 27 09:34:42 2023 -0700
 >
->    Add index.md
+>    Add readme.md
+>
 
-This shows us the two commits we have made and shows the messages we wrote. It is important to try to use meaningful commit messages when we make changes. This is especially important when we are working with other people who might not be able to guess as easily what our short cryptic messages might mean. Note that it is best practice to always write commit messages in the imperative (e.g. ‘Add index.md’, rather than ‘Adding index.md’).
+This shows us the two commits we have made and shows the messages we wrote. It is important to try to use meaningful commit messages when we make changes. This is especially important when we are working with other people who might not be able to guess as easily what our short cryptic messages might mean. Note that it is best practice to always write commit messages in the imperative (e.g. ‘Add readme.md’, rather than ‘Adding readme.md’).
 
 
 ## Pushing Changes (again)
 
-Now, let’s have a look at the repository at GitHub again (that is, `https://github.com/rochlinn/my-first-repo` with `rochlinn` replaced with your username). We see that the index.md file is there, but there is only one commit:
+Now, let’s have a look at the repository at GitHub again (that is, `https://github.com/rochlinn/my-first-repo` with `rochlinn` replaced with your username). We see that the readme.md file is there, but there is only one commit:
+
+
 
 ![](assets/images/commit.png)
 
 
-And if you click on `index.md` you will see that it contains the line `Hello world!', but not the new line we just added.
+And if you click on `readme.md` you will see that it contains the line `Hello world!', but not the new line we just added.
 
 This is because we haven’t yet pushed our local changes to the remote repository. This might seem like a mistake in design but it is often useful to make a lot of commits for small changes so you are able to make careful revisions later and you don’t necessarily want to push all these changes one by one.
 
@@ -509,20 +706,23 @@ But let's push our changes now, using the `git push` command:
 
 Output:
 
+>
 > Enumerating objects: 5, done.
 > Counting objects: 100% (5/5), done.
 > Writing objects: 100% (3/3), 288 bytes | 288.00 KiB/s, done.
 > Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
 > To github.com:<your_github_username/my-first-repo.git
 >   b773359..9d54345  main -> main
+>
 
 And now when we check GitHub, we can see there are now 2 commits.
+
 
 ## Pulling Changes
 
 When working with others, or when we’re making our own changes from different machines, we need a way of pulling those remote changes back into our local copy. For now, we can see how this works by making a change on the GitHub website and then ‘pulling’ that change back to our computer.
 
-Let’s go to our repository in GitHub and make a change. Underneath where our index.md file is listed you will see a button to ‘Add a README’. Do this now, entering whatever you like, scrolling to the bottom and clicking ‘Commit new file’ (The default commit message will be ‘Create README.md’, which is fine for our purposes).
+Let’s go to our repository in GitHub and make a change. Underneath where our readme.md file is listed you will see a button to ‘Add a README’. Do this now, entering whatever you like, scrolling to the bottom and clicking ‘Commit new file’ (The default commit message will be ‘Create README.md’, which is fine for our purposes).
 
 > For more information about README files, see the 
 > [RDM Documentation](https://csc-ubc-okanagan.github.io/workshops/RDM_pt2-documentation.html) lesson.
@@ -543,19 +743,11 @@ Our local repository is now out of sync with our remote repository, so let’s f
 > README.md | 1 +
 > 1 file changed, 1 insertion(+)
 > create mode 100644 README.md
+>
 
-You can now see with the `ls` command that the README file is in your repository.
+You can now see that with the `ls` command that the README file is in your repository.
 
-When you begin collaborating on more complex projects, you may have to consider more aspects of git functionality, but this should be a good start. Good luck on your git adventures!
-
-
-## References
-
-* [Software Carpentries - Version Control with Git](https://swcarpentry.github.io/shell-novice/)
-* [Library Carpentries - Introduction to Git](https://librarycarpentry.org/lc-git/)
-
-
-
+When we begin collaborating on more complex projects, we may have to consider more aspects of git functionality, but this should be a good start. Good luck on your git adventures!
 
 
 

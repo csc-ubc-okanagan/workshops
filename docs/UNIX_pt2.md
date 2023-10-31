@@ -196,6 +196,7 @@ Copy a directory
 
 Moving back to the directory structure you've created on your personal machine, we've made a of a mess!  But that's ok, because it's very common for our files to get messy when working on projects.  With that said, let's finish things up cleaning our files up and putting together a clean structure.
 
+
 <img src="assets/images/mess.jpg" width="300">
 
 [source](https://www.reddit.com/r/TerrainBuilding/comments/hazxea/update_to_the_parsley_oregano_and_basil_as/)
@@ -208,7 +209,8 @@ Moving back to the directory structure you've created on your personal machine, 
 > contains your favourite dinner food.
 > Recreate the following directory structure with the files you've been working with.  The `my-movies`, `my-music`, `my-books`, and `my-foods` > directories contain the .txt files of your favourites.
 
-<img src="assets/images/finalstructure.png" width="600">
+
+<img src="assets/images/final-structure.png" width="600">
 
 ### References & Resources
 

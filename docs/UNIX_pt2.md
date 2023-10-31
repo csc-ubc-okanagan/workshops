@@ -214,7 +214,7 @@ Moving back to the directory structure you've created on your personal machine, 
 > foods` directories contain the .txt files of your favourites.
 
 
-<img src="assets/images/final-structure.png" width="400">
+<img src="assets/images/final-structure.png" width="600">
 
 ### References & Resources
 

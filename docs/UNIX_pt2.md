@@ -87,7 +87,7 @@ Starting in the position illustrated in top tree diagram, this command will resu
 ![](assets/images/cp.png)
 
 
-<img src="assets/images/cp2.png" width="500">
+<img src="assets/images/cp2.png" width="300">
 
 
 > ### Exercise 2

@@ -26,7 +26,7 @@ This session will be geared around building a directory hierarchy, and so we wil
 
 ### Creating a directory
 
-To begin, move to the `Desktop` directory on your computer.
+To begin, use the `cd` command to move to the `Desktop` directory on your computer.
 
 `mkdir`
 * Make a new directory

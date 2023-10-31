@@ -87,7 +87,7 @@ Starting in the position illustrated in top tree diagram, this command will resu
 ![](assets/images/cp.png)
 
 
-<img src="assets/images/cp2.png" width="700">
+<img src="assets/images/cp2.png" width="500">
 
 
 > ### Exercise 2
@@ -210,7 +210,7 @@ Moving back to the directory structure you've created on your personal machine, 
 > Recreate the following directory structure with the files you've been working with.  The `my-movies`, `my-music`, `my-books`, and `my-foods` > directories contain the .txt files of your favourites.
 
 
-<img src="assets/images/final-structure.png" width="600">
+<img src="assets/images/final-structure.png" width="400">
 
 ### References & Resources
 

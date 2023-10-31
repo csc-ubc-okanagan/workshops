@@ -59,9 +59,9 @@ Nano syntax:
 > On your desktop, in your personal directory:
 >
 > * Create 3 .txt files containing:
->  * Your 3 favourite musical artists
->  * Your 3 favourite movies
->  * Your 3 favourite books
+>    * Your 3 favourite musical artists
+>    * Your 3 favourite movies
+>    * Your 3 favourite books
 > * Name each .txt file as you see fit
 
 

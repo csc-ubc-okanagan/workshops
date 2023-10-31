@@ -205,9 +205,13 @@ Moving back to the directory structure you've created on your personal machine, 
 
 > **Exercise 8**
 > 
-> Create three new .txt files: one that contains your favourite breakfast food, one that contains your favourite lunch food, and one that
-> contains your favourite dinner food.
-> Recreate the following directory structure with the files you've been working with.  The `my-movies`, `my-music`, `my-books`, and `my-foods` > directories contain the .txt files of your favourites.
+> Create three new .txt files:
+>   * one that contains your favourite breakfast food,
+>   * one that contains your favourite lunch food,
+>   * one that contains your favourite dinner food.
+>     
+> Recreate the following directory structure with the files you've been working with.  The `my-movies`, `my-music`, `my-books`, and `my-
+> foods` directories contain the .txt files of your favourites.
 
 
 <img src="assets/images/final-structure.png" width="400">

@@ -208,8 +208,7 @@ Moving back to the directory structure you've created on your personal machine, 
 > contains your favourite dinner food.
 > Recreate the following directory structure with the files you've been working with.  The `my-movies`, `my-music`, `my-books`, and `my-foods` > directories contain the .txt files of your favourites.
 
-
-![](assets/images/final-structure.png)
+<img src="assets/images/finalstructure.png" width="600">
 
 ### References & Resources
 

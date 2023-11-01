@@ -1,9 +1,10 @@
 ---
 title: 'Iterating Over Data in Python'
-output:ss
+output:
   html_document:
     keep_md: yes
 ---
+
 
 Let's import the libraries we need.
 

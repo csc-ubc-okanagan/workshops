@@ -18,6 +18,8 @@ pagetitle: "Menu"
 
 [R: Conditions](R_conditions.html)
 
+[R: Visualizations](R_visualization.html)
+
 
 ## Progamming in Python
 [Python: Importing Data Sets](Importing_data_sets.html)

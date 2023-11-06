@@ -18,6 +18,11 @@ h1:first-of-type {
     background-color: #f9f9f9;
 }
 
+.markdown-body img {
+    display: block;
+    margin: auto;
+}
+
 .highlight .s2, .highlight .s1 {
     color: #1174dd;
   }

@@ -2,6 +2,7 @@
 ._*
 .Rproj.user
 workshops.Rproj
+.DS_Store
 
 # ignore html files (md is only file needed)
 *.html

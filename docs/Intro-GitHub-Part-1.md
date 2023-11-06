@@ -27,7 +27,7 @@ In order to proceed with this lesson there are a couple things you'll need to se
 
 Before we jump into GitHub, it's worth first to have a bit of a discussion about version control. I'm sure all of us are familiar with a situation where a file's versioning can grow out of control:
 
-![](assets/images/version-control.png){width="50%"}
+![](assets/images/version-control.png)
 
 [Source: https://xkcd.com/1459/](https://xkcd.com/1459/)
 
@@ -42,7 +42,7 @@ Version control software and tools are a valuable way to record changes you make
 
 Once you think of changes as separate from the document itself, you can then think about “playing back” different sets of changes on the base document, ultimately resulting in different versions of that document. For example, two users can make independent sets of changes on the same document.
 
-![](assets/images/version-control3.png){width=500}
+![](assets/images/version-control3.png)
 
 [Source: https://swcarpentry.github.io/git-novice/01-basics.html](https://swcarpentry.github.io/git-novice/01-basics.html)
 
@@ -50,7 +50,7 @@ Once you think of changes as separate from the document itself, you can then thi
 Unless multiple users make changes to the same section of the document - considered a 'conflict' - you can incorporate two sets of changes into the same base document.
 
 
-![](assets/images/version-control4.png){width=500}
+![](assets/images/version-control4.png)
 
 [Source: https://swcarpentry.github.io/git-novice/01-basics.html](https://swcarpentry.github.io/git-novice/01-basics.html)
 
@@ -311,7 +311,7 @@ nano readme.md
 
 This will open a window within your terminal that looks like this:
 
-![](assets/images/nano.png){width=500}
+![](assets/images/nano.png)
 
 Once you have typed `# Hello world!`, click `ctrl + x`, press `Y` to confirm saving the work, and then `enter` to confirm the file name that you are saving to.
 

@@ -235,7 +235,7 @@ nothing to commit (create/copy files and use "git add" to track)
 
 The output tells us that we are on the main branch (more on this later) and that we have nothing to commit (no changes to record).
 
-### Three Steps: Adding and Committing
+### Three Steps: Save locally, Stage, Commit
 
 We will now create and save our first project file. This is a three-step process. First, we save changes locally, then we **add** these files to a staging area - letting Git know that we're ready to track, or keep a record of, the changes we made - then we **commit** those changes to the Git repository. This process gives us fine-grained control over what should and should not be included in a particular commit.
 

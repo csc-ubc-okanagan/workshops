@@ -52,7 +52,7 @@ pagetitle: "Menu"
 [Introduction to the Unix Shell Part 2: Working with Files and Directories](UNIX_pt2.html)
 
 ## GitHub and GitHub Pages
-[Introduction to GitHub](Intro-GitHub.html)
+[Introduction to GitHub](Intro-GitHub-Part-1.html)
 
 
 

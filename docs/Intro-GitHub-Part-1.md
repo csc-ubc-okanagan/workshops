@@ -9,30 +9,22 @@ output:
 
 # Introduction to Git and GitHub Part 1
 
-Last Updated: 2023-11-06
+Last Updated: 2023-11-07
 
-## Setup
-
-In order to proceed with this lesson there are a couple things you'll need to setup:
-
-* Setup a GitHub account
-  * Go to [https://github.com/](https://github.com/) and follow the "Sign up" link at the top-right of the window.
-  * Follow the instructions to create an account.
-  * Verify your email address with GitHub.
-* If you have not already done so, you will need to [install git on your computer](https://docs.github.com/en/get-started/quickstart/set-up-git).
-
---- 
+> In order to proceed with this lesson, if you have not already done so, you will need to [install git on your computer](https://docs.github.com/en/get-started/quickstart/set-up-git).
 
 ## What is Version Control?
 
-Before we jump into GitHub, it's worth first to have a bit of a discussion about version control. I'm sure all of us are familiar with a situation where a file's versioning can grow out of control:
+Before we jump into GitHub, it's worth first having a discussion about version control. I'm sure all of us are familiar with a situation where a file's versioning has grown out of control:
 
 ![](assets/images/version-control.png)
 
 [Source: https://xkcd.com/1459/](https://xkcd.com/1459/)
 
 
-Version control software and tools are a valuable way to record changes you make to a file to help avoid falling into the pits of having numerous nearly identical files. Things like Microsoft Word's 'Track Changes', or Google Doc's 'Version History' are examples of automated version control systems. Version control systems begin with a base version of a document, and then record changes you make each step of the way.  You can start making additions to the document, and then can rewind to the base of the document to review each change you made, eventually arriving at your most recent version.
+Version control software, or systems, are useful ways to record changes you make to a file, helping to avoid falling into the pits of having numerous nearly identical files. Things like Microsoft Word's 'Track Changes', or Google Doc's 'Version History' are examples of automated version control systems.
+
+Version control systems begin with a base version of a document, and then record changes you make each step of the way.  You can start making additions to the document, and then can rewind to the base of the document to review each change you made, eventually arriving at your most recent version.
 
 ![](assets/images/version-control2.png)
 
@@ -40,7 +32,7 @@ Version control software and tools are a valuable way to record changes you make
 
 ### Version Control with Multiple Editors
 
-Once you think of changes as separate from the document itself, you can then think about “playing back” different sets of changes on the base document, ultimately resulting in different versions of that document. For example, two users can make independent sets of changes on the same document.
+Once you think of changes as separate from the document itself, you can then think about “playing back” different sets of changes on the base document, ultimately resulting in different versions of that document. For example, two users can make independent sets of changes on the same document, progressing forward to a new version.
 
 ![](assets/images/version-control3.png)
 
@@ -63,20 +55,19 @@ Unless multiple users make changes to the same section of the document - conside
 
 **Testing**: Version control systems generally allow you to make changes to a local copy of a file, and test the change, before merging those changes with a shared copy.
 
-**Rolling Back**: Version control allows us to quickly undo a set of changes. This can be useful when new writing or new additions to code introduce problems.
+**Rolling Back**: Version control allows us to quickly undo a set of changes. This can be useful when new edits or additions to a file introduces problems.
 
 **Understanding**: Version control can help you understand how the code or writing came to be, who wrote or contributed particular parts, and who you might ask to help understand it better.
 
 **Backup**: Version control systems generally imply that your code and writing can be stored on multiple other computers.
 
----
-
 ## Git and GitHub
 
+We often hear the terms *Git* and *GitHub* used interchangeably, but they are slightly different things.
 
-We often hear the terms ***Git*** and ***GitHub*** used interchangeably, but they are slightly different things.
+### Git
 
-***Git*** is one of the most widely used version control systems in the world. It is a free, open source tool that can be downloaded to your local machine and used for logging all changes made to a group of designated computer files (referred to as a “git repository” or “repo” for short) over time. It can be used to control file versions locally by you alone on your computer, but is perhaps most powerful when employed to coordinate simultaneous work on a group of files shared among distributed groups of people.
+Git is one of the most widely used version control systems in the world. It is a free, open source tool that can be downloaded to your local machine and used for logging all changes made to a group of designated computer files (referred to as a “git repository” or “repo” for short) over time. It can be used to control file versions locally by you alone on your computer, but is perhaps most powerful when employed to coordinate simultaneous work on a group of files shared among distributed groups of people.
 
 
 ```bash
@@ -91,21 +82,23 @@ ls -a
 readme.md
 ```
 
-[The output of a git repository - note the `.git` folder, this is the database of tracked changes.
+*The output of a git repository - note the `.git` object, this is the database of tracked changes.*
 
-Git was originally developed to help software developers work collaboratively on software projects, but it can be and is used for managing revisions to any plain text file, including markdown and LaTex documents, or spreadsheets stored as comma or tab separated values. Git cannot version control document types that have special formatting or complex structures, such as Word documents and PDFs, though both file types can be stored in Git repositories.
+Git was originally developed to help software developers work collaboratively on software projects, but it can be and is used for managing revisions to any plain text file, including markdown and LaTex documents, or spreadsheets stored as comma or tab separated values.
 
-Once installed, interaction with Git is done through the Command Prompt in Windows, or the Terminal on Mac/Linux. 
+Git cannot version control document types that have special formatting or complex structures, such as Word documents and PDFs, though both file types can be stored in Git repositories.
 
-***GitHub*** on the other hand is a popular website for hosting and sharing Git repositories remotely. It offers a web interface and provides functionality and a mixture of both free and paid services for working with such repositories. The majority of the content that GitHub hosts is open source software, though increasingly it is being used for other projects such as open access journals (e.g. [Journal of Open Source Software](https://joss.theoj.org/)), blogs, and regularly updated text books.
+Once installed, interaction with Git is generally done through a terminal using a shell. A suitable shell is included by default in Mac and Linux. When installing Git on Windows, the install will include the Git Bash shell. 
 
----
+### GitHub
+
+GitHub on the other hand is a popular website for hosting and sharing Git repositories remotely. It offers a web interface and provides functionality and a mixture of both free and paid services for working with such repositories. The majority of the content that GitHub hosts is open source software, though increasingly it is being used for other projects such as open access journals (e.g. [Journal of Open Source Software](https://joss.theoj.org/)), blogs, and regularly updated text books.
 
 ## Getting Started with Git
 
 ### Setting up Git
 
-When we use Git on a new computer for the first time, we need to configure a few things. The basic elements of a configuration for Git are:
+When we use Git on a computer for the first time, we need to configure a few things. The basic elements of a configuration for Git are:
 
 * Your name and email address,
 * What your preferred text editor is,
@@ -121,14 +114,14 @@ git config --global user.name "Your Name"
 git config --global user.email "yourname@domain.name"
 ```
 
-If you enter the commands correctly, the shell will merely return a command prompt and no messages. To check your work, ask Git what your configuration is using the same command as above:
+If you enter the commands correctly, the shell will merely return a command prompt and no messages. To check your work, ask Git what your configuration is, using the same command as above with the `--list` flag:
 
 
 ```bash
 git config --list
 ```
 
-And the output will be something like:
+The output should be something like:
 
 
 ```bash
@@ -140,7 +133,7 @@ user.email=yourname@domain.name
 
 Any text editor can be set up as the default editor for Git. 
 
-> As covered in [Introduction to the Unix Shell Part 2](https://csc-ubc-okanagan.github.io/workshops/UNIX_pt2.html), there are many different text editors to choose from. Nano is a text editor that can be used to create and edit plain text files via the command line. For the purpose of this lesson, we are going to use Nano because it’s one of the least complex. As you move forward in your Unix or Linux journey, feel free to explore and play with different text editors.
+> As covered in [Introduction to the Unix Shell Part 2](https://csc-ubc-okanagan.github.io/workshops/UNIX_pt2.html), there are many different text editors to choose from. Nano is a text editor that can be used to create and edit plain text files via the command line. For the purpose of this lesson, we are going to use Nano because it’s one of the least complex, and common across systems. As you move forward in your Unix or Linux journey, feel free to explore and play with different text editors.
 
 To set Nano as the default editor, enter the following command:
 
@@ -158,13 +151,13 @@ The final thing we need to do is set the name of our default branch to *main*:
 git config --global init.defaultBranch main
 ```
 
-With a basic install of Git, the default branch name is `master`, which is problematic for many reasons. We can change it to anything we'd like, but convention currently uses `main`.
+> With a basic install of Git, the default branch name is `master`, which is problematic for many reasons. We can change it to anything we'd like, but convention currently uses `main`.
 
 ## Creating a Repository
 
-A Git **repository** is a data structure used to track changes to a set of project files over time. Repositories are stored within the same directory as these project files, in a hidden directory called `.git` (pictured earlier). We can create a new git repository either by using [GitHub’s web interface](https://github.com/new), or via the command line. Let’s use the command line to create a git repository for the experiments that we’re going to do today.
+A Git **repository** is a data structure used to track changes to a set of project files over time. Repositories are stored within the same directory as these project files, in a hidden directory called `.git` (pictured earlier).
 
-First, move to your `Desktop` directory. On most installs of Windows, MacOS, and Linux, this can be done with:
+Let’s use the command line to create a git repository for the experiments that we’re going to do today. First, move to your `Desktop` directory. On most installs of Windows, MacOS, and Linux, this can be done with:
 
 
 ```bash
@@ -181,7 +174,7 @@ cd my-first-repo
 
 ### Using Git
 
-On a command line interface, Git commands are written as `git + verb + options`, where `verb` is what we actually want to do and `options` are additional optional information which may be needed for the `verb`. So let’s get started with our setup.
+On a command line interface, Git commands are written as `git + verb + options`, where `verb` is what we actually want to do and `options` are additional parameters, which may be passed to the `verb`. So let’s get started with our setup.
 
 We will now create an empty git repository to track changes to our project. To do this we will use the `git init` command, which is simply short for initialize.
 
@@ -193,12 +186,12 @@ git init
 The output from this command should be:
 
 ```
-Initialized empty Git repository in {you-file-path/repository-name/.git/}
+Initialized empty Git repository in {your-file-path/repository-name/.git/}
 ```
 
 The `my-first-repo` (or whatever you named your directory) is now a git repository.
 
-If we run the `ls` command now (`ls` lists the content of the directory), the repository might seem empty; however, adding the `-a` flag for all files via `ls -a` will show all hidden files, which in this case includes the new hidden directory `.git`.
+If we run the `ls` command with the `-a` flag to show hidden files, you'll see your new hidden directory `.git`.
 
 
 ```bash
@@ -210,7 +203,6 @@ ls -a
 .
 ..
 .git
-readme.md
 ```
 
 > Note that whenever we use git via the command line, we need to preface each command (or verb) with `git`, so that the computer knows we are trying to get git to do something, rather than some other program.
@@ -233,7 +225,7 @@ No commits yet
 nothing to commit (create/copy files and use "git add" to track)
 ```
 
-The output tells us that we are on the main branch (more on this later) and that we have nothing to commit (no changes to record).
+The output tells us that we are on the main branch (more on this later) and that we have nothing to commit (no changes to record). Which should be reassuring, since we haven't created or edited any files yet in this directory.
 
 ### Three Steps: Save locally, Stage, Commit
 
@@ -241,14 +233,14 @@ We will now create and save our first project file. This is a three-step process
 
 #### create a file or save changes locally
 
-Let's create a new file using the `touch` command, which is a quick way to create an empty file.
+Let's create a new file using `touch`, a quick way to create an empty file.
 
 
 ```bash
 touch readme.md
 ```
 
-The `.md` extension above signifies that we have chosen to use the Markdown format, a lightweight markup language with plain text formatting syntax. We will explore Markdown in more depth a bit later.
+> The `.md` extension above signifies that we have chosen to use the Markdown format, a lightweight markup language with plain text formatting syntax. We will explore Markdown in more depth a bit later when we built a webpage on GitHub.
 
 Let's check the status of our project again.
 
@@ -280,7 +272,7 @@ To track any changes we make to readme.md, we 'stage' the file with `git add`.
 git add readme.md
 ```
 
-This adds our Markdown file to the **staging area** (the area where git checks for file changes). To confirm this we want to use `git status` again.
+This adds our Markdown file to the **staging area** (the area where git checks for file changes). You can confirm this with `git status` again.
 
 
 ```bash
@@ -463,7 +455,24 @@ touch LICENCE.txt
 echo "Copyright, 2023" > LICENCE.txt
 ```
 
-If we run `git status` now, it should indicate that we're on `testing`, that we've modified a file we're tracking already and that we've created a new file that we're not yet tracking. Let's stage and commit these.
+If we run `git status` now, it should indicate that we're on `testing`, that we've modified a file we're tracking already and that we've created a new file that we're not yet tracking.
+
+
+```bash
+On branch testing
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   readme.md
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	LICENCE.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+```
+
+Let's stage and commit these.
 
 
 ```bash
@@ -516,7 +525,7 @@ cat readme
 # Hello world!
 ```
 
-When you're happy with the changes you've made to your project in `testing` we can merge the two branches back together. First, make sure you're back in `main`, the...
+When you're happy with the changes you've made to your project in `testing` we can merge the two branches back together. First, make sure you're back in `main`, then...
 
 
 ```bash

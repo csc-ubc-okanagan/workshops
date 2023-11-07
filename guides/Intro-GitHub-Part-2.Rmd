@@ -14,6 +14,16 @@ knitr::opts_chunk$set(echo = TRUE,
 
 Last Updated: `r Sys.Date()`
 
+In order to proceed with this lesson there are a couple things you'll need to setup:
+
+* Setup a GitHub account
+  * Go to [https://github.com/](https://github.com/) and follow the "Sign up" link at the top-right of the window.
+  * Follow the instructions to create an account.
+  * Verify your email address with GitHub.
+* If you have not already done so, you will need to [install git on your computer](https://docs.github.com/en/get-started/quickstart/set-up-git).
+
+---
+
 ## Sharing Your Work
 
 At the moment, our changes are only recorded locally, on our computer. If we wanted to work collaboratively with someone else they would have no way of seeing what we’ve done. We will fix that by using GitHub to share our work.

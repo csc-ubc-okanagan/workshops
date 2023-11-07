@@ -3,6 +3,13 @@
 
 @import "{{ site.theme }}";
 
+#nav-background {
+    background-image: url("https://raw.githubusercontent.com/csc-ubc-okanagan/communications/main/csc-media-assets/UBCO-CSC-Icon-Colour.png?token=GHSAT0AAAAAACI65QHKBSZ6YCQH632UCNPGZKKN4CQ");
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size:15%;
+}
+
 h1:first-of-type {
     display: none;
 }

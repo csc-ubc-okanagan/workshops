@@ -3,9 +3,12 @@ title: "Menu"
 pagetitle: "Menu"
 ---
 
-# Index
+# Workshop Outlines
+
+> Dates and registration details available at [https://csc-ubc-okanagan.github.io/workshops/](https://csc-ubc-okanagan.github.io/workshops/)
 
 ## Progamming in R
+
 [R: Fundamental Concepts with RStudio](R_fundamental-concepts-with-RStudio.html)
 
 [R: Importing Data](R_importing-data.html)
@@ -20,8 +23,8 @@ pagetitle: "Menu"
 
 [R: Visualizations](R_visualization.html)
 
-
 ## Progamming in Python
+
 [Python: Importing Data Sets](Importing_data_sets.html)
 
 [Python: Fundamental Concepts with Jupyter Notebook](JupyterNotebook_workshop1.html)
@@ -33,8 +36,6 @@ pagetitle: "Menu"
 [Python: Subsetting and Filtering Data](Subsetting_and_Filtering_Data_Workshop4.html)
 
 [Python: Iterating Over Data](Iterating_Over_Data_Workshop5.html)
-
-
 
 ## Researcher Toolkit
 

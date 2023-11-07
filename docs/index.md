@@ -5,7 +5,7 @@ pagetitle: "Menu"
 
 # Workshop Outlines
 
-> Dates and registration details available at [https://csc-ubc-okanagan.github.io/workshops/](https://csc-ubc-okanagan.github.io/workshops/)
+> Dates and registration details available at [https://csc.ok.ubc.ca/workshops/](https://csc.ok.ubc.ca/workshops/)
 
 ## Progamming in R
 

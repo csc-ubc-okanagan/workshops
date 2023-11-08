@@ -7,7 +7,7 @@ output:
 
 
 
-Last Updates: 2023-10-17
+Last Updates: 2023-11-08
 
 Conditionally iterating over data can be a powerful tool, for such things as catching errors, testing a user input, or, perhaps more commonly in data analysis tasks, creating categorical values from numeric interval or ratio data.
 
@@ -48,12 +48,12 @@ if (x == 5) {
 
 ```r
 if (x != 2) {
-  print("x is some other number than 2")
+  print("x not 2")
 }
 ```
 
 ```
-## [1] "x is some other number than 2"
+## [1] "x not 2"
 ```
 
 The if else construct allows us to string multiple test conditions together, and follows the syntax of
@@ -127,12 +127,12 @@ gapminder_cond$income_level <- ordered(NA, levels = c("low-income",
 
 # start the for loop to add values to income-level based on GDP values
 for (i in seq_along(gapminder_cond$income_level)) { # for each item along the dataframe
-  if (gapminder_cond$gdpPercap[i] <= 10000) { # if gdpPercap is LT = 10000
-    gapminder_cond$income_level[i] = 'low-income' # add 'low-income' to that observation's income level variable
+  if (gapminder_cond$gdpPercap[i] <= 10000) { # if gdpPercap is LT = to 10000
+    gapminder_cond$income_level[i] <- 'low-income' # add 'low-income' to that observation's income level variable
   } else if (gapminder_cond$gdpPercap[i] <= 75000) { # else, if gdpPercap is LT = 75000
-    gapminder_cond$income_level[i] = "middle-income" #  add 'middle-income' to that observation's income level variable
+    gapminder_cond$income_level[i] <- "middle-income" #  add 'middle-income' to that observation's income level variable
   } else { # otherwise
-    gapminder_cond$income_level[i] = "high-income"  #  add 'high-income' to that observation's income level variable
+    gapminder_cond$income_level[i] <- "high-income"  #  add 'high-income' to that observation's income level variable
   }
 }
 
@@ -219,7 +219,7 @@ for (i in seq_along(gapminder_cond$income_level)) { # for each item along the da
 }
 ```
 
-With `case_when`, we can simply write
+With `case_when()`, we can simply write
 
 
 ```r

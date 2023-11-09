@@ -37,6 +37,8 @@ pagetitle: "Menu"
 
 [Python: Iterating Over Data](Iterating_Over_Data_Workshop5.html)
 
+[Python: Conditions](Python_conditions.html)
+
 ## Researcher Toolkit
 
 ### Research Data Management (RDM)

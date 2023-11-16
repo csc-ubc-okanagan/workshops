@@ -42,6 +42,7 @@ pagetitle: "Menu"
 ## Researcher Toolkit
 
 ### Research Data Management (RDM)
+
 [RDM Part 1: The Basics](RDM_pt1-the-basics.html)
 
 [RDM Part 2: Documentation](RDM_pt2-documentation.html)
@@ -49,13 +50,17 @@ pagetitle: "Menu"
 [RDM Part 3: Data Management Plans](https://ubc-library-rc.github.io/rdm/content/06_Data_Management_Plan.html)
 
 
-### Introduction to the Unix Shell
+### Introduction to the Shell
+
 [Introduction to the Unix Shell Part 1: Navigating Files and Directories](UNIX_pt1.html)
 
 [Introduction to the Unix Shell Part 2: Working with Files and Directories](UNIX_pt2.html)
 
 ## GitHub and GitHub Pages
-[Introduction to GitHub](Intro-GitHub-Part-1.html)
+
+[Introduction to GitHub Part 1](Intro-GitHub-Part-1.html)
+
+[Introduction to GitHub Part 2](Intro-GitHub-Part-2.html)
 
 
 

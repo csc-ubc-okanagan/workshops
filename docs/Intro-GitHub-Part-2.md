@@ -5,14 +5,11 @@ output:
     keep_md: yes
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE,
-                      eval = FALSE)
-```
+
 
 # Introduction to Git and GitHub Part 2
 
-Last Updated: `r Sys.Date()`
+Last Updated: 2023-11-16
 
 In order to proceed with this lesson there are a couple things you'll need to setup:
 
@@ -46,13 +43,15 @@ We will use SSH, or the Secure Shell Protocol to securely communicate between yo
 
 It's possible you've generated an SSH key previously. If this sounds like something you think you've done before, you can check the contents of your ssh folder
 
-```{bash}
+
+```bash
 ls -al ~/.ssh
 ```
 
 If you get an output that contains these two files
 
-```{bash}
+
+```bash
 id_ed25519
 id_ed25519.pub
 ```
@@ -63,19 +62,22 @@ you can skip ahead to 'Adding your public key to GitHub'. Otherwise, keep readin
 
 Open your terminal (Git Bash on Windows) and enter the following, using the email address you've registered with your GitHub account:
 
-```{bash}
+
+```bash
 ssh-keygen -t ed25519 -C "your_email@example.com"
 ```
 
 You will be prompted to save the key to a file; press **Enter** to select the default location.
 
-```{bash}
+
+```bash
 Enter a file in which to save the key (/Users/YOU/.ssh/id_ALGORITHM): [Press enter]
 ```
 
 And lastly, you will be asked to type a secure passphrase to be used each time you authenticate. This is an extra layer of security that you may choose to skip. For security, it is recommended you enter a passphrase.
 
-```{bash}
+
+```bash
 Enter passphrase (empty for no passphrase): [Type a passphrase]
 
 Enter same passphrase again: [Type passphrase again]
@@ -87,7 +89,8 @@ Enter same passphrase again: [Type passphrase again]
 
 To find your public key, use your text editor to open the file id_ed25519.pub, and copy its contents.
 
-```{bash}
+
+```bash
 nano ~/.ssh/id_ed25519.pub
 ```
 
@@ -104,13 +107,15 @@ Congratulations, you're all done!
 
 To check your authentication from the command line, type:
 
-```{bash}
+
+```bash
 ssh -T git@github.com
 ```
 
 You'll be prompted to enter your passphrase, and then should get the following output:
 
-```{bash}
+
+```bash
 Hi [your username]! You've successfully authenticated, but GitHub does not provide shell access.
 ```
 
@@ -146,7 +151,8 @@ We can use the commands under the heading **"..or push to an existing repository
 
 Let's move back to the shell, `cd` to or git repository, and enter the first command:
 
-```{bash}
+
+```bash
 git remote add origin git@github.com:yourname/my-first-repo.git
 ```
 
@@ -158,13 +164,15 @@ At this stage your git repository now 'knows' that there is a `remote` and where
 
 We can check that it is setup correctly with the command:
 
-```{bash}
+
+```bash
 git remote -v
 ```
 
 This should result in the following output:
 
-```{bash}
+
+```bash
 origin  git@github.com:<your_github_username>/my-first-repo.git (fetch)
 origin  git@github.com:<your_github_username>/my-first-repo.git (push)
 ```
@@ -177,13 +185,15 @@ The second line `branch -M main` isn't really necessary. Legacy installs of git 
 
 Next we push our local files, edits, and tracking history. `git push` takes two arguments, where we're pushing to and where we're pushing from - in this case, we indicate that we're pushing to `origin` from `main`. The `-u` flag cements this in memory, so that we don't need add the to and from arguments in every subsequent push and pull. We only use the `-u` flag at set up, after which we simply say `git push`.
 
-```{bash}
+
+```bash
 git push -u origin main
 ```
 
 You should get a report that looks something like:
 
-```{bash}
+
+```bash
 Counting objects: 3, done.
 Writing objects: 100% (3/3), 226 bytes | 0 bytes/s, done.
 Total 3 (delta 0), reused 0 (delta 0)
@@ -196,7 +206,8 @@ If you now reload your browser, you should see you files sitting there.
 
 And back in the terminal, we can check where we're at with `git status`, which now indicates that there is a branch called `main` located at `origin` and that we're up to date with it:
 
-```{bash}
+
+```bash
 git status
 
 On branch main
@@ -212,13 +223,15 @@ Start by adding another line to our `readme.md` file.  I'm going to add, "And wh
 
 We can now use the `git diff` command to see changes we have made before making a commit.
 
-```{bash}
+
+```bash
 git diff
 ```
 
 Output:
 
-```{bash}
+
+```bash
 diff --git a/readme.md b/readme.md
 index 3b18e51..4325e02 100644
 --- a/readme.md
@@ -239,20 +252,23 @@ The command produces lots of information and it can be a bit overwhelming at fir
 
 We can now commit these changes:
 
-```{bash}
+
+```bash
 $ git add readme.md
 $ git commit -m 'Add another line to readme.md'
 ```
 
 If we are very forgetful and don't remember what we just did, we can use the `git log` command to look at what we've been doing with our git repository:
 
-```{bash}
+
+```bash
 git log
 ```
 
 Output:
 
-```{bash}
+
+```bash
 commit b77335984aad66f77e28aa5cc2d31a7684b08f5e (HEAD -> main, origin/main)
 Author: Your Name <your_email>
 Date:   Fri Oct 27 09:41:35 2023 -0700
@@ -280,13 +296,15 @@ Another benefit of this design is that you can make commits without being connec
 
 But let's push our changes now, using the `git push` command:
 
-```{bash}
+
+```bash
 git push
 ```
 
 Output:
 
-```{bash}
+
+```bash
 Enumerating objects: 5, done.
 Counting objects: 100% (5/5), done.
 Writing objects: 100% (3/3), 288 bytes | 288.00 KiB/s, done.
@@ -307,7 +325,8 @@ Let's go to our repository in GitHub and make a change. Underneath where our rea
 
 Our local repository is now out of sync with our remote repository. We can see this with `git status`. So let's fix that by pulling the remote changes into our local repository using the `git pull` command:
 
-```{bash}
+
+```bash
 git pull
 
 remote: Enumerating objects: 4, done.

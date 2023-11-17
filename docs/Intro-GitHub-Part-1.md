@@ -406,7 +406,7 @@ Date:   Mon Oct 30 12:48:12 2023 -0700
 
 ## Branching
 
-Branching is a powerful tool in Git. It allows you to modify your files without impacting your project until your sure that you're content with your modifications. Use cases include 'sandboxing', such as testing some code before implementing it, and reconciling merge conflicts locally before pushing to a remote repository.
+Branching is a powerful tool in Git. It allows you to modify your files without impacting your project until you're sure that you're content with your modifications. Use cases include 'sandboxing', such as testing some code before implementing it, and reconciling merge conflicts locally before pushing to a remote repository.
 
 To create a branch we use `git branch` followed by a name
 

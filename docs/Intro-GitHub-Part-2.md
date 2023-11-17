@@ -215,7 +215,7 @@ Your branch is up-to-date with 'origin/main'.
 nothing to commit, working tree clean
 ```
 
-## Investigating differences between fils
+## Investigating differences between files
 
 Git version control works by tracking changes - additions and deletions - to text files. Git has a tool `diff` that we can use to explore the differences between files.
 

@@ -9,7 +9,7 @@ output:
 
 # Introduction to Git and GitHub Part 2
 
-Last Updated: 2023-11-16
+Last Updated: 2023-11-19
 
 In order to proceed with this lesson there are a couple things you'll need to setup:
 
@@ -215,7 +215,7 @@ Your branch is up-to-date with 'origin/main'.
 nothing to commit, working tree clean
 ```
 
-## Investigating differences between files
+## Investigating differences between fils
 
 Git version control works by tracking changes - additions and deletions - to text files. Git has a tool `diff` that we can use to explore the differences between files.
 
@@ -345,9 +345,141 @@ create mode 100644 README.md
 
 You can now see that with the `ls` command that the README file is in your repository.
 
-## Resolving Conflicts
+## Resolving Rejections and Conflicts
 
-[need content here!]
+### Rejections
+
+When a file on `origin` has been modified -- that is someone else had made a push to `origin` since you've made a pull -- and you try to push a change, Git will let you know that your local work and the remote work are not aligned; in fact, you have to branches called `main` with different edits. Git provides some help when this happens, and this is a typical message:
+
+
+```bash
+git push
+To github.com:vdunbar/workshop-test.git
+ ! [rejected]        main -> main (fetch first)
+error: failed to push some refs to 'github.com:vdunbar/workshop-test.git'
+hint: Updates were rejected because the remote contains work that you do
+hint: not have locally. This is usually caused by another repository pushing
+hint: to the same ref. You may want to first integrate the remote changes
+hint: (e.g., 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+```
+
+This is a good reason to create a local branch to work on edits, and to perform a pull into your main branch before you merge your local 'editing' branch into main and pushing.
+
+If you were to run `git pull` now, in an attempt to reconcile these divergent branches, Git provides you with still a bit more, perhaps not terribly helpful, help:
+
+
+```bash
+git pull
+hint: You have divergent branches and need to specify how to reconcile them.
+hint: You can do so by running one of the following commands sometime before
+hint: your next pull:
+hint: 
+hint:   git config pull.rebase false  # merge
+hint:   git config pull.rebase true   # rebase
+hint:   git config pull.ff only       # fast-forward only
+hint: 
+hint: You can replace "git config" with "git config --global" to set a default
+hint: preference for all repositories. You can also pass --rebase, --no-rebase,
+hint: or --ff-only on the command line to override the configured default per
+hint: invocation.
+fatal: Need to specify how to reconcile divergent branches.
+```
+
+Git basically telling you there are three ways to handle this issue. The differences between these options is beyond the scope of what we can cover here. We will use the `merge` option...this will integrate your local changes with the remote changes
+
+
+```bash
+git config pull.rebase false
+
+git pull
+```
+
+At this stage, Git will open your default text editor and ask for a commit message! We'll keep things simple now, and simply indicate that we're pushing additional changes. This is tricky business though, because we're not seeing what other changes were pushed to `origin/main` that we're merging with.
+
+### Conflicts
+
+The above is what happens when the edits that we've made are not in direct conflict with edits made in the remote repository; that is, we haven't edited that impact the same file in a conflicting way.
+
+In such situations, when you go to push, you get a similar message to what we got previsously.
+
+
+```bash
+git push
+To github.com:vdunbar/workshop-test.git
+ ! [rejected]        main -> main (fetch first)
+error: failed to push some refs to 'github.com:vdunbar/workshop-test.git'
+hint: Updates were rejected because the remote contains work that you do
+hint: not have locally. This is usually caused by another repository pushing
+hint: to the same ref. You may want to first integrate the remote changes
+hint: (e.g., 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+```
+
+Having already set up `merge` as the option for reconciling differences, we attempt to pull, but get this message.
+
+
+```bash
+git pull
+remote: Enumerating objects: 8, done.
+remote: Counting objects: 100% (8/8), done.
+remote: Compressing objects: 100% (6/6), done.
+remote: Total 6 (delta 2), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (6/6), 1.30 KiB | 190.00 KiB/s, done.
+From github.com:vdunbar/workshop-test
+   33057f2..ff45676  main       -> github/main
+Auto-merging readme.md
+CONFLICT (content): Merge conflict in readme.md
+Automatic merge failed; fix conflicts and then commit the result.
+```
+
+Git has pulled the remotes changes, but has noticed a conflict and is asking you to look at the conflicts, and manually resolve them before committing the results and pushing again.
+
+To figure out which file(s) has the conflict, you can read `git status`, which should show an output like this.
+
+
+```bash
+git status
+On branch main
+Your branch and 'github/main' have diverged,
+and have 4 and 2 different commits each, respectively.
+  (use "git pull" to merge the remote branch into yours)
+
+You have unmerged paths.
+  (fix conflicts and run "git commit")
+  (use "git merge --abort" to abort the merge)
+
+Unmerged paths:
+  (use "git add <file>..." to mark resolution)
+	both modified:   readme.md
+```
+
+The last line tells us where to look. If you open that file, you'll see that it's been modified by Git and contains sections that look like this:
+
+
+```bash
+<<<<<<< HEAD
+Line 7 remote. This was my last day of school.
+=======
+Line 7 remote. This was my first day of school.
+>>>>>>> ff456766d9b945af5596ce42aa4c46065bb40a1f
+```
+
+The content between `<<<<<<< HEAD` and `=======` is local to your computer. The content between `=======` and `>>>>>>> ff456766d9b945af5596ce42aa4c46065bb40a1f` is what was changed on the remote repository. To fix the issue, you (simply) delete the commentary and indicate what should be there...
+
+
+```bash
+<<<<<<< HEAD
+Line 7 remote. This was my last day of school.
+=======
+Line 7 remote. This was my first day of school.
+>>>>>>> ff456766d9b945af5596ce42aa4c46065bb40a1f
+
+This was my second day of school.
+```
+
+You then `add` the file, `commit` your changes, and push them.
+
 
 When we begin collaborating on more complex projects, we may have to consider more aspects of git functionality, but this should be a good start. Good luck on your git adventures!
 

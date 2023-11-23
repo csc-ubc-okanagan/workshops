@@ -39,6 +39,8 @@ pagetitle: "Menu"
 
 [Python: Conditions](Python_conditions.html)
 
+[Python: Visualizations](Python_Visualization.html)
+
 ## Researcher Toolkit
 
 ### Research Data Management (RDM)

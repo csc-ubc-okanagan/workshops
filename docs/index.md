@@ -49,6 +49,8 @@ By the end of the session, participants should be able to import data stored in 
 
 [Python: Visualizations](Python_Visualization.html)
 
+[Python: Data Analysis and Visualization](Workshop8_Visualization_continued.html)
+
 ## Researcher Toolkit
 
 ### Research Data Management (RDM)

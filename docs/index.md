@@ -7,15 +7,19 @@ pagetitle: "Menu"
 
 > Dates and registration details available at [https://csc.ok.ubc.ca/workshops/](https://csc.ok.ubc.ca/workshops/)
 
+<button class = "section-header">
+
 ## R Fundamentals for Data Analysis
 
-<details>
-    <summary>[**R: Fundamental Concepts with RStudio**](R_fundamental-concepts-with-RStudio.html)</summary>
+</button>
 
-    This session will introduce participants to fundamental concepts in R that will help them excel at more advanced applications. Topics covered include the application of simple math, core data types and structures, an overview of vector operations, and how to navigate getting help. The workshop will be run using RStudio.
+<div class = "section-details">
 
-    By the end of the session, participants should feel familar with RStudio as an environemnt for interactive analsysis in R, be able to identify and articulate use cases for common data structures, and know a few key ways to get additional help when they run into trouble.
-</details>
+[**R: Fundamental Concepts with RStudio**](R_fundamental-concepts-with-RStudio.html)
+
+This session will introduce participants to fundamental concepts in R that will help them excel at more advanced applications. Topics covered include the application of simple math, core data types and structures, an overview of vector operations, and how to navigate getting help. The workshop will be run using RStudio.
+
+By the end of the session, participants should feel familar with RStudio as an environemnt for interactive analsysis in R, be able to identify and articulate use cases for common data structures, and know a few key ways to get additional help when they run into trouble.
 
 [**R: Importing Data**](R_importing-data.html)
 
@@ -32,6 +36,8 @@ By the end of the session, participants should be able to import data stored in 
 [R: Conditions](R_conditions.html)
 
 [R: Visualizations](R_visualization.html)
+
+</div>
 
 ## Python Basics for Data Analysis
 

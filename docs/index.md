@@ -11,7 +11,7 @@ pagetitle: "Menu"
 
 ### R: Fundamental Concepts with RStudio
 
-<div class = "content">
+<div class = "content" class = "other">
     {% include descriptions/r_fundamental.md %}
 
     {{ content }}

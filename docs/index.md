@@ -10,7 +10,6 @@ pagetitle: "Menu"
 <button class = "section-header">
 R Fundamentals for Data Analysis
 </button>
-
 <div class = "section-details">
 
 [**R: Fundamental Concepts with RStudio**](R_fundamental-concepts-with-RStudio.html)

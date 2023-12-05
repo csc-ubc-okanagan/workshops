@@ -11,6 +11,7 @@ pagetitle: "Menu"
 R Fundamentals for Data Analysis
 </button>
 <div class = "section-details">
+<p>
 
 [**R: Fundamental Concepts with RStudio**](R_fundamental-concepts-with-RStudio.html)
 
@@ -24,6 +25,8 @@ This session will address importing Excel and comma seperated value files into R
 
 By the end of the session, participants should be able to import data stored in tabular format (Excel, csv), standardize missing values for subsequent tidying and analysis.
 
+</p>
+<p>
 [R: Exploring Data](R_exploring-data.html)
 
 [R: Subsetting & Filtering Data](R_subsetting-and-filtering-data.html)
@@ -33,7 +36,7 @@ By the end of the session, participants should be able to import data stored in 
 [R: Conditions](R_conditions.html)
 
 [R: Visualizations](R_visualization.html)
-
+</p>
 </div>
 
 ## Python Basics for Data Analysis

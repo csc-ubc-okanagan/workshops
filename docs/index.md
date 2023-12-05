@@ -80,7 +80,7 @@ By the end of the session, participants should be able to import data stored in 
 
 [Introduction to GitHub Part 2](Intro-GitHub-Part-2.html)
 
-<scritp>
+<script>
 var acc = document.getElementsByClassName("section-header");
 var i;
 

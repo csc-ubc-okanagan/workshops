@@ -7,11 +7,12 @@ pagetitle: "Menu"
 
 > Dates and registration details available at [https://csc.ok.ubc.ca/workshops/](https://csc.ok.ubc.ca/workshops/)
 
-<button class = "section-header">
+<h2 class = "section-header">
 R Fundamentals for Data Analysis
-</button>
-<div class = "section-details">
-<p>
+</h2>
+<p class = "section-details">
+Hi there!
+</p>
 
 [**R: Fundamental Concepts with RStudio**](R_fundamental-concepts-with-RStudio.html)
 

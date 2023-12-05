@@ -7,13 +7,7 @@ pagetitle: "Menu"
 
 > Dates and registration details available at [https://csc.ok.ubc.ca/workshops/](https://csc.ok.ubc.ca/workshops/)
 
-<details>
-
-<summary>
-
 ## R Fundamentals for Data Analysis
-
-</summary>
 
 [**R: Fundamental Concepts with RStudio**](R_fundamental-concepts-with-RStudio.html)
 
@@ -36,8 +30,6 @@ By the end of the session, participants should be able to import data stored in 
 [R: Conditions](R_conditions.html)
 
 [R: Visualizations](R_visualization.html)
-
-</details>
 
 ## Python Basics for Data Analysis
 
@@ -83,7 +75,7 @@ By the end of the session, participants should be able to import data stored in 
 [Introduction to GitHub Part 2](Intro-GitHub-Part-2.html)
 
 <script>
-var acc = document.getElementsByClassName("section-header");
+var acc = document.getElementsByTagName("H2");
 var i;
 
 for (i = 0; i < acc.length; i++) {

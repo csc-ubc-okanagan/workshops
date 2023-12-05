@@ -7,12 +7,13 @@ pagetitle: "Menu"
 
 > Dates and registration details available at [https://csc.ok.ubc.ca/workshops/](https://csc.ok.ubc.ca/workshops/)
 
-<h2 class = "section-header">
-R Fundamentals for Data Analysis
-</h2>
-<p class = "section-details">
-Hi there!
-</p>
+<details>
+
+<summary>
+
+## R Fundamentals for Data Analysis
+
+</summary>
 
 [**R: Fundamental Concepts with RStudio**](R_fundamental-concepts-with-RStudio.html)
 
@@ -26,8 +27,6 @@ This session will address importing Excel and comma seperated value files into R
 
 By the end of the session, participants should be able to import data stored in tabular format (Excel, csv), standardize missing values for subsequent tidying and analysis.
 
-</p>
-<p>
 [R: Exploring Data](R_exploring-data.html)
 
 [R: Subsetting & Filtering Data](R_subsetting-and-filtering-data.html)
@@ -37,8 +36,8 @@ By the end of the session, participants should be able to import data stored in 
 [R: Conditions](R_conditions.html)
 
 [R: Visualizations](R_visualization.html)
-</p>
-</div>
+
+</details>
 
 ## Python Basics for Data Analysis
 

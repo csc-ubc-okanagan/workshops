@@ -8,9 +8,7 @@ pagetitle: "Menu"
 > Dates and registration details available at [https://csc.ok.ubc.ca/workshops/](https://csc.ok.ubc.ca/workshops/)
 
 <button class = "section-header">
-
-## R Fundamentals for Data Analysis
-
+R Fundamentals for Data Analysis
 </button>
 
 <div class = "section-details">
@@ -81,6 +79,27 @@ By the end of the session, participants should be able to import data stored in 
 [Introduction to GitHub Part 1](Intro-GitHub-Part-1.html)
 
 [Introduction to GitHub Part 2](Intro-GitHub-Part-2.html)
+
+<scritp>
+var acc = document.getElementsByClassName("section-header");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+  acc[i].addEventListener("click", function() {
+    /* Toggle between adding and removing the "active" class,
+    to highlight the button that controls the panel */
+    this.classList.toggle("active");
+
+    /* Toggle between hiding and showing the active panel */
+    var panel = this.nextElementSibling;
+    if (panel.style.display === "block") {
+      panel.style.display = "none";
+    } else {
+      panel.style.display = "block";
+    }
+  });
+} 
+</script>
 
 
 

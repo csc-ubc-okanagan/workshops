@@ -9,35 +9,19 @@ pagetitle: "Menu"
 
 ## R Fundamentals for Data Analysis
 
-### R: Fundamental Concepts with RStudio
+[R: Fundamental Concepts with RStudio](R_fundamental-concepts-with-RStudio.html)
 
-<div class = "content" class = "other">
-    {% include descriptions/r_fundamental.md %}
+[R: Importing Data](R_importing-data.html)
 
-    {{ content }}
-</div>
+[R: Exploring Data](R_exploring-data.html)
 
-### R: Importing Data
+[R: Subsetting & Filtering Data](R_subsetting-and-filtering-data.html)
 
-<div markdown = "1" class = "content">
+[R: Iterating Over Data](R_iterating-over-data.html)
 
-[Link](R_importing-data.html)
+[R: Conditions](R_conditions.html)
 
-This session will address importing Excel and comma seperated value files into R for analysis. Topics covered include variable naming, variable assignment, missing values on import, assigning appropriate data types to variables, and saving data as R data objects.
-
-By the end of the session, participants should be able to import data stored in tabular format (Excel, csv), standardize missing values for subsequent tidying and analysis.
-
-</div>
-
-### [R: Exploring Data](R_exploring-data.html)
-
-### [R: Subsetting & Filtering Data](R_subsetting-and-filtering-data.html)
-
-### [R: Iterating Over Data](R_iterating-over-data.html)
-
-### [R: Conditions](R_conditions.html)
-
-### [R: Visualizations](R_visualization.html)
+[R: Visualizations](R_visualization.html)
 
 ## Python Basics for Data Analysis
 

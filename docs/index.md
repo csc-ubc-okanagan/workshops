@@ -11,7 +11,7 @@ pagetitle: "Menu"
 
 ### R: Fundamental Concepts with RStudio
 
-<div class = "content>
+<div class = "content">
 
 [Link](R_fundamental-concepts-with-RStudio.html)
 
@@ -23,7 +23,7 @@ By the end of the session, participants should feel familar with RStudio as an e
 
 ### R: Importing Data
 
-<div class = "content>
+<div class = "content">
 
 [Link](R_importing-data.html)
 

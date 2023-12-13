@@ -15,11 +15,11 @@ Workshop content is available online for simultaneous or asynchronous engagement
 
 ## Workshop Outlines
 
-* [R Fundamentals for Data Anlysis](https://csc-ubc-okanagan.github.io/outlines/r-fundamentals-for-data-analysis.md)
-* [Python Basics for Data Analysis](https://csc-ubc-okanagan.github.io/outlines/python-basics-for-data-analysis.md)
-* [Researcher Toolkit](https://csc-ubc-okanagan.github.io/outlines/researcher-toolkit.md)
-* [Statistical Fundamentals: A Visual Approach](https://csc-ubc-okanagan.github.io/outlines/statistical-fundamentals_a-visual-approach.md)
-* [Fitting Models to Data Not Data to Models](https://csc-ubc-okanagan.github.io/outlines/fitting-models-to-data-not-data-to-models.md)
+* [R Fundamentals for Data Anlysis](https://github.com/csc-ubc-okanagan/workshops/blob/main/outlines/r-fundamentals-for-data-analysis.md)
+* [Python Basics for Data Analysis](https://github.com/csc-ubc-okanagan/workshops/blob/main/outlines/python-basics-for-data-analysis.md)
+* [Researcher Toolkit](https://github.com/csc-ubc-okanagan/workshops/blob/main/outlines/researcher-toolkit.md)
+* [Statistical Fundamentals: A Visual Approach](https://github.com/csc-ubc-okanagan/workshops/blob/main/outlines/statistical-fundamentals_a-visual-approach.md)
+* [Fitting Models to Data Not Data to Models](https://github.com/csc-ubc-okanagan/workshops/blob/main/outlines/fitting-models-to-data-not-data-to-models.md)
 
 
 

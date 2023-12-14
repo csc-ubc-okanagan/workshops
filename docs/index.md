@@ -88,15 +88,15 @@ Visualizing Errors and Common Pitfalls
 
 P value, Significance, and T-test
 
-**Visualizing samples with Boxplots: Kick the Bar chart habit**
+Visualizing samples with Boxplots: Kick the Bar chart habit
 
-**All about t-tests and visualizations**
+All about t-tests and visualizations
 
-**Non-parametric tests and visualizations**
+Non-parametric tests and visualizations
 
-**ANOVA and Blocking**
+ANOVA and Blocking
 
-**Correlation, causation, and association**
+Correlation, causation, and association
 
 ## Fitting Models to Data Not Data to Models
 

@@ -1,9 +1,9 @@
 ---
-title: "Menu"
-pagetitle: "Menu"
+title: "Workshops"
+pagetitle: "Workshops"
 ---
 
-# Workshop Outlines
+# Workshops
 
 > Dates and registration details available at [https://csc.ok.ubc.ca/workshops/](https://csc.ok.ubc.ca/workshops/)
 
@@ -26,21 +26,14 @@ This series of introductory workshops are intended for individuals with little t
 
 [Read invidiual workshop descriptions here](https://github.com/csc-ubc-okanagan/workshops/blob/main/outlines/python-basics-for-data-analysis.md). See full materials with links below &darr;
 
-[Python: Fundamental Concepts with Jupyter Notebook](Python_fundamental-concepts-with-Jupyter-Notebook.html)
-
-[Python: Importing and Exporting Data with Python](Python_importing-data.html)
-
-[Python: Exploratory Data Analysis](Exploratory_Data_Analysis_Workshop3.html)
-
-[Python: Subsetting and Filtering Data](Subsetting_and_Filtering_Data_Workshop4.html)
-
-[Python: Iterating Over Data](Iterating_Over_Data_Workshop5.html)
-
-[Python: Conditions](Python_conditions.html)
-
-[Python: Visualizations](Python_Visualization.html)
-
-[Python: Data Analysis and Visualization](Workshop8_Visualization_continued.html)
+* [Python: Fundamental Concepts with Jupyter Notebook](Python_fundamental-concepts-with-Jupyter-Notebook.html)
+* [Python: Importing and Exporting Data with Python](Python_importing-data.html)
+* [Python: Exploratory Data Analysis](Exploratory_Data_Analysis_Workshop3.html)
+* [Python: Subsetting and Filtering Data](Subsetting_and_Filtering_Data_Workshop4.html)
+* [Python: Iterating Over Data](Iterating_Over_Data_Workshop5.html)
+* [Python: Conditions](Python_conditions.html)
+* [Python: Visualizations](Python_Visualization.html)
+* [Python: Data Analysis and Visualization](Workshop8_Visualization_continued.html)
 
 ## Researcher Toolkit
 
@@ -50,11 +43,9 @@ This series of introductory workshops are intended for individuals with little t
 
 These sessions address fundamental concepts in research data management (RDM), including its relevance in the context of research, approaches to implementing effective management through documentation and file system organization, and how to use the Data Management Plan (DMP) Assistant, an online tool, to help researchers adhere to funder requirements to submit a DMP.
 
-[RDM Part 1: The Basics](RDM_pt1-the-basics.html)
-
-[RDM Part 2: Documentation](RDM_pt2-documentation.html)
-
-[RDM Part 3: Data Management Plans](https://ubc-library-rc.github.io/rdm/content/06_Data_Management_Plan.html)
+* [RDM Part 1: The Basics](RDM_pt1-the-basics.html)
+* [RDM Part 2: Documentation](RDM_pt2-documentation.html)
+* [RDM Part 3: Data Management Plans](https://ubc-library-rc.github.io/rdm/content/06_Data_Management_Plan.html)
 
 
 ### Introduction to the Shell
@@ -63,17 +54,15 @@ The command line interface can seem daunting to new users, but it is a very powe
 
 These sessions are aimed at those who have little to no experience with the command line; it introduces the Bash shell, its core functions, and the basics of navigating files and directories.
 
-[Introduction to the Bash shell Part 1: Navigating Files and Directories](UNIX_pt1.html)
-
-[Introduction to the Bash shell Part 2: Working with Files and Directories](UNIX_pt2.html)
+* [Introduction to the Bash shell Part 1: Navigating Files and Directories](UNIX_pt1.html)
+* [Introduction to the Bash shell Part 2: Working with Files and Directories](UNIX_pt2.html)
 
 ### Git and GitHub
 
 These sessions provide an introduction to Git and GitHub, respectively a version control application and a remote Git server to facilitate file sharing and back-ups. Topics covered include automated version control and basic Git functions including initiating a Git repository, pushing to and pulling from a remote repository, managing workflows with branching, etc.
 
-[Introduction to GitHub Part 1](Intro-GitHub-Part-1.html)
-
-[Introduction to GitHub Part 2](Intro-GitHub-Part-2.html)
+* [Introduction to GitHub Part 1](Intro-GitHub-Part-1.html)
+* [Introduction to GitHub Part 2](Intro-GitHub-Part-2.html)
 
 ## Statistical Fundamentals: A Visual Approach
 
@@ -83,21 +72,14 @@ You may wish to review the asynchronous content of either [R Fundamentals for Da
 
 [Read invidiual workshop descriptions here](https://github.com/csc-ubc-okanagan/workshops/blob/main/outlines/statistical-fundamentals_a-visual-approach.md). Materials links coming soon.
 
-Population, Sampling, Sampling Distribution, and Central Limit Theorem
-
-Visualizing Errors and Common Pitfalls
-
-P value, Significance, and T-test
-
-Visualizing samples with Boxplots: Kick the Bar chart habit
-
-All about t-tests and visualizations
-
-Non-parametric tests and visualizations
-
-ANOVA and Blocking
-
-Correlation, causation, and association
+* Population, Sampling, Sampling Distribution, and Central Limit Theorem
+* Visualizing Errors and Common Pitfall
+* P value, Significance, and T-test
+* Visualizing samples with Boxplots: Kick the Bar chart habit
+* All about t-tests and visualizations
+* Non-parametric tests and visualizations
+* ANOVA and Blocking
+* Correlation, causation, and association
 
 ## Fitting Models to Data Not Data to Models
 
@@ -107,21 +89,14 @@ This series introduces early-career researchers to statistical models that exten
 
 [Read invidiual workshop descriptions here](https://github.com/csc-ubc-okanagan/workshops/blob/main/outlines/fitting-models-to-data-not-data-to-models.md). Materials links coming soon.
 
-Single Linear Regression
-
-Fitting linear models in `R`
-
-Multiple linear regression in `R`
-
-Interaction terms and Hierarchical Linear Models/Linear Mixed Models
-
-(Hierarchical) Generalized Linear Models
-
-Generalized Additive Models
-
-Interpreting and predicting from Generalized Additive Models
-
-Hierarchical GAMs
+* Single Linear Regression
+* Fitting linear models in `R`
+* Multiple linear regression in `R`
+* Interaction terms and Hierarchical Linear Models/Linear Mixed Models
+* (Hierarchical) Generalized Linear Models
+* Generalized Additive Models
+* Interpreting and predicting from Generalized Additive Models
+* Hierarchical GAMs
 
 
 

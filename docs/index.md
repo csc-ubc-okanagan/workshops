@@ -8,7 +8,7 @@ pagetitle: "Workshops"
 * [R Fundamentals for Data Analysis](https://csc-ubc-okanagan.github.io/workshops/#r-fundamentals-for-data-analysis)
 * [Python Basics for Data Analysis](https://csc-ubc-okanagan.github.io/workshops/#python-basics-for-data-analysis)
 * [Research Data Management](https://csc-ubc-okanagan.github.io/workshops/#research-data-management-rdm)
-* [Introduction to the Bash shell](https://csc-ubc-okanagan.github.io/workshops/#introduction-to-the-shell)
+* [Introduction to the Bash shell](https://csc-ubc-okanagan.github.io/workshops/#introduction-to-the-bash-shell)
 * [Git and GitHub](https://csc-ubc-okanagan.github.io/workshops/#git-and-github)
 * [Statistical Fundamentals: A Visual Approach](https://csc-ubc-okanagan.github.io/workshops/#statistical-fundamentals-a-visual-approach)
 * [Fitting Models to Data Not Data to Models](https://csc-ubc-okanagan.github.io/workshops/#fitting-models-to-data-not-data-to-models)

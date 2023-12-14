@@ -31,7 +31,7 @@ This series of introductory workshops are intended for individuals with little t
 
 This series of introductory workshops are intended for individuals with little to no familiarity with Python or similar tools that rely on a scripted environment. They are intended as a low barrier entry into the world of using your computer to engage with data outside of graphical tools like Excel or SPSS.
 
-[Read invidiual workshop descriptions here](https://github.com/csc-ubc-okanagan/workshops/blob/main/outlines/python-basics-for-data-analysis.md). See full materials with links below.
+[Read invidiual workshop descriptions here](https://github.com/csc-ubc-okanagan/workshops/blob/main/outlines/python-basics-for-data-analysis.md). See full materials with links below &darr;
 
 [Python: Fundamental Concepts with Jupyter Notebook](Python_fundamental-concepts-with-Jupyter-Notebook.html)
 
@@ -51,9 +51,11 @@ This series of introductory workshops are intended for individuals with little t
 
 ## Researcher Toolkit
 
-[Read invidiual workshop descriptions here](https://github.com/csc-ubc-okanagan/workshops/blob/main/outlines/python-basics-for-data-analysis.md). See full materials with links below.
+[Read invidiual workshop descriptions here](https://github.com/csc-ubc-okanagan/workshops/blob/main/outlines/python-basics-for-data-analysis.md). See full materials with links below &darr;
 
 ### Research Data Management (RDM)
+
+These sessions address fundamental concepts in research data management (RDM), including its relevance in the context of research, approaches to implementing effective management through documentation and file system organization, and how to use the Data Management Plan (DMP) Assistant, an online tool, to help researchers adhere to funder requirements to submit a DMP.
 
 [RDM Part 1: The Basics](RDM_pt1-the-basics.html)
 
@@ -64,11 +66,17 @@ This series of introductory workshops are intended for individuals with little t
 
 ### Introduction to the Shell
 
-[Introduction to the Unix Shell Part 1: Navigating Files and Directories](UNIX_pt1.html)
+The command line interface can seem daunting to new users, but it is a very powerful tool that, with some foundational understanding, can be used for a number of different computational and data management tasks, for example routinizing repetetive file management activities or working with UBC's high performance computing (HPC) infrastructure.
 
-[Introduction to the Unix Shell Part 2: Working with Files and Directories](UNIX_pt2.html)
+These sessions are aimed at those who have little to no experience with the command line; it introduces the Bash shell, its core functions, and the basics of navigating files and directories.
+
+[Introduction to the Bash shell Part 1: Navigating Files and Directories](UNIX_pt1.html)
+
+[Introduction to the Bash shell Part 2: Working with Files and Directories](UNIX_pt2.html)
 
 ## GitHub and GitHub Pages
+
+These sessions provide an introduction to Git and GitHub, respectively a version control application and a remote Git server to facilitate file sharing and back-ups. Topics covered include automated version control and basic Git functions including initiating a Git repository, pushing to and pulling from a remote repository, managing workflows with branching, etc.
 
 [Introduction to GitHub Part 1](Intro-GitHub-Part-1.html)
 

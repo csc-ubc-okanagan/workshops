@@ -11,7 +11,7 @@ pagetitle: "Menu"
 
 This series of introductory workshops are intended for individuals with little to no familiarity with R or similar tools that rely on a scripted environment. They are intended as a low barrier entry into the world of using your computer to engage with data outside of graphical tools like Excel or SPSS.
 
-[Read invidiual workshop descriptions here](https://github.com/csc-ubc-okanagan/workshops/blob/main/outlines/r-fundamentals-for-data-analysis.md). See full materials with links below.
+[Read invidiual workshop descriptions here](https://github.com/csc-ubc-okanagan/workshops/blob/main/outlines/r-fundamentals-for-data-analysis.md). See full materials with links below &darr;
 
 [R: Fundamental Concepts with RStudio](R_fundamental-concepts-with-RStudio.html)
 

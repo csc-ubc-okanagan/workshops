@@ -11,21 +11,14 @@ pagetitle: "Menu"
 
 This series of introductory workshops are intended for individuals with little to no familiarity with R or similar tools that rely on a scripted environment. They are intended as a low barrier entry into the world of using your computer to engage with data outside of graphical tools like Excel or SPSS.
 
-[Read invidiual workshop descriptions here](https://github.com/csc-ubc-okanagan/workshops/blob/main/outlines/r-fundamentals-for-data-analysis.md). See full materials with links below &darr;
-
-[R: Fundamental Concepts with RStudio](R_fundamental-concepts-with-RStudio.html)
-
-[R: Importing Data](R_importing-data.html)
-
-[R: Exploring Data](R_exploring-data.html)
-
-[R: Subsetting & Filtering Data](R_subsetting-and-filtering-data.html)
-
-[R: Iterating Over Data](R_iterating-over-data.html)
-
-[R: Conditions](R_conditions.html)
-
-[R: Visualizations](R_visualization.html)
+* [Read invidiual workshop descriptions here](https://github.com/csc-ubc-okanagan/workshops/blob/main/outlines/r-fundamentals-for-data-analysis.md). See full materials with links below &darr;
+* [R: Fundamental Concepts with RStudio](R_fundamental-concepts-with-RStudio.html)
+* [R: Importing Data](R_importing-data.html)
+* [R: Exploring Data](R_exploring-data.html)
+* [R: Subsetting & Filtering Data](R_subsetting-and-filtering-data.html)
+* [R: Iterating Over Data](R_iterating-over-data.html)
+* [R: Conditions](R_conditions.html)
+* [R: Visualizations](R_visualization.html)
 
 ## Python Basics for Data Analysis
 
@@ -74,7 +67,7 @@ These sessions are aimed at those who have little to no experience with the comm
 
 [Introduction to the Bash shell Part 2: Working with Files and Directories](UNIX_pt2.html)
 
-## GitHub and GitHub Pages
+### Git and GitHub
 
 These sessions provide an introduction to Git and GitHub, respectively a version control application and a remote Git server to facilitate file sharing and back-ups. Topics covered include automated version control and basic Git functions including initiating a Git repository, pushing to and pulling from a remote repository, managing workflows with branching, etc.
 

@@ -5,6 +5,14 @@ pagetitle: "Workshops"
 
 # Workshops
 
+* [R Fundamentals for Data Analysis](https://csc-ubc-okanagan.github.io/workshops/#r-fundamentals-for-data-analysis)
+* [Python Basics for Data Analysis](https://csc-ubc-okanagan.github.io/workshops/#python-basics-for-data-analysis)
+* [Research Data Management](https://csc-ubc-okanagan.github.io/workshops/#research-data-management-rdm)
+* [Introduction to the Bash shell](https://csc-ubc-okanagan.github.io/workshops/#introduction-to-the-shell)
+* [Git and GitHub](https://csc-ubc-okanagan.github.io/workshops/#git-and-github)
+* [Statistical Fundamentals: A Visual Approach](https://csc-ubc-okanagan.github.io/workshops/#statistical-fundamentals-a-visual-approach)
+* [Fitting Models to Data Not Data to Models](https://csc-ubc-okanagan.github.io/workshops/#fitting-models-to-data-not-data-to-models)
+
 > Dates and registration details available at [https://csc.ok.ubc.ca/workshops/](https://csc.ok.ubc.ca/workshops/)
 
 ## R Fundamentals for Data Analysis
@@ -48,7 +56,7 @@ These sessions address fundamental concepts in research data management (RDM), i
 * [RDM Part 3: Data Management Plans](https://ubc-library-rc.github.io/rdm/content/06_Data_Management_Plan.html)
 
 
-### Introduction to the Shell
+### Introduction to the Bash shell
 
 The command line interface can seem daunting to new users, but it is a very powerful tool that, with some foundational understanding, can be used for a number of different computational and data management tasks, for example routinizing repetetive file management activities or working with UBC's high performance computing (HPC) infrastructure.
 

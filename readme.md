@@ -2,6 +2,7 @@
 
 | Directory or File | Description |
 | --- | --- |
+| assest/ | Promotional materials related to workshops |
 | data/ | Any data files requiring storage for access |
 | docs/ | GitHub Pages pull directory. Place markdown files for rendering here. |
 | guides/ | Originals of what are copied as .md into docs/ |

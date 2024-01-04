@@ -15,6 +15,7 @@ colours = c("#B8CDE6",
 
 ggplot(gapminder) +
   geom_point(aes(x = log10(gdpPercap), y = lifeExp, colour = continent, size = pop), alpha = 0.7) +
+  coord_flip() +
   scale_colour_manual(values = colours) +
   scale_size(range = c(1,18)) +
   theme_void() +

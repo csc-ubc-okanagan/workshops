@@ -102,8 +102,8 @@ When dealing with paths in Unix, directories are denoted by a slash "/", and eac
 > 
 > * What's the path to the Music directory?
 > * What's the path to the S-Club 7 directory?
-
-Answer questions in <a href="https://padlet.com/nickrochlin/unix-exercise-1-1vny67sx59wxjd4z" target="_blank">Padlet</a>
+>
+> Answer questions in <a href="https://padlet.com/nickrochlin/unix-exercise-1-1vny67sx59wxjd4z" target="_blank">Padlet</a>
 
 ![](assets/images/path2-exercise.png)
 
@@ -168,7 +168,7 @@ It should be noted that relative paths only work going down the hierarchy, and n
 > 
 > * What is the full path to the file `methane.pdb`?
 > * Who is the author of `methane.pdb`?
-> * What command would you type to move from the `proteins` directory to the `shell-lesson-data` directory?* 
+> * What command would you type to move from the `alkanes` directory to the `shell-lesson-data` directory?* 
 > * What is the last line of the file `NENE01729A.txt`?
 >
 > Answer questions in <a href="https://padlet.com/nickrochlin/unix-exercise-2-womiyz72vmc3dwax" target="_blank">Padlet</a>

@@ -4,11 +4,11 @@ You might have heard someone say that "all models are wrong, but some are useful
 
 This series introduces early-career researchers to statistical models that extend beyond linear models (i.e., ANOVAs) so that they may learn how to *fit models to their data rather than fitting their data to models*. All workshops will use `R` and RStudio, so some experience with `R` or other programming languages is encouraged but not required. See the [R Fundamentals for Data Anlysis](https://csc-ubc-okanagan.github.io/workshops/#r-fundamentals-for-data-analysis) for an introduction to `R` and RStudio. Attendees who do not have experience with `R` are encouraged to review this content or take the introductory workshop concurrently if it's being offered.
 
-**Single Linear Regression**
+**Simple Linear Regression**
 
 This workshop will introduce linear models (i.e., one-way ANOVAs), their assumptions, and limitations, in a format tailored towards visual and spatial learners.
 
-By the end of the session, participants should be able to visualize and explain single linear regression models, their assumptions, and their limitations.
+By the end of the session, participants should be able to visualize and explain simple linear regression models, their assumptions, and their limitations.
 
 **Fitting linear models in `R`**
 

@@ -97,7 +97,7 @@ This series introduces early-career researchers to statistical models that exten
 
 [Read invidiual workshop descriptions here](https://github.com/csc-ubc-okanagan/workshops/blob/main/outlines/fitting-models-to-data-not-data-to-models.md). Materials links coming soon.
 
-* Single Linear Regression
+* Simple Linear Regression
 * Fitting linear models in `R`
 * Multiple linear regression in `R`
 * Interaction terms and Hierarchical Linear Models/Linear Mixed Models

@@ -176,6 +176,5 @@ It should be noted that relative paths only work going down the hierarchy, and n
 ### References & Resources
 
 * <a href="https://swcarpentry.github.io/shell-novice/">Software Carpentries - The Unix Shell</a>
-* <a href="https://cambiotraining.github.io/hpc-intro/99-unix_cheatsheet.html" target="_blank">Unix Cheat Sheet</a>
 * <a href="http://www.catb.org/~esr/writings/taoup/html/ch10s05.html" target="_blank">Unix flags</a>
 

@@ -81,6 +81,7 @@ You may wish to review the asynchronous content of either [R Fundamentals for Da
 [Read invidiual workshop descriptions here](https://github.com/csc-ubc-okanagan/workshops/blob/main/outlines/statistical-fundamentals_a-visual-approach.md). Materials links coming soon.
 
 * Population, Sampling, Sampling Distribution, and Central Limit Theorem
+* [Population, Sampling, Sampling Distribution, and Central Limit Theorem](Population, Sampling, Sampling Distribution, and Central Limit Theorem.html)
 * Visualizing Errors and Common Pitfall
 * P value, Significance, and T-test
 * Visualizing samples with Boxplots: Kick the Bar chart habit

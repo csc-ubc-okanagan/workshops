@@ -52,23 +52,28 @@ This series of introductory workshops are intended for individuals with little t
 
 These sessions address fundamental concepts in research data management (RDM), including its relevance in the context of research, approaches to implementing effective management through documentation and file system organization, and how to use the Data Management Plan (DMP) Assistant, an online tool, to help researchers adhere to funder requirements to submit a DMP.
 
+[Read invidiual workshop descriptions here](https://github.com/csc-ubc-okanagan/workshops/blob/main/outlines/rdm.md). See full materials with links below &darr;
+
 * [RDM Part 1: The Basics](RDM_pt1-the-basics.html)
 * [RDM Part 2: Documentation](RDM_pt2-documentation.html)
 * [RDM Part 3: Data Management Plans](https://ubc-library-rc.github.io/rdm/content/06_Data_Management_Plan.html)
 
-
-### Introduction to the Bash shell
+## Introduction to the Bash shell
 
 The command line interface can seem daunting to new users, but it is a very powerful tool that, with some foundational understanding, can be used for a number of different computational and data management tasks, for example routinizing repetetive file management activities or working with UBC's high performance computing (HPC) infrastructure.
 
 These sessions are aimed at those who have little to no experience with the command line; it introduces the Bash shell, its core functions, and the basics of navigating files and directories.
 
+[Read invidiual workshop descriptions here](https://github.com/csc-ubc-okanagan/workshops/blob/main/outlines/bash-shell.md). See full materials with links below &darr;
+
 * [Introduction to the Bash shell Part 1: Navigating Files and Directories](UNIX_pt1.html)
 * [Introduction to the Bash shell Part 2: Working with Files and Directories](UNIX_pt2.html)
 
-### Git and GitHub
+## Git and GitHub
 
 These sessions provide an introduction to Git and GitHub, respectively a version control application and a remote Git server to facilitate file sharing and back-ups. Topics covered include automated version control and basic Git functions including initiating a Git repository, pushing to and pulling from a remote repository, managing workflows with branching, etc.
+
+[Read invidiual workshop descriptions here](https://github.com/csc-ubc-okanagan/workshops/blob/main/outlines/git.md). See full materials with links below &darr;
 
 * [Introduction to GitHub Part 1](Intro-GitHub-Part-1.html)
 * [Introduction to GitHub Part 2](Intro-GitHub-Part-2.html)
@@ -106,7 +111,3 @@ This series introduces early-career researchers to statistical models that exten
 * Generalized Additive Models
 * Interpreting and predicting from Generalized Additive Models
 * Hierarchical GAMs
-
-
-
-

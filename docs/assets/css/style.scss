@@ -15,11 +15,11 @@ h1:first-of-type {
     display: none;
 }
 
-#workshop ~ ul {
+h1#workshop ~ ul {
     display: inline-block;
 }
 
-#workshop ~ ul li {
+h1#workshop ~ ul li {
     width: 32%;
     border: 5px solid #B8CDE6;
     height: 200px;

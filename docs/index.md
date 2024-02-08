@@ -19,7 +19,8 @@ pagetitle: "Workshops"
 
 This series of introductory workshops are intended for individuals with little to no familiarity with R or similar tools that rely on a scripted environment. They are intended as a low barrier entry into the world of using your computer to engage with data outside of graphical tools like Excel or SPSS.
 
-* [Read invidiual workshop descriptions here](https://github.com/csc-ubc-okanagan/workshops/blob/main/outlines/r-fundamentals-for-data-analysis.md). See full materials with links below &darr;
+[Read invidiual workshop descriptions here](https://github.com/csc-ubc-okanagan/workshops/blob/main/outlines/r-fundamentals-for-data-analysis.md). See full materials with links below &darr;
+
 * [R: Fundamental Concepts with RStudio](R_fundamental-concepts-with-RStudio.html)
 * [R: Importing Data](R_importing-data.html)
 * [R: Exploring Data](R_exploring-data.html)
@@ -47,7 +48,7 @@ This series of introductory workshops are intended for individuals with little t
 
 [Read invidiual workshop descriptions here](https://github.com/csc-ubc-okanagan/workshops/blob/main/outlines/python-basics-for-data-analysis.md). See full materials with links below &darr;
 
-### Research Data Management (RDM)
+## Research Data Management (RDM)
 
 These sessions address fundamental concepts in research data management (RDM), including its relevance in the context of research, approaches to implementing effective management through documentation and file system organization, and how to use the Data Management Plan (DMP) Assistant, an online tool, to help researchers adhere to funder requirements to submit a DMP.
 

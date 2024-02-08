@@ -83,6 +83,7 @@ You may wish to review the asynchronous content of either [R Fundamentals for Da
 * Population, Sampling, Sampling Distribution, and Central Limit Theorem
 * [Population, Sampling, Sampling Distribution, and Central Limit Theorem](Population, Sampling, Sampling Distribution, and Central Limit Theorem.html)
 * Visualizing Errors and Common Pitfall
+* [Visualizing Errors and Common Pitfall](Error_Bars.html)
 * P value, Significance, and T-test
 * Visualizing samples with Boxplots: Kick the Bar chart habit
 * All about t-tests and visualizations

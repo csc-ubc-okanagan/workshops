@@ -78,7 +78,7 @@ This series will use R and Python to help develop an intuition for fundamental s
 
 You may wish to review the asynchronous content of either [R Fundamentals for Data Anlysis](https://csc-ubc-okanagan.github.io/workshops/#r-fundamentals-for-data-analysis) or [Python Basics for Data Analysis](https://csc-ubc-okanagan.github.io/workshops/#python-basics-for-data-analysis), or keep an eye out for the next time these workshops are offered.
 
-[Read invidiual workshop descriptions here](https://github.com/csc-ubc-okanagan/workshops/blob/main/outlines/statistical-fundamentals_a-visual-approach.md). Materials links coming soon.
+[Read invidiual workshop descriptions here](https://github.com/csc-ubc-okanagan/workshops/blob/main/outlines/statistical-fundamentals_a-visual-approach.md). Materials links will be made available as workshops are developped.
 
 * [Population, Sampling, Sampling Distribution, and Central Limit Theorem](statistical-distribution-and-central-limit-theorem.html)
 * [Visualizing Errors and Common Pitfalls](error-bars-and-misconceptions.html)

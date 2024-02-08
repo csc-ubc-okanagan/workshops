@@ -80,10 +80,8 @@ You may wish to review the asynchronous content of either [R Fundamentals for Da
 
 [Read invidiual workshop descriptions here](https://github.com/csc-ubc-okanagan/workshops/blob/main/outlines/statistical-fundamentals_a-visual-approach.md). Materials links coming soon.
 
-* Population, Sampling, Sampling Distribution, and Central Limit Theorem
-* [Population, Sampling, Sampling Distribution, and Central Limit Theorem](Population, Sampling, Sampling Distribution, and Central Limit Theorem.html)
-* Visualizing Errors and Common Pitfall
-* [Visualizing Errors and Common Pitfall](Error_Bars.html)
+* [Population, Sampling, Sampling Distribution, and Central Limit Theorem](statistical-distribution-and-central-limit-theorem.html)
+* [Visualizing Errors and Common Pitfalls](error-bars-and-misconceptions.html)
 * P value, Significance, and T-test
 * Visualizing samples with Boxplots: Kick the Bar chart habit
 * All about t-tests and visualizations
@@ -97,12 +95,12 @@ You might have heard someone say that "all models are wrong, but some are useful
 
 This series introduces early-career researchers to statistical models that extend beyond linear models (i.e., ANOVAs) so that they may learn how to *fit models to their data rather than fitting their data to models*. All workshops will use `R` and RStudio, so some experience with `R` or other programming languages is encouraged but not required. See the [R Fundamentals for Data Anlysis](https://csc-ubc-okanagan.github.io/workshops/#r-fundamentals-for-data-analysis) for an introduction to `R` and RStudio. Attendees who do not have experience with `R` are encouraged to review this content or take the introductory workshop concurrently if it's being offered.
 
-[Read invidiual workshop descriptions here](https://github.com/csc-ubc-okanagan/workshops/blob/main/outlines/fitting-models-to-data-not-data-to-models.md). Materials links coming soon.
+[Read invidiual workshop descriptions here](https://github.com/csc-ubc-okanagan/workshops/blob/main/outlines/fitting-models-to-data-not-data-to-models.md). html formatted materials coming soon. Links to scripts available below.
 
-* Simple Linear Regression
-* Fitting linear models in `R`
-* Multiple linear regression in `R`
-* Interaction terms and Hierarchical Linear Models/Linear Mixed Models
+* Simple Linear Regression [script](https://github.com/csc-ubc-okanagan/ubco-csc-modeling-workshop/blob/main/R-scripts/1-simple-linear-regression.R)
+* Fitting linear models in `R` [script](https://github.com/csc-ubc-okanagan/ubco-csc-modeling-workshop/blob/main/R-scripts/2-fitting-linear-models-in-R.R)
+* Multiple linear regression in `R` [script](https://github.com/csc-ubc-okanagan/ubco-csc-modeling-workshop/blob/main/R-scripts/3-multiple-linear-regression.R)
+* Interaction terms and Hierarchical Linear Models/Linear Mixed Models [script](https://github.com/csc-ubc-okanagan/ubco-csc-modeling-workshop/blob/main/R-scripts/4-hierarchical-linear-models.R)
 * (Hierarchical) Generalized Linear Models
 * Generalized Additive Models
 * Interpreting and predicting from Generalized Additive Models

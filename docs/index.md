@@ -44,10 +44,6 @@ This series of introductory workshops are intended for individuals with little t
 * [Python: Visualizations](Python_Visualization.html)
 * [Python: Data Analysis and Visualization](Workshop8_Visualization_continued.html)
 
-## Researcher Toolkit
-
-[Read invidiual workshop descriptions here](https://github.com/csc-ubc-okanagan/workshops/blob/main/outlines/python-basics-for-data-analysis.md). See full materials with links below &darr;
-
 ## Research Data Management (RDM)
 
 These sessions address fundamental concepts in research data management (RDM), including its relevance in the context of research, approaches to implementing effective management through documentation and file system organization, and how to use the Data Management Plan (DMP) Assistant, an online tool, to help researchers adhere to funder requirements to submit a DMP.

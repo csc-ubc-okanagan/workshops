@@ -85,7 +85,7 @@ You may wish to review the asynchronous content of either [R Fundamentals for Da
 * [Population, Sampling, Sampling Distribution, and Central Limit Theorem](statistical-distribution-and-central-limit-theorem.html)
 * [Visualizing Errors and Common Pitfalls](error-bars-and-misconceptions.html)
 * [P value, Significance, and T-test](P_values.md)
-* Visualizing samples with Boxplots: Kick the Bar chart habit
+* [Bar, Box, and Violin: Navigating Data Visualization for Insightful Analysis](Bar_Box_and_Violin_Navigating_Data_Visualization_for_Insightful_Analysis.html)
 * All about t-tests and visualizations
 * Non-parametric tests and visualizations
 * ANOVA and Blocking

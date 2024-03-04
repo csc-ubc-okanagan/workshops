@@ -7,13 +7,13 @@ output:
 
 
 
-Last Updated: 2023-09-20
+Last Updated: 2024-03-04
 
 ## RStudio
 
 R is great for interactive computational analysis, allowing for easy exploration and iteration. Using an IDE - Integrated Development Environment - such as RStudio, facilitates this interactivity, providing you with easy access to a place to quickly code (the console), a place to write saveable scripts (source editor), a place to view the objects that you create (environment pane), and a place to interact with your file system, visual outputs from your code, and help documentation (the miscellaneous pane, for lack of a better word).
 
-![]("https://raw.githubusercontent.com/csc-ubc-okanagan/workshops/main/docs/assets/images/rstudio.png")
+![](https://raw.githubusercontent.com/csc-ubc-okanagan/workshops/main/docs/assets/images/rstudio.png)
 
 ## Simple Math
 

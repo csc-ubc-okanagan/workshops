@@ -87,7 +87,7 @@ You may wish to review the asynchronous content of either [R Fundamentals for Da
 * [P value, Significance, and T-test](P_values.md)
 * [Bar, Box, and Violin: Navigating Data Visualization for Insightful Analysis](Bar_Box_and_Violin_Navigating_Data_Visualization_for_Insightful_Analysis.html)
 * [All about t-tests and visualizations](T_tests.html)
-* Non-parametric tests and visualizations
+* [Non-parametric tests and visualizations](Non_parametric_tests.html)
 * ANOVA and Blocking
 * Correlation, causation, and association
 

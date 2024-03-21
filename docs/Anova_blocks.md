@@ -1,3 +1,10 @@
+---
+title: 'ANOVA and Blocking'
+output:
+  html_document:
+    keep_md: yes
+---
+
 # One-Way ANOVA Analysis in R
 
 This document outlines the steps taken to perform a one-way/two-way ANOVA analysis using R. The goal is to compare the effects of three different treatments on a continuous outcome variable.

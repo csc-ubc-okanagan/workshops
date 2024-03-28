@@ -89,7 +89,7 @@ You may wish to review the asynchronous content of either [R Fundamentals for Da
 * [All about t-tests and visualizations](T_tests.html)
 * [Non-parametric tests and visualizations](Non_parametric_tests.html)
 * [ANOVA and Blocking](Anova_blocks.html)
-* Correlation, causation, and association
+* [Correlation, causation, and association](Correlation_Causation.html)
 
 ## Fitting Models to Data Not Data to Models
 

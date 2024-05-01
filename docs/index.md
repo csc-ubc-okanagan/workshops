@@ -5,7 +5,7 @@ pagetitle: "Workshops"
 
 # Workshops
 
-![](https://www.r-project.org/logo/Rlogo.png)
+![](https://www.r-project.org/logo/Rlogo.png)  
 ![](https://s3.dualstack.us-east-2.amazonaws.com/pythondotorg-assets/media/community/logos/python-logo-only.png)
 
 * [R Fundamentals for Data Analysis](https://csc-ubc-okanagan.github.io/workshops/#r-fundamentals-for-data-analysis)

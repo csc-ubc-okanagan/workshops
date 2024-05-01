@@ -17,14 +17,18 @@ h1:first-of-type {
 
 img {
     width: 100px;
-    display: inline-block;
+    display: inline-block !important;
+    margin-top: 50px !important;
+}
+
+
+#workshops + ul {
+    margin-left: 125px !important;
+    margin-top: -125px !important;
+    margin-bottom: 100px !important;
 }
 
 /**
-#workshops + ul {
-    display: inline-block;
-}
-
 #workshops + ul li {
     width: 32%;
     border: 5px solid #B8CDE6;

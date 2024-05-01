@@ -5,13 +5,31 @@ pagetitle: "Workshops"
 
 # Workshops
 
-* ![](https://www.r-project.org/logo/Rlogo.png) [R Fundamentals for Data Analysis](https://csc-ubc-okanagan.github.io/workshops/#r-fundamentals-for-data-analysis)
-* ![](https://s3.dualstack.us-east-2.amazonaws.com/pythondotorg-assets/media/community/logos/python-logo-only.png) [Python Basics for Data Analysis](https://csc-ubc-okanagan.github.io/workshops/#python-basics-for-data-analysis)
-* [Research Data Management](https://csc-ubc-okanagan.github.io/workshops/#research-data-management-rdm)
-* ![](https://upload.wikimedia.org/wikipedia/commons/3/35/Tux.svg) [Introduction to the Bash shell](https://csc-ubc-okanagan.github.io/workshops/#introduction-to-the-bash-shell)
-* [Git and GitHub](https://csc-ubc-okanagan.github.io/workshops/#git-and-github)
+![](https://www.r-project.org/logo/Rlogo.png)
+
+* [R Fundamentals for Data Analysis](https://csc-ubc-okanagan.github.io/workshops/#r-fundamentals-for-data-analysis)
+
+![](https://s3.dualstack.us-east-2.amazonaws.com/pythondotorg-assets/media/community/logos/python-logo-only.png)
+
+* [Python Basics for Data Analysis](https://csc-ubc-okanagan.github.io/workshops/#python-basics-for-data-analysis)
+
+![](https://www.r-project.org/logo/Rlogo.png) + ![](https://s3.dualstack.us-east-2.amazonaws.com/pythondotorg-assets/media/community/logos/python-logo-only.png)
+
 * [Statistical Fundamentals: A Visual Approach](https://csc-ubc-okanagan.github.io/workshops/#statistical-fundamentals-a-visual-approach)
 * [Fitting Models to Data Not Data to Models](https://csc-ubc-okanagan.github.io/workshops/#fitting-models-to-data-not-data-to-models)
+
+![](https://media.licdn.com/dms/image/C4D0BAQHUbRv4QbPR0A/company-logo_200_200/0/1632946973571/ndrio_noirn_logo?e=2147483647&v=beta&t=nSkeEgDD9b2lXWcLkPC6cDwvlcgazQvIg7owBTWxrIo)
+
+* [Research Data Management](https://csc-ubc-okanagan.github.io/workshops/#research-data-management-rdm)
+
+![](https://upload.wikimedia.org/wikipedia/commons/3/35/Tux.svg)
+
+* [Introduction to the Bash shell](https://csc-ubc-okanagan.github.io/workshops/#introduction-to-the-bash-shell)
+
+![](https://git-scm.com/images/logos/downloads/Git-Icon-1788C.svg
+)
+* [Git and GitHub](https://csc-ubc-okanagan.github.io/workshops/#git-and-github)
+
 
 > Dates and registration details available at [https://csc.ok.ubc.ca/workshops/](https://csc.ok.ubc.ca/workshops/)
 

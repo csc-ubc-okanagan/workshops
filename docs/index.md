@@ -5,48 +5,25 @@ pagetitle: "Workshops"
 
 # Workshops
 
-<div id = "r-and-python">
-<div class = "image-holder">
-
 ![](https://www.r-project.org/logo/Rlogo.png)
-
 ![](https://s3.dualstack.us-east-2.amazonaws.com/pythondotorg-assets/media/community/logos/python-logo-only.png)
 
-</div>
-<div class = "content-list">
 * [R Fundamentals for Data Analysis](https://csc-ubc-okanagan.github.io/workshops/#r-fundamentals-for-data-analysis)
 * [Python Basics for Data Analysis](https://csc-ubc-okanagan.github.io/workshops/#python-basics-for-data-analysis)
 * [Statistical Fundamentals: A Visual Approach](https://csc-ubc-okanagan.github.io/workshops/#statistical-fundamentals-a-visual-approach)
 * [Fitting Models to Data Not Data to Models](https://csc-ubc-okanagan.github.io/workshops/#fitting-models-to-data-not-data-to-models)
-</div>
-</div>
 
-<div id = "rdm">
-<div class = "image-holder">
 ![](https://media.licdn.com/dms/image/C4D0BAQHUbRv4QbPR0A/company-logo_200_200/0/1632946973571/ndrio_noirn_logo?e=2147483647&v=beta&t=nSkeEgDD9b2lXWcLkPC6cDwvlcgazQvIg7owBTWxrIo)
-</div>
-<div class = "content-list">
+
 * [Research Data Management](https://csc-ubc-okanagan.github.io/workshops/#research-data-management-rdm)
-</div>
-</div>
 
-<div id = "linux">
-<div class = "image-holder">
 ![](https://upload.wikimedia.org/wikipedia/commons/3/35/Tux.svg)
-</div>
-<div class = "content-list">
-* [Introduction to the Bash shell](https://csc-ubc-okanagan.github.io/workshops/#introduction-to-the-bash-shell)
-</div>
-</div>
 
-<div id = "git">
-<div class = "image-holder">
+* [Introduction to the Bash shell](https://csc-ubc-okanagan.github.io/workshops/#introduction-to-the-bash-shell)
+
 ![](https://git-scm.com/images/logos/downloads/Git-Icon-1788C.svg)
-</div>
-<div class = "content-list">
+
 * [Git and GitHub](https://csc-ubc-okanagan.github.io/workshops/#git-and-github)
-</div>
-</div>
 
 > Dates and registration details available at [https://csc.ok.ubc.ca/workshops/](https://csc.ok.ubc.ca/workshops/)
 

@@ -6,9 +6,9 @@ pagetitle: "Workshops"
 # Workshops
 
 * ![](https://www.r-project.org/logo/Rlogo.png) [R Fundamentals for Data Analysis](https://csc-ubc-okanagan.github.io/workshops/#r-fundamentals-for-data-analysis)
-* [Python Basics for Data Analysis](https://csc-ubc-okanagan.github.io/workshops/#python-basics-for-data-analysis)
+* ![](https://s3.dualstack.us-east-2.amazonaws.com/pythondotorg-assets/media/community/logos/python-logo-only.png) [Python Basics for Data Analysis](https://csc-ubc-okanagan.github.io/workshops/#python-basics-for-data-analysis)
 * [Research Data Management](https://csc-ubc-okanagan.github.io/workshops/#research-data-management-rdm)
-* [Introduction to the Bash shell](https://csc-ubc-okanagan.github.io/workshops/#introduction-to-the-bash-shell)
+* ![](https://upload.wikimedia.org/wikipedia/commons/3/35/Tux.svg) [Introduction to the Bash shell](https://csc-ubc-okanagan.github.io/workshops/#introduction-to-the-bash-shell)
 * [Git and GitHub](https://csc-ubc-okanagan.github.io/workshops/#git-and-github)
 * [Statistical Fundamentals: A Visual Approach](https://csc-ubc-okanagan.github.io/workshops/#statistical-fundamentals-a-visual-approach)
 * [Fitting Models to Data Not Data to Models](https://csc-ubc-okanagan.github.io/workshops/#fitting-models-to-data-not-data-to-models)

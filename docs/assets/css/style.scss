@@ -15,6 +15,12 @@ h1:first-of-type {
     display: none;
 }
 
+/**
+#workshops + img {
+    width: 100px;
+    display: inline-block;
+}
+
 #workshops + ul {
     display: inline-block;
 }
@@ -28,6 +34,7 @@ h1:first-of-type {
     text-align: center;
     font-size: 1.2em
 }
+**/
 
 .markdown-body blockquote {
     padding: 1em;

@@ -15,7 +15,7 @@ pagetitle: "Workshops"
 * [Python Basics for Data Analysis](https://csc-ubc-okanagan.github.io/workshops/#python-basics-for-data-analysis)
 {: .indent}
 
-![](https://raw.githubusercontent.com/csc-ubc-okanagan/workshops/main/docs/assets/images/bell-curve.jpeg)
+![](https://raw.githubusercontent.com/csc-ubc-okanagan/workshops/main/docs/assets/images/bell-curve_v2.jpeg)
 
 * [Statistical Fundamentals: A Visual Approach](https://csc-ubc-okanagan.github.io/workshops/#statistical-fundamentals-a-visual-approach)
 * [Fitting Models to Data Not Data to Models](https://csc-ubc-okanagan.github.io/workshops/#fitting-models-to-data-not-data-to-models)

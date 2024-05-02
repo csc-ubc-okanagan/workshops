@@ -5,10 +5,8 @@ pagetitle: "Workshops"
 
 # Workshops
 
-![](https://www.r-project.org/logo/Rlogo.png)
-
 * [R Fundamentals for Data Analysis](https://csc-ubc-okanagan.github.io/workshops/#r-fundamentals-for-data-analysis)
-{: .indent}
+{: .r}
 
 ![](https://s3.dualstack.us-east-2.amazonaws.com/pythondotorg-assets/media/community/logos/python-logo-only.png)
 

@@ -29,7 +29,7 @@ img {
 }
 
 .r::before {
-    content: url(https://www.r-project.org/logo/Rlogo.png);
+    background-image: url(https://www.r-project.org/logo/Rlogo.png);
     width: 100px;
 }
 

@@ -28,6 +28,10 @@ img {
     margin-bottom: 100px !important;
 }
 
+.r::before {
+    content: url(https://www.r-project.org/logo/Rlogo.png);
+}
+
 /**
 #workshops + ul li {
     width: 32%;

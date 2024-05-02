@@ -17,14 +17,17 @@ pagetitle: "Workshops"
 ![](https://media.licdn.com/dms/image/C4D0BAQHUbRv4QbPR0A/company-logo_200_200/0/1632946973571/ndrio_noirn_logo?e=2147483647&v=beta&t=nSkeEgDD9b2lXWcLkPC6cDwvlcgazQvIg7owBTWxrIo)
 
 * [Research Data Management](https://csc-ubc-okanagan.github.io/workshops/#research-data-management-rdm)
+{: .indent}
 
 ![](https://upload.wikimedia.org/wikipedia/commons/3/35/Tux.svg)
 
 * [Introduction to the Bash shell](https://csc-ubc-okanagan.github.io/workshops/#introduction-to-the-bash-shell)
+{: .indent}
 
 ![](https://git-scm.com/images/logos/downloads/Git-Icon-1788C.svg)
 
 * [Git and GitHub](https://csc-ubc-okanagan.github.io/workshops/#git-and-github)
+{: .indent}
 
 > Dates and registration details available at [https://csc.ok.ubc.ca/workshops/](https://csc.ok.ubc.ca/workshops/)
 

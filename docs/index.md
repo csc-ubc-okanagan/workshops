@@ -21,7 +21,7 @@ pagetitle: "Workshops"
 * [Fitting Models to Data Not Data to Models](https://csc-ubc-okanagan.github.io/workshops/#fitting-models-to-data-not-data-to-models)
 {: .indent}
 
-![](https://media.licdn.com/dms/image/C4D0BAQHUbRv4QbPR0A/company-logo_200_200/0/1632946973571/ndrio_noirn_logo?e=2147483647&v=beta&t=nSkeEgDD9b2lXWcLkPC6cDwvlcgazQvIg7owBTWxrIo)
+![](https://www.reading.ac.uk/research-services/-/media/project/functions/research-and-enterprise-services/images/researchdatalifecycle.jpg)
 
 * [Research Data Management](https://csc-ubc-okanagan.github.io/workshops/#research-data-management-rdm)
 {: .indent}

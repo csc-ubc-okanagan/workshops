@@ -5,11 +5,18 @@ pagetitle: "Workshops"
 
 # Workshops
 
-![](https://www.r-project.org/logo/Rlogo.png)  
-![](https://s3.dualstack.us-east-2.amazonaws.com/pythondotorg-assets/media/community/logos/python-logo-only.png)
+![](https://www.r-project.org/logo/Rlogo.png)
 
 * [R Fundamentals for Data Analysis](https://csc-ubc-okanagan.github.io/workshops/#r-fundamentals-for-data-analysis)
+{: .indent}
+
+![](https://s3.dualstack.us-east-2.amazonaws.com/pythondotorg-assets/media/community/logos/python-logo-only.png)
+
 * [Python Basics for Data Analysis](https://csc-ubc-okanagan.github.io/workshops/#python-basics-for-data-analysis)
+{: .indent}
+
+![]()
+
 * [Statistical Fundamentals: A Visual Approach](https://csc-ubc-okanagan.github.io/workshops/#statistical-fundamentals-a-visual-approach)
 * [Fitting Models to Data Not Data to Models](https://csc-ubc-okanagan.github.io/workshops/#fitting-models-to-data-not-data-to-models)
 {: .indent}

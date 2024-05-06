@@ -5,33 +5,51 @@ pagetitle: "Workshops"
 
 # Workshops
 
-<div class = "menu-items">
-    <img src = "https://www.r-project.org/logo/Rlogo.png">
-    <ul>
-    <li><a href="https://csc-ubc-okanagan.github.io/workshops/#r-fundamentals-for-data-analysis">R Fundamentals for Data Analysis</a></li>
-    </ul>
-</div>
+<div class = "menu-holder">
 
-<div class = "menu-items">
-    <img src = "https://s3.dualstack.us-east-2.amazonaws.com/pythondotorg-assets/media/community/logos/python-logo-only.png">
-    <ul>
-    <li><a href="https://csc-ubc-okanagan.github.io/workshops/#python-basics-for-data-analysis">Python Basics for Data Analysis</a></li>
-    </ul>
-</div>
+    <div class = "menu-items">
+        <img src = "https://www.r-project.org/logo/Rlogo.png">
+        <ul>
+        <li><a href="https://csc-ubc-okanagan.github.io/workshops/#r-fundamentals-for-data-analysis">R Fundamentals for Data Analysis</a></li>
+        </ul>
+    </div>
 
-<div class = "menu-items">
-    <img src = "https://raw.githubusercontent.com/csc-ubc-okanagan/workshops/main/docs/assets/images/bell-curve_v2.jpeg">
-    <ul>
-    <li><a href="https://csc-ubc-okanagan.github.io/workshops/#statistical-fundamentals-a-visual-approach">Statistical Fundamentals: A Visual Approach</a></li>
-    <li><a href="https://csc-ubc-okanagan.github.io/workshops/#fitting-models-to-data-not-data-to-models">Fitting Models to Data Not Data to Models</a></li>
-    </ul>
-</div>
+    <div class = "menu-items">
+        <img src = "https://s3.dualstack.us-east-2.amazonaws.com/pythondotorg-assets/media/community/logos/python-logo-only.png">
+        <ul>
+        <li><a href="https://csc-ubc-okanagan.github.io/workshops/#python-basics-for-data-analysis">Python Basics for Data Analysis</a></li>
+        </ul>
+    </div>
 
-<div class = "menu-items">
-    <img src = "https://s3.dualstack.us-east-2.amazonaws.com/pythondotorg-assets/media/community/logos/python-logo-only.png">
-    <ul>
-    <li><a href="https://csc-ubc-okanagan.github.io/workshops/#python-basics-for-data-analysis">Python Basics for Data Analysis</a></li>
-    </ul>
+    <div class = "menu-items">
+        <img src = "https://raw.githubusercontent.com/csc-ubc-okanagan/workshops/main/docs/assets/images/bell-curve_v2.jpeg">
+        <ul>
+        <li><a href="https://csc-ubc-okanagan.github.io/workshops/#statistical-fundamentals-a-visual-approach">Statistical Fundamentals: A Visual Approach</a></li>
+        <li><a href="https://csc-ubc-okanagan.github.io/workshops/#fitting-models-to-data-not-data-to-models">Fitting Models to Data Not Data to Models</a></li>
+        </ul>
+    </div>
+
+    <div class = "menu-items">
+        <img src = "https://raw.githubusercontent.com/csc-ubc-okanagan/workshops/main/docs/assets/images/rdm.png">
+        <ul>
+        <li><a href="https://csc-ubc-okanagan.github.io/workshops/#research-data-management-rdm">Research Data Management</a></li>
+        </ul>
+    </div>
+
+    <div class = "menu-items">
+        <img src = "https://upload.wikimedia.org/wikipedia/commons/3/35/Tux.svg">
+        <ul>
+        <li><a href="https://csc-ubc-okanagan.github.io/workshops/#introduction-to-the-bash-shell">Introduction to the Bash shell</a></li>
+        </ul>
+    </div>
+
+    <div class = "menu-items">
+        <img src = "https://git-scm.com/images/logos/downloads/Git-Icon-1788C.svg">
+        <ul>
+        <li><a href="https://csc-ubc-okanagan.github.io/workshops/#git-and-github">Git and GitHubl</a></li>
+        </ul>
+    </div>
+    
 </div>
 
 ## R Fundamentals for Data Analysis

@@ -5,7 +5,7 @@ pagetitle: "Workshops"
 
 # Workshops
 
-<div>
+<div markdown="block">
     <div class = "menu-items">
     ![](https://www.r-project.org/logo/Rlogo.png)
     {: .small}
@@ -54,11 +54,6 @@ pagetitle: "Workshops"
     * [Git and GitHub](https://csc-ubc-okanagan.github.io/workshops/#git-and-github)
     {: .indent}
     </div>
-</div>
-{::options parse_block_html="true" /}
-
-<div>
-> Dates and registration details available at [https://csc.ok.ubc.ca/workshops/](https://csc.ok.ubc.ca/workshops/)
 </div>
 {::options parse_block_html="true" /}
 

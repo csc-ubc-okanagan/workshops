@@ -5,14 +5,11 @@ pagetitle: "Workshops"
 
 # Workshops
 
-<div>
-
     <div class = "menu-items">
-    ![](https://www.r-project.org/logo/Rlogo.png)
-    {: .small}
-
-    * [R Fundamentals for Data Analysis](https://csc-ubc-okanagan.github.io/workshops/#r-fundamentals-for-data-analysis)
-    {: .indent}
+    <img src = https://www.r-project.org/logo/Rlogo.png>
+    <ul>
+    <li><a href="https://csc-ubc-okanagan.github.io/workshops/#r-fundamentals-for-data-analysis">R Fundamentals for Data Analysis</a></li>
+    </ul>
     </div>
 
     <div class = "menu-items">
@@ -55,10 +52,6 @@ pagetitle: "Workshops"
     * [Git and GitHub](https://csc-ubc-okanagan.github.io/workshops/#git-and-github)
     {: .indent}
     </div>
-
-</div>
-
-{::options parse_block_html="true" /}
 
 ## R Fundamentals for Data Analysis
 

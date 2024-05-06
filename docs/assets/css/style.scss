@@ -16,6 +16,18 @@
     width: 50%;
 }
 
+.menu-items img {
+    width: 100px;
+    display: inline-block !important;
+    margin-top: 50px !important;
+}
+
+.menu-items ul {
+    margin-left: 125px !important;
+    margin-top: -125px !important;
+    margin-bottom: 100px !important;
+}
+
 h1:first-of-type {
     display: none;
 }

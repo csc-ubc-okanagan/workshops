@@ -6,61 +6,54 @@ pagetitle: "Workshops"
 # Workshops
 
 <div>
-<div class = "menu-items">
-![](https://www.r-project.org/logo/Rlogo.png)
-{: .small}
+    <div class = "menu-items">
+    ![](https://www.r-project.org/logo/Rlogo.png)
+    {: .small}
 
-* [R Fundamentals for Data Analysis](https://csc-ubc-okanagan.github.io/workshops/#r-fundamentals-for-data-analysis)
-{: .indent}
-</div>
-{::options parse_block_html="true" /}
+    * [R Fundamentals for Data Analysis](https://csc-ubc-okanagan.github.io/workshops/#r-fundamentals-for-data-analysis)
+    {: .indent}
+    </div>
 
-<div class = "menu-items">
-![](https://s3.dualstack.us-east-2.amazonaws.com/pythondotorg-assets/media/community/logos/python-logo-only.png)
-{: .small}
+    <div class = "menu-items">
+    ![](https://s3.dualstack.us-east-2.amazonaws.com/pythondotorg-assets/media/community/logos/python-logo-only.png)
+    {: .small}
 
-* [Python Basics for Data Analysis](https://csc-ubc-okanagan.github.io/workshops/#python-basics-for-data-analysis)
-{: .indent}
-</div>
-{::options parse_block_html="true" /}
+    * [Python Basics for Data Analysis](https://csc-ubc-okanagan.github.io/workshops/#python-basics-for-data-analysis)
+    {: .indent}
+    </div>
 
-<div class = "menu-items">
-![](https://raw.githubusercontent.com/csc-ubc-okanagan/workshops/main/docs/assets/images/bell-curve_v2.jpeg)
-{: .small}
+    <div class = "menu-items">
+    ![](https://raw.githubusercontent.com/csc-ubc-okanagan/workshops/main/docs/assets/images/bell-curve_v2.jpeg)
+    {: .small}
 
-* [Statistical Fundamentals: A Visual Approach](https://csc-ubc-okanagan.github.io/workshops/#statistical-fundamentals-a-visual-approach)
-* [Fitting Models to Data Not Data to Models](https://csc-ubc-okanagan.github.io/workshops/#fitting-models-to-data-not-data-to-models)
-{: .indent}
-</div>
-{::options parse_block_html="true" /}
+    * [Statistical Fundamentals: A Visual Approach](https://csc-ubc-okanagan.github.io/workshops/#statistical-fundamentals-a-visual-approach)
+    * [Fitting Models to Data Not Data to Models](https://csc-ubc-okanagan.github.io/workshops/#fitting-models-to-data-not-data-to-models)
+    {: .indent}
+    </div>
 
-<div class = "menu-items">
-![](https://raw.githubusercontent.com/csc-ubc-okanagan/workshops/main/docs/assets/images/rdm.png)
-{: .small}
+    <div class = "menu-items">
+    ![](https://raw.githubusercontent.com/csc-ubc-okanagan/workshops/main/docs/assets/images/rdm.png)
+    {: .small}
 
-* [Research Data Management](https://csc-ubc-okanagan.github.io/workshops/#research-data-management-rdm)
-{: .indent}
-</div>
-{::options parse_block_html="true" /}
+    * [Research Data Management](https://csc-ubc-okanagan.github.io/workshops/#research-data-management-rdm)
+    {: .indent}
+    </div>
 
-<div class = "menu-items">
-![](https://upload.wikimedia.org/wikipedia/commons/3/35/Tux.svg)
-{: .small}
+    <div class = "menu-items">
+    ![](https://upload.wikimedia.org/wikipedia/commons/3/35/Tux.svg)
+    {: .small}
 
-* [Introduction to the Bash shell](https://csc-ubc-okanagan.github.io/workshops/#introduction-to-the-bash-shell)
-{: .indent}
-</div>
-{::options parse_block_html="true" /}
+    * [Introduction to the Bash shell](https://csc-ubc-okanagan.github.io/workshops/#introduction-to-the-bash-shell)
+    {: .indent}
+    </div>
 
-<div class = "menu-items">
-![](https://git-scm.com/images/logos/downloads/Git-Icon-1788C.svg)
-{: .small}
+    <div class = "menu-items">
+    ![](https://git-scm.com/images/logos/downloads/Git-Icon-1788C.svg)
+    {: .small}
 
-* [Git and GitHub](https://csc-ubc-okanagan.github.io/workshops/#git-and-github)
-{: .indent}
-</div>
-{::options parse_block_html="true" /}
-
+    * [Git and GitHub](https://csc-ubc-okanagan.github.io/workshops/#git-and-github)
+    {: .indent}
+    </div>
 </div>
 {::options parse_block_html="true" /}
 

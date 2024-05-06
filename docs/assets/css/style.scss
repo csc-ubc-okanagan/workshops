@@ -11,6 +11,11 @@
     height: 150px;
 }
 
+
+#menu-holder {
+    overflow: hidden;
+}
+
 .menu-items {
     float: left;
     width: 50%;
@@ -32,30 +37,9 @@ h1:first-of-type {
     display: none;
 }
 
-.small {
-    width: 100px;
-    display: inline-block !important;
-    margin-top: 50px !important;
+.r {
+margin-top: -80px !important;
 }
-
-
-.indent {
-    margin-left: 125px !important;
-    margin-top: -125px !important;
-    margin-bottom: 100px !important;
-}
-
-/**
-#workshops + ul li {
-    width: 32%;
-    border: 5px solid #B8CDE6;
-    height: 200px;
-    display: inline-flex;
-    justify-content: center;
-    text-align: center;
-    font-size: 1.2em
-}
-**/
 
 .markdown-body blockquote {
     padding: 1em;

@@ -5,9 +5,9 @@ pagetitle: "Workshops"
 
 # Workshops
 
-<div class = "menu-holder">
+<div id = "menu-holder">
 
-    <div class = "menu-items">
+    <div class = "menu-items r">
         <img src = "https://www.r-project.org/logo/Rlogo.png">
         <ul>
         <li><a href="https://csc-ubc-okanagan.github.io/workshops/#r-fundamentals-for-data-analysis">R Fundamentals for Data Analysis</a></li>
@@ -49,7 +49,7 @@ pagetitle: "Workshops"
         <li><a href="https://csc-ubc-okanagan.github.io/workshops/#git-and-github">Git and GitHubl</a></li>
         </ul>
     </div>
-    
+
 </div>
 
 ## R Fundamentals for Data Analysis

@@ -5,6 +5,10 @@ pagetitle: "Workshops"
 
 # Workshops
 
+{::comment}
+A comment.
+{:/comment}
+
 <div class = "menu-items">
 ![](https://www.r-project.org/logo/Rlogo.png)
 {: .small}
@@ -59,6 +63,10 @@ pagetitle: "Workshops"
 {: .indent}
 </div>
 {::options parse_block_html="true" /}
+
+{::comment}
+A comment.
+{:/comment}
 
 > Dates and registration details available at [https://csc.ok.ubc.ca/workshops/](https://csc.ok.ubc.ca/workshops/)
 

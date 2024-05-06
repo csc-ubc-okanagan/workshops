@@ -5,8 +5,7 @@ pagetitle: "Workshops"
 
 # Workshops
 
-<div></div>
-
+<div>
 <div class = "menu-items">
 ![](https://www.r-project.org/logo/Rlogo.png)
 {: .small}
@@ -62,9 +61,13 @@ pagetitle: "Workshops"
 </div>
 {::options parse_block_html="true" /}
 
-<div></div>
+</div>
+{::options parse_block_html="true" /}
 
+<div>
 > Dates and registration details available at [https://csc.ok.ubc.ca/workshops/](https://csc.ok.ubc.ca/workshops/)
+</div>
+{::options parse_block_html="true" /}
 
 ## R Fundamentals for Data Analysis
 

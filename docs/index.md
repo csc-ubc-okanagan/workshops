@@ -46,7 +46,7 @@ pagetitle: "Workshops"
     <div class = "menu-items">
         <img src = "https://git-scm.com/images/logos/downloads/Git-Icon-1788C.svg">
         <ul>
-        <li><a href="https://csc-ubc-okanagan.github.io/workshops/#git-and-github">Git and GitHubl</a></li>
+        <li><a href="https://csc-ubc-okanagan.github.io/workshops/#git-and-github">Git and GitHub</a></li>
         </ul>
     </div>
 

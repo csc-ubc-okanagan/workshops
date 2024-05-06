@@ -12,6 +12,28 @@ pagetitle: "Workshops"
     </ul>
 </div>
 
+<div class = "menu-items">
+    <img src = "https://s3.dualstack.us-east-2.amazonaws.com/pythondotorg-assets/media/community/logos/python-logo-only.png">
+    <ul>
+    <li><a href="https://csc-ubc-okanagan.github.io/workshops/#python-basics-for-data-analysis">Python Basics for Data Analysis</a></li>
+    </ul>
+</div>
+
+<div class = "menu-items">
+    <img src = "https://raw.githubusercontent.com/csc-ubc-okanagan/workshops/main/docs/assets/images/bell-curve_v2.jpeg">
+    <ul>
+    <li><a href="https://csc-ubc-okanagan.github.io/workshops/#statistical-fundamentals-a-visual-approach">Statistical Fundamentals: A Visual Approach</a></li>
+    <li><a href="https://csc-ubc-okanagan.github.io/workshops/#fitting-models-to-data-not-data-to-models">Fitting Models to Data Not Data to Models</a></li>
+    </ul>
+</div>
+
+<div class = "menu-items">
+    <img src = "https://s3.dualstack.us-east-2.amazonaws.com/pythondotorg-assets/media/community/logos/python-logo-only.png">
+    <ul>
+    <li><a href="https://csc-ubc-okanagan.github.io/workshops/#python-basics-for-data-analysis">Python Basics for Data Analysis</a></li>
+    </ul>
+</div>
+
 ## R Fundamentals for Data Analysis
 
 This series of introductory workshops are intended for individuals with little to no familiarity with R or similar tools that rely on a scripted environment. They are intended as a low barrier entry into the world of using your computer to engage with data outside of graphical tools like Excel or SPSS.

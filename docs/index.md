@@ -5,7 +5,7 @@ pagetitle: "Workshops"
 
 # Workshops
 
-<div markdown="block">
+<div markdown="1">
     <div class = "menu-items">
     ![](https://www.r-project.org/logo/Rlogo.png)
     {: .small}

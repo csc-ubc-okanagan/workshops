@@ -12,7 +12,6 @@ pagetitle: "Workshops"
 * [R Fundamentals for Data Analysis](https://csc-ubc-okanagan.github.io/workshops/#r-fundamentals-for-data-analysis)
 {: .indent}
 </div>
-
 {::options parse_block_html="true" /}
 
 <div class = "menu-items">
@@ -22,7 +21,6 @@ pagetitle: "Workshops"
 * [Python Basics for Data Analysis](https://csc-ubc-okanagan.github.io/workshops/#python-basics-for-data-analysis)
 {: .indent}
 </div>
-
 {::options parse_block_html="true" /}
 
 ![](https://raw.githubusercontent.com/csc-ubc-okanagan/workshops/main/docs/assets/images/bell-curve_v2.jpeg)

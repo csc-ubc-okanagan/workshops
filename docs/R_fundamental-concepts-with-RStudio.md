@@ -5,9 +5,7 @@ output:
     keep_md: yes
 ---
 
-
-
-Last Updated: 2024-03-04
+Last Updated: 2024-10-03
 
 ## RStudio
 
@@ -19,58 +17,57 @@ R is great for interactive computational analysis, allowing for easy exploration
 
 At it's most basic, R is a glorified calculator, capable of any operation might wish to throw at it...
 
-
-```r
+``` r
 # addition
 2 + 2
 ```
 
-```
+```         
 ## [1] 4
 ```
 
-```r
+``` r
 # subtraction
 3 - 2
 ```
 
-```
+```         
 ## [1] 1
 ```
 
-```r
+``` r
 # mulitplication
 3 * 3
 ```
 
-```
+```         
 ## [1] 9
 ```
 
-```r
+``` r
 # division
 4 / 2
 ```
 
-```
+```         
 ## [1] 2
 ```
 
-```r
+``` r
 # square root
 sqrt(9)
 ```
 
-```
+```         
 ## [1] 3
 ```
 
-```r
+``` r
 # log 10
 log10(100)
 ```
 
-```
+```         
 ## [1] 2
 ```
 
@@ -78,13 +75,12 @@ log10(100)
 
 At least initially, everything you do in R will be applying functions to data. In the above section, the mathematical operators, `sqrt()`, and `log10()`, are all functions. Functions take in data (or values) and process them, providing an output. The output is displayed in your console by default.
 
-
-```r
+``` r
 # c() is a common function for concatenating things together
 c(1:10)
 ```
 
-```
+```         
 ##  [1]  1  2  3  4  5  6  7  8  9 10
 ```
 
@@ -92,42 +88,38 @@ c(1:10)
 
 While having outputs directed to the console is convenient for interactive analysis, often we need to store data and / or outputs for later use. We do this with variable assignmet, where the greater than and dash are used to assign the values (object) on the right to the name (variable) on the left.
 
-
-```r
+``` r
 my_variable <- c(1:10)
 ```
 
 You can then recall the values (object) associated with your variable...
 
-
-```r
+``` r
 my_variable
 ```
 
-```
+```         
 ##  [1]  1  2  3  4  5  6  7  8  9 10
 ```
 
 And plug it into functions, ie, do computations on it...
 
-
-```r
+``` r
 my_variable * 2
 ```
 
-```
+```         
 ##  [1]  2  4  6  8 10 12 14 16 18 20
 ```
 
 > When naming variables in R, keep in mind that variable names:
 >
-> * Should first and foremost be meaningful. This is not a rule, just best practice.
-> * Cannot start with a number or a dot followed by a number.
-> * Cannot contain spaces or hyphens.
-> * Can contain letters, numbers, dots, and underscores.
+> -   Should first and foremost be meaningful. This is not a rule, just best practice.
+> -   Cannot start with a number or a dot followed by a number.
+> -   Cannot contain spaces or hyphens.
+> -   Can contain letters, numbers, dots, and underscores.
 >
 > Additionally, some words are reserved and cannot be used, such as if and for. More details can be found with `?make.names`
-
 
 ## Data Types & Structures
 
@@ -135,34 +127,33 @@ my_variable * 2
 
 Data types are elemental data constructs that R is able to distinguish between. The most common data types in R are `numeric`, `character`, and `boolean`. These come with intrinsic properties, for example, numeric data can be computed (added, divided, etc), character data can be strung together (character data, especially groups of characters are referred to as strings), and boolean data facilitates working with dichotomous values.
 
-* `boolean` data are generally referred to as `logical`.
-* `numeric` data are subdivided into `double` and `integer`; the difference is generally of little significance, as R manages the distinctions for you, but be wary if you're dealing with particularly large numbers.
-* `character` data always needs to be wrapped in single or double quotations.
+-   `boolean` data are generally referred to as `logical`.
+-   `numeric` data are subdivided into `double` and `integer`; the difference is generally of little significance, as R manages the distinctions for you, but be wary if you're dealing with particularly large numbers.
+-   `character` data always needs to be wrapped in single or double quotations.
 
 The function `typeof()`, will tell you what data type you have...
 
-
-```r
+``` r
 typeof(2)
 ```
 
-```
+```         
 ## [1] "double"
 ```
 
-```r
+``` r
 typeof("a")
 ```
 
-```
+```         
 ## [1] "character"
 ```
 
-```r
+``` r
 typeof(TRUE)
 ```
 
-```
+```         
 ## [1] "logical"
 ```
 
@@ -174,37 +165,36 @@ Data structures are ways to hold multiple pieces of data together in a meaningfu
 
 The most basic is a `vector`. In fact, everything in R is a vector, and all other data structures are composed of vectors in various ways. It's convenient to think of a vector as a simple list of like things; everything in a vector needs to be of the same data type. So, a vector can be:
 
-* numeric, holding numeric data;
-* character, holding character data; or
-* logical, holding boolean data.
+-   numeric, holding numeric data;
+-   character, holding character data; or
+-   logical, holding boolean data.
 
 A vector can be created with `c()`
 
-
-```r
+``` r
 # numeric vector
 c(1:10)
 ```
 
-```
+```         
 ##  [1]  1  2  3  4  5  6  7  8  9 10
 ```
 
-```r
+``` r
 # character vector
 c("a", "b", "c")
 ```
 
-```
+```         
 ## [1] "a" "b" "c"
 ```
 
-```r
+``` r
 # logical vector
 c(TRUE, TRUE, FALSE)
 ```
 
-```
+```         
 ## [1]  TRUE  TRUE FALSE
 ```
 
@@ -214,22 +204,21 @@ A matrix is a vector with 2 dimensions; while a vector only has a length, a matr
 
 You can create a matrix with the `matrix()` function, providing it first with a series of values followed by an argument for the number of rows or columns you'd like.
 
-
-```r
+``` r
 matrix(1:10, nrow = 2)
 ```
 
-```
+```         
 ##      [,1] [,2] [,3] [,4] [,5]
 ## [1,]    1    3    5    7    9
 ## [2,]    2    4    6    8   10
 ```
 
-```r
+``` r
 matrix(1:10, ncol = 2)
 ```
 
-```
+```         
 ##      [,1] [,2]
 ## [1,]    1    6
 ## [2,]    2    7
@@ -240,18 +229,17 @@ matrix(1:10, ncol = 2)
 
 A matrix must be perfectly rectangular, that is, each column must be of equal length. R will recycle values to ensure this condition is met.
 
-
-```r
+``` r
 # R will recycle the 1 to complete the rectangle
 matrix(1:11, ncol = 2)
 ```
 
-```
+```         
 ## Warning in matrix(1:11, ncol = 2): data length [11] is not a sub-multiple or
 ## multiple of the number of rows [6]
 ```
 
-```
+```         
 ##      [,1] [,2]
 ## [1,]    1    7
 ## [2,]    2    8
@@ -269,13 +257,12 @@ In general, these will be the most likely data structures that you'll encounter 
 
 Data frames are collections of vectors, where each vector must be of the same length, but can be of a different data type. If you import data from an Excel or csv file, these will be read in as a data frame. You can also create them with the `data.frame()` function.
 
-
-```r
+``` r
 data.frame(var_1 = letters,
            var_2 = 1:26)
 ```
 
-```
+```         
 ##    var_1 var_2
 ## 1      a     1
 ## 2      b     2
@@ -311,14 +298,13 @@ Like data frames, lists are collections of vectors. However, unlike data frames,
 
 If you are importing tabular data, you are unlikely to create a list yourself, however, when performing operations (using functions) on your data, the output, or result, might be in the form of a list. For demonstration puropses, a list can be created with the `list()` function.
 
-
-```r
+``` r
 list(item_1 = letters,
      item_2 = 1:10,
      item_3 = c(TRUE, FALSE))
 ```
 
-```
+```         
 ## $item_1
 ##  [1] "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l" "m" "n" "o" "p" "q" "r" "s"
 ## [20] "t" "u" "v" "w" "x" "y" "z"
@@ -336,39 +322,38 @@ The function `class()` will tell you what kind of structure your data are held i
 
 > `class()`, when called on a vector, will report on the data type, which should be read as the type of atomic vector you have. An array is a multi-dimensional vector, a matrix is the special case where there are only two dimensions.
 
-
-```r
+``` r
 class(c(1:10))
 ```
 
-```
+```         
 ## [1] "integer"
 ```
 
-```r
+``` r
 class(matrix(1:10, ncol = 2))
 ```
 
-```
+```         
 ## [1] "matrix" "array"
 ```
 
-```r
+``` r
 class(data.frame(var_1 = letters,
            var_2 = 1:26))
 ```
 
-```
+```         
 ## [1] "data.frame"
 ```
 
-```r
+``` r
 class(list(item_1 = letters,
      item_2 = 1:10,
      item_3 = c(TRUE, FALSE)))
 ```
 
-```
+```         
 ## [1] "list"
 ```
 
@@ -378,8 +363,7 @@ There are five primary ways to get help (other than asking a friend) with R.
 
 The first is with the built in documentation, which can be accessed by preceding a function name with a `?`.
 
-
-```r
+``` r
 ?sqrt()
 ```
 
@@ -393,9 +377,19 @@ The fourth is journal publications that accompany the release of specific packag
 
 The fourth is more in depth texts. Many of these are available publicly online, and include titles such as:
 
-* aRrgh: a newcomer’s (angry) guide to R, by Tim Smith and Kevin Ushey - [http://arrgh.tim-smith.us/](http://arrgh.tim-smith.us/)
-* YaRrr! The Pirate’s Guide to R, by Nathaniel D. Phillips - [https://bookdown.org/ndphillips/YaRrr/](https://bookdown.org/ndphillips/YaRrr/)
-* R for Graduate Students, by Wendy Huynh. - [https://bookdown.org/yih_huynh/Guide-to-R-Book/](https://bookdown.org/yih_huynh/Guide-to-R-Book/)
-* Advanced R, by Hadley Wickham - [http://adv-r.had.co.nz/Introduction.html](http://adv-r.had.co.nz/Introduction.html)
+-   aRrgh: a newcomer's (angry) guide to R, by Tim Smith and Kevin Ushey - <http://arrgh.tim-smith.us/>
+-   YaRrr! The Pirate's Guide to R, by Nathaniel D. Phillips - <https://bookdown.org/ndphillips/YaRrr/>
+-   R for Graduate Students, by Wendy Huynh. - <https://bookdown.org/yih_huynh/Guide-to-R-Book/>
+-   Advanced R, by Hadley Wickham - <http://adv-r.had.co.nz/Introduction.html>
 
 And through the library, the [O'Reilly platform](https://resources.library.ubc.ca/page.php?details=oreilly-for-higher-education&id=2460) hosts a plethora of titles related to R.
+
+## Test your R Might!
+
+Here are some examples for you to look at and challenge yourself, ensuring you now have a better understanding of today's session and how R works!
+
+1.  Create the vector [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] in three ways: once using `c()`, once using `a:b`, and once using `seq()`.
+
+2.  Create the vector [0, 5, 10, 15] in 3 ways: using `c()`, `seq()` with a `by` argument, and `seq()` with a `length.out` argument.
+
+3.  Create a data frame named `df` with the following columns: `ID` (1 to 10), `Name` (a character vector of names), and `Score` (randomly generated values between 50 and 100). Then, add a new column `Pass` that indicates whether the score is above 60.

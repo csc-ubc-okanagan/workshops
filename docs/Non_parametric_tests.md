@@ -505,6 +505,9 @@ Non-parametric tests are essential in statistical analysis but come with certain
 - **Limited Scale**: Primarily suited for ordinal or nominal data, potentially underused information from higher-level scales.
 
 
+**Note:** The slides used in this class can be found below.
+
+<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vRrSqRMylBsqMtPJnxu6F8aO7u1Xuoq9GoDd1Gxg_PisqoZr_Gra6VEL4l025nVMQ/embed?start=false&loop=false&delayms=3000" frameborder="0" width="640" height="389" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
 
 ```R
 

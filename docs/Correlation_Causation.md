@@ -376,3 +376,7 @@ t.test(post_test ~ treatment, data = edu_data)
 ```R
 
 ```
+
+**Note:** The slides used in this class can be found below.
+
+<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQXgu1h7t-bXYZUqPT0ByeGnD_OHRGETpPGHTpyHRpU7g82xgV14QvyqfnALm5KSg/embed?start=false&loop=false&delayms=3000" frameborder="0" width="640" height="389" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>

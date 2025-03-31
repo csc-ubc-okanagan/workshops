@@ -340,7 +340,9 @@ if(test_result$p.value < 0.05) {
 
 - **Avoid Binary Interpretations**: Discourage the simplistic dichotomy of "significant" vs. "not significant" based on arbitrary p-value thresholds like 0.05. Promote a nuanced interpretation of p-values, recognizing that statistical significance does not equate to scientific or practical importance, and that a higher p-value does not necessarily invalidate the research hypothesis.
 
+**Note:** The slides used in this class can be found below.
 
+<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQBhyXiN0GyTXbA2-KaWIBizdzp037WFQRemzL33neL1-xY_vCaCVjJbqS93eN4Xg/embed?start=false&loop=false&delayms=3000" frameborder="0" width="640" height="389" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
 
 ```R
 

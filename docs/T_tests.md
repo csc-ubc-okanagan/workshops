@@ -311,6 +311,9 @@ Non-parametric tests are used when data do not meet the assumptions required for
 These non-parametric tests provide robust alternatives to t-tests, especially useful for small samples or data with significant skewness or outliers.
 
 
+**Note:** The slides used in this class can be found below.
+
+<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQDqXrk2UH6G6pMP_CvMVv9zfxphKXJy6cj7q7wgMdcmyhNVS_PeTCPP8LkLBYOxg/embed?start=false&loop=false&delayms=3000" frameborder="0" width="640" height="389" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
 
 ```R
 

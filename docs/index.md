@@ -137,7 +137,7 @@ This series introduces early-career researchers to statistical models that exten
 [Read invidiual workshop descriptions here](https://github.com/csc-ubc-okanagan/workshops/blob/main/outlines/fitting-models-to-data-not-data-to-models.md). html formatted materials coming soon. Links to scripts available below.
 
 * Simple Linear Regression [script](https://github.com/csc-ubc-okanagan/ubco-csc-modeling-workshop/blob/main/R-scripts/1-simple-linear-regression.R)
-* Fitting linear models in `R` [script](https://github.com/csc-ubc-okanagan/ubco-csc-modeling-workshop/blob/main/R-scripts/2-fitting-linear-models-in-R.R)
+* Fitting linear models in `R` [script](https://github.com/csc-ubc-okanagan/ubco-csc-modeling-workshop/blob/main/R-scripts/2-fitting-linear-models-in-R.R), [slides](https://github.com/csc-ubc-okanagan/workshops/blob/main/docs/FittingModelsSlides/CSCWS02T01.pdf)
 * Multiple linear regression in `R` [script](https://github.com/csc-ubc-okanagan/ubco-csc-modeling-workshop/blob/main/R-scripts/3-multiple-linear-regression.R)
 * Interaction terms and Hierarchical Linear Models/Linear Mixed Models [script](https://github.com/csc-ubc-okanagan/ubco-csc-modeling-workshop/blob/main/R-scripts/4-hierarchical-linear-models.R)
 * (Hierarchical) Generalized Linear Models

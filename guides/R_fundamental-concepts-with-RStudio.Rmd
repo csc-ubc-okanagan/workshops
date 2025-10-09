@@ -14,7 +14,16 @@ Last Updated: `r Sys.Date()`
 
 ## RStudio
 
+
+~~~{=comment}
+The 
+':::notes :::' command allows you to add speaker notes directly to the RMD.
+
+~~~
+
+:::notes
 R is great for interactive computational analysis, allowing for easy exploration and iteration. Using an IDE - Integrated Development Environment - such as RStudio, facilitates this interactivity, providing you with easy access to a place to quickly code (the console), a place to write saveable scripts (source editor), a place to view the objects that you create (environment pane), and a place to interact with your file system, visual outputs from your code, and help documentation (the miscellaneous pane, for lack of a better word).
+:::
 
 ![](https://raw.githubusercontent.com/csc-ubc-okanagan/workshops/main/docs/assets/images/rstudio.png)
 ---
@@ -48,14 +57,9 @@ log10(100)
 ---
 
 ## Functions
-
-~~~{=comment}
-this will be ignored
-
-This, too!
-~~~
-
+:::notes
 At least initially, everything you do in R will be applying functions to data. In the above section, the mathematical operators, `sqrt()`, and `log10()`, are all functions. Functions take in data (or values) and process them, providing an output. The output is displayed in your console by default.
+:::
 
 ```{r}
 # c() is a common function for concatenating things together
@@ -65,22 +69,18 @@ c(1:10)
 ---
 
 ## Variables
-
+:::notes
 While having outputs directed to the console is convenient for interactive analysis, often we need to store data and / or outputs for later use. We do this with variable assignmet, where the greater than and dash are used to assign the values (object) on the right to the name (variable) on the left.
+:::
 
 ```{r}
+# You can then recall the values (object) associated with your variable...
 my_variable <- c(1:10)
-```
 
-You can then recall the values (object) associated with your variable...
+#And plug it into functions, ie, do computations on it...
 
-```{r}
 my_variable
-```
 
-And plug it into functions, ie, do computations on it...
-
-```{r}
 my_variable * 2
 ```
 
@@ -95,17 +95,16 @@ Can contain letters, numbers, dots, and underscores.
 
 Additionally, some words are reserved and cannot be used, such as if and for. More details can be found with `?make.names`
 :::
-## Data Types & Structures
-
 ### Data Types
-
-Data types are elemental data constructs that R is able to distinguish between. The most common data types in R are `numeric`, `character`, and `boolean`. These come with intrinsic properties, for example, numeric data can be computed (added, divided, etc), character data can be strung together (character data, especially groups of characters are referred to as strings), and boolean data facilitates working with dichotomous values.
 
 * `boolean` data are generally referred to as `logical`.
 * `numeric` data are subdivided into `double` and `integer`; the difference is generally of little significance, as R manages the distinctions for you, but be wary if you're dealing with particularly large numbers.
 * `character` data always needs to be wrapped in single or double quotations.
 
 The function `typeof()`, will tell you what data type you have...
+:::notes
+Data types are elemental data constructs that R is able to distinguish between. The most common data types in R are `numeric`, `character`, and `boolean`. These come with intrinsic properties, for example, numeric data can be computed (added, divided, etc), character data can be strung together (character data, especially groups of characters are referred to as strings), and boolean data facilitates working with dichotomous values.
+:::
 
 ```{r}
 typeof(2)
@@ -148,44 +147,39 @@ c(TRUE, TRUE, FALSE)
 
 #### Matrices
 
-A matrix is a vector with 2 dimensions; while a vector only has a length, a matrix is a grid with both length and width, or alternatively, rows and columns.
-
-You can create a matrix with the `matrix()` function, providing it first with a series of values followed by an argument for the number of rows or columns you'd like.
-
 ```{r}
 matrix(1:10, nrow = 2)
 matrix(1:10, ncol = 2)
-```
 
-A matrix must be perfectly rectangular, that is, each column must be of equal length. R will recycle values to ensure this condition is met.
-
-```{r}
 # R will recycle the 1 to complete the rectangle
 matrix(1:11, ncol = 2)
 ```
 
-A matrix must also be atomic - the data type must be the same throughout.
+:::notes
+A matrix is a vector with 2 dimensions; while a vector only has a length, a matrix is a grid with both length and width, or alternatively, rows and columns.
+
+You can create a matrix with the `matrix()` function, providing it first with a series of values followed by an argument for the number of rows or columns you'd like. A matrix must be perfectly rectangular, that is, each column must be of equal length. R will recycle values to ensure this condition is met. A matrix must also be atomic - the data type must be the same throughout.
+:::
 
 ---
 
 #### Data frames
-
-In general, these will be the most likely data structures that you'll encounter and the most familiar, as they are designed for tabular data and look like a spreadsheet.
-
-Data frames are collections of vectors, where each vector must be of the same length, but can be of a different data type. If you import data from an Excel or csv file, these will be read in as a data frame. You can also create them with the `data.frame()` function.
 
 ```{r}
 data.frame(var_1 = letters,
            var_2 = 1:26)
 ```
 
+:::notes
+In general, these will be the most likely data structures that you'll encounter and the most familiar, as they are designed for tabular data and look like a spreadsheet.
+
+Data frames are collections of vectors, where each vector must be of the same length, but can be of a different data type. If you import data from an Excel or csv file, these will be read in as a data frame. You can also create them with the `data.frame()` function.
+:::
+
 ---
 
 #### Lists
 
-Like data frames, lists are collections of vectors. However, unlike data frames, the length of these vectors can change. So far, this is the only non-rectangular data structure that we have to work with.
-
-If you are importing tabular data, you are unlikely to create a list yourself, however, when performing operations (using functions) on your data, the output, or result, might be in the form of a list. For demonstration puropses, a list can be created with the `list()` function.
 
 ```{r}
 list(item_1 = letters,
@@ -193,13 +187,16 @@ list(item_1 = letters,
      item_3 = c(TRUE, FALSE))
 ```
 
+:::notes
+Like data frames, lists are collections of vectors. However, unlike data frames, the length of these vectors can change. So far, this is the only non-rectangular data structure that we have to work with.
+
+If you are importing tabular data, you are unlikely to create a list yourself, however, when performing operations (using functions) on your data, the output, or result, might be in the form of a list. For demonstration puropses, a list can be created with the `list()` function.
+:::
+
 ---
 
 #### Identifying Data Structures
 
-The function `class()` will tell you what kind of structure your data are held in.
-
-> `class()`, when called on a vector, will report on the data type, which should be read as the type of atomic vector you have. An array is a multi-dimensional vector, a matrix is the special case where there are only two dimensions.
 
 ```{r}
 class(c(1:10))
@@ -214,18 +211,20 @@ class(list(item_1 = letters,
      item_3 = c(TRUE, FALSE)))
 ```
 
+:::notes
+
+The function `class()` will tell you what kind of structure your data are held in. `class()`, when called on a vector, will report on the data type, which should be read as the type of atomic vector you have. An array is a multi-dimensional vector, a matrix is the special case where there are only two dimensions.
+:::
+
 ---
 
 ## Getting Help
-
-There are five primary ways to get help (other than asking a friend) with R.
-
-The first is with the built in documentation, which can be accessed by preceding a function name with a `?`.
 
 ```{r, eval = FALSE}
 ?sqrt()
 ```
 
+:::notes
 These pages can be both enlightening and frustrating, as they assume some pre-existing familiarity with certain concepts as well as reading this kind of documentation.
 
 The second is from forums. These are useful when you have a specific issue that you're trying to resolve, and can often provide a quick fix, but the explanations also often require a degree of familiarity to make sense.
@@ -235,8 +234,10 @@ The third is blog posts and course supports posted on line. These generally prov
 The fourth is journal publications that accompany the release of specific packages or libraries. These offer in depth descriptions of the packages and their arguments, often with examples.
 
 The fourth is more in depth texts. Many of these are available publicly online, and include titles such as:
+:::
 
 ---
+
 ## References
 * aRrgh: a newcomer’s (angry) guide to R, by Tim Smith and Kevin Ushey - [http://arrgh.tim-smith.us/](http://arrgh.tim-smith.us/)
 * YaRrr! The Pirate’s Guide to R, by Nathaniel D. Phillips - [https://bookdown.org/ndphillips/YaRrr/](https://bookdown.org/ndphillips/YaRrr/)

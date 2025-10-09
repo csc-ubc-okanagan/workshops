@@ -16,7 +16,7 @@ Workshop content is available online for simultaneous or asynchronous engagement
 
 ## Workshop Outlines
 
-* [R Fundamentals for Data Anlysis](https://github.com/csc-ubc-okanagan/workshops/blob/main/outlines/r-fundamentals-for-data-analysis.md)
+* [R Fundamentals for Data Analysis](https://github.com/csc-ubc-okanagan/workshops/blob/main/outlines/r-fundamentals-for-data-analysis.md)
 * [Python Basics for Data Analysis](https://github.com/csc-ubc-okanagan/workshops/blob/main/outlines/python-basics-for-data-analysis.md)
 * [Researcher Toolkit](https://github.com/csc-ubc-okanagan/workshops/blob/main/outlines/researcher-toolkit.md)
 * [Statistical Fundamentals: A Visual Approach](https://github.com/csc-ubc-okanagan/workshops/blob/main/outlines/statistical-fundamentals_a-visual-approach.md)

@@ -1,8 +1,6 @@
 ---
 title: 'R: Fundamental Concepts with RStudio'
-output:
-  html_document:
-    keep_md: yes
+output: powerpoint_presentation
 ---
 
 ```{r setup, include = FALSE}
@@ -17,6 +15,7 @@ Last Updated: `r Sys.Date()`
 R is great for interactive computational analysis, allowing for easy exploration and iteration. Using an IDE - Integrated Development Environment - such as RStudio, facilitates this interactivity, providing you with easy access to a place to quickly code (the console), a place to write saveable scripts (source editor), a place to view the objects that you create (environment pane), and a place to interact with your file system, visual outputs from your code, and help documentation (the miscellaneous pane, for lack of a better word).
 
 ![](https://raw.githubusercontent.com/csc-ubc-okanagan/workshops/main/docs/assets/images/rstudio.png)
+---
 
 ## Simple Math
 
@@ -42,6 +41,8 @@ sqrt(9)
 log10(100)
 ```
 
+---
+
 ## Functions
 
 At least initially, everything you do in R will be applying functions to data. In the above section, the mathematical operators, `sqrt()`, and `log10()`, are all functions. Functions take in data (or values) and process them, providing an output. The output is displayed in your console by default.
@@ -50,6 +51,8 @@ At least initially, everything you do in R will be applying functions to data. I
 # c() is a common function for concatenating things together
 c(1:10)
 ```
+
+---
 
 ## Variables
 
@@ -71,16 +74,16 @@ And plug it into functions, ie, do computations on it...
 my_variable * 2
 ```
 
-> When naming variables in R, keep in mind that variable names:
->
-> * Should first and foremost be meaningful. This is not a rule, just best practice.
-> * Cannot start with a number or a dot followed by a number.
-> * Cannot contain spaces or hyphens.
-> * Can contain letters, numbers, dots, and underscores.
->
-> Additionally, some words are reserved and cannot be used, such as if and for. More details can be found with `?make.names`
+:::notes
+When naming variables in R, keep in mind that variable names:
 
+Should first and foremost be meaningful. This is not a rule, just best practice.
+Cannot start with a number or a dot followed by a number.
+Cannot contain spaces or hyphens.
+Can contain letters, numbers, dots, and underscores.
 
+Additionally, some words are reserved and cannot be used, such as if and for. More details can be found with `?make.names`
+:::
 ## Data Types & Structures
 
 ### Data Types
@@ -99,12 +102,17 @@ typeof("a")
 typeof(TRUE)
 ```
 
+---
+
 ### Data Structures
 
 Data structures are ways to hold multiple pieces of data together in a meaningful way. R has four convenient ways of storing multiple pieces of data: vectors, matrices, data frames, and lists.
 
+---
+
 #### Vectors
 
+:::notes
 The most basic is a `vector`. In fact, everything in R is a vector, and all other data structures are composed of vectors in various ways. It's convenient to think of a vector as a simple list of like things; everything in a vector needs to be of the same data type. So, a vector can be:
 
 * numeric, holding numeric data;
@@ -112,6 +120,7 @@ The most basic is a `vector`. In fact, everything in R is a vector, and all othe
 * logical, holding boolean data.
 
 A vector can be created with `c()`
+:::
 
 ```{r}
 # numeric vector
@@ -123,6 +132,8 @@ c("a", "b", "c")
 # logical vector
 c(TRUE, TRUE, FALSE)
 ```
+
+---
 
 #### Matrices
 
@@ -144,6 +155,8 @@ matrix(1:11, ncol = 2)
 
 A matrix must also be atomic - the data type must be the same throughout.
 
+---
+
 #### Data frames
 
 In general, these will be the most likely data structures that you'll encounter and the most familiar, as they are designed for tabular data and look like a spreadsheet.
@@ -154,6 +167,8 @@ Data frames are collections of vectors, where each vector must be of the same le
 data.frame(var_1 = letters,
            var_2 = 1:26)
 ```
+
+---
 
 #### Lists
 
@@ -166,6 +181,8 @@ list(item_1 = letters,
      item_2 = 1:10,
      item_3 = c(TRUE, FALSE))
 ```
+
+---
 
 #### Identifying Data Structures
 
@@ -185,6 +202,8 @@ class(list(item_1 = letters,
      item_2 = 1:10,
      item_3 = c(TRUE, FALSE)))
 ```
+
+---
 
 ## Getting Help
 
@@ -206,6 +225,8 @@ The fourth is journal publications that accompany the release of specific packag
 
 The fourth is more in depth texts. Many of these are available publicly online, and include titles such as:
 
+---
+## References
 * aRrgh: a newcomer’s (angry) guide to R, by Tim Smith and Kevin Ushey - [http://arrgh.tim-smith.us/](http://arrgh.tim-smith.us/)
 * YaRrr! The Pirate’s Guide to R, by Nathaniel D. Phillips - [https://bookdown.org/ndphillips/YaRrr/](https://bookdown.org/ndphillips/YaRrr/)
 * R for Graduate Students, by Wendy Huynh. - [https://bookdown.org/yih_huynh/Guide-to-R-Book/](https://bookdown.org/yih_huynh/Guide-to-R-Book/)

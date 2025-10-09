@@ -1,6 +1,8 @@
 ---
 title: 'R: Fundamental Concepts with RStudio'
-output: powerpoint_presentation
+output:
+  powerpoint_presentation:
+    reference_doc: '../assets/powerpoint-styles/dark-theme.pptx'
 ---
 
 ```{r setup, include = FALSE}
@@ -19,7 +21,9 @@ R is great for interactive computational analysis, allowing for easy exploration
 
 ## Simple Math
 
+:::notes
 At it's most basic, R is a glorified calculator, capable of any operation might wish to throw at it...
+:::
 
 ```{r}
 # addition
@@ -44,6 +48,12 @@ log10(100)
 ---
 
 ## Functions
+
+~~~{=comment}
+this will be ignored
+
+This, too!
+~~~
 
 At least initially, everything you do in R will be applying functions to data. In the above section, the mathematical operators, `sqrt()`, and `log10()`, are all functions. Functions take in data (or values) and process them, providing an output. The output is displayed in your console by default.
 
@@ -73,6 +83,7 @@ And plug it into functions, ie, do computations on it...
 ```{r}
 my_variable * 2
 ```
+
 
 :::notes
 When naming variables in R, keep in mind that variable names:

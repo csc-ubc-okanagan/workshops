@@ -1,8 +1,10 @@
 ---
 title: 'R: Fundamental Concepts with RStudio'
+date: "`r format(Sys.time(), '%Y-%m-%d %H:%M:%S')`"
+name: "Alex Jack"
 output:
   powerpoint_presentation:
-    reference_doc: '../assets/powerpoint-styles/dark-theme.pptx'
+    reference_doc: '../assets/powerpoint-styles/light-theme.pptx'
 ---
 
 ```{r setup, include = FALSE}
@@ -10,9 +12,9 @@ knitr::opts_chunk$set(echo = TRUE,
                       eval = TRUE)
 ```
 
-Last Updated: `r Sys.Date()`
+---
 
-## RStudio
+# RStudio
 
 
 ~~~{=comment}
@@ -25,102 +27,174 @@ The
 R is great for interactive computational analysis, allowing for easy exploration and iteration. Using an IDE - Integrated Development Environment - such as RStudio, facilitates this interactivity, providing you with easy access to a place to quickly code (the console), a place to write saveable scripts (source editor), a place to view the objects that you create (environment pane), and a place to interact with your file system, visual outputs from your code, and help documentation (the miscellaneous pane, for lack of a better word).
 :::
 
-![](https://raw.githubusercontent.com/csc-ubc-okanagan/workshops/main/docs/assets/images/rstudio.png)
----
-
-## Simple Math
-
-:::notes
-At it's most basic, R is a glorified calculator, capable of any operation might wish to throw at it...
-:::
-
-```{r}
-# addition
-2 + 2
-
-# subtraction
-3 - 2
-
-# mulitplication
-3 * 3
-
-# division
-4 / 2
-
-# square root
-sqrt(9)
-
-# log 10
-log10(100)
+```{r echo = FALSE}
+knitr::include_graphics("../docs/assets/images/rstudio.png")
 ```
 
 ---
 
-## Functions
+# Installing packages
+
+```{r}
+# install.packages("dplyr") # This call installs a package 
+# library(dplyr) # This loads a package
+# devtools packages
+# install.packages("devtools")
+# install_github("username/repositoryname")
+```
+
 :::notes
-At least initially, everything you do in R will be applying functions to data. In the above section, the mathematical operators, `sqrt()`, and `log10()`, are all functions. Functions take in data (or values) and process them, providing an output. The output is displayed in your console by default.
+Base R (as it's affectionately called) is great, but the cool thing about R is it's huge ecosystem of packages which are constantly being expanded both on the central repository for the R programming language Comprehensive R Archive Network (CRAN) and outside of CRAN. As of the writing of this RMD there are over 22,000 packages on CRAN.  
 :::
+
+
+---
+
+# Simple Math
+
+```{r}
+2 + 2 # add
+3 - 2 # subtract
+3 * 3 # multiply
+4 / 2 # division
+sqrt(9) # square root
+```
+:::notes
+At it's most basic, R is a glorified calculator, capable of any operation might wish to throw at it...
+:::
+
+---
+
+# Functions
 
 ```{r}
 # c() is a common function for concatenating things together
 c(1:10)
 ```
+:::notes
+At least initially, everything you do in R will be applying functions to data. In the above section, the mathematical operators, `sqrt()`, and `log10()`, are all functions. Functions take in data (or values) and process them, providing an output. The output is displayed in your console by default.
+:::
 
 ---
 
-## Variables
-:::notes
-While having outputs directed to the console is convenient for interactive analysis, often we need to store data and / or outputs for later use. We do this with variable assignmet, where the greater than and dash are used to assign the values (object) on the right to the name (variable) on the left.
-:::
+# Variables
+
+```{r echo = FALSE}
+knitr::include_graphics("../docs/assets/images/box.jpeg")
+```
+
+---
+
+# Variables Cont'd
 
 ```{r}
 # You can then recall the values (object) associated with your variable...
 my_variable <- c(1:10)
-
+myAlphabet <- letters[1:5]
+myNumbers <- c(1:5)
 #And plug it into functions, ie, do computations on it...
 
 my_variable
 
 my_variable * 2
 ```
+:::notes
+While having outputs directed to the console is convenient for interactive analysis, often we need to store data and / or outputs for later use. We do this with variable assignment, where the greater than and dash are used to assign the values (object) on the right to the name (variable) on the left.
+When naming variables in R, keep in mind that variable names:
+:::
+
+---
+
+# Naming variables
+
+```{r}
+# camel case
+myNumber <- "Hello" # bad naming
+myNumber <- 10 # good naming
+# skeleton case
+my_number <- 10
+```
 
 
 :::notes
-When naming variables in R, keep in mind that variable names:
-
-Should first and foremost be meaningful. This is not a rule, just best practice.
-Cannot start with a number or a dot followed by a number.
-Cannot contain spaces or hyphens.
-Can contain letters, numbers, dots, and underscores.
+Should first and foremost be meaningful. This is not a rule, just best practice. Cannot start with a number or a dot followed by a number. Cannot contain spaces or hyphens. Can contain letters, numbers, dots, and underscores.
 
 Additionally, some words are reserved and cannot be used, such as if and for. More details can be found with `?make.names`
 :::
-### Data Types
 
-* `boolean` data are generally referred to as `logical`.
-* `numeric` data are subdivided into `double` and `integer`; the difference is generally of little significance, as R manages the distinctions for you, but be wary if you're dealing with particularly large numbers.
-* `character` data always needs to be wrapped in single or double quotations.
+---
 
-The function `typeof()`, will tell you what data type you have...
+# Data Types
+
+
+* Note: The function `typeof()`, will tell you what data type you have...
+
 :::notes
-Data types are elemental data constructs that R is able to distinguish between. The most common data types in R are `numeric`, `character`, and `boolean`. These come with intrinsic properties, for example, numeric data can be computed (added, divided, etc), character data can be strung together (character data, especially groups of characters are referred to as strings), and boolean data facilitates working with dichotomous values.
+Data types are elemental data constructs that R is able to distinguish between. The most common data types in R are numeric, character, and boolean. These come with intrinsic properties, for example, numeric data can be computed (added, divided, etc), character data can be strung together (character data, especially groups of characters are referred to as strings), and boolean data facilitates working with dichotomous values.
 :::
 
+---
+
+# Boolean (Logical Data)
+
+* `boolean` data are generally referred to as `logical`
+
 ```{r}
-typeof(2)
-typeof("a")
-typeof(TRUE)
+myBool <- TRUE # this is camel case
+typeof(myBool)
 ```
 
 ---
 
-### Data Structures
+# Numeric (Double)
+
+* `numeric` data are subdivided into `double` and `integer`; the difference is generally of little significance, as R manages the distinctions for you, but be wary if you're dealing with particularly large numbers
+
+```{r}
+myDouble <- 10.5
+typeof(myDouble)
+```
+
+
+---
+
+# Numeric (Integer)
+
+```{r}
+myInteger <- 10L
+typeof(myInteger)
+```
+
+
+---
+
+# Characters
+
+* `character` data always needs to be wrapped in single or double quotations.
+
+```{r}
+myChar <- "a" # Note that R does not distinguish between '' and "" but the use has to match
+typeof(myChar)
+
+```
+---
+
+# Complex
+
+```{r}
+myComplexNum <- 9 + 3i
+typeof(myComplexNum)
+```
+
+---
+
+# Data Structures
 
 Data structures are ways to hold multiple pieces of data together in a meaningful way. R has four convenient ways of storing multiple pieces of data: vectors, matrices, data frames, and lists.
 
 ---
 
-#### Vectors
+# Vectors
 
 :::notes
 The most basic is a `vector`. In fact, everything in R is a vector, and all other data structures are composed of vectors in various ways. It's convenient to think of a vector as a simple list of like things; everything in a vector needs to be of the same data type. So, a vector can be:
@@ -131,7 +205,6 @@ The most basic is a `vector`. In fact, everything in R is a vector, and all othe
 
 A vector can be created with `c()`
 :::
-
 ```{r}
 # numeric vector
 c(1:10)
@@ -141,18 +214,18 @@ c("a", "b", "c")
 
 # logical vector
 c(TRUE, TRUE, FALSE)
+
+# note that vectors do not allow you to mix types
+# c(TRUE, 10) # this will convert TRUE to 1
+# c(TRUE, "10") # this will convert TRUE to "TRUE"
 ```
 
 ---
 
-#### Matrices
+# Matrices
 
 ```{r}
 matrix(1:10, nrow = 2)
-matrix(1:10, ncol = 2)
-
-# R will recycle the 1 to complete the rectangle
-matrix(1:11, ncol = 2)
 ```
 
 :::notes
@@ -163,11 +236,11 @@ You can create a matrix with the `matrix()` function, providing it first with a 
 
 ---
 
-#### Data frames
+# Data frames
 
 ```{r}
-data.frame(var_1 = letters,
-           var_2 = 1:26)
+data.frame(letter = letters[1:5],
+           nol = 1:5) # nol mean number of letter
 ```
 
 :::notes
@@ -178,13 +251,12 @@ Data frames are collections of vectors, where each vector must be of the same le
 
 ---
 
-#### Lists
+# Lists
 
 
 ```{r}
-list(item_1 = letters,
-     item_2 = 1:10,
-     item_3 = c(TRUE, FALSE))
+list(item_1 = myAlphabet,
+     item_2 = c(1:3))
 ```
 
 :::notes
@@ -195,30 +267,37 @@ If you are importing tabular data, you are unlikely to create a list yourself, h
 
 ---
 
-#### Identifying Data Structures
+# Arrays
+
+```{r}
+array(c(1, 2, 3, 4), dim = c(1, 2, 2))
+```
+:::notes
+Arrays are an n-dimensional generalization of the 
+:::
+
+
+---
+
+# Identifying Data Structures
 
 
 ```{r}
 class(c(1:10))
-
 class(matrix(1:10, ncol = 2))
-
-class(data.frame(var_1 = letters,
-           var_2 = 1:26))
-
-class(list(item_1 = letters,
-     item_2 = 1:10,
-     item_3 = c(TRUE, FALSE)))
+class(data.frame(var_1 = letters,var_2 = 1:26))
+class(list(item_1 = letters,item_2 = 1:10,item_3 = c(TRUE, FALSE)))
 ```
 
 :::notes
-
 The function `class()` will tell you what kind of structure your data are held in. `class()`, when called on a vector, will report on the data type, which should be read as the type of atomic vector you have. An array is a multi-dimensional vector, a matrix is the special case where there are only two dimensions.
 :::
 
 ---
 
-## Getting Help
+# Getting Help
+
+* The `learnr` package is a resource for learning how to navigate R!
 
 ```{r, eval = FALSE}
 ?sqrt()
@@ -238,10 +317,13 @@ The fourth is more in depth texts. Many of these are available publicly online, 
 
 ---
 
-## References
+# References
+
 * aRrgh: a newcomer’s (angry) guide to R, by Tim Smith and Kevin Ushey - [http://arrgh.tim-smith.us/](http://arrgh.tim-smith.us/)
 * YaRrr! The Pirate’s Guide to R, by Nathaniel D. Phillips - [https://bookdown.org/ndphillips/YaRrr/](https://bookdown.org/ndphillips/YaRrr/)
 * R for Graduate Students, by Wendy Huynh. - [https://bookdown.org/yih_huynh/Guide-to-R-Book/](https://bookdown.org/yih_huynh/Guide-to-R-Book/)
 * Advanced R, by Hadley Wickham - [http://adv-r.had.co.nz/Introduction.html](http://adv-r.had.co.nz/Introduction.html)
 
 And through the library, the [O'Reilly platform](https://resources.library.ubc.ca/page.php?details=oreilly-for-higher-education&id=2460) hosts a plethora of titles related to R.
+
+* [https://www.w3schools.com/r/r_data_types.asp](W3 Schools)

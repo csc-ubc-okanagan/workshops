@@ -1,0 +1,480 @@
+---
+title: 'R: Fundamental Concepts with RStudio'
+date: "`r format(Sys.time(), '%Y-%m-%d %H:%M:%S')`"
+name: "Alex Jack"
+output:
+  powerpoint_presentation:
+    reference_doc: '../assets/powerpoint-styles/light-theme.pptx'
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      eval = TRUE)
+library(flextable)
+library(dplyr)
+library(tibble)
+```
+
+---
+
+~~~{=comment}
+#
+#
+#
+What is R broad overview section.
+#
+#
+#
+~~~
+
+
+```{r echo = FALSE}
+tbl <- tibble::tibble(
+  Tool  = c("SPSS", "R"),
+  Cost      = c("License", "Free, open-source"),
+  Flexibility   = c("Menu-driven", "Scriptable"),
+  Extensible     = c("New methods depend on SPSS",
+                          "Community-built packages (>22k) on CRAN"),
+  Visulation = c("Charts", "Advanced, customizable graphics with `ggplot`")
+)
+ft <- flextable(tbl) |>
+  theme_vanilla() |>
+  autofit() |>
+  bold(part = "header")
+```
+
+```{r echo = FALSE}
+ft
+```
+
+:::notes
+
+tbl <- tibble::tibble(
+  Tool  = c("SPSS", "R"),
+  Cost      = c("License", "Free, open-source"),
+  Flexibility   = c("Menu-driven", "Scriptable"),
+  Extensible     = c("New methods depend on SPSS",
+                          "Community-built packages (>22k) on CRAN"),
+  Visulation = c("Charts", "Advanced, customizable graphics with `ggplot`")
+)
+:::
+
+~~~{=comment}
+The 
+':::notes :::' command allows you to add speaker notes directly to the RMD.
+~~~
+
+---
+
+# RStudio
+
+
+:::notes
+R is great for interactive computational analysis, allowing for easy exploration and iteration. Using an IDE - Integrated Development Environment - such as RStudio, facilitates this interactivity, providing you with easy access to a place to quickly code (the console), a place to write saveable scripts (source editor), a place to view the objects that you create (environment pane), and a place to interact with your file system, visual outputs from your code, and help documentation (the miscellaneous pane, for lack of a better word).
+:::
+
+```{r echo = FALSE}
+knitr::include_graphics("../docs/assets/images/rstudio.png")
+# load flextable for creating pptx tables
+library(flextable)
+```
+
+---
+
+# Installing packages
+
+```{r}
+# install.packages("dplyr") # This call installs a package 
+# library(dplyr) # This loads a package
+# devtools packages
+# install.packages("devtools")
+# install_github("username/repositoryname")
+```
+
+:::notes
+Base R (as it's affectionately called) is great, but the cool thing about R is it's huge ecosystem of packages which are constantly being expanded both on the central repository for the R programming language Comprehensive R Archive Network (CRAN) and outside of CRAN. As of the writing of this RMD there are over 22,000 packages on CRAN.  
+:::
+
+
+---
+
+# Simple Math
+
+```{r}
+2 + 2 # add
+3 - 2 # subtract
+3 * 3 # multiply
+4 / 2 # division
+sqrt(9) # square root
+```
+:::notes
+At it's most basic, R is a glorified calculator, capable of any operation might wish to throw at it...
+:::
+
+---
+
+# Functions
+
+```{r}
+# c() is a common function for concatenating things together
+c(1:10)
+```
+:::notes
+At least initially, everything you do in R will be applying functions to data. In the above section, the mathematical operators, `sqrt()`, and `log10()`, are all functions. Functions take in data (or values) and process them, providing an output. The output is displayed in your console by default.
+:::
+
+---
+
+# Variables
+
+```{r echo = FALSE}
+knitr::include_graphics("../docs/assets/images/box.jpeg")
+```
+
+---
+
+# Variables Cont'd
+
+```{r}
+# You can then recall the values (object) associated with your variable...
+my_variable <- c(1:10)
+myAlphabet <- letters[1:5]
+myNumbers <- c(1:5)
+#And plug it into functions, ie, do computations on it...
+
+my_variable
+
+my_variable * 2
+```
+:::notes
+While having outputs directed to the console is convenient for interactive analysis, often we need to store data and / or outputs for later use. We do this with variable assignment, where the greater than and dash are used to assign the values (object) on the right to the name (variable) on the left.
+When naming variables in R, keep in mind that variable names:
+:::
+
+---
+
+# Naming variables
+
+```{r}
+# camel case
+myNumber <- "Hello" # bad naming
+myNumber <- 10 # good naming
+# skeleton case
+my_number <- 10
+```
+
+
+:::notes
+Should first and foremost be meaningful. This is not a rule, just best practice. Cannot start with a number or a dot followed by a number. Cannot contain spaces or hyphens. Can contain letters, numbers, dots, and underscores.
+
+Additionally, some words are reserved and cannot be used, such as if and for. More details can be found with `?make.names`
+:::
+
+---
+
+# Data Types
+
+
+* Note: The function `typeof()`, will tell you what data type you have...
+
+:::notes
+Data types are elemental data constructs that R is able to distinguish between. The most common data types in R are numeric, character, and boolean. These come with intrinsic properties, for example, numeric data can be computed (added, divided, etc), character data can be strung together (character data, especially groups of characters are referred to as strings), and boolean data facilitates working with dichotomous values.
+:::
+
+---
+
+# Boolean (Logical Data)
+
+* `boolean` data are generally referred to as `logical`
+
+```{r}
+myBool <- TRUE # this is camel case
+typeof(myBool)
+```
+
+---
+
+# Numeric (Double)
+
+* `numeric` data are subdivided into `double` and `integer`; the difference is generally of little significance, as R manages the distinctions for you, but be wary if you're dealing with particularly large numbers
+
+```{r}
+myDouble <- 10.5
+typeof(myDouble)
+```
+
+
+---
+
+# Numeric (Integer)
+
+```{r}
+myInteger <- 10L
+typeof(myInteger)
+```
+
+
+---
+
+# Characters
+
+* `character` data always needs to be wrapped in single or double quotations.
+
+```{r}
+myChar <- "a" # Note that R does not distinguish between '' and "" but the use has to match
+typeof(myChar)
+
+```
+---
+
+# Complex
+
+```{r}
+myComplexNum <- 9 + 3i
+typeof(myComplexNum)
+```
+
+---
+
+# Data Structures
+
+Data structures are ways to hold multiple pieces of data together in a meaningful way. R has four convenient ways of storing multiple pieces of data: vectors, matrices, data frames, and lists.
+
+---
+
+# Vectors
+
+:::notes
+The most basic is a `vector`. In fact, everything in R is a vector, and all other data structures are composed of vectors in various ways. It's convenient to think of a vector as a simple list of like things; everything in a vector needs to be of the same data type. So, a vector can be:
+
+* numeric, holding numeric data;
+* character, holding character data; or
+* logical, holding boolean data.
+
+A vector can be created with `c()`
+:::
+```{r}
+# numeric vector
+c(1:10)
+
+# character vector
+c("a", "b", "c")
+
+# logical vector
+c(TRUE, TRUE, FALSE)
+
+# note that vectors do not allow you to mix types
+# c(TRUE, 10) # this will convert TRUE to 1
+# c(TRUE, "10") # this will convert TRUE to "TRUE"
+```
+
+---
+
+# Matrices
+
+```{r}
+matrix(1:10, nrow = 2)
+```
+
+:::notes
+A matrix is a vector with 2 dimensions; while a vector only has a length, a matrix is a grid with both length and width, or alternatively, rows and columns.
+
+You can create a matrix with the `matrix()` function, providing it first with a series of values followed by an argument for the number of rows or columns you'd like. A matrix must be perfectly rectangular, that is, each column must be of equal length. R will recycle values to ensure this condition is met. A matrix must also be atomic - the data type must be the same throughout.
+:::
+
+---
+
+# Data frames
+
+```{r}
+data.frame(letter = letters[1:5],
+           nol = 1:5) # nol mean number of letter
+```
+
+:::notes
+In general, these will be the most likely data structures that you'll encounter and the most familiar, as they are designed for tabular data and look like a spreadsheet.
+
+Data frames are collections of vectors, where each vector must be of the same length, but can be of a different data type. If you import data from an Excel or csv file, these will be read in as a data frame. You can also create them with the `data.frame()` function.
+:::
+
+---
+
+# Lists
+
+
+```{r}
+list(item_1 = myAlphabet,
+     item_2 = c(1:3))
+```
+
+:::notes
+Like data frames, lists are collections of vectors. However, unlike data frames, the length of these vectors can change. So far, this is the only non-rectangular data structure that we have to work with.
+
+If you are importing tabular data, you are unlikely to create a list yourself, however, when performing operations (using functions) on your data, the output, or result, might be in the form of a list. For demonstration puropses, a list can be created with the `list()` function.
+:::
+
+---
+
+# Arrays
+
+```{r}
+array(c(1, 2, 3, 4), dim = c(1, 2, 2))
+```
+:::notes
+Arrays are an n-dimensional generalization of the 
+:::
+
+
+---
+
+# Identifying Data Structures
+
+
+```{r}
+class(c(1:10))
+class(matrix(1:10, ncol = 2))
+class(data.frame(var_1 = letters,var_2 = 1:26))
+class(list(item_1 = letters,item_2 = 1:10,item_3 = c(TRUE, FALSE)))
+```
+
+:::notes
+The function `class()` will tell you what kind of structure your data are held in. `class()`, when called on a vector, will report on the data type, which should be read as the type of atomic vector you have. An array is a multi-dimensional vector, a matrix is the special case where there are only two dimensions.
+:::
+
+---
+
+# Getting Help
+
+* The `learnr` package is a resource for learning how to navigate R!
+
+```{r, eval = FALSE}
+?sqrt()
+```
+
+:::notes
+These pages can be both enlightening and frustrating, as they assume some pre-existing familiarity with certain concepts as well as reading this kind of documentation.
+
+The second is from forums. These are useful when you have a specific issue that you're trying to resolve, and can often provide a quick fix, but the explanations also often require a degree of familiarity to make sense.
+
+The third is blog posts and course supports posted on line. These generally provide more context than forum posts, and are useful when tyring to learn a new approach or a new library.
+
+The fourth is journal publications that accompany the release of specific packages or libraries. These offer in depth descriptions of the packages and their arguments, often with examples.
+
+The fourth is more in depth texts. Many of these are available publicly online, and include titles such as:
+:::
+
+
+~~~{=comment}
+#
+#
+#
+Begin Section on Importing Data
+#
+#
+#
+~~~
+
+---
+
+# Comma Separated Values
+
+# Base R
+
+:::notes
+`read.table()` is R's primary means of importing data, allowing the user to specify a variety of options. `read.csv()` and `read.delim()` are two wrappers on `read.table()` to simplify the import of comma separated and tab delimited files; the only difference between the two is the delimiter that they expect.
+:::
+
+---
+
+# `read.csv()`
+
+```{r}
+# import from directory
+data_local <- suppressWarnings(read.csv("../data/gapminder.csv"))
+
+# import from url
+url <- 'https://raw.githubusercontent.com/jstaf/gapminder/master/gapminder/gapminder.csv'
+data_url <- suppressWarnings(read.csv(url))
+```
+
+:::notes
+using `read.csv()` is as simple as specifying a directory or url from which to import data...
+
+By default, it assumes your file has a header and that any blank values contain the characters `NA`. Depending on our data source, however, we may need to adjust these parameters...
+:::
+
+```{r}
+# a set of possible NA values
+na_values <- c("NULL", "NA", "N/A", "99", "", " ")
+data_custom_na <- read.csv("../data/gapminder.csv", na.strings = na_values)
+
+# a file with no header
+data_no_header <- read.csv("../data/gapminder.csv", header = FALSE)
+```
+
+It may also be a good idea to trim excess white space, which is not done by default...
+
+```{r}
+data_nows <- read.csv("../data/gapminder.csv", strip.white = TRUE)
+```
+
+:::note
+TRUE and FALSE can be denoted with either `T` and `F` or `TRUE` and `FALSE`. However, `T` and `F` as variable names can be overwritten to point to other objects, whereas `TRUE` and `FALSE` cannot. It is advisable to always use `TRUE` and `FALSE`.
+:::
+
+Additional options and their defaults can be found with `?read.table()`.
+
+---
+
+# Tidyverse
+
+
+```{r}
+suppressWarnings(library(readr))
+data_readr <- suppressWarnings(read_csv("../data/gapminder.csv",
+                                        show_col_types = FALSE))
+```
+
+:::notes
+`read.csv()` and `read_csv()` are very similar. `read_csv()` is ostensibly faster, it also loads data into a tibble as opposed to a data frame, and has more user friendly defaults. It does, however, require loading additional packages.
+
+As with `read.csv()` and `read.delim`, `read_csv()` and `read_tsv()` -- for tab separated values -- are wrappers on `read_delim()` that is more flexible.
+
+`read_csv()` assumes the file has a header, it trims white space by default, and that missing data are either blank cells or contain the character `NA`. To adjust these, use the arguments `col_names = FALSE`, `na = na_values`, `trim_ws = FALSE`.
+:::
+
+
+# Excel
+
+```{r}
+suppressWarnings(library(readxl))
+data_xls <- suppressWarnings(read_excel("../data/gapminder.xlsx"))
+```
+
+:::notes
+Base R does not include a package for loading in Excel files. For this we'll use the tidyverse package `readxl`, which can read both legacy `xls` as well as more recent `xlsx` files.
+This is tidyverse, and so `read_excel()` loads a tibble object. If you need or want a data frame, you'll need to adjust for that...
+:::
+
+---
+
+# More In-Depth with Tidyverse `read_excel`
+
+```{r}
+data_xls <- read_excel("../data/gapminder.xlsx", sheet = '1952', range = "A1:D5")
+```
+
+:::notes
+You can specify specific sheets and ranges with the `sheet` and `range` arguments...Additional options and their defaults can be found with `?readxl` or by visiting [https://readxl.tidyverse.org/](https://readxl.tidyverse.org/).
+:::
+
+---
+
+# References
+
+* aRrgh: a newcomer’s (angry) guide to R, by Tim Smith and Kevin Ushey - [http://arrgh.tim-smith.us/](http://arrgh.tim-smith.us/)
+* YaRrr! The Pirate’s Guide to R, by Nathaniel D. Phillips - [https://bookdown.org/ndphillips/YaRrr/](https://bookdown.org/ndphillips/YaRrr/)
+* R for Graduate Students, by Wendy Huynh. - [https://bookdown.org/yih_huynh/Guide-to-R-Book/](https://bookdown.org/yih_huynh/Guide-to-R-Book/)
+* Advanced R, by Hadley Wickham - [http://adv-r.had.co.nz/Introduction.html](http://adv-r.had.co.nz/Introduction.html)
+And through the library, the [O'Reilly platform](https://resources.library.ubc.ca/page.php?details=oreilly-for-higher-education&id=2460) hosts a plethora of titles related to R.
+* [https://www.w3schools.com/r/r_data_types.asp](W3 Schools)

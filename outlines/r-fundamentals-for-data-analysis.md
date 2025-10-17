@@ -10,7 +10,7 @@ By the end of the session, participants should feel familar with RStudio as an e
 
 **R: Importing Data**
 
-This session will address importing Excel and comma seperated value files into R for analysis. Topics covered include variable naming, variable assignment, missing values on import, assigning appropriate data types to variables, and saving data as R data objects.
+This session will address importing Excel and comma seperated value files into R for analysis. Topics covered include variable naming, variable assignment, missing values on import, assigning appropriate data types to variables, and saving data as R data objects. This will discuss the various means to import these data as well including: base R, tidyverse, and data.table.
 
 By the end of the session, participants should be able to import data stored in tabular format (Excel, csv), standardize missing values for subsequent tidying and analysis.
 

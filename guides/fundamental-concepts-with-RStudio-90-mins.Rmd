@@ -4,13 +4,15 @@ date: "`r format(Sys.time(), '%Y-%m-%d %H:%M:%S')`"
 name: "Alex Jack"
 output:
   powerpoint_presentation:
+    pandoc_args: ["--highlight-style=breezedark"]
     reference_doc: '../assets/powerpoint-styles/light-theme.pptx'
 ---
 
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(echo = TRUE,
-                      eval = TRUE)
-library(flextable)
+                      eval = TRUE,
+                      attr.source = 'custom-style="CodeDark"')
+library(flextable) # for creating ppt-friendly flextables
 library(dplyr)
 library(tibble)
 ```
@@ -26,7 +28,6 @@ What is R broad overview section.
 #
 #
 ~~~
-
 
 ```{r echo = FALSE}
 tbl <- tibble::tibble(
@@ -75,8 +76,6 @@ R is great for interactive computational analysis, allowing for easy exploration
 
 ```{r echo = FALSE}
 knitr::include_graphics("../docs/assets/images/rstudio.png")
-# load flextable for creating pptx tables
-library(flextable)
 ```
 
 ---
@@ -90,26 +89,134 @@ library(flextable)
 # install.packages("devtools")
 # install_github("username/repositoryname")
 ```
-
 :::notes
 Base R (as it's affectionately called) is great, but the cool thing about R is it's huge ecosystem of packages which are constantly being expanded both on the central repository for the R programming language Comprehensive R Archive Network (CRAN) and outside of CRAN. As of the writing of this RMD there are over 22,000 packages on CRAN.  
+:::
+
+---
+
+
+
+~~~{=comment}
+#
+#
+#
+Begin Section on Importing Data
+#
+#
+#
+~~~
+
+---
+
+# Reading in Data in Base R
+
+```{r}
+badTable <- read.table("../data/health_data.csv") # this will be an ugly mess of strings--trust me
+badTable[1,]
+```
+:::notes
+`read.table()` is Base R's primary means of importing data, allowing the user to specify a variety of options. By default `read.table` will not know what delimeter (or separator hence the word `sep` in the second `read.table()` call). It will also not know whether or not your data include a `header` and so when you go to look at the first row of data it will just spit out your header as one long string.
+:::
+---
+
+# Reading in Data in Base R Cont'd
+
+```{r}
+head(read.table("../data/health_data.csv", sep = ",", header=TRUE))
+```
+
+:::notes
+Thankfully, you can fix this with a few extra parameters. However, there are smarter, less clumsy options out there. 
 :::
 
 
 ---
 
-# Simple Math
+# A quick note on `read_excel` from the `Tidyverse`
+
 
 ```{r}
-2 + 2 # add
-3 - 2 # subtract
-3 * 3 # multiply
-4 / 2 # division
-sqrt(9) # square root
+suppressWarnings(library(readxl))
+data_xls <- suppressWarnings(read_excel("../data/gapminder.xlsx"))
+# `read_excel` also supports reading in specific 
+data_xls <- read_excel("../data/gapminder.xlsx", sheet = '1952', range = "A1:D5")
 ```
+
 :::notes
-At it's most basic, R is a glorified calculator, capable of any operation might wish to throw at it...
+Base R does not include a package for loading in Excel files. For this we'll use the tidyverse package `readxl`, which can read both legacy `xls` as well as more recent `xlsx` files.
+This is tidyverse, and so `read_excel()` loads a tibble object. If you need or want a data frame, you'll need to adjust for that...
+
+You can specify specific sheets and ranges with the `sheet` and `range` arguments...Additional options and their defaults can be found with `?readxl` or by visiting [https://readxl.tidyverse.org/](https://readxl.tidyverse.org/).
 :::
+
+---
+
+```{r}
+# a set of possible NA values
+na_values <- c("NULL", "NA", "N/A", "99", "", " ")
+data_custom_na <- read.csv("../data/gapminder.csv", na.strings = na_values)
+
+# a file with no header
+data_no_header <- read.csv("../data/gapminder.csv", header = FALSE)
+
+data_nows <- read.csv("../data/gapminder.csv", strip.white = TRUE)
+```
+
+:::note
+TRUE and FALSE can be denoted with either `T` and `F` or `TRUE` and `FALSE`. However, `T` and `F` as variable names can be overwritten to point to other objects, whereas `TRUE` and `FALSE` cannot. It is advisable to always use `TRUE` and `FALSE`. notes
+using `read.csv()` is as simple as specifying a directory or url from which to import data...By default, it assumes your file has a header and that any blank values contain the characters `NA`. Depending on our data source, however, we may need to adjust these parameters...
+Additional options and their defaults can be found with `?read.table()`.
+
+It may also be a good idea to trim excess white space, which is not done by default...
+:::
+
+---
+
+# Tidyverse
+
+
+```{r}
+suppressWarnings(library(readr))
+data_readr <- suppressWarnings(read_csv("../data/gapminder.csv",
+                                        show_col_types = FALSE))
+```
+
+:::notes
+`read.csv()` and `read_csv()` are very similar. `read_csv()` is ostensibly faster, it also loads data into a tibble as opposed to a data frame, and has more user friendly defaults. It does, however, require loading additional packages.
+
+As with `read.csv()` and `read.delim`, `read_csv()` and `read_tsv()` -- for tab separated values -- are wrappers on `read_delim()` that is more flexible.
+
+`read_csv()` assumes the file has a header, it trims white space by default, and that missing data are either blank cells or contain the character `NA`. To adjust these, use the arguments `col_names = FALSE`, `na = na_values`, `trim_ws = FALSE`.
+:::
+
+---
+
+# Moving fast with `data.table`
+
+```{r}
+suppressWarnings(library(data.table)) # we'll load the data.table package
+# now we'll load our tiny health sciences dataset using the `fread` function
+health_dt <- data.table::fread("../data/health_data.csv")
+```
+
+:::notes
+A newer package for working with data is called `data.table`. It is becoming well-known for being *very fast*. This is because `data.table` uses C/C++ as it's backend. So it might be a good choice for those who are working with especially large datasets. However, I will note that the syntax for working with data tables is a little confusing so the learning curve is higher than working with standard data frames.
+:::
+
+
+~~~{=comment}
+#
+#
+#
+Begin Section on Data Types & Data Structures
+#
+#
+#
+~~~
+
+---
+
 
 ---
 
@@ -343,6 +450,39 @@ The function `class()` will tell you what kind of structure your data are held i
 
 ---
 
+
+~~~{=comment}
+#
+#
+#
+Begin Section on Working with Data.Frames and Data.tables
+#
+#
+#
+~~~
+
+```{r}
+# again we'll load the health data set
+health_df <- read.csv("../data/health_data.csv")
+health_names <- names(health_df) # this will load the column names
+health_names[1:3]
+```
+
+:::notes
+Once I have loaded a new dataset one of the first things I like to do is insepect the columns so I can get an idea of the types of data that might be present. This can be easily done with function `names` which is native to Base R. I won't load all of the name here to save space, but I will load a few.
+:::
+
+~~~{=comment}
+#
+#
+#
+Begin Closing Remarks
+#
+#
+#
+~~~
+
+
 # Getting Help
 
 * The `learnr` package is a resource for learning how to navigate R!
@@ -363,112 +503,6 @@ The fourth is journal publications that accompany the release of specific packag
 The fourth is more in depth texts. Many of these are available publicly online, and include titles such as:
 :::
 
-
-~~~{=comment}
-#
-#
-#
-Begin Section on Importing Data
-#
-#
-#
-~~~
-
----
-
-# Comma Separated Values
-
-# Base R
-
-:::notes
-`read.table()` is R's primary means of importing data, allowing the user to specify a variety of options. `read.csv()` and `read.delim()` are two wrappers on `read.table()` to simplify the import of comma separated and tab delimited files; the only difference between the two is the delimiter that they expect.
-:::
-
----
-
-# `read.csv()`
-
-```{r}
-# import from directory
-data_local <- suppressWarnings(read.csv("../data/gapminder.csv"))
-
-# import from url
-url <- 'https://raw.githubusercontent.com/jstaf/gapminder/master/gapminder/gapminder.csv'
-data_url <- suppressWarnings(read.csv(url))
-```
-
-:::notes
-using `read.csv()` is as simple as specifying a directory or url from which to import data...
-
-By default, it assumes your file has a header and that any blank values contain the characters `NA`. Depending on our data source, however, we may need to adjust these parameters...
-:::
-
-```{r}
-# a set of possible NA values
-na_values <- c("NULL", "NA", "N/A", "99", "", " ")
-data_custom_na <- read.csv("../data/gapminder.csv", na.strings = na_values)
-
-# a file with no header
-data_no_header <- read.csv("../data/gapminder.csv", header = FALSE)
-```
-
-It may also be a good idea to trim excess white space, which is not done by default...
-
-```{r}
-data_nows <- read.csv("../data/gapminder.csv", strip.white = TRUE)
-```
-
-:::note
-TRUE and FALSE can be denoted with either `T` and `F` or `TRUE` and `FALSE`. However, `T` and `F` as variable names can be overwritten to point to other objects, whereas `TRUE` and `FALSE` cannot. It is advisable to always use `TRUE` and `FALSE`.
-:::
-
-Additional options and their defaults can be found with `?read.table()`.
-
----
-
-# Tidyverse
-
-
-```{r}
-suppressWarnings(library(readr))
-data_readr <- suppressWarnings(read_csv("../data/gapminder.csv",
-                                        show_col_types = FALSE))
-```
-
-:::notes
-`read.csv()` and `read_csv()` are very similar. `read_csv()` is ostensibly faster, it also loads data into a tibble as opposed to a data frame, and has more user friendly defaults. It does, however, require loading additional packages.
-
-As with `read.csv()` and `read.delim`, `read_csv()` and `read_tsv()` -- for tab separated values -- are wrappers on `read_delim()` that is more flexible.
-
-`read_csv()` assumes the file has a header, it trims white space by default, and that missing data are either blank cells or contain the character `NA`. To adjust these, use the arguments `col_names = FALSE`, `na = na_values`, `trim_ws = FALSE`.
-:::
-
-
-# Excel
-
-```{r}
-suppressWarnings(library(readxl))
-data_xls <- suppressWarnings(read_excel("../data/gapminder.xlsx"))
-```
-
-:::notes
-Base R does not include a package for loading in Excel files. For this we'll use the tidyverse package `readxl`, which can read both legacy `xls` as well as more recent `xlsx` files.
-This is tidyverse, and so `read_excel()` loads a tibble object. If you need or want a data frame, you'll need to adjust for that...
-:::
-
----
-
-# More In-Depth with Tidyverse `read_excel`
-
-```{r}
-data_xls <- read_excel("../data/gapminder.xlsx", sheet = '1952', range = "A1:D5")
-```
-
-:::notes
-You can specify specific sheets and ranges with the `sheet` and `range` arguments...Additional options and their defaults can be found with `?readxl` or by visiting [https://readxl.tidyverse.org/](https://readxl.tidyverse.org/).
-:::
-
----
 
 # References
 

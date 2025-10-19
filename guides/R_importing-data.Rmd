@@ -91,6 +91,9 @@ animation::saveGIF({
 }, movie.name = here::here("docs", "assets", "gifs", "R_projects.gif"),ani.width = 900, ani.height = 600)
 ```
 ![](../docs/assets/gifs/R_projects.gif)
+```{r}
+
+```
 :::notes
 So I have included a GIF on how to create a new RStudio Project. When you open the .Rproj file, RStudio automatically sets the working directory to that project folder.
 No more setwd() headaches or “file not found” errors. All your scripts, datasets, and figures live inside one consistent structure. Makes sharing and collaboration much easier because it works seamlessly with major version control softwares. Don't worry if you don't know what that is yet, I will be running a whole series on Git and GitHub later on in the semester. Projects also remember your R environment, active tabs, and even console history when you reopen them. You can easily link a project to Git for version control — every project is its own repository. For teaching or research, it ensures every student or collaborator starts from the same structure.
@@ -134,8 +137,16 @@ The reason why you *do not* want to work with absolute filepaths is that this wi
 
 # Base R
 
+```{r}
+badTable <- read.table("../data/health_data.csv") # this will be an ugly mess of strings--trust me
+badTable[1,]
+head(read.table("../data/health_data.csv", sep = ",", header=TRUE))
+```
+
 :::notes
 `read.table()` is R's primary means of importing data, allowing the user to specify a variety of options. `read.csv()` and `read.delim()` are two wrappers on `read.table()` to simplify the import of comma separated and tab delimited files; the only difference between the two is the delimiter that they expect.
+
+Thankfully, you can fix this with a few extra parameters. However, there are smarter, less clumsy options out there. 
 :::
 
 # `read.csv()`
@@ -150,31 +161,38 @@ data_url <- read.csv(url)
 ```
 
 :::notes
-using `read.csv()` is as simple as specifying a directory or url from which to import data...
-
-By default, it assumes your file has a header and that any blank values contain the characters `NA`. Depending on our data source, however, we may need to adjust these parameters...
+using `read.csv()` is as simple as specifying a directory or url from which to import data...By default, it assumes your file has a header and that any blank values contain the characters `NA`. Depending on our data source, however, we may need to adjust these parameters...This is also Base R.
 :::
 
-```{r}
+# Missing values and inconsistencies
+
+```{r, eval = TRUE}
 # a set of possible NA values
 na_values <- c("NULL", "NA", "N/A", "99", "", " ")
 data_custom_na <- read.csv("../data/gapminder.csv", na.strings = na_values)
 
 # a file with no header
 data_no_header <- read.csv("../data/gapminder.csv", header = FALSE)
-```
 
-It may also be a good idea to trim excess white space, which is not done by default...
-
-```{r}
 data_nows <- read.csv("../data/gapminder.csv", strip.white = TRUE)
+
+# additional options can be found (as always with ?)
+# ?read.csv()
 ```
 
-:::note
+:::notes
+It may also be a good idea to trim excess white space, which is not done by default...
 TRUE and FALSE can be denoted with either `T` and `F` or `TRUE` and `FALSE`. However, `T` and `F` as variable names can be overwritten to point to other objects, whereas `TRUE` and `FALSE` cannot. It is advisable to always use `TRUE` and `FALSE`.
-:::
+
+When importing data, it’s common to encounter inconsistencies — blank cells, placeholder codes like 99, or stray spaces in text columns.
+
+The na.strings argument lets you tell R what should count as missing.
+Similarly, strip.white = TRUE cleans up text columns automatically.
+
+Also, some files (especially machine-generated or exported from older systems) may lack a header row; header = FALSE helps handle those.
 
 Additional options and their defaults can be found with `?read.table()`.
+:::
 
 
 # Tidyverse
@@ -203,8 +221,7 @@ data_xls_df <- as.data.frame(read_excel("../data/gapminder.xlsx"))
 ```
 
 :::notes
-Base R does not include a package for loading in Excel files. For this we'll use the tidyverse package `readxl`, which can read both legacy `xls` as well as more recent `xlsx` files.
-This is tidyverse, and so `read_excel()` loads a tibble object. If you need or want a data frame, you'll need to adjust for that...
+Base R does not include a package for loading in Excel files. For this we'll use the tidyverse package `readxl`, which can read both legacy `xls` as well as more recent `xlsx` files. This is tidyverse, and so `read_excel()` loads a tibble object. If you need or want a data frame, you'll need to adjust for that...
 :::
 
 # More In-Depth with Tidyverse `read_excel`
@@ -216,3 +233,93 @@ data_xls <- read_excel("../data/gapminder.xlsx", sheet = '1952', range = "A1:D5"
 :::notes
 You can specify specific sheets and ranges with the `sheet` and `range` arguments...Additional options and their defaults can be found with `?readxl` or by visiting [https://readxl.tidyverse.org/](https://readxl.tidyverse.org/).
 :::
+
+# Advanced topic: importing multiple files with `purr`
+
+```{r eval = TRUE, echo = TRUE}
+# Importing Multiple Files with purrr
+suppressMessages(suppressWarnings(library(tidyverse)))
+
+# 1. Identify all CSV files in a folder
+files <- list.files(path = "../data/", pattern = "\\.csv$", full.names = TRUE)
+
+# 2. Use purrr::map_dfr() to read and combine them
+all_data <- files %>%
+  set_names(basename) %>%                              # keep file names
+  map_dfr(~ head(read_csv(.x), 1), .id = "source")            # combine into one tibble
+```
+
+:::notes 
+The r-package `purrr` within the package-ecosystem `tidyverse` is a great tool for functional-programming like the r-package `dplyr`. Functional programming treats functions (like actual data--think data frames and such) like data to be manipulated.
+This programming doctrine focuses on reproducilibilty and clarity without a mucking up environments with a lot of unnecessary objects. 
+:::
+
+# Glimpse and multiple files
+
+```{r}
+glimpse(all_data) %>% select(1:5)
+```
+
+:::notes
+Now what happens when we call the function `glimpse()` (also from the tidyverse). This gives a nice, clean graphical representation of what is in our object. Like
+:::
+# After importing
+
+- Now that we've imported data here are some common functions used to get oriented with a new dataset.
+
+
+```{r}
+health_df <- read.csv("../data/health_data.csv") 
+str(health_df)
+```
+:::notes
+`str()` is a handy function like `glimpse()` from dplyr which can give you a quick overview of the *object* that you're working with. The main differences between the two are that `glimpse()` requires the `dplyr` package and `str()` is just base R. However, `glimpse()` is noted for giving nicer readout for especially wide data. 
+:::
+
+# What is in a name?
+
+```{r}
+health_df <- read.csv("../data/health_data.csv")
+names(health_df)
+```
+
+:::notes
+One of my favorite data manipulation functions in base `R` is the names function. People who work with data a lot spend a lot of time thinking about what their data should be named and so names are often quite descriptive. So if the output of `str` or `glimpse` is a bit scary (I often think it is) then names is a good first step to understanding your data. 
+:::
+
+# Long-format data
+
+
+- *Note that* people will often use the terms **wide**, **long**, **wide format** or **long format** to describe their dataframes or `data.tables` once they have been read in. This is simply a description of the orientation of the data frame. 
+
+```{r}
+gap_df <- read.csv("../data/gapminder.csv")
+gap_df %>% head(2)
+```
+
+
+:::notes
+To demonstrate this concept I will again use the `gapminder` dataset. These data are in long-format. These are `longitudinal` data of demographic and economic metrics by country. You can tell these are long-format data because each observation or `country-year` gets it's own cell.
+:::
+
+# Wide-format data
+
+```{r}
+gap_df <- read.csv("../data/gapminder.csv")
+gap_df %>% pivot_wider(names_from = c(year),
+                       values_from = c(lifeExp, pop, gdpPercap)) %>% head(2) %>%
+  select(1:5)
+```
+
+:::notes
+In `wide format` data each subject gets it's own row or cell. In our longitudinal dataset above each country is a case. Thankfully, R lets us very easily shift our perspective from long to wide format data and back again with a few quick, painless commands. Above I have rearranged the dataset so that each case (country) gets its own row and each year_measurement gets it's own column in that row. Above I am also previewing the next lesson which is `Exploring Data`. I am introducing you to some very common and **very** useful *dplyr* syntax. The `%>%` operator is standard practice. In plain english the direct translation of the `%>%` operator is `then`. So above I am saying pivot my data into wide format on the year axis, giving each column the name from the year and the value from life expectancy, population, and gdp per capita. `Then` give me only the first 2 rows of that table (that's what the command `head(n)`) does. `Then` give me only the first 5 columns with the `select(1:5)` command.
+:::
+
+# Takeaway
+
+- R *imports* data into memory, it doesn’t “open” files
+- Keep projects self-contained with R Projects
+- Always use **relative paths**
+- Use `read_csv()` / `read_excel()` for tidyverse workflows
+- Explore your data with `str()`,  `glimpse()`, `head()` and `names()`
+- Know your data’s shape: *long vs. wide*

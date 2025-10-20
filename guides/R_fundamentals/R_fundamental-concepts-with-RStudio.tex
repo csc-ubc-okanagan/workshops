@@ -1,0 +1,705 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  ignorenonframetext,
+]{beamer}
+\usepackage{pgfpages}
+\setbeamertemplate{caption}[numbered]
+\setbeamertemplate{caption label separator}{: }
+\setbeamercolor{caption name}{fg=normal text.fg}
+\beamertemplatenavigationsymbolsempty
+% Prevent slide breaks in the middle of a paragraph
+\widowpenalties 1 10000
+\raggedbottom
+\setbeamertemplate{part page}{
+  \centering
+  \begin{beamercolorbox}[sep=16pt,center]{part title}
+    \usebeamerfont{part title}\insertpart\par
+  \end{beamercolorbox}
+}
+\setbeamertemplate{section page}{
+  \centering
+  \begin{beamercolorbox}[sep=12pt,center]{part title}
+    \usebeamerfont{section title}\insertsection\par
+  \end{beamercolorbox}
+}
+\setbeamertemplate{subsection page}{
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center]{part title}
+    \usebeamerfont{subsection title}\insertsubsection\par
+  \end{beamercolorbox}
+}
+\AtBeginPart{
+  \frame{\partpage}
+}
+\AtBeginSection{
+  \ifbibliography
+  \else
+    \frame{\sectionpage}
+  \fi
+}
+\AtBeginSubsection{
+  \frame{\subsectionpage}
+}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\newif\ifbibliography
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={R: Fundamental Concepts with RStudio},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{R: Fundamental Concepts with RStudio}
+\author{}
+\date{\vspace{-2.5em}}
+
+\begin{document}
+\frame{\titlepage}
+
+\begin{frame}
+Last Updated: 2025-10-09
+\end{frame}
+
+\begin{frame}{RStudio}
+\protect\hypertarget{rstudio}{}
+R is great for interactive computational analysis, allowing for easy
+exploration and iteration. Using an IDE - Integrated Development
+Environment - such as RStudio, facilitates this interactivity, providing
+you with easy access to a place to quickly code (the console), a place
+to write saveable scripts (source editor), a place to view the objects
+that you create (environment pane), and a place to interact with your
+file system, visual outputs from your code, and help documentation (the
+miscellaneous pane, for lack of a better word).
+
+\includegraphics{https://raw.githubusercontent.com/csc-ubc-okanagan/workshops/main/docs/assets/images/rstudio.png}
+\end{frame}
+
+\begin{frame}[fragile]{Simple Math}
+\protect\hypertarget{simple-math}{}
+At it's most basic, R is a glorified calculator, capable of any
+operation might wish to throw at it\ldots{}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# addition}
+\DecValTok{2} \SpecialCharTok{+} \DecValTok{2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 4
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# subtraction}
+\DecValTok{3} \SpecialCharTok{{-}} \DecValTok{2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# mulitplication}
+\DecValTok{3} \SpecialCharTok{*} \DecValTok{3}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 9
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# division}
+\DecValTok{4} \SpecialCharTok{/} \DecValTok{2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# square root}
+\FunctionTok{sqrt}\NormalTok{(}\DecValTok{9}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# log 10}
+\FunctionTok{log10}\NormalTok{(}\DecValTok{100}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Functions}
+\protect\hypertarget{functions}{}
+At least initially, everything you do in R will be applying functions to
+data. In the above section, the mathematical operators, \texttt{sqrt()},
+and \texttt{log10()}, are all functions. Functions take in data (or
+values) and process them, providing an output. The output is displayed
+in your console by default.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# c() is a common function for concatenating things together}
+\FunctionTok{c}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1]  1  2  3  4  5  6  7  8  9 10
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Variables}
+\protect\hypertarget{variables}{}
+While having outputs directed to the console is convenient for
+interactive analysis, often we need to store data and / or outputs for
+later use. We do this with variable assignmet, where the greater than
+and dash are used to assign the values (object) on the right to the name
+(variable) on the left.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{my\_variable }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+You can then recall the values (object) associated with your
+variable\ldots{}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{my\_variable}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1]  1  2  3  4  5  6  7  8  9 10
+\end{verbatim}
+
+And plug it into functions, ie, do computations on it\ldots{}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{my\_variable }\SpecialCharTok{*} \DecValTok{2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1]  2  4  6  8 10 12 14 16 18 20
+\end{verbatim}
+
+\begin{quote}
+When naming variables in R, keep in mind that variable names:
+
+\begin{itemize}
+\tightlist
+\item
+  Should first and foremost be meaningful. This is not a rule, just best
+  practice.
+\item
+  Cannot start with a number or a dot followed by a number.
+\item
+  Cannot contain spaces or hyphens.
+\item
+  Can contain letters, numbers, dots, and underscores.
+\end{itemize}
+
+Additionally, some words are reserved and cannot be used, such as if and
+for. More details can be found with \texttt{?make.names}
+\end{quote}
+\end{frame}
+
+\begin{frame}[fragile]{Data Types \& Structures}
+\protect\hypertarget{data-types-structures}{}
+\begin{block}{Data Types}
+\protect\hypertarget{data-types}{}
+Data types are elemental data constructs that R is able to distinguish
+between. The most common data types in R are \texttt{numeric},
+\texttt{character}, and \texttt{boolean}. These come with intrinsic
+properties, for example, numeric data can be computed (added, divided,
+etc), character data can be strung together (character data, especially
+groups of characters are referred to as strings), and boolean data
+facilitates working with dichotomous values.
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{boolean} data are generally referred to as \texttt{logical}.
+\item
+  \texttt{numeric} data are subdivided into \texttt{double} and
+  \texttt{integer}; the difference is generally of little significance,
+  as R manages the distinctions for you, but be wary if you're dealing
+  with particularly large numbers.
+\item
+  \texttt{character} data always needs to be wrapped in single or double
+  quotations.
+\end{itemize}
+
+The function \texttt{typeof()}, will tell you what data type you
+have\ldots{}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{typeof}\NormalTok{(}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "double"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{typeof}\NormalTok{(}\StringTok{"a"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "character"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{typeof}\NormalTok{(}\ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "logical"
+\end{verbatim}
+\end{block}
+
+\begin{block}{Data Structures}
+\protect\hypertarget{data-structures}{}
+Data structures are ways to hold multiple pieces of data together in a
+meaningful way. R has four convenient ways of storing multiple pieces of
+data: vectors, matrices, data frames, and lists.
+
+\begin{block}{Vectors}
+\protect\hypertarget{vectors}{}
+The most basic is a \texttt{vector}. In fact, everything in R is a
+vector, and all other data structures are composed of vectors in various
+ways. It's convenient to think of a vector as a simple list of like
+things; everything in a vector needs to be of the same data type. So, a
+vector can be:
+
+\begin{itemize}
+\tightlist
+\item
+  numeric, holding numeric data;
+\item
+  character, holding character data; or
+\item
+  logical, holding boolean data.
+\end{itemize}
+
+A vector can be created with \texttt{c()}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# numeric vector}
+\FunctionTok{c}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1]  1  2  3  4  5  6  7  8  9 10
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# character vector}
+\FunctionTok{c}\NormalTok{(}\StringTok{"a"}\NormalTok{, }\StringTok{"b"}\NormalTok{, }\StringTok{"c"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "a" "b" "c"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# logical vector}
+\FunctionTok{c}\NormalTok{(}\ConstantTok{TRUE}\NormalTok{, }\ConstantTok{TRUE}\NormalTok{, }\ConstantTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]  TRUE  TRUE FALSE
+\end{verbatim}
+\end{block}
+
+\begin{block}{Matrices}
+\protect\hypertarget{matrices}{}
+A matrix is a vector with 2 dimensions; while a vector only has a
+length, a matrix is a grid with both length and width, or alternatively,
+rows and columns.
+
+You can create a matrix with the \texttt{matrix()} function, providing
+it first with a series of values followed by an argument for the number
+of rows or columns you'd like.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{matrix}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{, }\AttributeTok{nrow =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1] [,2] [,3] [,4] [,5]
+## [1,]    1    3    5    7    9
+## [2,]    2    4    6    8   10
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{matrix}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{, }\AttributeTok{ncol =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1] [,2]
+## [1,]    1    6
+## [2,]    2    7
+## [3,]    3    8
+## [4,]    4    9
+## [5,]    5   10
+\end{verbatim}
+
+A matrix must be perfectly rectangular, that is, each column must be of
+equal length. R will recycle values to ensure this condition is met.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# R will recycle the 1 to complete the rectangle}
+\FunctionTok{matrix}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{11}\NormalTok{, }\AttributeTok{ncol =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in matrix(1:11, ncol = 2): data length [11] is not a sub-multiple or
+## multiple of the number of rows [6]
+\end{verbatim}
+
+\begin{verbatim}
+##      [,1] [,2]
+## [1,]    1    7
+## [2,]    2    8
+## [3,]    3    9
+## [4,]    4   10
+## [5,]    5   11
+## [6,]    6    1
+\end{verbatim}
+
+A matrix must also be atomic - the data type must be the same
+throughout.
+\end{block}
+
+\begin{block}{Data frames}
+\protect\hypertarget{data-frames}{}
+In general, these will be the most likely data structures that you'll
+encounter and the most familiar, as they are designed for tabular data
+and look like a spreadsheet.
+
+Data frames are collections of vectors, where each vector must be of the
+same length, but can be of a different data type. If you import data
+from an Excel or csv file, these will be read in as a data frame. You
+can also create them with the \texttt{data.frame()} function.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{data.frame}\NormalTok{(}\AttributeTok{var\_1 =}\NormalTok{ letters,}
+           \AttributeTok{var\_2 =} \DecValTok{1}\SpecialCharTok{:}\DecValTok{26}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    var_1 var_2
+## 1      a     1
+## 2      b     2
+## 3      c     3
+## 4      d     4
+## 5      e     5
+## 6      f     6
+## 7      g     7
+## 8      h     8
+## 9      i     9
+## 10     j    10
+## 11     k    11
+## 12     l    12
+## 13     m    13
+## 14     n    14
+## 15     o    15
+## 16     p    16
+## 17     q    17
+## 18     r    18
+## 19     s    19
+## 20     t    20
+## 21     u    21
+## 22     v    22
+## 23     w    23
+## 24     x    24
+## 25     y    25
+## 26     z    26
+\end{verbatim}
+\end{block}
+
+\begin{block}{Lists}
+\protect\hypertarget{lists}{}
+Like data frames, lists are collections of vectors. However, unlike data
+frames, the length of these vectors can change. So far, this is the only
+non-rectangular data structure that we have to work with.
+
+If you are importing tabular data, you are unlikely to create a list
+yourself, however, when performing operations (using functions) on your
+data, the output, or result, might be in the form of a list. For
+demonstration puropses, a list can be created with the \texttt{list()}
+function.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{list}\NormalTok{(}\AttributeTok{item\_1 =}\NormalTok{ letters,}
+     \AttributeTok{item\_2 =} \DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{,}
+     \AttributeTok{item\_3 =} \FunctionTok{c}\NormalTok{(}\ConstantTok{TRUE}\NormalTok{, }\ConstantTok{FALSE}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $item_1
+##  [1] "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l" "m" "n" "o" "p" "q" "r" "s"
+## [20] "t" "u" "v" "w" "x" "y" "z"
+## 
+## $item_2
+##  [1]  1  2  3  4  5  6  7  8  9 10
+## 
+## $item_3
+## [1]  TRUE FALSE
+\end{verbatim}
+\end{block}
+
+\begin{block}{Identifying Data Structures}
+\protect\hypertarget{identifying-data-structures}{}
+The function \texttt{class()} will tell you what kind of structure your
+data are held in.
+
+\begin{quote}
+\texttt{class()}, when called on a vector, will report on the data type,
+which should be read as the type of atomic vector you have. An array is
+a multi-dimensional vector, a matrix is the special case where there are
+only two dimensions.
+\end{quote}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{class}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "integer"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{class}\NormalTok{(}\FunctionTok{matrix}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{, }\AttributeTok{ncol =} \DecValTok{2}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "matrix" "array"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{class}\NormalTok{(}\FunctionTok{data.frame}\NormalTok{(}\AttributeTok{var\_1 =}\NormalTok{ letters,}
+           \AttributeTok{var\_2 =} \DecValTok{1}\SpecialCharTok{:}\DecValTok{26}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "data.frame"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{class}\NormalTok{(}\FunctionTok{list}\NormalTok{(}\AttributeTok{item\_1 =}\NormalTok{ letters,}
+     \AttributeTok{item\_2 =} \DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{,}
+     \AttributeTok{item\_3 =} \FunctionTok{c}\NormalTok{(}\ConstantTok{TRUE}\NormalTok{, }\ConstantTok{FALSE}\NormalTok{)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "list"
+\end{verbatim}
+\end{block}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Getting Help}
+\protect\hypertarget{getting-help}{}
+There are five primary ways to get help (other than asking a friend)
+with R.
+
+The first is with the built in documentation, which can be accessed by
+preceding a function name with a \texttt{?}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{?}\FunctionTok{sqrt}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+These pages can be both enlightening and frustrating, as they assume
+some pre-existing familiarity with certain concepts as well as reading
+this kind of documentation.
+
+The second is from forums. These are useful when you have a specific
+issue that you're trying to resolve, and can often provide a quick fix,
+but the explanations also often require a degree of familiarity to make
+sense.
+
+The third is blog posts and course supports posted on line. These
+generally provide more context than forum posts, and are useful when
+tyring to learn a new approach or a new library.
+
+The fourth is journal publications that accompany the release of
+specific packages or libraries. These offer in depth descriptions of the
+packages and their arguments, often with examples.
+
+The fourth is more in depth texts. Many of these are available publicly
+online, and include titles such as:
+
+\begin{itemize}
+\tightlist
+\item
+  aRrgh: a newcomer's (angry) guide to R, by Tim Smith and Kevin Ushey -
+  \url{http://arrgh.tim-smith.us/}
+\item
+  YaRrr! The Pirate's Guide to R, by Nathaniel D. Phillips -
+  \url{https://bookdown.org/ndphillips/YaRrr/}
+\item
+  R for Graduate Students, by Wendy Huynh. -
+  \url{https://bookdown.org/yih_huynh/Guide-to-R-Book/}
+\item
+  Advanced R, by Hadley Wickham -
+  \url{http://adv-r.had.co.nz/Introduction.html}
+\end{itemize}
+
+And through the library, the
+\href{https://resources.library.ubc.ca/page.php?details=oreilly-for-higher-education\&id=2460}{O'Reilly
+platform} hosts a plethora of titles related to R.
+\end{frame}
+
+\end{document}

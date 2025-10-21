@@ -140,7 +140,7 @@ This series introduces early-career researchers to statistical models that exten
 * Fitting linear models in `R`: [script](https://github.com/csc-ubc-okanagan/ubco-csc-modeling-workshop/blob/main/R-scripts/2-fitting-linear-models-in-R.R), [slides](https://github.com/csc-ubc-okanagan/workshops/blob/main/docs/FittingModelsSlides/CSCWS02T01.pdf)
 * Multiple linear regression in `R`: [script](https://github.com/csc-ubc-okanagan/ubco-csc-modeling-workshop/blob/main/R-scripts/3-multiple-linear-regression.R), [slides](https://github.com/csc-ubc-okanagan/workshops/blob/main/docs/FittingModelsSlides/CSCWS03T01.pdf)
 * Interaction terms and Hierarchical Linear Models/Linear Mixed Models: [script](https://github.com/csc-ubc-okanagan/ubco-csc-modeling-workshop/blob/main/R-scripts/4-hierarchical-linear-models.R), [slides](https://github.com/csc-ubc-okanagan/workshops/blob/main/docs/FittingModelsSlides/CSCWS04T01.pdf)
-* (Hierarchical) Generalized Linear Models
+* (Hierarchical) Generalized Linear Models  [script](https://github.com/csc-ubc-okanagan/ubco-csc-modeling-workshop/blob/main/R-scripts/5-hierarchical-generalized-linear-models.R), [slides](https://github.com/csc-ubc-okanagan/workshops/blob/main/docs/FittingModelsSlides/CSCWS05T01.pdf)
 * Generalized Additive Models
 * Interpreting and predicting from Generalized Additive Models
 * Hierarchical GAMs

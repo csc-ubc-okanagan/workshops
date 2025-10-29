@@ -1,8 +1,11 @@
 ---
 title: "R: Exploring Data"
+author: "Alex Jack"
+date: "`r format(Sys.time(), '%Y-%m-%d %H:%M:%S')`"
 output:
-  html_document:
-    keep_md: yes
+  powerpoint_presentation:
+    reference_doc: '../../assets/powerpoint-styles/light-theme.pptx'
+
 ---
 
 ```{r setup, include = FALSE}
@@ -10,20 +13,22 @@ knitr::opts_chunk$set(echo = TRUE,
                       eval = TRUE)
 ```
 
-Last Updates: `r Sys.Date()`
 
-## Missing Values
-
-### is.na()
-
-Missing values in R are coded as `NA`, a special value in R. When importing or tyding your data, it's important to ensure that you're properly identifying missing values, and handling them with the arguments `na.strings`, if using `read.csv()`, or `na`, if using `read_csv()`.
+# Missing Values
 
 ```{r}
 na_values <- c("NA", "NULL", "", " ")
-data_gapminder <- read.csv("../data/gapminder_nas.csv", na.strings = na_values)
+data_gapminder <- read.csv(file.path("..", "..", "data", "gapminder_nas.csv"), na.strings = na_values)
+# is.na()
 ```
 
+:::notes
+Missing values in R are coded as `NA`, a special value in R. When importing or tyding your data, it's important to ensure that you're properly identifying missing values, and handling them with the arguments `na.strings`, if using `read.csv()`, or `na`, if using `read_csv()`.
+
 With the data loaded, we can investigate missing values. `is.na()` returns a logical vector, `TRUE` for `NA`, otherwise `FALSE`. This is easiest with a single vector...
+:::
+
+# Column names
 
 ```{r}
 # get colnames
@@ -35,19 +40,21 @@ typeof(missing_pop)
 head(missing_pop)
 ```
 
-The logical vector on it's own, is not super helpful. We can generate counts of the `TRUE` values by summing the number of `TRUE` instances in `missing_pop`...
+# Summarising data
 
 ```{r}
 sum(missing_pop)
-```
 
-We can do this more interactively with
-
-```{r}
 sum(is.na(data_gapminder$pop))
 ```
 
-### Complete Cases
+:::notes
+The logical vector on it's own, is not super helpful. We can generate counts of the `TRUE` values by summing the number of `TRUE` instances in `missing_pop`...
+
+We can do this more interactively with
+:::
+
+# Complete Cases
 
 Another point of interest in looking at missing values is to explore the number of observations for which no data are missing, which can be done with `complete.cases()`. Similar to `is.na()`, `complete.cases()` returnds a logical vector...
 
@@ -62,22 +69,25 @@ We can get a count, like before
 sum(complete_gapminder)
 ```
 
-And for use later, when subsetting, we can also generate a vector of those which are complete, identified by  their index number. This is done with `which()`
+
+# Inspecting data
 
 ```{r}
 # first few index numbers of comlpete cases
 head(which(complete_gapminder))
 ```
+:::notes
+And for use later, when subsetting, we can also generate a vector of those which are complete, identified by  their index number. This is done with `which()`
+:::
 
-## Unique values & duplicates
-
-`unique()`, returns a vector of unique values...
+# Unique values
 
 ```{r}
 unique(data_gapminder$continent)
 ```
 
-`duplicated()` returns a logical vector, `TRUE` for values (of a vector) or rows (of a data frame) that are duplicates, `FALSE` if they are unique. Since the first instance of a value is unique, the first value will return `FALSE`, and any subsequent duplicates will return `TRUE`.
+
+# Duplicated values
 
 ```{r}
 # on a vector
@@ -93,23 +103,28 @@ head(duplicated(data_gapminder))
 sum(duplicated(data_gapminder))
 ```
 
-## Descriptive Statistics
 
-> Basic stats fucntions in R generally do not remove NA values by default, and if your data has NA values, they will return `NA`. You can avoid these errors with `na.rm = TRUE` as an argument.
+:::notes
+`duplicated()` returns a logical vector, `TRUE` for values (of a vector) or rows (of a data frame) that are duplicates, `FALSE` if they are unique. Since the first instance of a value is unique, the first value will return `FALSE`, and any subsequent duplicates will return `TRUE`.
+:::
 
-### Number of Observations
+# Descriptive Statistics
 
-The number of values in a single vector can be derived with `length()`
+:::notes 
+Basic stats fucntions in R generally do not remove NA values by default, and if your data has NA values, they will return `NA`. You can avoid these errors with `na.rm = TRUE` as an argument.
+:::
+
+# Number of Observations
 
 ```{r}
 length(data_gapminder$country)
+length(data_gapminder) # will return ncol, but that's confusing
 ```
-
+:::notes
 When used on a data frame, however, `length()` returns the number of columns...
+The number of values in a single vector can be derived with `length()`
+:::
 
-```{r}
-length(data_gapminder)
-```
 
 When working with data frames, it is preferable to use `nrow()` and `ncol()` for the number of rows and columns, respectively.
 
@@ -118,20 +133,23 @@ ncol(data_gapminder)
 nrow(data_gapminder)
 ```
 
-### Range
-
-The range of your data can be calculated with `range()`.
+# Range
 
 ```{r}
 range(data_gapminder$year, na.rm = TRUE)
 ```
 
-If you're only interested in the min or max values individually, this can be pulled with `min()` and `max()` respectively.
+:::notes
+The range of your data can be calculated with `range()`.
+:::
+
+# Min and max
 
 ```{r}
 min(data_gapminder$year, na.rm = TRUE)
 max(data_gapminder$year, na.rm = TRUE)
 ```
+
 
 ### Mean & Median
 
@@ -141,102 +159,125 @@ The mean and median are calculated with `mean()` and `median()` respectively...
 mean(data_gapminder$lifeExp, na.rm = TRUE)
 median(data_gapminder$gdpPercap, na.rm = TRUE)
 ```
+:::notes
+If you're only interested in the min or max values individually, this can be pulled with `min()` and `max()` respectively.
+:::
 
 ### Variance and Standard Deviation
-
-The variance and SD are calculated with `var()` and `sd()`...
 
 ```{r}
 var(data_gapminder$lifeExp, na.rm = TRUE)
 sd(data_gapminder$lifeExp, na.rm = TRUE)
 ```
 
-### Quantiles
+:::notes
+The variance and SD are calculated with `var()` and `sd()`...
+:::
 
-Quantiles can be derived with `quantile()`, which defaults to the max, min and interquartiles.
+# Quantiles
+
 
 ```{r}
 quantile(data_gapminder$gdpPercap, na.rm = TRUE)
 ```
 
-### Summaries
+:::notes
+Quantiles can be derived with `quantile()`, which defaults to the max, min and interquartiles.
+:::
 
-Much of the above can be gathered all at once if needed with `summary()`. `summary()` can be run on a single vector, or on an entire data frame...
+
+# Summaries
+
 
 ```{r}
 summary(data_gapminder$gdpPercap)
 summary(data_gapminder)
 ```
+:::notes
+Much of the above can be gathered all at once if needed with `summary()`. `summary()` can be run on a single vector, or on an entire data frame...
+:::
 
-A better summary would come from properly denoted data types...
+# Proper summary
 
 ```{r, echo = FALSE}
 data_gapminder[1:3] <- lapply(data_gapminder[1:3], function(x) as.factor(x))
 ```
+:::notes
+A better summary would come from properly denoted data types...
+:::
 
 ```{r}
 # summary with the first three columns classed as categorical data
 summary(data_gapminder)
 ```
 
-## Visualizing Distributions
+# Visualizing Distributions
 
-> Plotting for presentation will be covered in greater detail in a future session.
-
-Basic plotting for distribution analysis is relatively straight forward in base R.
-
-### Distribution of a Single Variable
-
-#### Histograms
-
-You can plot a basic histogram with `hist()`
-
-```{r}
+```{r echo = FALSE, eval = TRUE}
 hist(data_gapminder$gdpPercap)
 ```
 
-And you can increase the 'buckets' with the `breaks` argument
+:::notes
+Plotting for presentation will be covered in greater detail in a future session.
+Basic plotting for distribution analysis is relatively straight forward in base R.
+:::
+
+# Histograms
 
 ```{r}
+hist(data_gapminder$gdpPercap)
+# increase number of buckers
 hist(data_gapminder$gdpPercap, breaks = 30)
 ```
+:::notes
+You can plot a basic histogram with `hist()`
+And you can increase the 'buckets' with the `breaks` argument
+:::
 
-#### Density Plots
-
-A density plot can be generated with `plot()`, but requires the extra step of computing the density of the data with the `density()` function first
+# Density Plots
 
 ```{r}
 dens <- density(data_gapminder$lifeExp, na.rm = TRUE)
 plot(dens)
 ```
+:::notes
+A density plot can be generated with `plot()`, but requires the extra step of computing the density of the data with the `density()` function first
+:::
+# Distribution of Two Variables
 
-### Distribution of Two Variables
+```{r echo = FALSE, eval=TRUE}
+boxplot(data_gapminder$lifeExp ~ data_gapminder$continent)
+```
 
-#### Box Plots
-
-`boxplot()` allows you to facet one variable by another using a tilde `~` to define the relationship
+# Box Plots
 
 ```{r}
 boxplot(data_gapminder$lifeExp ~ data_gapminder$continent)
 ```
+:::notes
+`boxplot()` allows you to facet one variable by another using a tilde `~` to define the relationship
+:::
 
-#### Scatter Plots
-
-`plot()` by default assumes a single variable as in the earlier example, but will generate a scatter plot if provided with two variables, the first assigned to the x-axis, the second to the y-axis.
+# Scatter Plots
 
 ```{r}
 plot(x = data_gapminder$gdpPercap, y = data_gapminder$lifeExp)
 ```
+:::notes
 
-You can also transform you data within the function for quick investigation
+`plot()` by default assumes a single variable as in the earlier example, but will generate a scatter plot if provided with two variables, the first assigned to the x-axis, the second to the y-axis.
+:::
+
+# Data transformations for better visualisation
 
 ```{r}
 # log transform gdp per capita
 plot(x = log(data_gapminder$gdpPercap), y = data_gapminder$lifeExp)
 ```
 
-
-
+:::notes
+You can also transform you data within the function for quick investigation
+:::
 
 
 

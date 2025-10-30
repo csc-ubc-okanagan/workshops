@@ -9,12 +9,63 @@ output:
 ---
 
 ```{r setup, include = FALSE}
+library(knitr); library(flextable)
 knitr::opts_chunk$set(echo = TRUE,
                       eval = TRUE)
+options(tidyverse.quiet = TRUE) # this mutes internal tidyverse calls
 ```
 
 
-# Missing Values
+# Getting oriented
+
+- Let's load the gapminder dataset. 
+
+```{r}
+suppressMessages(library(dplyr)); suppressMessages(library(purrr)) # now go ahead and load them
+
+data_gapminder <- read.csv(file.path("..", "..", "data", "gapminder_nas.csv"))
+
+# let's also take a minute to install some libraries, in your console enter
+#install.packages(c("dplyr", "purrr"))
+```
+
+:::notes
+Let's go ahead and all load the gapminder dataset. For those of you both in person and on zoom go ahead and join the zoom to download the gapminder dataset. Please call the variable `data_gapminder_na` as I believe that will make following along easier and you'll get more out of it.
+
+I would recommend working through this with me, sort of like a demo. Ideally, I think what you should do is open up an rscript file, and code along with the slides as I run through them. Pepper your code with comments as I'm making remarks, and hopefully this will help us get oriented with some basic data exploration in `Rstudio`! 
+:::
+
+# What are missing values
+
+- Run `data_gapminder` in your console 
+
+- `NA` stands for "not available", a special `boolean` for missing data within an object
+
+- `NA_integer_`, `NA_real_`, `NA_complex_` and `NA_character_`
+
+- `NULL` used for empty objects (points to the same singleton place in memory), think of it like an object purgatory. It exists and...it doesn't.
+
+- Analogous (but perhaps not equivalent to) `SASS` `SYSMIS`
+
+:::notes
+The first thing you might notice if you run `data_gapminder` in the console is that there is a character which isn't a number or a character. It's a special value called `NA` or not availble. This is a special character that tells `R`--hey this value is missing!
+:::
+
+# How R handles 'missingness' 
+
+```{r}
+# you can test this yourself in R (if you don't believe me)
+a <- NULL
+b <- NA
+c <- NA
+# tracemem(a) # this will break 'Error in tracemem(a) : cannot trace NULL'
+# two distinct places in memory, but they are 'missing' values
+tracemem(b) 
+tracemem(c)
+is.null(a)
+```
+
+# Working with missing values
 
 ```{r}
 na_values <- c("NA", "NULL", "", " ")
@@ -23,57 +74,56 @@ data_gapminder <- read.csv(file.path("..", "..", "data", "gapminder_nas.csv"), n
 ```
 
 :::notes
-Missing values in R are coded as `NA`, a special value in R. When importing or tyding your data, it's important to ensure that you're properly identifying missing values, and handling them with the arguments `na.strings`, if using `read.csv()`, or `na`, if using `read_csv()`.
-
-With the data loaded, we can investigate missing values. `is.na()` returns a logical vector, `TRUE` for `NA`, otherwise `FALSE`. This is easiest with a single vector...
+So how do we handle this? Thankfully `R` makes this relatively easy and gives us a lot of options when dealing with missing data. The first way is dealing with it at the source sort of... The nice part about dealing with your missing values in place in your code is that this makes your workflow **highly** reproducible. Someone can follow the data you were handed (in whatever sorry state it was handed to you in) and reproduce the awesome analysis you did from step 1 to the end! This is reproducibility!! When importing or tyding your data, it's important to ensure that you're properly identifying missing values, and handling them with the arguments `na.strings`, if using `read.csv()`, or `na`, if using `read_csv()`.
 :::
 
-# Column names
+# Complete cases
 
-```{r}
-# get colnames
-colnames(data_gapminder)
-
-# generate logical vector
-missing_pop <- is.na(data_gapminder$pop)
-typeof(missing_pop)
-head(missing_pop)
-```
-
-# Summarising data
-
-```{r}
-sum(missing_pop)
-
-sum(is.na(data_gapminder$pop))
-```
-
-:::notes
-The logical vector on it's own, is not super helpful. We can generate counts of the `TRUE` values by summing the number of `TRUE` instances in `missing_pop`...
-
-We can do this more interactively with
-:::
-
-# Complete Cases
-
-Another point of interest in looking at missing values is to explore the number of observations for which no data are missing, which can be done with `complete.cases()`. Similar to `is.na()`, `complete.cases()` returnds a logical vector...
 
 ```{r}
 complete_gapminder <- complete.cases(data_gapminder)
-typeof(complete_gapminder)
+complete_gapminder <- data_gapminder[which(complete_gapminder),]
+#typeof(complete_gapminder)
 ```
 
-We can get a count, like before
+
+:::notes
+The nuclear option here (not recommended honestly) is calling complete.cases. I personally would only ever use this if I had established in my analysis that NA values (for whatever reason) truly were not systematic in some way.
+:::
+
+# Small rant
 
 ```{r}
-sum(complete_gapminder)
+mean(data_gapminder[which(data_gapminder$continent == "Americas"),]$lifeExp, na.rm = TRUE)
+mean(complete_gapminder[which(complete_gapminder$continent == "Americas"),]$lifeExp)
 ```
 
+:::notes
+ on why you should (almost) never use complete.cases to clean your data like this: well deleting missing rows might systematically bias your data.
+:::
+
+# Imputation to the rescue?
+```{r}
+# Compare sample size before and after complete.cases
+nrow(data_gapminder)
+sum(complete.cases(data_gapminder))
+
+# Simple example of mean imputation
+data_imputed <- data_gapminder
+data_imputed$lifeExp[is.na(data_imputed$lifeExp)] <- 
+  mean(data_imputed$lifeExp, na.rm = TRUE)
+```
+
+
+:::notes
+Students (and my own former) first instinct with missing data is "AHHH" get it out of here, let's just delete it...right? WRONG! Above is a very simple example of something much better than throwing away missing data and that is imputation.
+:::
 
 # Inspecting data
 
 ```{r}
-# first few index numbers of comlpete cases
+complete_gapminder <- complete.cases(data_gapminder) # for later use
+# first few index numbers of complete cases
 head(which(complete_gapminder))
 ```
 :::notes
@@ -102,8 +152,6 @@ head(duplicated(data_gapminder))
 # there are no duplicate values
 sum(duplicated(data_gapminder))
 ```
-
-
 :::notes
 `duplicated()` returns a logical vector, `TRUE` for values (of a vector) or rows (of a data frame) that are duplicates, `FALSE` if they are unique. Since the first instance of a value is unique, the first value will return `FALSE`, and any subsequent duplicates will return `TRUE`.
 :::
@@ -119,78 +167,39 @@ Basic stats fucntions in R generally do not remove NA values by default, and if 
 ```{r}
 length(data_gapminder$country)
 length(data_gapminder) # will return ncol, but that's confusing
+ncol(data_gapminder)
+nrow(data_gapminder)
 ```
 :::notes
 When used on a data frame, however, `length()` returns the number of columns...
 The number of values in a single vector can be derived with `length()`
-:::
-
 
 When working with data frames, it is preferable to use `nrow()` and `ncol()` for the number of rows and columns, respectively.
-
-```{r}
-ncol(data_gapminder)
-nrow(data_gapminder)
-```
-
-# Range
-
-```{r}
-range(data_gapminder$year, na.rm = TRUE)
-```
-
-:::notes
-The range of your data can be calculated with `range()`.
 :::
 
-# Min and max
+# The usual suspects: range, min, max, mean, median, sd, variance, quantiles
 
-```{r}
-min(data_gapminder$year, na.rm = TRUE)
-max(data_gapminder$year, na.rm = TRUE)
-```
-
-
-### Mean & Median
-
-The mean and median are calculated with `mean()` and `median()` respectively...
-
-```{r}
+```{r eval = FALSE, echo = TRUE}
+range(data_gapminder$year, na.rm = TRUE)
 mean(data_gapminder$lifeExp, na.rm = TRUE)
 median(data_gapminder$gdpPercap, na.rm = TRUE)
-```
-:::notes
-If you're only interested in the min or max values individually, this can be pulled with `min()` and `max()` respectively.
-:::
-
-### Variance and Standard Deviation
-
-```{r}
+min(data_gapminder$year, na.rm = TRUE)
+max(data_gapminder$year, na.rm = TRUE)
+quantile(data_gapminder$gdpPercap, na.rm = TRUE)
 var(data_gapminder$lifeExp, na.rm = TRUE)
 sd(data_gapminder$lifeExp, na.rm = TRUE)
 ```
 
 :::notes
-The variance and SD are calculated with `var()` and `sd()`...
-:::
-
-# Quantiles
-
-
-```{r}
-quantile(data_gapminder$gdpPercap, na.rm = TRUE)
-```
-
-:::notes
+The range of your data can be calculated with `range()`. If you're only interested in the min or max values individually, this can be pulled with `min()` and `max()` respectively. The variance and SD are calculated with `var()` and `sd()`...
+The mean and median are calculated with `mean()` and `median()` respectively...
 Quantiles can be derived with `quantile()`, which defaults to the max, min and interquartiles.
 :::
 
-
 # Summaries
 
-
 ```{r}
-summary(data_gapminder$gdpPercap)
+# kable(summary(data_gapminder$gdpPercap)) # could also summarise just one column
 summary(data_gapminder)
 ```
 :::notes
@@ -200,16 +209,79 @@ Much of the above can be gathered all at once if needed with `summary()`. `summa
 # Proper summary
 
 ```{r, echo = FALSE}
-data_gapminder[1:3] <- lapply(data_gapminder[1:3], function(x) as.factor(x))
+data_gapminder[1:2] <- lapply(data_gapminder[1:2], as.factor)
+summary(data_gapminder)
 ```
+
 :::notes
 A better summary would come from properly denoted data types...
 :::
 
-```{r}
-# summary with the first three columns classed as categorical data
-summary(data_gapminder)
+# Exploring data in `DPLYR`: A better way to do data
+
+```{r echo = FALSE}
+data_gapminder %>%
+  summarise(
+    mean_life = mean(lifeExp, na.rm = TRUE),
+    sd_life   = sd(lifeExp, na.rm = TRUE),
+    min_life  = min(lifeExp, na.rm = TRUE),
+    max_life  = max(lifeExp, na.rm = TRUE)
+  ) %>% flextable() %>% flextable::theme_vanilla() %>%
+  flextable::autofit() %>%                # adjusts columns to content
+  flextable::set_table_properties(        # ensures full-width fit
+    width = 1,
+    layout = "autofit"
+  )
 ```
+
+# Code for prior slide's table
+
+
+```{r echo = TRUE, eval = FALSE}
+data_gapminder %>%
+  summarise(
+    mean_life = mean(lifeExp, na.rm = TRUE),
+    sd_life   = sd(lifeExp, na.rm = TRUE),
+    min_life  = min(lifeExp, na.rm = TRUE),
+    max_life  = max(lifeExp, na.rm = TRUE)
+  ) %>% flextable() %>% flextable::theme_vanilla() %>%
+  flextable::autofit() %>%                # adjusts columns to content
+  flextable::set_table_properties(        # ensures full-width fit
+    width = 1,
+    layout = "autofit"
+  )
+```
+
+:::notes
+Emphasize readability — column names and calculations are right next to each other. Introduce the %>% pipe if not done before (“then do this”).
+:::
+
+# Exploring data in `DPLYR`: groups
+
+```{r}
+data_gapminder %>%
+  # `group_by` this automatically groups things by class for you very powerful
+  group_by(continent) %>% 
+  summarise(
+    mean_life = mean(lifeExp, na.rm = TRUE),
+    n = n()
+  )
+```
+
+:::notes
+`dplyr`s `group_by` is simple powerful syntax to quickly ascertain relationships by groups. 
+:::
+
+# Exploring data `PURRRfectly`: functional programming
+
+```{r}
+data_gapminder %>%
+  split(.$continent) %>%
+  map(~ mean(.x$lifeExp, na.rm = TRUE))
+```
+:::notes
+While admittedly less clear than dplyr syntax. purrr is a “repeat yourself less” toolkit. Here, instead of writing a loop, we map the same function over a list of continent datasets.
+:::
 
 # Visualizing Distributions
 
@@ -217,20 +289,24 @@ summary(data_gapminder)
 hist(data_gapminder$gdpPercap)
 ```
 
-:::notes
-Plotting for presentation will be covered in greater detail in a future session.
-Basic plotting for distribution analysis is relatively straight forward in base R.
-:::
 
 # Histograms
 
 ```{r}
 hist(data_gapminder$gdpPercap)
-# increase number of buckers
-hist(data_gapminder$gdpPercap, breaks = 30)
 ```
 :::notes
 You can plot a basic histogram with `hist()`
+Plotting for presentation will be covered in greater detail in a future session.
+Basic plotting for distribution analysis is relatively straight forward in base R.
+:::
+
+# Histograms cont'd
+
+```{r}
+hist(data_gapminder$gdpPercap, breaks = 30)
+```
+:::notes
 And you can increase the 'buckets' with the `breaks` argument
 :::
 
@@ -263,8 +339,8 @@ boxplot(data_gapminder$lifeExp ~ data_gapminder$continent)
 ```{r}
 plot(x = data_gapminder$gdpPercap, y = data_gapminder$lifeExp)
 ```
-:::notes
 
+:::notes
 `plot()` by default assumes a single variable as in the earlier example, but will generate a scatter plot if provided with two variables, the first assigned to the x-axis, the second to the y-axis.
 :::
 
@@ -280,10 +356,7 @@ You can also transform you data within the function for quick investigation
 :::
 
 
+# References
 
-
-
-
-
-
-
+* Data Camp - [Data Camp](https://www.datacamp.com/doc/r/missingdata)
+* Cran R Project Symbols - [R Internal Documentation](https://cran.r-project.org/doc/manuals/r-release/R-ints.html#Symbols)

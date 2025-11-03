@@ -10,6 +10,9 @@ output:
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(echo = TRUE,
                       eval = TRUE)
+library(skimr)
+library(dplyr)
+library(data.table)
 ```
 
 # Base R
@@ -96,23 +99,24 @@ basic_list[[1]][1]
 You can specify the row and column to subset either by its name, wrapped in "", or by its indexed number. However, if you want an item (value) from within a list, you need to simplify that object first with `[[` and then apply a single `[`.
 :::
 
-# Filtering Based on Conditions
+# Comparison & Logical Operators
 
 You can also filter your data to specific cases based on conditions. This is done by placing the condition within the subsetting operators.
 
 Conditions include:
 
-| | |
-| --- | --- |
-| != | not equal to? |
-| == | equal to? |
-| < | less than |
-| > | greater than |
-| <= | less than or equal to |
-| >= | equal to or greater than |
-| ! | not |
-| \| | or |
-| & | and |
+| Operator   | Meaning
+| --------:  | -------------------------------- |
+| `!=`       | not equal to?                    |
+| `==`       | equal to?                        |
+| `<`        | less than                        |
+| `>`        | greater than                     |
+| `<=`       | less than or equal to            |
+| `>=`       | equal to or greater than         |
+| `!`        | not                              |
+| `\|`       | or                               |
+| `&`        | and                              |
+| `%in%`     | in set (membership)              |
 
 # Vectors
 
@@ -171,6 +175,7 @@ Multiple conditions can be passed when subsetting, whether using `[` or `subset(
 # Tidyverse
 
 - The `dplyr` package 
+- The `filter`, `select` operations
 
 :::notes
 from Tidyverse draws a good conceptual break between selecting variables and filtering for cases based on values with its `select()` and `filter()` functions.
@@ -214,4 +219,79 @@ head(filter(data_gapminder, continent == "Americas"))
 `filter()` works well with other offerings from Tidyverse. And more options can be found here [https://dplyr.tidyverse.org/reference/filter.html](https://dplyr.tidyverse.org/reference/filter.html).
 
 Filter is very similar to subset for working on data frames (it doesn't work on vectors), and follows the same basic approach of requiring a dataset and a condition on which to filter.
+:::
+
+
+
+# Filtering and mutating with `data.table`
+
+
+```{r}
+health_dt <- fread("../../data/health_data.csv") # load quickly with fread
+health_dt[age >= 20, .(
+  n = .N, # denotes
+  mean_bmi_pre = mean(bmi_pre, na.rm = TRUE),
+  mean_bmi_post = mean(bmi_post, na.rm = TRUE)
+), by = group]
+```
+
+:::notes
+The advantages of using data.table. `data.table` is fast...like really fast (built on `C` programming language). Expressive and logical `i`,`j`, `by` syntax. Does operations by reference meaning you don't have copies of big datasets floating around in your environment.
+:::
+
+# `data.table` logic
+
+- `DT[i, j, by]`
+
+- `i` operator is row-wise, like a filter statement (used above)
+
+- `j` operator tells what to do and what to return
+
+- `by` operator tells what to group by 
+
+```{r}
+health_dt[age >= 20, # `i` operator
+          # `j` operator for what to do
+          .(n = .N,
+            mean_bmi_pre = mean(bmi_pre, na.rm = TRUE),
+            mean_bmi_post = mean(bmi_post, na.rm = TRUE)
+            ), by = group] # by operator tells what columns to group our j, i operation over
+```
+
+
+
+# Column operators with `data.table`
+
+- `.SD` stands for subset data and is `data.table` shorthand for get all columns
+
+```{r}
+health_dt[, lapply(.SD, mean, na.rm = TRUE),
+          by = smoker,
+          .SDcols = !is.character] # notice ! operator
+```
+:::notes
+`data.table` also plays well with **functional programming**. Truly can handle big datasets `fread` that would crash other base R reading funcitons. ! is.character tells data.table to operate mean on numeric columns only.
+:::
+
+
+# Subsetting column operations in `data.table` with `.SDcols 
+
+```{r}
+health_dt[, lapply(.SD, mean, na.rm = TRUE),
+          by = smoker,
+          .SDcols = c('weight_pre', 'weight_post')]
+
+```
+:::notes
+We can also subset our `data.table` to specific columns by specifying a vector of col names we want to operate on.
+:::
+
+
+# Additional packages: `skimr`
+
+```{r}
+data_gapminder %>% select(country, lifeExp) %>% skim()
+```
+
+:::notes
 :::

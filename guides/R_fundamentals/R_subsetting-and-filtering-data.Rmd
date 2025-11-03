@@ -1,8 +1,10 @@
 ---
 title: 'R: Subsetting & Filtering Data'
+author: "Alex Jack"
+date: "`r format(Sys.time(), '%Y-%m-%d %H:%M:%S')`"
 output:
-  html_document:
-    keep_md: yes
+  powerpoint_presentation:
+    reference_doc: '../../assets/powerpoint-styles/light-theme.pptx'
 ---
 
 ```{r setup, include = FALSE}
@@ -10,27 +12,25 @@ knitr::opts_chunk$set(echo = TRUE,
                       eval = TRUE)
 ```
 
-Last Updates: `r Sys.Date()`
-
-## Base R
-
-### `$`
-
-We've already seen that we can select a single variable of a data frame with `$`.
+# Base R
 
 ```{r}
-data_gapminder <- read.csv("../data/gapminder.csv")
+data_gapminder <- read.csv("../../data/gapminder.csv")
 lifeExp <- data_gapminder$lifeExp
 head(lifeExp)
 ```
 
-It's important to note that generally R simplifies data structures when possible, so `lifeExp` has lost most of its attributes, and is now simply a vector...
+:::notes
+We've already seen that we can select a single variable of a data frame with `$`.
 
-```{r}
+It's important to note that generally R simplifies data structures when possible, so `lifeExp` has lost most of its attributes, and is now simply a vector...
+:::
+
+```{r, eval = FALSE, echo = FALSE}
 class(lifeExp)
 ```
 
-`$` can be used with both data frames and lists.
+# Lists
 
 ```{r}
 basic_list <- list(item_1 = letters,
@@ -44,10 +44,11 @@ item_1
 # again, it defaults to creating a vector
 class(item_1)
 ```
+:::notes
+`$` can be used with both data frames and lists.
+:::
 
-### `[` and `[[`
-
-You can also subset using single or double square brackets. These provide you with more flexibility than `$`. They can also be more verbose. The primary difference between the two is that `[` preserves the original data structure, while `[[` discards it and simplifies.
+# `[` and `[[`
 
 ```{r}
 pop_preserved <- data_gapminder["pop"]
@@ -57,7 +58,14 @@ class(pop_preserved)
 class(pop_simple)
 ```
 
+:::notes
+
+You can also subset using single or double square brackets. These provide you with more flexibility than `$`. They can also be more verbose. The primary difference between the two is that `[` preserves the original data structure, while `[[` discards it and simplifies.
+
 `[` and `[[` allow you to specify specific ranges of columns and rows to extract. The arguments are passed as `[row range, column range]`. Leaving an argument blank returns all rows or columns.
+:::
+
+# Accessing rows and columns in data frames
 
 ```{r}
 # value in the first row and first column
@@ -65,28 +73,30 @@ data_gapminder[1,1]
 
 # values in the second row
 data_gapminder[2,]
+```
+
+# Accessing multiple rows and columns at once
+
+```{r}
 
 # values in the first 5 rows and first 3 columns
 data_gapminder[1:5, 1:3]
 ```
 
-This works on lists as well...
+# Working with lists
 
 ```{r}
 # return the first element of a list
 basic_list[1]
-```
-
-However, if you want an item (value) from within a list, you need to simplify that object first with `[[` and then apply a single `[`
-
-```{r}
 # extract the first value from the first list item
 basic_list[[1]][1]
 ```
 
-> You can specify the row and column to subset either by its name, wrapped in "", or by its indexed number.
+:::notes
+You can specify the row and column to subset either by its name, wrapped in "", or by its indexed number. However, if you want an item (value) from within a list, you need to simplify that object first with `[[` and then apply a single `[`.
+:::
 
-### Filtering Based on Conditions
+# Filtering Based on Conditions
 
 You can also filter your data to specific cases based on conditions. This is done by placing the condition within the subsetting operators.
 
@@ -94,22 +104,17 @@ Conditions include:
 
 | | |
 | --- | --- |
-| != | not equal to |
-| == | equal to |
+| != | not equal to? |
+| == | equal to? |
 | < | less than |
 | > | greater than |
 | <= | less than or equal to |
-| => | equal to or greater than |
-
-And conditions can be strung together with the following operators:
-
-| | |
-| --- | --- |
+| >= | equal to or greater than |
 | ! | not |
 | \| | or |
 | & | and |
 
-#### Vectors
+# Vectors
 
 ```{r}
 # using the lifeExp vector created earlier
@@ -118,7 +123,7 @@ head(lifeExp_gt_70, n = 20)
 length(lifeExp_gt_70)
 ```
 
-#### Data Frames
+# Data Frames
 
 For data frames, you identify the column and the condition for the values in that column, which will give you all rows that match that condition, followed by the columns of interest.
 
@@ -134,24 +139,21 @@ gdp_1952 <- data_gapminder[data_gapminder$year == 1952, c(1,6)]
 head(gdp_1952)
 ```
 
-### `subset()`
+# `subset()`
 
-`subset()` allows you to achieve similar results to those above. At its most basic, it takes a data set and a condition on which to subset.
-
-```{r}
-head(subset(data_gapminder, year == 1952))
-```
-
-You can also list the columns you'd like to keep with the `select` argument.
 
 ```{r}
+head(subset(data_gapminder, year == 1952), 1)
 head(subset(data_gapminder, year == 1952,
-            select = c("country", "gdpPercap")))
+            select = c("country", "gdpPercap")), 1)
 ```
 
-### Multiple conditions
+:::notes
+`subset()` allows you to achieve similar results to those above. At its most basic, it takes a data set and a condition on which to subset.
+You can also list the columns you'd like to keep with the `select` argument.
+:::
 
-Multiple conditions can be passed when subsetting, whether using `[` or `subset()`
+# Multiple conditions
 
 ```{r}
 # 1952 and Americas
@@ -162,13 +164,20 @@ am_52_ss <- subset(data_gapminder, year == 1952 & continent == "Americas")
 head(am_52_ss)
 ```
 
-## Tidyverse
+:::notes
+Multiple conditions can be passed when subsetting, whether using `[` or `subset()`
+:::
 
-The `dplyr` package from Tidyverse draws a good conceptual break between selecting variables and filtering for cases based on values with its `select()` and `filter()` functions.
+# Tidyverse
 
-### `select()`
+- The `dplyr` package 
 
-`select()` allows you pick columns based on their names. It takes two arguments, a data set, and a set of parameters by which to select columns; that parameter could be a single name, a span of names separated with a `:`, or some other condition, like names starting with, ending with, or containing specific characters, or even by the data type held in the column.
+:::notes
+from Tidyverse draws a good conceptual break between selecting variables and filtering for cases based on values with its `select()` and `filter()` functions.
+:::
+
+# `select()`
+
 
 ```{r, message = FALSE}
 # load the library
@@ -189,15 +198,20 @@ head(select(data_gapminder, where(is.numeric)))
 # select by negation
 head(select(data_gapminder, !country))
 ```
-
+:::notes
+`select()` allows you pick columns based on their names. It takes two arguments, a data set, and a set of parameters by which to select columns; that parameter could be a single name, a span of names separated with a `:`, or some other condition, like names starting with, ending with, or containing specific characters, or even by the data type held in the column.
 More options can be found here [https://dplyr.tidyverse.org/reference/select.html](https://dplyr.tidyverse.org/reference/select.html). 
+:::
 
-### `filter()`
+# `filter()`
 
-Filter is very similar to subset for working on data frames (it doesn't work on vectors), and follows the same basic approach of requiring a dataset and a condition on which to filter.
 
 ```{r}
 head(filter(data_gapminder, continent == "Americas"))
 ```
 
+:::notes
 `filter()` works well with other offerings from Tidyverse. And more options can be found here [https://dplyr.tidyverse.org/reference/filter.html](https://dplyr.tidyverse.org/reference/filter.html).
+
+Filter is very similar to subset for working on data frames (it doesn't work on vectors), and follows the same basic approach of requiring a dataset and a condition on which to filter.
+:::

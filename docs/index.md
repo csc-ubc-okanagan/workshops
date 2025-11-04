@@ -143,7 +143,7 @@ This series introduces early-career researchers to statistical models that exten
 * (Hierarchical) Generalized Linear Models:  [script](https://github.com/csc-ubc-okanagan/ubco-csc-modeling-workshop/blob/main/R-scripts/5-hierarchical-generalized-linear-models.R), [slides](https://github.com/csc-ubc-okanagan/workshops/blob/main/docs/FittingModelsSlides/CSCWS05T01.pdf)
 * Generalized Additive Models: [script](https://github.com/csc-ubc-okanagan/ubco-csc-modeling-workshop/blob/main/R-scripts/6-generalized-additive-models.R), [slides](https://github.com/csc-ubc-okanagan/workshops/blob/main/docs/FittingModelsSlides/CSCWS06T01.pdf)
 * Interpreting and predicting from Generalized Additive Models: [script](https://github.com/csc-ubc-okanagan/ubco-csc-modeling-workshop/blob/main/R-scripts/7-interpreting-and-predicting-from-gams.R), [slides](https://github.com/csc-ubc-okanagan/workshops/blob/main/docs/FittingModelsSlides/CSCWS07T01.pdf)
-* Hierarchical GAMs [script](https://github.com/csc-ubc-okanagan/ubco-csc-modeling-workshop/blob/main/R-scripts/8-hierarchical-generalized-additive-models.R), [slides](https://github.com/csc-ubc-okanagan/workshops/blob/main/docs/FittingModelsSlides/CSCWS07T01.pdf), [data](https://github.com/csc-ubc-okanagan/ubco-csc-modeling-workshop/blob/main/data/weatherstats_kelowna_daily.csv)
+* Hierarchical GAMs [script](https://github.com/csc-ubc-okanagan/ubco-csc-modeling-workshop/blob/main/R-scripts/8-hierarchical-generalized-additive-models.R), [slides](https://github.com/csc-ubc-okanagan/workshops/blob/main/docs/FittingModelsSlides/CSCWS08T01.pdf), [data](https://github.com/csc-ubc-okanagan/ubco-csc-modeling-workshop/blob/main/data/weatherstats_kelowna_daily.csv)
 * Penalized Models
 * Survival Models
 * Nonparametric Models

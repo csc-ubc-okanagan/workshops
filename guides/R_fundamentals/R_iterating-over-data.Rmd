@@ -1,23 +1,32 @@
 ---
-title: "R: Iterating Over Data"
+title: 'R: Iterating over Data'
+date: "`r format(Sys.time(), '%Y-%m-%d %H:%M:%S')`"
+name: "Alex Jack"
 output:
-  html_document:
-    keep_md: yes
+  powerpoint_presentation:
+    pandoc_args: ["--highlight-style=breezedark"]
+    reference_doc: '../../assets/powerpoint-styles/light-theme.pptx'
 ---
 
-```{r setup, include = FALSE}
+
+```{r setup, include = FALSE, echo = FALSE}
+library(dplyr)
+library(purrr)
 knitr::opts_chunk$set(echo = TRUE,
                       eval = TRUE,
                       message = FALSE,
                       warning = FALSE)
 ```
 
-Last Updates: `r Sys.Date()`
+```{r, echo = FALSE}
+# load the data
+gap_dat <- read.csv(file = "../../data/gapminder.csv")
+```
+# Vectorization
 
-## Vectorization
-
+:::notes
 In general, R takes care of a lot of iteration for you; this is perhaps why R is based around atomic vectors as a fundamental data structure. When processing your data, R looks at the data type of the vector -- not every value in it -- and frequently passes the task off to code written in a much faster language, like C or Fortran. This helps to keep R code as fast as possible. You can see this by looking at a function's internals - these 'vectorized' functions are often denoted by something like `Primitive` or `Internal`.
-
+:::
 ```{r}
 # look inside the sum() and sqrt() functions
 sum
@@ -27,59 +36,78 @@ sqrt
 colSums
 ```
 
+# Working with vectors
+:::notes
 What this means in practice, is that we can pass a vector to one of these functions, and the function operates on the entire vector.
-
+:::
 ```{r}
 some_numbers <- c(1:10)
 sqrt(some_numbers + 2)
 ```
 
+# Vectorize your code
+:::notes
 Similarly, we can pass an object made of vectors and the whole 'package' is passed along.
-
+If you hear people talking about 'vectorizing your code', generally they mean taking advantage of this construct.
+:::
 ```{r}
-library(gapminder)
-library(dplyr)
-data_gapminder_num <- select(gapminder, is.numeric)
+data_gapminder_num <- select(gap_dat, is.numeric)
 colSums(data_gapminder_num)
 colMeans(data_gapminder_num)
 ```
 
-If you hear people talking about 'vectorizing your code', generally they mean taking advantage of this construct.
+# Functions That Loop For You
 
-## Functions That Loop For You
-
+:::notes
 R also has several several built in functions that hide the need to build a loop for you; these are generally simpler and faster than writing your own loops. Perhaps the most common are the `apply()` family of functions. Generally, these functions work such that you provide a data set and function to apply across that data set, but each is a little unique in terms of what it expects, how it expects it, and what it returns. Each will cater to slightly different use cases.
-
-### apply()
-
+:::
+# `apply()`
+:::notes
 `apply()` operates on a matrix or array (it will convert an eligible data frame to a matrix) and takes three arguments, the data set, a dimension (1 = row, 2 = column) on which to apply a function, and a function.
-
+:::
 ```{r}
 apply(data_gapminder_num, 2, sum)
 head(apply(data_gapminder_num[data_gapminder_num$year == 1952, ], 2, sort))
 apply(data_gapminder_num, 2, max)
 ```
 
-### lapply() and sapply()
+# lapply() and sapply()
 
+- `lapply()` always returns a list
+
+- `sapply()` simplifies the output, returning a vector or matrix
+
+:::notes
 `lapply()` and `sapply()` are similar to `apply()`, but a little simpler in their construction; both require only a data set (vector, data frame, or list) and a function as an argument.
 
 `lapply()` always returns a list and `sapply()` 'simplifies' the output, returning a vector or matrix.
+:::
+
+# Working with `lapply()` and `sapply()`
 
 ```{r}
 lapply(data_gapminder_num, sum)
 sapply(data_gapminder_num, sum)
 ```
 
-When using `lapply()` it can be handy to be familiar with `unlist()`, which simplifies a list to a vector:
+# `unlist()`
 
+:::notes
+When using `lapply()` it can be handy to be familiar with `unlist()`, which simplifies a list to a vector:
+:::
 ```{r}
 unlist(lapply(data_gapminder_num, sum))
 ```
 
-### mapply()
+# `mapply()`
 
+- `mapply()` applies function *across* more than one object
+
+:::notes
 `apply()`, `sapply()`, etc all take a single object (vector, data frame, etc), as an argument and perform a function on that object. `mapply()` applies a function *across* more than one object. To do this, you start with the function and then a list of data objects:
+:::
+
+# Using `mapply()`
 
 ```{r}
 # three vectors
@@ -91,53 +119,52 @@ c <- c(21:30)
 mapply(sum, a, b, c)
 ```
 
+# `mapply()` is just `apply()`
+:::notes
 This is functionally equivalent to first merging the objects into one object and then using one of the other members of the `apply()` family
-
+:::
 ```{r}
 d <- cbind(a, b, c)
 d
 apply(d, 1, sum)
 ```
 
-## Tidyverse
+# Iterating with **Tidyverse**
 
+:::notes
 The purrr package from Tidyverse provides an equivalent to the `apply()` family of functions, called `map()` and `map2()`. These are constructed to be consistent in how they take their inputs and specific in what they return. `map()` expects one data object, `map2()` expects two data objects. 
-
+:::
 ```{r}
 # install purr if not already installed
 # install.packages("purrr")
-library(purrr)
 map(data_gapminder_num, sum)
 map2(a, b, sum)
 ```
 
+# Note
+:::notes
 There are several variations on `map()` and `map2()` - it's worth consulting the documentation if you plan to use the Tidyverse approach:
+:::
 
 * `map()`: https://purrr.tidyverse.org/reference/map.html
 * `map2()`: https://purrr.tidyverse.org/reference/map2.html
 
-## For Loops
-
+# For-loops
+:::notes
 Vecotrization and pre-existing looping functions will be the fastest and likely simplest way to iterate over your data. When your task is unique, however, you may need to write your own loop. Two common loop constructs are 'for loops' and 'while loops'. Here we cover the former.
 
 For loops iterate for a pre-determined number of iterations and take the following basic approach:
-
-```
-for (each value in a list of values using an indexed location) {
-do something;
-} 
-```
-
-for example
-
+:::
 ```{r}
 for (int in c(1:10)) { # for each int in the range 1 through 10
   print(int) # print that int
 }
 ```
 
+# Sampling 
+:::notes
 We can similarly walk over a data frame
-
+:::
 ```{r}
 # sample our data to keep things small
 data_gapminder_sample <- data_gapminder_num[sample(nrow(data_gapminder_num), 20), ]
@@ -157,7 +184,11 @@ for (index in seq_along(data_gapminder_sample$gdpPercap)) {
 }
 ```
 
+# For-loops 
+
+:::notes
 We can store values within a for loop, but they are confined to that for loop and are not accessible outside of it
+:::
 
 ```{r}
 for (index in seq_along(data_gapminder_sample$gdpPercap)) {
@@ -167,8 +198,11 @@ for (index in seq_along(data_gapminder_sample$gdpPercap)) {
 }
 ```
 
-In order to store the output of a for loop, we first need to create an object to hold the data.
+# Storing output with for-loops
 
+:::notes
+In order to store the output of a for loop, we first need to create an object to hold the data.
+:::
 ```{r}
 # create an empty vector of a known length and data type
 gdp_percapita_log <- vector(mode = "double", length = nrow(data_gapminder_sample))

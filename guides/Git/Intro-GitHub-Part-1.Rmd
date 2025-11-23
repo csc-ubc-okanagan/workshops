@@ -20,7 +20,7 @@ Last Updated: `r Sys.Date()`
 
 Before we jump into GitHub, it's worth first having a discussion about version control. I'm sure all of us are familiar with a situation where a file's versioning has grown out of control:
 
-![](assets/images/version-control.png)
+![](../../../assets/images/version-control.png)
 
 [Source: https://xkcd.com/1459/](https://xkcd.com/1459/)
 

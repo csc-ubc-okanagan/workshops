@@ -29,7 +29,7 @@ Version control software, or systems, are useful ways to record changes you make
 
 Version control systems begin with a base version of a document, and then record changes you make each step of the way.  You can start making additions to the document, and then can rewind to the base of the document to review each change you made, eventually arriving at your most recent version.
 
-![](assets/images/version-control2.png)
+![](../../docs/assets/images/version-control2.png)
 
 [Source: https://swcarpentry.github.io/git-novice/01-basics.html](https://swcarpentry.github.io/git-novice/01-basics.html)
 
@@ -37,7 +37,7 @@ Version control systems begin with a base version of a document, and then record
 
 Once you think of changes as separate from the document itself, you can then think about “playing back” different sets of changes on the base document, ultimately resulting in different versions of that document. For example, two users can make independent sets of changes on the same document, progressing forward to a new version.
 
-![](assets/images/version-control3.png)
+![](../../docs/assets/images/version-control3.png)
 
 [Source: https://swcarpentry.github.io/git-novice/01-basics.html](https://swcarpentry.github.io/git-novice/01-basics.html)
 
@@ -45,7 +45,7 @@ Once you think of changes as separate from the document itself, you can then thi
 Unless multiple users make changes to the same section of the document - considered a 'conflict' - you can incorporate two sets of changes into the same base document.
 
 
-![](assets/images/version-control4.png)
+![](../../docs/assets/images/version-control4.png)
 
 [Source: https://swcarpentry.github.io/git-novice/01-basics.html](https://swcarpentry.github.io/git-novice/01-basics.html)
 
@@ -285,7 +285,7 @@ nano readme.md
 
 This will open a window within your terminal that looks like this:
 
-![](assets/images/nano.png)
+![](../../docs/assets/images/nano.png)
 
 Once you have typed `# Hello world!`, click `ctrl + x`, press `Y` to confirm saving the work, and then `enter` to confirm the file name that you are saving to.
 

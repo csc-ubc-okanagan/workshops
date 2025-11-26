@@ -1,6 +1,7 @@
 ---
 title: "Introduction to Git and GitHub Part 1"
 output:
+  date: "`r format(Sys.time(), '%Y-%m-%d %H:%M:%S')`"
   html_document:
     keep_md: yes
 ---
@@ -12,18 +13,37 @@ knitr::opts_chunk$set(echo = TRUE,
 
 # Introduction to Git and GitHub Part 1
 
-Last Updated: `r Sys.Date()`
-
 > In order to proceed with this lesson, if you have not already done so, you will need to [install git on your computer](https://docs.github.com/en/get-started/quickstart/set-up-git).
+
+## Installing Git
+
+### Installing Git on Mac
+```{bash}
+ xcode-select --install
+```
+And now we can validate that it installed with:
+
+```{bash}
+git --version
+```
+
+### Installing on Windows (sort of)
+
+Hit the `windows key` and the windows start menu will pop up. Then go ahead and type `cmd` into the search bar. This will open up your command prompt. I will need you to install `wsl` with the following command:
+
+```{bash}
+wsl --install
+```
+This will install a linux (Ubuntu by default) subsystem directly on your windows machine.
+
+OK. Now that we all have a linux
 
 ## What is Version Control?
 
 Before we jump into GitHub, it's worth first having a discussion about version control. I'm sure all of us are familiar with a situation where a file's versioning has grown out of control:
 
-![](../../../assets/images/version-control.png)
-
-[Source: https://xkcd.com/1459/](https://xkcd.com/1459/)
-
+![](../../docs/assets/images/version-control.png)
+[Source: https://xkcd.com/1459/](`https://xkcd.com/1459/`)
 
 Version control software, or systems, are useful ways to record changes you make to a file, helping to avoid falling into the pits of having numerous nearly identical files. Things like Microsoft Word's 'Track Changes', or Google Doc's 'Version History' are examples of automated version control systems.
 
@@ -85,15 +105,16 @@ readme.md
 
 *The output of a git repository - note the `.git` object, this is the database of tracked changes.*
 
-Git was originally developed to help software developers work collaboratively on software projects, but it can be and is used for managing revisions to any plain text file, including markdown and LaTex documents, or spreadsheets stored as comma or tab separated values.
+Git was originally developed to help software developers work collaboratively on software projects, but it can be and is used for managing revisions to any **plain text file**, including markdown and LaTex documents, or spreadsheets stored (e.g., `.csv`s). By the way, a **plain text file** contains only characters (i.e., letters, numbers, punctuation, and white space--e.g., spaces, tabs, newlines).When you open it, what you see is literally all that's stored in the file.
+Examples: .txt, .csv, .md, .R, .py, .html, .css, .json
 
-Git cannot version control document types that have special formatting or complex structures, such as Word documents and PDFs, though both file types can be stored in Git repositories.
+Although more complex documents such as a MS word `.docx` (which is actually a compressed assortment of `xml` files) can be stored on GitHub, Git cannot version control document types that have these special formatting or complex structures.
 
-Once installed, interaction with Git is generally done through a terminal using a shell. A suitable shell is included by default in Mac and Linux. When installing Git on Windows, the install will include the Git Bash shell. 
+Once installed, interaction with Git is generally done through a terminal using a shell. A suitable shell is included by default in Mac and Linux. When installing Git on Windows, the install will include the Git Bash shell. An alternative option if you are operating on windows is to install `wsl`. This can be readily done by opening a terminal (opening the windows start menu and typing **cmd** into the search bar) and running `wsl --install `. This install a linux subsystem on your windows machine so you can have the flexibility of linux with the utility of Windows.
 
 ### GitHub
 
-GitHub on the other hand is a popular website for hosting and sharing Git repositories remotely. It offers a web interface and provides functionality and a mixture of both free and paid services for working with such repositories. The majority of the content that GitHub hosts is open source software, though increasingly it is being used for other projects such as open access journals (e.g. [Journal of Open Source Software](https://joss.theoj.org/)), blogs, and regularly updated text books.
+GitHub on the other hand is a popular website for hosting and sharing Git repositories remotely. Note that GitHub is not the only option for working with Git across users. Since git is open source other platforms exist to share plain text files online with collaborators such as BitBucket and GitLab, however GitHub is probably the most popular. GitHub offers a web interface and provides functionality and a mixture of both free and paid services for working with such repositories. The majority of the content that GitHub hosts is open source software, though increasingly it is being used for other projects such as open access journals (e.g. [Journal of Open Source Software](https://joss.theoj.org/)), blogs, and regularly updated text books.
 
 ## Getting Started with Git
 
@@ -114,7 +135,7 @@ git config --global user.name "Your Name"
 git config --global user.email "yourname@domain.name"
 ```
 
-If you enter the commands correctly, the shell will merely return a command prompt and no messages. To check your work, ask Git what your configuration is, using the same command as above with the `--list` flag:
+If you enter the commands correctly, the shell will return a command prompt and no messages. To check your work, ask Git what your configuration is, using the same command as above with the `--list` flag:
 
 ```{bash}
 git config --list
@@ -151,13 +172,20 @@ git config --global init.defaultBranch main
 
 ## Creating a Repository
 
-A Git **repository** is a data structure used to track changes to a set of project files over time. Repositories are stored within the same directory as these project files, in a hidden directory called `.git` (pictured earlier).
+A Git **repository** (or repo) is a data structure used to track changes to a set of project files over time. Repositories are stored within the same directory as these project files, in a hidden directory called `.git` (pictured earlier).
 
 Let’s use the command line to create a git repository for the experiments that we’re going to do today. First, move to your `Desktop` directory. On most installs of Windows, MacOS, and Linux, this can be done with:
 
 ```{bash}
 cd ~/Desktop
 ```
+
+However if you happen to be using `wsl` on Windows you can enter:
+
+```{bash}
+cd /mnt/c/Users/<your-username>/Desktop
+```
+
 
 Next, we're going to create a new directory for our project and enter that directory. To do so, enter the following commands. Feel free to name your directory whatever you'd like, noting appropriate naming conventions!
 
@@ -419,10 +447,10 @@ cat readme.md
 ```{bash}
 touch LICENCE.txt
 
-echo "Copyright, 2023" > LICENCE.txt
+echo "Copyright, 2023" >> LICENCE.txt
 ```
 
-If we run `git status` now, it should indicate that we're on `testing`, that we've modified a file we're tracking already and that we've created a new file that we're not yet tracking.
+If we run `git status` now, it should indicate that we're on `testing`, that we've modified a file we're tracking already and that we've created a new file that we're not yet tracking. Note the use of the `echo` command and the `>>` or `>` operator. This acts much like a pipe in `R` where we're telling the command prompt to put the characters (for example, "Copyright, 2023") into a file called `LICENCE.txt`. The difference between `>` and `>>` is that `>>` tells the command prompt to append and `>` tells it to overwrite.
 
 ```{bash}
 On branch testing
@@ -475,7 +503,7 @@ git branch
 testing
 ```
 
-To see that what we did in `testing` didn't impact `main` we can run `ls` or `cat` on readme.md to see that nothing has changed.
+To see that what we did in `testing` didn't impact `main` we can run `ls` or `cat` on readme.md to see that nothing has changed. Note that the command `cat`  basically tells the command prompt to echo what is inside the file to the screen. So saying `cat readme.md` will output the contents of `readme.md` to the screen.
 
 ```{bash}
 ls

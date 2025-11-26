@@ -1,5 +1,3 @@
-[https://csc-ubc-okanagan.github.io/workshops/](https://csc-ubc-okanagan.github.io/workshops/)
-
 | Directory or File | Description |
 | --- | --- |
 | assest/ | Promotional materials related to workshops |
@@ -10,7 +8,7 @@
 
 ## Workshop Model
 
-All workshops are series based, with material scaffolded throughtout the term, as well as between series. Individual workshop are scheduled for roughly 1 hour, with 30 minutes of instructor led content, 15 minutes for Q&A related to the content, and 15 minutes for follow up if needed.
+All workshops are series based, with material building on itself throughout the term, as well as between series. Individual workshop are scheduled for roughly 1 hour, with 30 minutes of instructor led content, 15 minutes for Q&A related to the content, and 15 minutes for follow up if needed.
 
 Workshop content is available online for simultaneous or asynchronous engagement, as well as being supported by our [blog](https://csc-ubc-okanagan.github.io/R-Python-Blog/), and [research data consultations](https://csc.ok.ubc.ca/consultations/research-data-consultation/).
 
@@ -22,12 +20,13 @@ Workshop content is available online for simultaneous or asynchronous engagement
 * [Statistical Fundamentals: A Visual Approach](https://github.com/csc-ubc-okanagan/workshops/blob/main/outlines/statistical-fundamentals_a-visual-approach.md)
 * [Fitting Models to Data Not Data to Models](https://github.com/csc-ubc-okanagan/workshops/blob/main/outlines/fitting-models-to-data-not-data-to-models.md)
 
+## Additional Information
 
+Information on what is covered in our workshop series can be found [here](https://csc-ubc-okanagan.github.io/workshops/).
 
-
-
-
-
-
-
-
+## License
+[![CC BY-NC 4.0][cc-by-nc-shield]][cc-by-nc]
+This work is licensed under a [Creative Commons Attribution-NonCommercial 4.0 International License][cc-by-nc].
+[cc-by-nc]: https://creativecommons.org/licenses/by-nc/4.0/
+[cc-by-nc-image]: https://licensebuttons.net/l/by-nc/4.0/88x31.png
+[cc-by-nc-shield]: https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey.svg

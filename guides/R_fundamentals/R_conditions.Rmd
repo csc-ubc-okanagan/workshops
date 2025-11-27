@@ -22,6 +22,10 @@ knitr::opts_chunk$set(echo = TRUE,
 Conditionally iterating over data can be a powerful tool, for such things as catching errors, testing a user input, or, perhaps more commonly in data analysis tasks, creating categorical values from numeric interval or ratio data.
 :::
 
+- Conditional iteration over data
+- Good for catching errors
+- Binning data
+
 ```{r, echo = FALSE}
 # load the data
 gap_dat <- read.csv(file = "../../data/gapminder.csv")
@@ -116,14 +120,20 @@ some_numbers <- c(6:-4)
 
 # take the square root of each value, which creates a bit of an issue
 sqrt(some_numbers)
+```
 
+# Solution: use `if_else()`
+:::notes
+We can use `if_else()` to sort through data. Here we bin the data by those that are above or below zero to avoid taking the `sqrt` of a negative number.
+:::
+```{r}
 # using if else to test for numbers greater than or equal to 0
 # if true, calculate the square root
 # if false, produce NA
 sqrt(ifelse(some_numbers >= 0, some_numbers, NA))
 ```
 
-# case_when()
+# Multiple `if else()` statements
 :::notes
 Tidyverses dplyr package offers an extension on `ifelse()`, allowing multiple `if else` statements. Whereas earlier we ran
 :::
@@ -140,7 +150,10 @@ for (i in seq_along(gap_dat$income_level)) { # for each item along the dataframe
 ```
 
 # `case_when()`
-
+:::notes
+`case_when()` is a more compact version of using multiple if_else statements that
+is native to `dplyr`.
+:::
 ```{r}
 gap_dat$pop_size <- dplyr::case_when(
   gap_dat$pop <= 1000000 ~ "small",

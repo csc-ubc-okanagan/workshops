@@ -1,0 +1,279 @@
+---
+title: "Introduction to Git and GitHub Part 2"
+output:
+  date: "`r format(Sys.time(), '%Y-%m-%d %H:%M:%S')`"
+  html_document:
+    keep_md: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval = FALSE, warning = FALSE, message = FALSE)
+```
+
+## Overview
+
+This guide walks through creating and serving a local website using RStudio, the blogdown package, and Hugo static site generator.
+
+## Prerequisites
+
+- **R**
+- **RStudio** 
+- Basic familiarity with R and RStudio
+
+## Step 1: Install blogdown
+
+Open RStudio and install the `blogdown` package and load it. 
+
+```{r install-blogdown}
+install.packages("blogdown")
+library(blodown)
+```
+
+## Step 2: Install Hugo
+
+Hugo is the static site generator that powers your site. Install it directly from R using blogdown:
+
+```{r install-hugo}
+blogdown::install_hugo()
+```
+
+## Step 3: Create a New Site
+
+To create a new blogdown site in RStudio. You can either:
+
+### 1: Use RStudio's Project Wizard
+
+1. Go to **File > New Project > New Directory > Website using blogdown**
+2. Choose a directory name and location
+3. Select a Hugo theme (default is usually fine to start)
+4. Click "Create Project"
+
+### Option B: Use R Commands
+
+```{r new-site}
+# Create in current directory
+# blogdown will likely default to 'hugo/lithium'
+blogdown::new_site()
+
+# Or specify a theme
+blogdown::new_site(theme = "wowchemy/starter-hugo-academic")
+```
+
+## A word of caution
+
+You may run into issues running serving the blog with `blogdown::serve_site()`
+the first time. Check your `config.yaml` file in the project root to verify that
+all characters are valid within. Sometimes blodown will generate yaml files with
+`yes` or `no` in place of R's standard boolean values.
+
+
+Popular Hugo themes:
+
+- `hugo-apero/hugo-apero` - Clean, modern theme
+- `wowchemy/starter-hugo-academic` - Academic/research focused
+- `luizdepra/hugo-coder` - Minimalist theme for developers
+- `panr/hugo-theme-terminal` - Retro terminal aesthetic
+
+## Step 4: Understand the Directory Structure
+
+Your new site will have this structure:
+
+```
+my-blog/
+├── content/          # Your actual content (posts, pages)
+├── layouts/          # Custom layout templates
+├── public/           # Generated static site (don't edit)
+├── static/           # Static files (images, CSS, JS)
+├── themes/           # Hugo theme files
+├── config.yaml       # Main configuration file
+└── index.Rmd         # Homepage (if using Rmd)
+└── index.Rmd         # Homepage (if using Rmd)
+
+```
+
+## Step 5: Configure Your Site
+
+Edit `config.yaml` (or `config.toml`) to customize your site.
+
+## Step 6: Serve Your Site Locally
+
+Start the local server to preview your site:
+
+```{r serve-site}
+blogdown::serve_site()
+```
+
+This will:
+
+- Build your site
+- Start a local web server
+- Open your site in the RStudio Viewer or your web browser
+- Watch for changes and automatically rebuild
+
+Your site will be available at `http://localhost:4321/` (or whatever port is specified).
+
+## Step 7: Create Content
+
+### Create a New Post
+
+```{r new-post}
+blogdown::new_post(title = "My First Post", 
+                   ext = ".Rmd",  # or ".md" for plain markdown
+                   author = "Your Name")
+```
+
+This creates a new file in `content/post/` with YAML frontmatter:
+
+```yaml
+---
+title: "My First Post"
+author: "Your Name"
+date: "2025-12-01"
+slug: my-first-post
+categories: []
+tags: []
+---
+```
+
+### Edit Content
+
+- `.Rmd` files: Full R Markdown support, can include R code chunks
+- `.md` files: Plain markdown, faster to build
+- `.Rmarkdown` files: R Markdown that renders to `.markdown`
+
+### Add Images
+
+Place images in `static/img/` and reference them:
+
+### Example Post with R Code
+
+Here's an example of what you can include in an `.Rmd` post:
+
+```{r example-plot, eval=TRUE, echo=TRUE}
+# Example: create a simple plot
+library(ggplot2)
+
+data <- data.frame(
+  x = 1:10,
+  y = rnorm(10)
+)
+
+ggplot(data, aes(x = x, y = y)) +
+  geom_line() +
+  geom_point() +
+  theme_minimal() +
+  labs(title = "Example Plot in blogdown",
+       x = "X axis",
+       y = "Y axis")
+```
+
+Of course you may want to run a more intensive chunk of code for your future blog
+doing so requires you to use a special header in your R chunk called `cache`. 
+
+```{r cache = TRUE}
+# this chunk will run once and the results will be cached for faster loading and
+# rendering
+```
+
+
+## Step 8: Stop the Server
+
+When you're done working:
+
+```{r stop-server}
+blogdown::stop_server()
+```
+
+## Tips and Best Practices
+
+### 1. Set Global Options
+
+Add to your `.Rprofile`:
+
+```{r rprofile-options}
+options(
+  blogdown.serve_site.startup = FALSE,  # Don't auto-serve on project open
+  blogdown.author = "Your Name",
+  blogdown.ext = ".Rmd",
+  blogdown.subdir = "post"
+)
+```
+
+### 2. Draft Posts
+
+Set `draft: true` in YAML frontmatter to hide posts:
+
+```yaml
+---
+title: "Work in Progress"
+draft: true
+---
+```
+
+### 3. Organize Content
+
+Create sections in `content/`:
+
+```
+content/
+├── post/          # Blog posts
+├── project/       # Project pages
+├── publication/   # Publications
+└── about.md       # About page
+```
+
+## Troubleshooting
+
+### Server won't start
+
+- Check if another process is using port 1313
+- Try `blogdown::stop_server()` then `blogdown::serve_site()` again
+- Restart RStudio
+
+### `Hugo` Themes
+
+- Check `config.yaml` has correct theme name
+- Some themes require specific Hugo versions
+- Themes can be installed with `blogdown::install_theme("theme_name")`
+- Themes can be found 
+
+### Hugo version conflicts
+
+```{r hugo-version-fix}
+# Check version
+blogdown::hugo_version()
+
+# Install specific version
+blogdown::install_hugo(version = "0.128.0", force = TRUE)
+```
+
+### Clear cache and rebuild
+
+```{r clear-rebuild}
+blogdown::clean_duplicates()
+blogdown::build_site(local = TRUE)
+```
+
+## Useful Resources
+
+- [blogdown book](https://bookdown.org/yihui/blogdown/)
+
+## Quick Reference
+
+```{r quick-reference}
+# Start working
+blogdown::serve_site()
+
+# Create content
+blogdown::new_post("Post Title")
+
+# Check for issues
+blogdown::check_site()
+
+# Stop working
+blogdown::stop_server()
+```
+
+---
+
+**Happy blogging!**

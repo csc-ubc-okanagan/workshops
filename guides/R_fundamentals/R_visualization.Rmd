@@ -154,7 +154,7 @@ ggplot(data = filter(gapminder, year == 2007), aes(x = gdpPercap, y = lifeExp, s
   geom_point()
 ```
 
-Colour, opacity, and size can be asigned either as a scale, where each value takes on a different property, or as general property of the variable. The former is articulated within the `aes()` call, while the latter is articulated outside of this call, generally within the geom. The latter will override the former if both are articulated. See, for example, the difference in the following plots.
+Colour, opacity, and size can be assigned either as a scale, where each value takes on a different property, or as general property of the variable. The former is articulated within the `aes()` call, while the latter is articulated outside of this call, generally within the geom. The latter will override the former if both are articulated. See, for example, the difference in the following plots.
 
 ```{r}
 # colour and size mapped to values
@@ -207,7 +207,7 @@ ggplot(data = filter(gapminder, year == 2007), aes(x = gdpPercap, y = lifeExp, c
   scale_size(range = c(1,15)) +
   scale_colour_brewer(palette = "Dark2") +
   scale_x_log10() +
-  labs(x = "GDP per Capita (2007",
+  labs(x = "GDP per Capita (2007)",
        y = "Life Expectancy",
        title = "Gapminder 2007",
        caption = "2007 life expectancy plotted against per capita GDP.",
@@ -215,13 +215,7 @@ ggplot(data = filter(gapminder, year == 2007), aes(x = gdpPercap, y = lifeExp, c
        size = "Population")
 ```
 
-x and y axis ticks and text are auto generated. The scale options allow us to customize these, however. To do this, we need the `scales` library, which is automatically isntalled when `ggplot2` is installed. We can access scales either by loading the library...
-
-```{r, eval = FALSE}
-library(scales)
-```
-
-Or by referencing it directly, which has the additional benefit of prompting auto complete options. Here, we adjust the x axis to indicate that the data should be formatted as a currency, and update the ticks to appear every $10 000, better indicating that we've applied a log transformation to the variable.
+x and y axis ticks and text are auto generated. The scale options allow us to customize these, however. To do this, we need the `scales` library, which is automatically installed with `ggplot2`. We can access scales either by loading the library `r library(scales)` or by referencing it directly, which has the additional benefit of prompting auto complete options. Here, we adjust the x axis to indicate that the data should be formatted as a currency, and update the ticks to appear every $10,000.
 
 ```{r}
 ggplot(data = filter(gapminder, year == 2007), aes(x = gdpPercap, y = lifeExp, colour = continent, size = pop)) +
@@ -240,8 +234,6 @@ ggplot(data = filter(gapminder, year == 2007), aes(x = gdpPercap, y = lifeExp, c
 
 ## Tweaking the presentation
 
-ggplot offers a lot of flexibility in how we customize the visual appeal of our plots; these are controlled by arguments passed to theme. There are also several built in themes that can be used and modified.
-
 ```{r}
 ggplot(data = filter(gapminder, year == 2007), aes(x = gdpPercap, y = lifeExp, colour = continent, size = pop)) +
   geom_point() +
@@ -255,10 +247,15 @@ ggplot(data = filter(gapminder, year == 2007), aes(x = gdpPercap, y = lifeExp, c
        caption = "2007 life expectancy plotted against per capita GDP.",
        colour = "Continent",
        size = "Population") +
-  theme_minimal()
+  theme_minimal() # this is my personal favorite
 ```
 
-By calling theme, you can then access any element and customize it further. The call works by first identifying the element to customize--auto complete will present you a series of options--then indicating what aspect of that element you want to customize, and finally providing arguments.
+ggplot is highly customizable. Plot themes are controlled by arguments passed to theme. There are also several built in themes that can be used and modified. By calling theme, you can then access any element and customize it further. The call works by first identifying the element to customize--auto complete will present you a series of options--then indicating what aspect of that element you want to customize, and finally providing arguments. Some commonly used themes are:
+
+* theme_bw()        # Popular for publications
+* theme_classic()   # Clean, academic look
+* theme_light()     # Subtle, professional
+* theme_dark()      # For dark backgrounds
 
 ```{r}
 ggplot(data = filter(gapminder, year == 2007), aes(x = gdpPercap, y = lifeExp, colour = continent, size = pop)) +
@@ -288,7 +285,7 @@ We can overlay our plot with additional geoms. Some of the geoms available are m
 ```{r}
 ggplot(data = filter(gapminder, year == 2007), aes(x = gdpPercap, y = lifeExp, colour = continent, size = pop)) +
   geom_point() +
-  geom_smooth(method = "lm", se = FALSE) +
+  geom_smooth(method = "lm", se = FALSE) + # overlay with a model
   scale_size(range = c(1,15)) +
   scale_colour_brewer(palette = "Dark2") +
   scale_x_log10(labels = scales::dollar_format(),
@@ -312,12 +309,12 @@ This result is a little odd. We can better articulate our data within the repres
 ```{r}
 ggplot(data = filter(gapminder, year == 2007), aes(x = gdpPercap, y = lifeExp)) +
   geom_point(aes(colour = continent, size = pop)) +
-  geom_smooth(method = "lm", se = FALSE) +
+  geom_smooth(method = "lm", se = FALSE) + # create a lm smooth for all countries
   scale_size(range = c(1,15)) +
   scale_colour_brewer(palette = "Dark2") +
   scale_x_log10(labels = scales::dollar_format(),
                 breaks = breaks_width(10000)) +
-  labs(x = "GDP per Capita (2007",
+  labs(x = "GDP per Capita (2007)",
        y = "Life Expectancy",
        title = "Gapminder 2007",
        caption = "2007 life expectancy plotted against per capita GDP.",
@@ -367,7 +364,7 @@ install.packages("patchwork")
 library(patchwork)
 ```
 
-To use patchwork, we store plots within variables, and then use basic operators to define their relationship. Pathcwork offers a lot of customization.
+To use patchwork, we store plots within variables, and then use basic operators to define their relationship. Patchwork offers a lot of customization. In general we can stack ggplot objects with patchwork either horizontally or vertically by using the `+` or `/` operators respectively like you would ordinary arithmetical operations.
 
 ```{r}
 le_gdp_scatter <- ggplot(data = filter(gapminder, year == 2007), aes(x = gdpPercap, y = lifeExp)) +
@@ -405,5 +402,5 @@ le_gdp_box <- ggplot(data = filter(gapminder, year == 2007), aes(x = continent, 
 
 le_gdp_scatter + le_gdp_box
 
-le_gdp_scatter / le_gdp_box
+le_gdp_scatter /  le_gdp_box
 ```

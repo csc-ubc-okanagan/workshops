@@ -10,7 +10,6 @@ knitr::opts_chunk$set(echo = TRUE,
                       eval = TRUE,
                       message = FALSE,
                       warning = FALSE)
-
 library(ggplot2)
 library(dplyr)
 library(RColorBrewer)
@@ -64,9 +63,7 @@ Reflecting back on our earlier discussion of data types in R, nominal and ordina
 First we get some data
 
 ```{r}
-library(gapminder)
-
-gapminder <- gapminder
+gapminder <- read.csv(file = "../../data/gapminder.csv")
 ```
 
 ## The Basic Graph
@@ -94,13 +91,13 @@ ggplot(data = filter(gapminder, year == 2007), aes(x = gdpPercap, y = lifeExp)) 
 
 There are several `geoms_` that we can choose from. These include:
 
-* geom_bar() and geom_col() for bar charts
-* geom_boxplot() for box and whisker plots
-* geom_density() for density plots
-* geom_freqpoly(), geom_histogram(), geom_violin(), and geom_dotplot for distributions
-* geom_line() for connecting observations
-* geom_point() and geom_jitter() for scatter plots
-* geom_map() and geom_sf() for GIS data
+* `geom_bar()` and geom_col() for bar charts
+* `geom_boxplot()` for box and whisker plots
+* `geom_density()` for density plots
+* `geom_freqpoly()`, `geom_histogram()`, `geom_violin()`, and geom_dotplot for distributions
+* `geom_line()` or `geom_smooth()` for connecting observations
+* `geom_point()` and `geom_jitter()` for scatter plots
+* `geom_map()` and `geom_sf()` for GIS data
 
 There are more...
 
@@ -347,8 +344,8 @@ ggplot(data = filter(gapminder, year == 2007), aes(x = gdpPercap, y = lifeExp)) 
   scale_size(range = c(1,15)) +
   scale_colour_brewer(palette = "Dark2") +
   scale_x_log10(labels = scales::dollar_format(),
-                breaks = breaks_width(10000)) +
-  labs(x = "GDP per Capita (2007",
+                n.breaks = 4) +
+  labs(x = "GDP per Capita (2007)",
        y = "Life Expectancy",
        title = "Gapminder 2007",
        caption = "2007 life expectancy plotted against per capita GDP.",
@@ -356,11 +353,11 @@ ggplot(data = filter(gapminder, year == 2007), aes(x = gdpPercap, y = lifeExp)) 
        size = "Population") +
   theme_minimal() +
   theme(
-    axis.text.x = element_text(angle = 45),
+    axis.text.x = element_text(angle = 45, hjust = 1),
     legend.position = "left",
     panel.grid.minor = element_blank()
   ) +
-  facet_wrap(~ continent)
+  facet_wrap(~ continent, scales = "free_x")
 ```
 
 The second is to print several plots in a specific arrangement. There are several tools to do this, one of which is `patchwork`.
@@ -379,7 +376,7 @@ le_gdp_scatter <- ggplot(data = filter(gapminder, year == 2007), aes(x = gdpPerc
   scale_size(range = c(1,15)) +
   scale_colour_brewer(palette = "Dark2") +
   scale_x_log10(labels = scales::dollar_format(),
-                breaks = breaks_width(10000)) +
+                n.breaks = 4) +
   labs(x = "GDP per Capita (2007",
        y = "Life Expectancy",
        title = "Gapminder 2007",
@@ -399,7 +396,12 @@ le_gdp_box <- ggplot(data = filter(gapminder, year == 2007), aes(x = continent, 
   theme_minimal() +
   theme(
     legend.position = "none"
+  ) +   theme(
+    axis.text.x = element_text(angle = 45),
+    legend.position = "left",
+    panel.grid.minor = element_blank()
   )
+
 
 le_gdp_scatter + le_gdp_box
 

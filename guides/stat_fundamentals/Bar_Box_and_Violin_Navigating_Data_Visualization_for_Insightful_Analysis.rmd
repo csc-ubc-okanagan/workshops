@@ -22,63 +22,15 @@ Exploratory Data Analysis (EDA) is a foundational step in data analysis, allowin
 * Variability: The extent to which the data points differ from each other.
 
 
-```R
+```{r}
 data("anscombe")
+head(anscombe)
 ```
 
-
-```R
-anscombe
-```
-
-
-<table class="dataframe">
-<caption>A data.frame: 11 × 8</caption>
-<thead>
-	<tr><th scope=col>x1</th><th scope=col>x2</th><th scope=col>x3</th><th scope=col>x4</th><th scope=col>y1</th><th scope=col>y2</th><th scope=col>y3</th><th scope=col>y4</th></tr>
-	<tr><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
-</thead>
-<tbody>
-	<tr><td>10</td><td>10</td><td>10</td><td> 8</td><td> 8.04</td><td>9.14</td><td> 7.46</td><td> 6.58</td></tr>
-	<tr><td> 8</td><td> 8</td><td> 8</td><td> 8</td><td> 6.95</td><td>8.14</td><td> 6.77</td><td> 5.76</td></tr>
-	<tr><td>13</td><td>13</td><td>13</td><td> 8</td><td> 7.58</td><td>8.74</td><td>12.74</td><td> 7.71</td></tr>
-	<tr><td> 9</td><td> 9</td><td> 9</td><td> 8</td><td> 8.81</td><td>8.77</td><td> 7.11</td><td> 8.84</td></tr>
-	<tr><td>11</td><td>11</td><td>11</td><td> 8</td><td> 8.33</td><td>9.26</td><td> 7.81</td><td> 8.47</td></tr>
-	<tr><td>14</td><td>14</td><td>14</td><td> 8</td><td> 9.96</td><td>8.10</td><td> 8.84</td><td> 7.04</td></tr>
-	<tr><td> 6</td><td> 6</td><td> 6</td><td> 8</td><td> 7.24</td><td>6.13</td><td> 6.08</td><td> 5.25</td></tr>
-	<tr><td> 4</td><td> 4</td><td> 4</td><td>19</td><td> 4.26</td><td>3.10</td><td> 5.39</td><td>12.50</td></tr>
-	<tr><td>12</td><td>12</td><td>12</td><td> 8</td><td>10.84</td><td>9.13</td><td> 8.15</td><td> 5.56</td></tr>
-	<tr><td> 7</td><td> 7</td><td> 7</td><td> 8</td><td> 4.82</td><td>7.26</td><td> 6.42</td><td> 7.91</td></tr>
-	<tr><td> 5</td><td> 5</td><td> 5</td><td> 8</td><td> 5.68</td><td>4.74</td><td> 5.73</td><td> 6.89</td></tr>
-</tbody>
-</table>
-
-
-
-
-```R
+```{r}
 summary(anscombe)
 ```
-
-
-           x1             x2             x3             x4           y1        
-     Min.   : 4.0   Min.   : 4.0   Min.   : 4.0   Min.   : 8   Min.   : 4.260  
-     1st Qu.: 6.5   1st Qu.: 6.5   1st Qu.: 6.5   1st Qu.: 8   1st Qu.: 6.315  
-     Median : 9.0   Median : 9.0   Median : 9.0   Median : 8   Median : 7.580  
-     Mean   : 9.0   Mean   : 9.0   Mean   : 9.0   Mean   : 9   Mean   : 7.501  
-     3rd Qu.:11.5   3rd Qu.:11.5   3rd Qu.:11.5   3rd Qu.: 8   3rd Qu.: 8.570  
-     Max.   :14.0   Max.   :14.0   Max.   :14.0   Max.   :19   Max.   :10.840  
-           y2              y3              y4        
-     Min.   :3.100   Min.   : 5.39   Min.   : 5.250  
-     1st Qu.:6.695   1st Qu.: 6.25   1st Qu.: 6.170  
-     Median :8.140   Median : 7.11   Median : 7.040  
-     Mean   :7.501   Mean   : 7.50   Mean   : 7.501  
-     3rd Qu.:8.950   3rd Qu.: 7.98   3rd Qu.: 8.190  
-     Max.   :9.260   Max.   :12.74   Max.   :12.500  
-
-
-
-```R
+```{r}
 library(tidyr)
 library(ggplot2)
 
@@ -89,14 +41,7 @@ ggplot(anscombe_long, aes(x=value, color=name)) +
   facet_wrap(~name, scales="free") +
   theme_minimal() +
   labs(title="Density Plot of Anscombe's Quartet Data")
-
 ```
-
-
-
-![svg](plots/output_6_0.svg)
-
-
 
 ## 2.Scatter plots and linear regression lines.
 Anscombe's quartet comprises four datasets with identical statistical properties but drastically different distributions and relationships. It serves as a perfect illustration of why visual analysis is indispensable.
@@ -105,22 +50,15 @@ Anscombe's quartet comprises four datasets with identical statistical properties
 We plot each dataset of the quartet to reveal its unique characteristics, using scatter plots and linear regression lines.
 
 
-```R
+
+```{r}
 ggplot(anscombe_long, aes(x=value, y=value, group=name)) +
   geom_point() +
   geom_smooth(method="lm", se=FALSE, color="red") +
   facet_wrap(~name, scales = "free_x") +
   theme_minimal() +
   labs(title="Scatter Plot of Anscombe's Quartet with Linear Regression Lines")
-
 ```
-
-    [1m[22m`geom_smooth()` using formula = 'y ~ x'
-
-
-
-
-![svg](plots/output_8_1.svg)
 
 
 
@@ -134,8 +72,7 @@ Limitations:
 
 We attempt to represent Anscombe's quartet using bar plots, highlighting their inadequacy in capturing the datasets' nuances.
 
-
-```R
+```{r}
 library(dplyr)
 
 anscombe_means <- anscombe_long %>%
@@ -151,27 +88,6 @@ ggplot(anscombe_means, aes(x=name, y=mean, fill=name)) +
 ```
 
 
-    Attaching package: ‘dplyr’
-
-
-    The following objects are masked from ‘package:stats’:
-
-        filter, lag
-
-
-    The following objects are masked from ‘package:base’:
-
-        intersect, setdiff, setequal, union
-
-
-
-
-
-
-![svg](plots/output_10_1.svg)
-
-
-
 ## 4. The Revelatory Power of Box Plots
 
 Box plots, or box-and-whisker plots, offer a more detailed view of the data's distribution, including median, quartiles, and outliers, providing a clearer picture of variability and central tendency.
@@ -182,20 +98,12 @@ Box plots, or box-and-whisker plots, offer a more detailed view of the data's di
 
 We visualize Anscombe's quartet with box plots, appreciating their ability to reveal more about the data's distribution than bar plots.
 
-
-```R
+```{r}
 ggplot(anscombe_long, aes(x=name, y=value, fill=name)) +
   geom_boxplot() +
   theme_minimal() +
   labs(title="Box Plot of Anscombe's Quartet")
-
 ```
-
-
-
-![svg](plots/output_12_0.svg)
-
-
 
 ## 5. Beyond Box Plots: Embracing Violin Plots
 
@@ -207,26 +115,15 @@ Advantages:
 
 We visualize the data with violin plots of the quartet, showcasing how they offer a comprehensive view of our data's behavior.
 
-
-
-
-```R
+```{r}
 ggplot(anscombe_long, aes(x=name, y=value, fill=name)) +
   geom_violin(trim=FALSE) +
   geom_jitter(width=0.1, alpha=0.5) +
   theme_minimal() +
   labs(title="Violin Plot of Anscombe's Quartet")
-
 ```
 
-
-
-![svg](plots/output_14_0.svg)
-
-
-
-
-```R
+```{r}
 install.packages('gridExtra')
 library(grid)
 library(gridExtra)
@@ -270,33 +167,8 @@ p4 <- ggplot(anscombe) +
 grid.arrange(grobs = list(p1, p2, p3, p4),
              ncol = 2,
              top = "Anscombe's Quartet")
-
 ```
-
-    Updating HTML index of packages in '.Library'
-
-    Making 'packages.html' ...
-     done
-
-
-    Attaching package: ‘gridExtra’
-
-
-    The following object is masked from ‘package:dplyr’:
-
-        combine
-
-
-
-
-
-
-![svg](plots/output_15_1.svg)
-
-
-
-
-```R
+```{r}
 lm1 <- lm(y1 ~ x1, data = anscombe)
 lm2 <- lm(y2 ~ x2, data = anscombe)
 lm3 <- lm(y3 ~ x3, data = anscombe)
@@ -311,14 +183,7 @@ grid.arrange(grobs = list(p1_fitted, p2_fitted,
                           p3_fitted, p4_fitted),
              ncol = 2,
              top = "Anscombe's Quartet")
-
 ```
-
-
-
-![svg](plots/output_16_0.svg)
-
-
 
 ## Conclusion & Q&A
 
@@ -328,7 +193,3 @@ Through this workshop, we've seen how critical visualizations are in data analys
 
 <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQbNOKaBdbWzS3XLH9kmfAdFHvmAeWDzrTQLe7ATFeZEEKco4USPXoI9RDPJSI90A/embed?start=false&loop=false&delayms=3000" frameborder="0" width="640" height="389" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
 
-
-```R
-
-```

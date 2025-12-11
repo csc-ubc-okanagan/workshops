@@ -1,7 +1,6 @@
 ---
 title: "Introduction to Git and GitHub Part 2"
 output:
-  date: "`r format(Sys.time(), '%Y-%m-%d %H:%M:%S')`"
   html_document:
     keep_md: yes
 ---

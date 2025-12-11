@@ -51,7 +51,34 @@ ft <- flextable::flextable(tbl) |>
   flextable::bold(part = "header")
 ```
 
-```{r echo = FALSE}
+``# Simple population growth with environmental stochasticity
+set.seed(123)
+
+# Parameters
+n_years <- 50
+mean_r <- 0.05      # Average growth rate (5% per year)
+sd_r <- 0.2         # Variability in growth rate
+N0 <- 100           # Starting population
+
+# Generate random growth rates
+r <- rnorm(n_years, mean = mean_r, sd = sd_r)
+
+# Simulate stochastic population
+N_stochastic <- N0 * exp(cumsum(r))
+
+# Deterministic prediction using average growth rate
+N_deterministic <- N0 * exp(mean_r * 1:n_years)
+
+# Plot
+plot(1:n_years, N_stochastic, type = "l", col = "blue", lwd = 2,
+     ylim = c(0, max(N_deterministic, N_stochastic)),
+     xlab = "Year", ylab = "Population size",
+     main = "Jensen's Inequality in Population Growth")
+lines(1:n_years, N_deterministic, col = "red", lwd = 2, lty = 2)
+legend("topleft", 
+       c("Stochastic (variable r)", "Deterministic (mean r)"),
+       col = c("blue", "red"), lwd = 2, lty = c(1, 2))`fr echo = FALSE}
+       rman
 ft
 ```
 

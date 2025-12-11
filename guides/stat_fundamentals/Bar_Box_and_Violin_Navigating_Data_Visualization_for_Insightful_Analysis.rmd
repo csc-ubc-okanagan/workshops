@@ -189,7 +189,3 @@ grid.arrange(grobs = list(p1_fitted, p2_fitted,
 
 Through this workshop, we've seen how critical visualizations are in data analysis, moving from the deceptive simplicity of bar plots to the detailed insights offered by box and violin plots. Each type of visualization serves its purpose, but understanding their strengths and limitations is key to uncovering the true story behind our data.
 
-**Note:** The slides used in this class can be found below.
-
-<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQbNOKaBdbWzS3XLH9kmfAdFHvmAeWDzrTQLe7ATFeZEEKco4USPXoI9RDPJSI90A/embed?start=false&loop=false&delayms=3000" frameborder="0" width="640" height="389" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
-

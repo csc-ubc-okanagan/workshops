@@ -15,10 +15,8 @@ output:
 
 - **Misconception about Confidence Intervals**: A common error is the belief that a 95% confidence interval (CI) indicates that there is a 95% probability that the interval contains the true population mean, which is a misinterpretation of how confidence intervals function statistically.
 
-
-
-```R
-library(tidyverse)
+```{r}
+library(dplyr)
 
 set.seed(123)
 ratings <- tibble(rating = rnorm(100, mean = 3, sd = 0.5))
@@ -52,31 +50,11 @@ data <- bind_rows(data, stats_data)
 ```
 
 
-```R
+```{r}
 head(data)
 ```
 
-
-<table class="dataframe">
-<caption>A tibble: 6 × 5</caption>
-<thead>
-	<tr><th scope=col>x</th><th scope=col>y</th><th scope=col>ymin</th><th scope=col>ymax</th><th scope=col>group</th></tr>
-	<tr><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;chr&gt;</th></tr>
-</thead>
-<tbody>
-	<tr><td>1</td><td>2.719762</td><td>NA</td><td>NA</td><td>Jitter</td></tr>
-	<tr><td>1</td><td>2.884911</td><td>NA</td><td>NA</td><td>Jitter</td></tr>
-	<tr><td>1</td><td>3.779354</td><td>NA</td><td>NA</td><td>Jitter</td></tr>
-	<tr><td>1</td><td>3.035254</td><td>NA</td><td>NA</td><td>Jitter</td></tr>
-	<tr><td>1</td><td>3.064644</td><td>NA</td><td>NA</td><td>Jitter</td></tr>
-	<tr><td>1</td><td>3.857532</td><td>NA</td><td>NA</td><td>Jitter</td></tr>
-</tbody>
-</table>
-
-
-
-
-```R
+```{r}
 colors <- c("Jitter" = "grey60", "SD" = "blue", "SE" = "red", "CI80" = "green", "CI95" = "purple", "CI99" = "orange")
 
 p <- ggplot(data, aes(x = as.factor(x), y = y, ymin = ymin, ymax = ymax, color = group)) +
@@ -89,15 +67,7 @@ p <- ggplot(data, aes(x = as.factor(x), y = y, ymin = ymin, ymax = ymax, color =
 
 print(p)
 ```
-
-
-
-![png](/img_stat2/output1.png)
-
-
-
-
-```R
+```{r}
 library(ggplot2)
 
 
@@ -140,15 +110,7 @@ p <- ggplot(data, aes(x = type, y = mean, fill = sample)) +
 
 print(p)
 ```
-
-
-
-![png](/img_stat2/output2.png)
-
-
-
-
-### Guidance on Using Standard Deviation, Standard Error, and Confidence Intervals as Errors When Plotting Data
+## Guidance on Using Standard Deviation, Standard Error, and Confidence Intervals as Errors When Plotting Data
 
 1. Standard Deviation (SD):
    - Use SD to represent the variability or dispersion of a set of data points around the mean.
@@ -165,13 +127,13 @@ print(p)
    - CI gives an estimated range of values which is likely to include the population parameter, based on the sample data.
    - Ideal for both visualizing the precision of sample estimates and making inferences about the population, particularly useful in comparative studies.
 
-### Important Points:
+## Important Points:
 
 - SD emphasizes the variability or spread of the data.
 - SE provides a measure of the accuracy of the sample mean.
 - CI offers an estimated range that is likely to include the population parameter, indicating the reliability of an estimate.
 
-### Considerations:
+## Considerations:
 
 - When plotting data with errors, your choice among SD, SE, and CI should align with the story you want the data to tell. Are you focusing on the spread of the data, the precision of the sample mean, or the range within which the population mean likely falls?
 - The use of SE and CI is particularly relevant in hypothesis testing and when the sample size is relatively small compared to the population.
@@ -181,8 +143,3 @@ print(p)
 ## Reference
 
 - Krzywinski, M., & Altman, N. (2013). Error bars. Nature Methods, 10(10), 921-922. https://doi.org/10.1038/nmeth.2659
-
-
-```R
-
-```

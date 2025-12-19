@@ -206,3 +206,6 @@ ggplot(data_anova_block, aes(x = treatment, y = value, fill = treatment)) +
 
 **Note:** The slides used in this class can be found below.
 
+<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vRisZ7NR67jtM4x8qz3EsrNIe90jmG__eOyFL7ZgbhkNLly1d8hJqJq7_NLvrbsyw/embed?start=false&loop=false&delayms=3000" frameborder="0" width="640" height="389" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+
+

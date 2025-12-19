@@ -24,7 +24,8 @@ output:
   - Effective visualization aids in distinguishing between mere correlations and potential causative relationships, guiding further statistical analysis or experimental design.
 
 
-```{r}
+
+```R
 if (!requireNamespace("ggplot2", quietly = TRUE)) install.packages("ggplot2")
 if (!requireNamespace("corrplot", quietly = TRUE)) install.packages("corrplot")
 
@@ -33,10 +34,14 @@ library(ggplot2)
 library(corrplot)
 ```
 
+    corrplot 0.92 loaded
+
+
 
 ### Visualize Correlation with Synthetic Data
 
-```{r}
+
+```R
 # Generate data with correlation
 set.seed(123)
 n <- 100
@@ -56,27 +61,88 @@ ggplot(df, aes(x, y)) +
 
 ```
 
+    [1m[22m`geom_smooth()` using formula = 'y ~ x'
 
 
-## Visualize Correlations in MTCARS data
 
-```{r}
+
+![svg](correlation_img/output_3_1.svg)
+
+
+
+### Visualize Correlations in MTCARS data
+
+
+```R
 data("mtcars")
 head(mtcars)
 ```
-```{r}
+
+
+<table class="dataframe">
+<caption>A data.frame: 6 × 11</caption>
+<thead>
+	<tr><th></th><th scope=col>mpg</th><th scope=col>cyl</th><th scope=col>disp</th><th scope=col>hp</th><th scope=col>drat</th><th scope=col>wt</th><th scope=col>qsec</th><th scope=col>vs</th><th scope=col>am</th><th scope=col>gear</th><th scope=col>carb</th></tr>
+	<tr><th></th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope=row>Mazda RX4</th><td>21.0</td><td>6</td><td>160</td><td>110</td><td>3.90</td><td>2.620</td><td>16.46</td><td>0</td><td>1</td><td>4</td><td>4</td></tr>
+	<tr><th scope=row>Mazda RX4 Wag</th><td>21.0</td><td>6</td><td>160</td><td>110</td><td>3.90</td><td>2.875</td><td>17.02</td><td>0</td><td>1</td><td>4</td><td>4</td></tr>
+	<tr><th scope=row>Datsun 710</th><td>22.8</td><td>4</td><td>108</td><td> 93</td><td>3.85</td><td>2.320</td><td>18.61</td><td>1</td><td>1</td><td>4</td><td>1</td></tr>
+	<tr><th scope=row>Hornet 4 Drive</th><td>21.4</td><td>6</td><td>258</td><td>110</td><td>3.08</td><td>3.215</td><td>19.44</td><td>1</td><td>0</td><td>3</td><td>1</td></tr>
+	<tr><th scope=row>Hornet Sportabout</th><td>18.7</td><td>8</td><td>360</td><td>175</td><td>3.15</td><td>3.440</td><td>17.02</td><td>0</td><td>0</td><td>3</td><td>2</td></tr>
+	<tr><th scope=row>Valiant</th><td>18.1</td><td>6</td><td>225</td><td>105</td><td>2.76</td><td>3.460</td><td>20.22</td><td>1</td><td>0</td><td>3</td><td>1</td></tr>
+</tbody>
+</table>
+
+
+
+
+```R
 cor_matrix <- cor(mtcars)
 corrplot(cor_matrix, method = "circle")
+
 ```
-```{r}
+
+
+
+![svg](correlation_img/output_6_0.svg)
+
+
+
+
+```R
+cor_matrix <- cor(mtcars)
+
+corrplot(cor_matrix, method = "circle", type = "upper", order = "hclust",
+         addCoef.col = "black", # Color of the correlation coefficients
+         tl.col = "black", tl.srt = 45, # Color and rotation of the labels
+         title = "Correlation Matrix of Mtcars Dataset")
+
+```
+
+
+
+![svg](correlation_img/output_7_0.svg)
+
+
+
+
+```R
 cor_matrix <- cor(mtcars, method="spearman")
 corrplot(cor_matrix, method = "circle", type = "upper", order = "hclust",
          addCoef.col = "black",
          tl.col = "black", tl.srt = 45,
          title = "Correlation Matrix of Mtcars Dataset")
-
 ```
-## Choosing Between Spearman's and Pearson's Correlation
+
+
+
+![svg](correlation_img/output_8_0.svg)
+
+
+
+### Choosing Between Spearman's and Pearson's Correlation
 
 ### Pearson's Correlation Coefficient
 - **Appropriate for Continuous Data**: Best suited for data measured on an interval or ratio scale.
@@ -96,17 +162,31 @@ corrplot(cor_matrix, method = "circle", type = "upper", order = "hclust",
 - **Use Pearson's** when dealing with continuous data that are normally distributed and you're interested in linear relationships, but be wary of outliers.
 - **Use Spearman's** for ordinal data, non-normal distributions, or nonlinear relationships, and when dealing with outliers or non-homoscedastic data.
 
-```{r}
 
+
+```R
 # Scatter plot of mpg vs. wt
 ggplot(mtcars, aes(x = wt, y = mpg)) +
   geom_point() +
   geom_smooth(method = "lm", color = "blue") +
   ggtitle("MPG vs. Weight") +
   theme_minimal()
+
 ```
-## How Does Sample Size Effect Correlation
-```{r}
+
+    [1m[22m`geom_smooth()` using formula = 'y ~ x'
+
+
+
+
+![svg](correlation_img/output_10_1.svg)
+
+
+
+### How Does Sample Size Effect Correlation
+
+
+```R
 # Simulate data and calculate correlation
 simulate_correlation <- function(n, rho = 0.5) {
   x <- rnorm(n)
@@ -134,9 +214,15 @@ ggplot(data_for_plot, aes(x = sample_size, y = correlation)) +
   theme_minimal() +
   annotate("text", x = 500, y = 0.5, label = "True Correlation (0.5)", hjust = 0, color = "red")
 
-
 ```
-## Causation Analysis Guide
+
+
+
+![svg](correlation_img/output_12_0.svg)
+
+
+
+### Causation Analysis Guide
 
 - **Identify Variables**:
   - Determine the independent (predictor) and dependent (outcome) variables for your analysis.
@@ -168,11 +254,23 @@ ggplot(data_for_plot, aes(x = sample_size, y = correlation)) +
 - **Report with Transparency**:
   - Clearly document your methodology, analysis, and limitations. Acknowledge any uncertainties in establishing causation.
 
-```{r}
-library(dplyr)
+
+
+```R
+library(tidyverse)
 ```
 
-## Hypothetical Scenario:
+    ── [1mAttaching packages[22m ─────────────────────────────────────── tidyverse 1.3.2 ──
+    [32m✔[39m [34mtibble [39m 3.2.1     [32m✔[39m [34mdplyr  [39m 1.1.1
+    [32m✔[39m [34mtidyr  [39m 1.3.0     [32m✔[39m [34mstringr[39m 1.5.0
+    [32m✔[39m [34mreadr  [39m 2.1.3     [32m✔[39m [34mforcats[39m 0.5.2
+    [32m✔[39m [34mpurrr  [39m 1.0.1     
+    ── [1mConflicts[22m ────────────────────────────────────────── tidyverse_conflicts() ──
+    [31m✖[39m [34mdplyr[39m::[32mfilter()[39m masks [34mstats[39m::filter()
+    [31m✖[39m [34mdplyr[39m::[32mlag()[39m    masks [34mstats[39m::lag()
+
+
+### Hypothetical Scenario:
 
 Imagine we have a dataset from examining the effect of a new educational program on student performance, where:
 
@@ -181,7 +279,8 @@ Imagine we have a dataset from examining the effect of a new educational program
 * post_test is a score on a standardized test after the program ends.
 * The dataset is called edu_data.
 
-```{r}
+
+```R
 set.seed(123)
 n <- 100
 edu_data <- data.frame(
@@ -196,9 +295,29 @@ edu_data$post_test[edu_data$treatment == 0] <- edu_data$pre_test[edu_data$treatm
 
 head(edu_data)
 
-
 ```
-```{r}
+
+
+<table class="dataframe">
+<caption>A data.frame: 6 × 3</caption>
+<thead>
+	<tr><th></th><th scope=col>treatment</th><th scope=col>pre_test</th><th scope=col>post_test</th></tr>
+	<tr><th></th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope=row>1</th><td>1</td><td>77.53319</td><td>86.47188</td></tr>
+	<tr><th scope=row>2</th><td>0</td><td>74.71453</td><td>77.43050</td></tr>
+	<tr><th scope=row>3</th><td>1</td><td>74.57130</td><td>83.41651</td></tr>
+	<tr><th scope=row>4</th><td>0</td><td>88.68602</td><td>86.61432</td></tr>
+	<tr><th scope=row>5</th><td>0</td><td>72.74229</td><td>70.36106</td></tr>
+	<tr><th scope=row>6</th><td>1</td><td>90.16471</td><td>96.82572</td></tr>
+</tbody>
+</table>
+
+
+
+
+```R
 # Calculate average improvement by group
 avg_improvement <- edu_data %>%
   mutate(improvement = post_test - pre_test) %>%
@@ -208,13 +327,56 @@ avg_improvement <- edu_data %>%
 print(avg_improvement)
 
 ```
-```{r}
+
+    [90m# A tibble: 2 × 2[39m
+      treatment mean_improvement
+          [3m[90m<dbl>[39m[23m            [3m[90m<dbl>[39m[23m
+    [90m1[39m         0           -[31m0[39m[31m.[39m[31m391[39m
+    [90m2[39m         1            5.49
+
+
+
+```R
 ggplot(edu_data, aes(x = factor(treatment), y = post_test - pre_test, fill = factor(treatment))) +
   geom_boxplot() +
   labs(x = "Treatment Group", y = "Improvement in Test Scores", fill = "Group") +
   theme_minimal() +
   ggtitle("Effect of Educational Program on Test Score Improvement")
+
 ```
-```{r}
+
+
+
+![svg](correlation_img/output_18_0.svg)
+
+
+
+
+```R
 t.test(post_test ~ treatment, data = edu_data)
+
 ```
+
+
+
+    	Welch Two Sample t-test
+
+    data:  post_test by treatment
+    t = -4.0852, df = 97.985, p-value = 9.011e-05
+    alternative hypothesis: true difference in means between group 0 and group 1 is not equal to 0
+    95 percent confidence interval:
+     -13.50354  -4.67358
+    sample estimates:
+    mean in group 0 mean in group 1
+           72.37132        81.45988
+
+
+
+
+```R
+
+```
+
+**Note:** The slides used in this class can be found below.
+
+<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQXgu1h7t-bXYZUqPT0ByeGnD_OHRGETpPGHTpyHRpU7g82xgV14QvyqfnALm5KSg/embed?start=false&loop=false&delayms=3000" frameborder="0" width="640" height="389" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>

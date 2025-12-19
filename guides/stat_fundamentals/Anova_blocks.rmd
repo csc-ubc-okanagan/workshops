@@ -139,6 +139,11 @@ abline(h = 0, col = "red", lwd = 2)
 
 ```
 
+   
+![svg](anova_img/output_15_0.svg)
+    
+
+
 ```{r}
 # Perform linear model with interaction
 lm_block_result <- lm(value ~ treatment * day, data = data_anova_block)
@@ -153,17 +158,9 @@ ggplot(data_anova_block, aes(x = treatment, y = value, fill = day)) +
 
 ```
 
-```{r}
-# Perform one-way ANOVA focusing only on treatment effects
-anova_result <- aov(value ~ treatment, data = data_anova_block)
-summary(anova_result)
-
-
-ggplot(data_anova_block, aes(x = treatment, y = value, fill = treatment)) +
-  geom_boxplot() +
-  theme_minimal() +
-  labs(title = "One-way ANOVA", y = "Value", x = "Treatment")
-```
+    
+![svg](anova_img/output_17_0.svg)
+    
 
 ```{r}
 # Perform one-way ANOVA focusing only on treatment effects
@@ -176,6 +173,21 @@ ggplot(data_anova_block, aes(x = treatment, y = value, fill = treatment)) +
   theme_minimal() +
   labs(title = "One-way ANOVA", y = "Value", x = "Treatment")
 ```
+
+```{r}
+# Perform one-way ANOVA focusing only on treatment effects
+anova_result <- aov(value ~ treatment, data = data_anova_block)
+summary(anova_result)
+
+
+ggplot(data_anova_block, aes(x = treatment, y = value, fill = treatment)) +
+  geom_boxplot() +
+  theme_minimal() +
+  labs(title = "One-way ANOVA", y = "Value", x = "Treatment")
+```
+![svg](anova_img/output_18_1.svg)
+    
+
 
 # Summary of One-Way vs. Two-Way ANOVA
 
@@ -190,3 +202,7 @@ ggplot(data_anova_block, aes(x = treatment, y = value, fill = treatment)) +
 - **Focus**: Assesses the impact of two independent variables (treatments and blocks) on a dependent variable.
 - **Objective**: Evaluate the main effects of each independent variable and their interaction effect on the dependent variable.
 - **Usage**: Suitable for exploring the combined effect of two variables and their interaction.
+
+
+**Note:** The slides used in this class can be found below.
+

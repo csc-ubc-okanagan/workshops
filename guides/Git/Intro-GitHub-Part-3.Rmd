@@ -118,11 +118,11 @@ Hi [your username]! You've successfully authenticated, but GitHub does not provi
 
 Go to the [GitHub website](https://github.com/) and log in. To create a new repository, select the `+` icon in the upper-right corner of the page, and select **New Repository**.
 
-![](../../docs/assets/images/git-banner.png)
+![](assets/images/git-banner.png)
 
 Name your new repository `my-first-repo`, to match the repository you created on your Desktop.
 
-![](../../docs/assets/images/new-repo.png)
+![](assets/images/new-repo.png)
 
 Optionally provide a description, and select whether you want your project public (anyone online can see it) or private (only contributors with permission to access the repository can see it).
 
@@ -138,11 +138,11 @@ To make this connection, we want to tell our local repository that GitHub is the
 
 We are using the Secure Shell (SSH) Protocol, so make sure that button shows that it is selected (gray highlight) and that the address in the text box starts with `git@github. It will look something like this:
 
-![](../../docs/assets/images/ssh.png)
+![](assets/images/ssh.png)
 
 We can use the commands under the heading **"..or push to an existing repository from the command line."** to make the connection between our local repository and this remote repository, designating the repository hosted on GitHub as the remote or 'hub'.
 
-![](../../docs/assets/images/push.png)
+![](assets/images/push.png)
 
 Let's move back to the shell, `cd` to or git repository, and enter the first command:
 
@@ -270,7 +270,7 @@ Date:   Fri Oct 27 09:34:42 2023 -0700
 
 Now, let's have a look at the repository at GitHub again (that is, `https://github.com/rochlinn/my-first-repo` with `rochlinn` replaced with your username). We see that the readme.md file is there, but there is only one commit:
 
-![](../../docs/assets/images/commit.png)
+![](assets/images/commit.png)
 
 And if you click on `readme.md` you will see that it contains the line `Hello world!', but not the new line we just added.
 

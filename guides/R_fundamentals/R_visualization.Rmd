@@ -86,7 +86,7 @@ Now we call a plot type to represent our data, in this case, a scatter plot
 
 ```{r ggplot_point}
 ggplot(data = filter(gapminder, year == 2007), aes(x = gdpPercap, y = lifeExp)) +
-  geom_point() # scatterplot
+  geom_point()
 ```
 
 There are several `geoms_` that we can choose from. These include:
@@ -192,7 +192,7 @@ In the following, we re-map the size range, the colour range, and apply a log tr
 ```{r}
 ggplot(data = filter(gapminder, year == 2007), aes(x = gdpPercap, y = lifeExp, colour = continent, size = pop)) +
   geom_point() +
-  scale_size(range = c(1,15)) + # 
+  scale_size(range = c(1,15)) +
   scale_colour_brewer(palette = "Dark2") +
   scale_x_log10()
 ```
@@ -224,7 +224,7 @@ ggplot(data = filter(gapminder, year == 2007), aes(x = gdpPercap, y = lifeExp, c
   scale_colour_brewer(palette = "Dark2") +
   scale_x_log10(labels = scales::dollar_format(),
                 breaks = breaks_width(10000)) +
-  labs(x = "GDP per Capita (2007)",
+  labs(x = "GDP per Capita (2007",
        y = "Life Expectancy",
        title = "Gapminder 2007",
        caption = "2007 life expectancy plotted against per capita GDP.",
@@ -290,7 +290,7 @@ ggplot(data = filter(gapminder, year == 2007), aes(x = gdpPercap, y = lifeExp, c
   scale_colour_brewer(palette = "Dark2") +
   scale_x_log10(labels = scales::dollar_format(),
                 breaks = breaks_width(10000)) +
-  labs(x = "GDP per Capita (2007)",
+  labs(x = "GDP per Capita (2007",
        y = "Life Expectancy",
        title = "Gapminder 2007",
        caption = "2007 life expectancy plotted against per capita GDP.",
@@ -400,7 +400,7 @@ le_gdp_box <- ggplot(data = filter(gapminder, year == 2007), aes(x = continent, 
   )
 
 
-le_gdp_scatter + le_gdp_box # patchwork
+le_gdp_scatter + le_gdp_box
 
-le_gdp_scatter /  le_gdp_box # vertical patchwork
+le_gdp_scatter /  le_gdp_box
 ```

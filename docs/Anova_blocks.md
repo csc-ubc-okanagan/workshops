@@ -10,7 +10,17 @@ output:
 This document outlines the steps taken to perform a one-way/two-way ANOVA analysis using R. The goal is to compare the effects of three different treatments on a continuous outcome variable.
 
 
-``` r
+## Perform One-Way ANOVA
+
+- **Objective**: Determine if there are statistically significant differences among the means of three or more independent groups.
+
+```R
+anova_result <- aov(value ~ treatment, data = data_anova)
+summary(anova_result)
+```
+
+
+```R
 # Set seed for reproducibility
 set.seed(123)
 
@@ -23,92 +33,98 @@ data_anova <- data.frame(
   value = c(group_a, group_b, group_c),
   treatment = factor(rep(c("A", "B", "C"), each = 20))
 )
+
 ```
-## Perform One-Way ANOVA
 
-- **Objective**: Determine if there are statistically significant differences among the means of three or more independent groups.
 
-``` r
+```R
 # Perform one-way ANOVA
 anova_result <- aov(value ~ treatment, data = data_anova)
 summary(anova_result)
-```
 
-```
-##             Df Sum Sq Mean Sq F value Pr(>F)    
-## treatment    2  18599    9299   109.3 <2e-16 ***
-## Residuals   57   4848      85                   
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
 
 
-``` r
+                Df Sum Sq Mean Sq F value Pr(>F)    
+    treatment    2  18599    9299   109.3 <2e-16 ***
+    Residuals   57   4848      85                   
+    ---
+    Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+
+
+```R
 # QQ plot of residuals from one-way ANOVA
 qqnorm(residuals(anova_result))
 qqline(residuals(anova_result), col = "steelblue", lwd = 2)
 ```
 
-![](Anova_blocks_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
+
     
 ![svg](anova_img/output_4_0.svg)
     
+
+
 * Objective: Assess the normality of the residuals, an assumption of ANOVA.
 
 
-``` r
+```R
 # Residual plot from one-way ANOVA
 plot(residuals(anova_result), main = "Residuals Plot", xlab = "Index", ylab = "Residuals")
 abline(h = 0, col = "red", lwd = 2)
+
 ```
 
-![](Anova_blocks_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
 
+    
 ![svg](anova_img/output_6_0.svg)
+    
+
+
 * Objective: Evaluate the homogeneity of variances and check for any patterns in the residuals.
 
 
-``` r
+```R
 # Perform linear model
 lm_result <- lm(value ~ treatment, data = data_anova)
 summary(lm_result)
 ```
 
-```
-## 
-## Call:
-## lm(formula = value ~ treatment, data = data_anova)
-## 
-## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -21.0824  -5.9407  -0.5103   6.2225  20.6247 
-## 
-## Coefficients:
-##             Estimate Std. Error t value Pr(>|t|)    
-## (Intercept)   31.416      2.062  15.235  < 2e-16 ***
-## treatmentB    43.071      2.916  14.769  < 2e-16 ***
-## treatmentC    19.649      2.916   6.738  8.7e-09 ***
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Residual standard error: 9.222 on 57 degrees of freedom
-## Multiple R-squared:  0.7932,	Adjusted R-squared:  0.786 
-## F-statistic: 109.3 on 2 and 57 DF,  p-value: < 2.2e-16
-```
+
+    
+    Call:
+    lm(formula = value ~ treatment, data = data_anova)
+    
+    Residuals:
+         Min       1Q   Median       3Q      Max 
+    -21.0824  -5.9407  -0.5103   6.2225  20.6247 
+    
+    Coefficients:
+                Estimate Std. Error t value Pr(>|t|)    
+    (Intercept)   31.416      2.062  15.235  < 2e-16 ***
+    treatmentB    43.071      2.916  14.769  < 2e-16 ***
+    treatmentC    19.649      2.916   6.738  8.7e-09 ***
+    ---
+    Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+    
+    Residual standard error: 9.222 on 57 degrees of freedom
+    Multiple R-squared:  0.7932,	Adjusted R-squared:  0.786 
+    F-statistic: 109.3 on 2 and 57 DF,  p-value: < 2.2e-16
+
+
 
 * Objective: Provide an alternative method to analyze the data, offering detailed statistics and insights into the relationship between the treatment groups and the outcome variable.
 
 
-``` r
+```R
 # Plotting using ggplot2
 library(ggplot2)
 ggplot(data_anova, aes(x = treatment, y = value, fill = treatment)) +
   geom_boxplot() +
   theme_minimal() +
   labs(title = "One-way ANOVA", y = "Value", x = "Treatment")
-```
 
-![](Anova_blocks_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
+```
 
 
     
@@ -122,23 +138,7 @@ ggplot(data_anova, aes(x = treatment, y = value, fill = treatment)) +
 
 
 
-``` r
-# Set seed for reproducibility
-set.seed(123)
-
-# Simulate data for a one-way ANOVA with three treatments
-group_a <- rnorm(20, mean = 30, sd = 10) # Treatment A
-group_b <- rnorm(20, mean = 75, sd = 10) # Treatment B
-group_c <- rnorm(20, mean = 50, sd = 10) # Treatment C
-# Combine the data into a data frame
-data_anova <- data.frame(
-  value = c(group_a, group_b, group_c),
-  treatment = factor(rep(c("A", "B", "C"), each = 20))
-)
-```
-
-
-``` r
+```R
 set.seed(123)
 
 # Simulate data for a two-way ANOVA with three treatments and two blocks
@@ -159,141 +159,123 @@ data_anova_block <- data.frame(
 ```
 
 
-
-``` r
+```R
 # Perform two-way ANOVA with interaction between treatment and block
 anova_block_result <- aov(value ~ treatment + day + treatment:day, data = data_anova_block)
 summary(anova_block_result)
 ```
 
-```
-##               Df Sum Sq Mean Sq F value Pr(>F)    
-## treatment      2  19708    9854 117.379 <2e-16 ***
-## day            1     76      76   0.908  0.345    
-## treatment:day  2    187      93   1.113  0.336    
-## Residuals     54   4533      84                   
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-```
 
-``` r
+                  Df Sum Sq Mean Sq F value Pr(>F)    
+    treatment      2  19708    9854 117.379 <2e-16 ***
+    day            1     76      76   0.908  0.345    
+    treatment:day  2    187      93   1.113  0.336    
+    Residuals     54   4533      84                   
+    ---
+    Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+
+
+```R
 # QQ plot of residuals from two-way ANOVA
 qqnorm(residuals(anova_block_result))
 qqline(residuals(anova_block_result), col = "steelblue", lwd = 2)
+
 ```
 
-![](Anova_blocks_files/figure-html/unnamed-chunk-10-1.png)<!-- -->
-   
+
+    
 ![svg](anova_img/output_14_0.svg)
     
 
 
-``` r
+
+```R
 # Residual plot from two-way ANOVA
 plot(residuals(anova_block_result), main = "Residuals Plot", xlab = "Index", ylab = "Residuals")
 abline(h = 0, col = "red", lwd = 2)
 ```
 
-![](Anova_blocks_files/figure-html/unnamed-chunk-11-1.png)<!-- -->
 
-   
+    
 ![svg](anova_img/output_15_0.svg)
     
 
 
 
-``` r
+```R
 # Perform linear model with interaction
 lm_block_result <- lm(value ~ treatment * day, data = data_anova_block)
 summary(lm_block_result)
-```
 
 ```
-## 
-## Call:
-## lm(formula = value ~ treatment * day, data = data_anova_block)
-## 
-## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -21.7524  -6.1984  -0.8624   4.9443  21.7767 
-## 
-## Coefficients:
-##                    Estimate Std. Error t value Pr(>|t|)    
-## (Intercept)          30.746      2.897  10.612 8.02e-15 ***
-## treatmentB           46.340      4.098  11.309 7.35e-16 ***
-## treatmentC           15.008      4.098   3.663 0.000569 ***
-## dayDay2               2.474      4.098   0.604 0.548495    
-## treatmentB:dayDay2   -4.648      5.795  -0.802 0.426061    
-## treatmentC:dayDay2    3.988      5.795   0.688 0.494249    
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Residual standard error: 9.163 on 54 degrees of freedom
-## Multiple R-squared:  0.815,	Adjusted R-squared:  0.7979 
-## F-statistic: 47.58 on 5 and 54 DF,  p-value: < 2.2e-16
-```
 
-``` r
+
+    
+    Call:
+    lm(formula = value ~ treatment * day, data = data_anova_block)
+    
+    Residuals:
+         Min       1Q   Median       3Q      Max 
+    -21.7524  -6.1984  -0.8624   4.9443  21.7767 
+    
+    Coefficients:
+                       Estimate Std. Error t value Pr(>|t|)    
+    (Intercept)          30.746      2.897  10.612 8.02e-15 ***
+    treatmentB           46.340      4.098  11.309 7.35e-16 ***
+    treatmentC           15.008      4.098   3.663 0.000569 ***
+    dayDay2               2.474      4.098   0.604 0.548495    
+    treatmentB:dayDay2   -4.648      5.795  -0.802 0.426061    
+    treatmentC:dayDay2    3.988      5.795   0.688 0.494249    
+    ---
+    Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+    
+    Residual standard error: 9.163 on 54 degrees of freedom
+    Multiple R-squared:  0.815,	Adjusted R-squared:  0.7979 
+    F-statistic: 47.58 on 5 and 54 DF,  p-value: < 2.2e-16
+
+
+
+
+```R
 # Plotting using ggplot2, showing interaction
 ggplot(data_anova_block, aes(x = treatment, y = value, fill = day)) +
   geom_boxplot() +
   theme_minimal() +
   labs(title = "Two-way ANOVA with Blocking", y = "Value", x = "Treatment")
+
 ```
 
-![](Anova_blocks_files/figure-html/unnamed-chunk-13-1.png)<!-- -->
 
     
 ![svg](anova_img/output_17_0.svg)
     
 
 
-``` r
+
+```R
 # Perform one-way ANOVA focusing only on treatment effects
 anova_result <- aov(value ~ treatment, data = data_anova_block)
 summary(anova_result)
-```
 
-```
-##             Df Sum Sq Mean Sq F value Pr(>F)    
-## treatment    2  19708    9854   117.1 <2e-16 ***
-## Residuals   57   4796      84                   
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-```
 
-``` r
 ggplot(data_anova_block, aes(x = treatment, y = value, fill = treatment)) +
   geom_boxplot() +
   theme_minimal() +
   labs(title = "One-way ANOVA", y = "Value", x = "Treatment")
-```
-
-![](Anova_blocks_files/figure-html/unnamed-chunk-14-1.png)<!-- -->
-
-
-``` r
-# Perform one-way ANOVA focusing only on treatment effects
-anova_result <- aov(value ~ treatment, data = data_anova_block)
-summary(anova_result)
-```
 
 ```
-##             Df Sum Sq Mean Sq F value Pr(>F)    
-## treatment    2  19708    9854   117.1 <2e-16 ***
-## Residuals   57   4796      84                   
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-```
 
-``` r
-ggplot(data_anova_block, aes(x = treatment, y = value, fill = treatment)) +
-  geom_boxplot() +
-  theme_minimal() +
-  labs(title = "One-way ANOVA", y = "Value", x = "Treatment")
-```
 
-![](Anova_blocks_files/figure-html/unnamed-chunk-15-1.png)<!-- -->
+                Df Sum Sq Mean Sq F value Pr(>F)    
+    treatment    2  19708    9854   117.1 <2e-16 ***
+    Residuals   57   4796      84                   
+    ---
+    Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+
+
+    
 ![svg](anova_img/output_18_1.svg)
     
 

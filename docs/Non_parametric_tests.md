@@ -477,7 +477,7 @@ ggplot(faithful, aes(x = waiting, y = eruptions)) +
        y = "Eruption Duration (minutes)")
 ```
 
-    [1m[22m`geom_smooth()` using formula = 'y ~ x'
+    [1m[22m`geom_smooth()` using formula = 'y ~ x'
 
 
 

@@ -1,0 +1,220 @@
+---
+title: 'Correlation and Causation'
+output:
+  html_document:
+    keep_md: yes
+---
+
+# Correlation and Causation
+
+- **Correlation**:
+  - A statistical measure indicating the extent to which two or more variables fluctuate together.
+  - Values range from -1 (perfect negative correlation) to +1 (perfect positive correlation), with 0 indicating no correlation.
+
+- **Causation**:
+  - Implies that a change in one variable is responsible for a change in another.
+  - This relationship establishes a cause and effect between variables.
+
+- **Differentiation**:
+  - Correlation does not imply causation; two variables can be correlated without one causing the other to change.
+  - Causation explicitly requires a cause-and-effect relationship, often established through controlled experiments.
+
+- **Importance of Visualizations**:
+  - Visual tools like scatter plots and correlation matrices help in identifying patterns and relationships between variables.
+  - Effective visualization aids in distinguishing between mere correlations and potential causative relationships, guiding further statistical analysis or experimental design.
+
+
+```{r}
+if (!requireNamespace("ggplot2", quietly = TRUE)) install.packages("ggplot2")
+if (!requireNamespace("corrplot", quietly = TRUE)) install.packages("corrplot")
+
+# Load packages
+library(ggplot2)
+library(corrplot)
+```
+
+
+### Visualize Correlation with Synthetic Data
+
+```{r}
+# Generate data with correlation
+set.seed(123)
+n <- 100
+x <- rnorm(n)
+y <- x + rnorm(n)
+
+correlation_coeff <- cor(x, y)
+
+# ggplot
+library(ggplot2)
+df <- data.frame(x = x, y = y)
+ggplot(df, aes(x, y)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE, color = "red") +
+  labs(title = "Scatterplot showing correlation", x = "X", y = "Y") +
+  annotate("text", x = 1, y = 4, label = paste("Correlation coefficient:", round(correlation_coeff, 2)))
+
+```
+
+
+
+## Visualize Correlations in MTCARS data
+
+```{r}
+data("mtcars")
+head(mtcars)
+```
+```{r}
+cor_matrix <- cor(mtcars)
+corrplot(cor_matrix, method = "circle")
+```
+```{r}
+cor_matrix <- cor(mtcars, method="spearman")
+corrplot(cor_matrix, method = "circle", type = "upper", order = "hclust",
+         addCoef.col = "black",
+         tl.col = "black", tl.srt = 45,
+         title = "Correlation Matrix of Mtcars Dataset")
+
+```
+## Choosing Between Spearman's and Pearson's Correlation
+
+### Pearson's Correlation Coefficient
+- **Appropriate for Continuous Data**: Best suited for data measured on an interval or ratio scale.
+- **Assumes Normal Distribution**: The data should be approximately normally distributed.
+- **Linear Relationships**: Used to assess the strength and direction of a linear relationship between two variables.
+- **Sensitivity to Outliers**: Can be significantly affected by outliers.
+- **Homoscedasticity Required**: Assumes that the variance of one variable is constant at all levels of the other variable.
+
+#### Spearman's Rank Correlation Coefficient
+- **Non-Parametric**: Does not assume a specific distribution for the data.
+- **Ordinal Data**: Suitable for ordinal data or when ranking variables.
+- **Monotonic Relationships**: Effective for detecting both increasing and decreasing relationships, not limited to linear.
+- **Robust to Outliers**: Less sensitive to outliers than Pearson's correlation because it uses rank orders.
+- **Nonlinear Relationships**: Can handle nonlinear relationships well, provided they are monotonic.
+
+#### Summary
+- **Use Pearson's** when dealing with continuous data that are normally distributed and you're interested in linear relationships, but be wary of outliers.
+- **Use Spearman's** for ordinal data, non-normal distributions, or nonlinear relationships, and when dealing with outliers or non-homoscedastic data.
+
+```{r}
+
+# Scatter plot of mpg vs. wt
+ggplot(mtcars, aes(x = wt, y = mpg)) +
+  geom_point() +
+  geom_smooth(method = "lm", color = "blue") +
+  ggtitle("MPG vs. Weight") +
+  theme_minimal()
+```
+## How Does Sample Size Effect Correlation
+```{r}
+# Simulate data and calculate correlation
+simulate_correlation <- function(n, rho = 0.5) {
+  x <- rnorm(n)
+  y <- rho * x + sqrt(1 - rho^2) * rnorm(n)
+  cor(x, y)
+}
+
+# Different sample sizes
+sample_sizes <- seq(10, 1000, by = 10)
+
+# Calculate correlation for each sample size
+set.seed(123)
+correlations <- sapply(sample_sizes, simulate_correlation)
+
+# Create a dataframe
+data_for_plot <- data.frame(sample_size = sample_sizes, correlation = correlations)
+
+# Plotting
+ggplot(data_for_plot, aes(x = sample_size, y = correlation)) +
+  geom_line() +
+  geom_hline(yintercept = 0.5, linetype = "dashed", color = "red") +
+  labs(title = "Effect of Sample Size on Correlation",
+       x = "Sample Size",
+       y = "Estimated Correlation Coefficient") +
+  theme_minimal() +
+  annotate("text", x = 500, y = 0.5, label = "True Correlation (0.5)", hjust = 0, color = "red")
+
+
+```
+## Causation Analysis Guide
+
+- **Identify Variables**:
+  - Determine the independent (predictor) and dependent (outcome) variables for your analysis.
+
+- **Collect Data**:
+  - Gather data that is relevant to your hypothesis. Preferably use data from randomized controlled trials (RCTs) to minimize bias.
+
+- **Statistical Models**:
+  - Employ statistical models such as regression analysis to estimate the relationship between variables. Include potential confounders.
+
+- **Control for Confounders**:
+  - Identify and adjust for confounding variables that might influence both the independent and dependent variables.
+
+- **Use Appropriate Tests**:
+  - Apply statistical tests (e.g., t-tests, ANOVA) to determine the significance of the observed relationships.
+
+- **Consider Experimental Design**:
+  - If possible, design experiments to randomly assign subjects to treatment and control groups to establish causality.
+
+- **Check Assumptions**:
+  - Ensure your data and model comply with the assumptions required for your statistical tests and models.
+
+- **Interpret Results Carefully**:
+  - Analyze the output of your statistical tests, considering the size and significance of effects. Be cautious about drawing causal conclusions.
+
+- **Validate Findings**:
+  - Use external data, replication studies, or different statistical methods to validate your findings.
+
+- **Report with Transparency**:
+  - Clearly document your methodology, analysis, and limitations. Acknowledge any uncertainties in establishing causation.
+
+```{r}
+library(dplyr)
+```
+
+## Hypothetical Scenario:
+
+Imagine we have a dataset from examining the effect of a new educational program on student performance, where:
+
+* treatment is a binary variable indicating participation in the program (1 for participants, 0 for control group).
+* pre_test is a score on a standardized test before the program starts.
+* post_test is a score on a standardized test after the program ends.
+* The dataset is called edu_data.
+
+```{r}
+set.seed(123)
+n <- 100
+edu_data <- data.frame(
+  treatment = sample(c(0, 1), size = n, replace = TRUE, prob = c(0.5, 0.5)),
+  pre_test = rnorm(n, mean = 75, sd = 10),
+  post_test = NA
+)
+
+# Assuming the treatment has a positive effect
+edu_data$post_test[edu_data$treatment == 1] <- edu_data$pre_test[edu_data$treatment == 1] + rnorm(sum(edu_data$treatment == 1), mean = 5, sd = 5)
+edu_data$post_test[edu_data$treatment == 0] <- edu_data$pre_test[edu_data$treatment == 0] + rnorm(sum(edu_data$treatment == 0), mean = 0, sd = 5)
+
+head(edu_data)
+
+
+```
+```{r}
+# Calculate average improvement by group
+avg_improvement <- edu_data %>%
+  mutate(improvement = post_test - pre_test) %>%
+  group_by(treatment) %>%
+  summarize(mean_improvement = mean(improvement))
+
+print(avg_improvement)
+
+```
+```{r}
+ggplot(edu_data, aes(x = factor(treatment), y = post_test - pre_test, fill = factor(treatment))) +
+  geom_boxplot() +
+  labs(x = "Treatment Group", y = "Improvement in Test Scores", fill = "Group") +
+  theme_minimal() +
+  ggtitle("Effect of Educational Program on Test Score Improvement")
+```
+```{r}
+t.test(post_test ~ treatment, data = edu_data)
+```

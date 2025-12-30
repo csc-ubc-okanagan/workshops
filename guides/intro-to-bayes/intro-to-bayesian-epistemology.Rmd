@@ -1,0 +1,606 @@
+---
+title: "Intro to Bayesian Epistemology"
+output:
+  date: "`r format(Sys.time(), '%Y-%m-%d %H:%M:%S')`"
+  html_document:
+    keep_md: yes
+---
+# Imagine you have a cat...
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+
+library('dplyr')
+library('tidyr')
+library('purrr')
+library('ggplot2')
+library('knitr')
+library('kableExtra')
+PAL <- khroma::color('highcontrast')(3) # prior, likelihood, and posterior
+PAL[3] <- 'darkgreen'
+# set default ggplot theme
+theme_set(theme_bw() +
+            theme(legend.position = 'none',
+                  text = element_text(size = 15),
+                  panel.grid = element_blank()))
+A <- 0.4
+
+opts_chunk$set(echo = FALSE, cache = FALSE, fig.align = 'center', fig.height=4, dpi=300)
+```
+
+![](../../docs/assets/images/intro-to-bayes/gaelle-marcel-YnbJwNXy0YQ-unsplash.jpg)
+
+# Exploring alternatives with truth tables
+
+* Outline all possible outcomes
+
+* Alternatives are explored with deductive reasoning
+
+* Conclusions are reached using logic
+
+* Uncertainty is either ignored or a complete block
+
+* See [William Spaniel's Logic 101 on YouTube](https://www.youtube.com/playlist?list=PLKI1h_nAkaQq5MDWlKXu0jeZmLDt-51on)
+
+<br>
+
+For example: "Broken" always implies "Guilty"
+
+```{r truth-table}
+tibble(Broken = c(1, 1, 0, 0),
+       Guilty = c(1, 0, 1, 0),
+       `not Broken` = 1 - Broken,
+       `not Guilty` = 1 - Guilty,
+       `Broken or Guilty` = Broken + Guilty,
+       `Broken and Guilty` = Broken * Guilty,
+       ' ... ' = '...') %>%
+  mutate(across(! ' ... ', \(x) if_else(x == 0, 'F', 'T'))) %>%
+  kable(format = 'html', align = 'c') %>%
+  kable_classic(full_width = TRUE) %>%
+  row_spec(0:3, bold = T, color = 'black')
+```
+
+---
+
+# Exploring alternatives with probability tables
+
+* Outline all possible outcomes
+
+* Alternatives are explored with inductive reasoning
+
+* Conclusions are reached using probability
+
+* Uncertainty is acknowledged and leveraged in the framework
+
+<br>
+
+For example: "Broken" does not always imply "Guilty", and vice-versa
+
+```{r probability-table}
+prob_table <- tibble(' ' = c('Broken', 'not Broken', 'Total'),
+                     Guilty = c(1/3, 1/3, 2/3),
+                     'not Guilty' = c(0.01, 1/3 - 0.01, 1/3),
+                     Total = Guilty + `not Guilty`)
+prob_kable <- prob_table %>%
+  kable(format = 'html', align = 'c', digits = 2) %>%
+  kable_classic(full_width = TRUE) %>%
+  row_spec(0:3, bold = T, color = 'black')
+prob_kable
+```
+
+---
+
+# What is probability?
+
+* A number in the interval $[0, 1]$
+
+* A measure that quantifies the occurrence of random events
+
+* A measure that allows us to quantify the risk of events
+
+* A measure of our confidence in a parameter, hypothesis, or value
+
+<br>
+
+```{r}
+prob_kable
+```
+
+---
+
+# Probability fundamentals
+
+Let $B$ and $G$ be two events. Then:
+
+* $0 \le P(B) \le 1$
+
+* the probability of "not $B$" is $P(\neg B) = 1 - P(B)$
+
+* $B$ **or** $G$: $P(B \vee G) = P(B) + P(G) - P(B\wedge G)$
+
+* $B$ **and** $G$: $P(B \wedge G) = P(B) \times P(G | B) = P(G) \times P(B | G)$
+
+<br>
+
+```{r}
+prob_kable
+```
+
+---
+
+# Frequentist probability: the long-run frequency of events
+
+**Frequentist probability**: the unobserved long-term frequency of some event (e.g., "how often does it rain, on average?")
+
+<br>
+
+* Datasets are random: we cannot get attached to a particular dataset
+
+* "What if we observed a different dataset, instead?"
+
+* "What if this dataset is an outlier dataset?"
+
+* "We cannot know how often the cat will break something"
+
+* "Are these random observations compatible with hypothesis $H_0$ or $H_A$?
+
+
+--
+
+<br>
+
+For example, if $P(B \wedge G) = 1/3$:
+
+* In the long run, the cat will break something 1/3 of the time
+
+* You don't know if the cat will break something next time you leave
+
+---
+
+# Bayesian probability: the relative certainty of events
+
+**Bayesian probability**: the certainty in the relative occurrence of some event (e.g., "how confident am I that it is raining?")
+
+<br>
+
+* Datasets are fixed after observation because they inform our knowledge
+
+* "How do we make inferences from all the data we accumulate?"
+
+* "What if this dataset is an outlier dataset?"
+
+* "How confident can you be that the cat will break something, next time?"
+
+* "What range of values seems credible, given the data?"
+
+--
+
+<br>
+
+For example, if $P(B \wedge G) = 1/3$:
+
+* You are ~33% sure the cat will break something
+
+* Lock the cat in a safe room if its cost is < 1/3 the expected damage
+
+![](../../docs/assets/images/intro-to-bayes/malek-dridi-0F7GRXNOG7g-unsplash.jpg)
+
+
+# Priors: An opinion before data collection
+
+# Priors: We all have opinions, even before data collection
+
+Priors:
+
+* summarize our knowledge before data collection
+
+* are independent of future data
+
+* are distributions, not single values
+
+* communicate our uncertainty before data colletion
+
+* can be used to make predictions before data collection
+
+* can vary between people
+
+---
+
+# Are there priors in Frequentist statistics?
+
+Beyesian statistics (generally) start with analyst-informed priors
+
+<br>
+
+Frequentist statistics:
+
+* Hypothesis testing: $H_0$, $H_a$, and p-values
+
+* Ignore priors because uninterested in estimating $\theta$
+
+* Interested in likelihood of data given $\theta$, which is $P(\text{data} | \theta) = \mathcal L(\theta | \text{data})$
+
+* Not interested in finding the most likely value of $\theta$
+
+* $\mathcal L(\theta | \text{data})$ is a function, not a probability distribution
+
+![](../../docs/assets/images/intro-to-bayes/wren-meinberg-AL2-t0GrSko-unsplash.jpg)
+# Likelihood: The information in the data
+
+# Likelihood: What we learn from data
+
+The likelihood:
+
+* summarizes the information we collected through data, $D$
+
+* is independent of the prior and the analyst
+
+* gives $P(D|\theta = \theta_i)$ for all possible values of $\theta_i$, even unrealistic ones
+
+* does not make statements on $P(D)$ independently of $\theta$
+
+* is the distribution of $P(D|\theta)$, not $P(\theta|D)$
+
+![](../../docs/assets/images/intro-to-bayes/carter-rubio-ElSB3j6U-xM-unsplash.jpg)
+
+# Posteriors: Our updated beliefs
+
+# Posteriors: Our opinion after data collection
+
+Posteriors:
+
+* summarize our total knowledge after data collection: $P(\theta | D)$
+
+* are independent of future data
+
+* are distributions, not single values
+
+* communicate our updated uncertainty after data collection
+
+* can be used to make predictions about $\theta$ after collecting new evidence
+
+* depend more on one's priors if the data had a small sample size
+
+---
+
+# Calculating posteriros using Bayes' theorem
+
+For a parameter $\theta$ and an observed dataset $D$, we have:
+
+$$P(\theta|D) = \frac{P(\theta) ~ P(D|\theta)}{P(D)}$$
+
+where $\theta$ could be $P(Guilty)$ and $D$ could be the number of broken objects.
+
+<br>
+
+* $P(\theta | D)$ is the posterior
+
+* $P(\theta)$ is the prior, which summarizes knowledge before data collection
+
+* $P(D | \theta)$ is the likelihood, which summarizes the data you observed
+
+* $P(D)$ is the probability of observing the dataset, independent of $\theta$
+
+![](../../docs/assets/images/intro-to-bayes/daria-shatova-46TvM-BVrRI-unsplash.jpg)
+
+# Less math, more cats!
+
+# Assessing degrees of belief with Bayesian Epistemology
+
+Should you leave your cat unsupervised? If you leave, the cat will most likely do something it shouldn't, since $P(G) = 0.67 > 0.5$
+
+<br>
+
+```{r}
+prob_kable
+```
+
+<br>
+
+Based on $P(G)$ alone: if the cat never breaks things when supervised, you should not leave the cat unsupervised!
+
+---
+
+# Assessing risks and costs with Bayesian Epistemology
+
+* Include the cost of mischief by multiplying it by $P(G)$:
+
+<br>
+
+```{r}
+# add cost of broken things
+prob_table %>%
+  mutate(Guilty = c('10 x 0.33 = CAD 3.33', '0 x 0.33 = CAD 0', '3.33'),
+         `not Guilty` = c('1 x 0.01 = CAD 0.01', '0 x 0.32 = CAD 0', '0.01'),
+         Total = c('3.34', '0', '3.34')) %>%
+  mutate(across(2:4, \(x) paste('CAD', x))) %>%
+  kable(format = 'html', align = c('l', 'c', 'c')) %>%
+  kable_classic(full_width = TRUE) %>%
+  row_spec(0:3, bold = T, color = 'black')
+```
+
+<br>
+
+* Do not leave the cat alone if cost of leaving > supervising it
+
+* How do we convert the cat's loneliness to a dollar amount?
+
+---
+
+# Collecting evidence and updating beliefs
+
+* You decide to leave the cat unsuspervised
+
+* You come home to a broken vase
+
+```{r conditional-prob-greyed}
+prob_table %>%
+  mutate(Guilty = c('10 x 0.33 = CAD 3.33', '200 x 0.33 = CAD 66.6', '70.00'),
+         `not Guilty` = c('1 x 0.01 = CAD 0.01', '0 x 0.32 = CAD 0', '0.01'),
+         Total = c('3.34', '66.67', '70.01')) %>%
+  mutate(across(2:4, \(x) paste('CAD', x))) %>%
+  kable(format = 'html', align = c('l', 'c', 'c')) %>%
+  kable_classic(full_width = TRUE) %>%
+  row_spec(0:1, bold = T, color = 'black') %>%
+  row_spec(2:3, bold = T, color = 'grey50')
+```
+
+<br>
+
+* What is the probabilty that the cat is guilty, given the broken vase?
+
+---
+
+# Should you scold the cat?
+
+Conditionalize on something being broken:
+
+```{r conditional-prob}
+tibble(' ' = 'Broken',
+       Guilty = '0.33 / 0.34 = 0.97',
+       `not Guilty` = '0.01 / 0.34 = 0.03',
+       Total = '(0.33 + 0.01) / 0.34 = 1') %>%
+  kable(format = 'html', align = c('l', 'c', 'c')) %>%
+  kable_classic(full_width = TRUE) %>%
+  row_spec(0:1, bold = T, color = 'black')
+```
+
+<br>
+
+* Cat is most likely guilty (0.97 > 0.5)
+
+* You can be quite sure the cat broke the vase
+
+---
+
+# Should you change your future behavior?
+
+* You have gained new evidence
+
+* Update your belief based on new evidence
+
+* Update your *behavior* based on your new beliefs:
+
+  * remove breakable objects
+
+  * lock the cat in a safe room when you leave
+
+![](../../docs/assets/images/intro-to-bayes/paul-hanaoka-w2DsS-ZAP4U-unsplash.jpg)
+
+# A practical example: updating your beliefs day by day
+
+# Your belief prior to data collection
+
+* You get a new cat
+
+* You don't expect your cat to break things, but it could still be possible
+
+* Prior is $\theta \sim B(2, 5)$:
+
+  * Mean of $\theta$ is $\mathbb E(\theta) = 0.286$
+
+  * Mode of $\theta$ is $M(\theta) = 0.2$
+
+```{r, out.width='80%'}
+d <- tibble(theta = seq(0, 1, by = 0.001),
+            Prior = dbeta(theta, 2, 5))
+
+plot_prior <- function() {
+  ggplot(d) +
+    geom_area(aes(theta, Prior), fill = PAL[1], color = PAL[1], lwd = 1,
+              alpha = A) +
+    geom_vline(xintercept = d$theta[which.max(d$Prior)], lty = 'dashed') +
+    geom_vline(xintercept = sum(d$theta * d$Prior) / sum(d$Prior)) +
+    labs(x = 'P(Broken)', y = 'Probability density')
+}
+
+plot_prior()
+```
+
+---
+
+# Running a test
+
+* You leave the cat free to roam before going to campus for the day
+
+* You come back to find nothing broken, but maybe you missed something?
+
+* Update your prior knowledge by including the new data:
+
+$$P(\theta|D) = \frac{P(\theta) ~ P(D|\theta)}{P(D)}$$
+
+<br>
+
+```{r, out.width='100%', fig.width=12, fig.height=4}
+update_prior <- function(a, b) {
+  if('Posterior' %in% names(d)) {
+    d <<- mutate(d, Prior = Posterior)
+  }
+  
+  d <<- mutate(d,
+               Likelihood = dbeta(theta, a, b),
+               Posterior = Prior * Likelihood,
+               # make sure area integrates to 1
+               Posterior = Posterior / mean(Posterior))
+  
+  d_summary <- d %>%
+    pivot_longer(Prior:Posterior) %>%
+    mutate(name = factor(name, levels = c('Prior', 'Likelihood', 'Posterior'))) %>%
+    group_by(name) %>%
+    summarize(mode = theta[which.max(value)],
+              mean = sum(theta * value) / sum(value))
+  
+  d %>%
+    pivot_longer(Prior:Posterior) %>%
+    mutate(name = factor(name, levels = c('Prior', 'Likelihood', 'Posterior'))) %>%
+    ggplot() +
+    facet_wrap(. ~ name, scales = 'fixed') +
+    geom_area(aes(theta, value, fill = name, color = name), lwd = 1,
+              alpha = A) +
+    geom_vline(aes(xintercept = mode), d_summary, lty = 'dashed') +
+    geom_vline(aes(xintercept = mean), d_summary) +
+    scale_fill_manual(values = PAL) +
+    scale_color_manual(values = PAL) +
+    labs(x = 'P(Broken)', y = 'Probability density')
+}
+
+update_prior(a = 1, b = 3)
+```
+
+---
+
+# A second experiment: Bayesian updating
+
+* You leave the cat free to roam again and find nothing broken
+
+* **Note**: your likelihood is independent of your prior!
+
+* Your old posterior becomes your new prior
+
+* You can update your posterior again:
+
+$$P(\theta|D) = \frac{P(\theta) ~ P(D|\theta)}{P(D)}$$
+
+```{r, out.width='100%', fig.width=12, fig.height=4}
+update_prior(a = 1, b = 3)
+```
+
+---
+
+# An unfortunate third experiment
+
+* You leave the cat free to roam again, but this time it breaks something
+
+* You can update your posterior again:
+
+$$P(\theta|D) = \frac{P(\theta) ~ P(D|\theta)}{P(D)}$$
+
+```{r, out.width='100%', fig.width=12, fig.height=4}
+update_prior(a = 10, b = 1)
+```
+
+---
+
+# Bayesian updating: updating all at once is like updating each time
+
+<br>
+
+$$P(\theta|D_1, D_2, D_3)=\frac{P(\theta|D_1,~D_2) ~ P(D_3|\theta)}{P(D_3)}$$
+
+<br>
+
+$$P(\theta|D_1, D_2, D_3)=\frac{P(\theta | D_1) ~ P(D_2|\theta) ~P(D_3 | \theta)}{P(D_2, D_3)}$$
+
+<br>
+
+$$P(\theta|D_1, D_2, D_3)=\frac{P(\theta) ~ P(D_1 | \theta) ~ P(D_2|\theta) ~P(D_3 | \theta)}{P(D_1, D_2, D_3)}$$
+
+<br>
+
+$$P(\theta|D_1, D_2, D_3)=\frac{P(\theta) ~ \prod_i P(D_i|\theta)}{\prod_i P(D_i)}$$
+
+---
+
+# Summarizing the posterior: Credible intervals
+
+Credible intervals:
+
+* Are a range of believable (i.e., credible) values at some certainty level
+
+* Account for the system you obtained data from
+
+* Do not risk being irrational, as long as your prior was appropriate
+
+* Depend strongly on the prior if the sample size of the data was small:
+
+  * Useful if we want reasonable predictions despite scarce data
+  
+  * Problematic if we do not have good priors
+
+```{r, fig.height = 2.5}
+d %>%
+  ggplot() +
+  geom_area(aes(theta, Posterior),
+            filter(d,
+                   cumsum(Posterior) / sum(Posterior) > 0.05,
+                   cumsum(Posterior) / sum(Posterior) < 0.95),
+            fill = PAL[3], lwd = 1, alpha = A) +
+  geom_line(aes(theta, Posterior), color = PAL[3], lwd = 1) +
+  labs(x = 'P(Broken)', y = 'Probability density')
+```
+
+![](../../docs/assets/images/intro-to-bayes/aleksandar-popovski-K1TPUd19X68-unsplash.jpg)
+# Confidence Intervals vs Credible Intervals
+
+# Clarifying Confidence Intervals
+
+* Confidence is in the data under $H_0$, not in $\theta$
+
+* Give good coverage across all values of $\theta$, even impossible ones
+
+* [Are not a measure of our confidence in a hypothesis](https://doi.org/10.3758/s13423-015-0947-8)
+
+* May be best renamed to "[Compatability Intervals](https://doi.org/10.1136/bmj.l5381)"
+
+* Are highly susceptible to odd datasets
+
+* Work well as $n \rightarrow \infty$
+
+---
+
+# Contrasting Credible Intervals
+
+* Confidence is in the parameters and hypotheses of interest, given the data
+
+* Give good coverage across reasonable values of $\theta$, not unlikely ones
+
+* Can give poor coverage if data contrasts prior beliefs, especially low $n$
+
+* [Are a measure of our confidence in a hypothesis](https://doi.org/10.3758/s13423-015-0947-8)
+
+* Are robust to to odd datasets
+
+* Work well with small $n$
+
+* Are suitable for [search theory](https://en.wikipedia.org/wiki/Bayesian_search_theory)
+
+* Also see [this Stack Exchange post](https://stats.stackexchange.com/questions/2272/whats-the-difference-between-a-confidence-interval-and-a-credible-interval) on Confidence vs Credible Intervals
+
+
+![](../../docs/assets/images/intro-to-bayes/ludemeula-fernandes-9UUoGaaHtNE-unsplash.jpg)
+
+# Bayesian statistics mirror how many of us learn
+
+<br>
+
+* Prior: $P(\theta)$, belief before data collection
+
+* Likelihood: $P(D|\theta)$, probability of observing the data, given $\theta$
+
+* Posterior: $P(\theta | D)$, belief after data collection
+
+* Posterior allows us to make inferences on the credible value of $\theta$
+
+* Bayesian inference guarantees realistic (but possibly subjective) results
+
+* Bayesian inference constructs a coherent, probabilistic epistemology

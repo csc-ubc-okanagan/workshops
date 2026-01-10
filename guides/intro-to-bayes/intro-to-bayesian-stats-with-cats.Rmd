@@ -1,0 +1,425 @@
+---
+title: "Intro to Bayesian Stats with Cats"
+author: "Stefano Mezzini"
+date: "`r format(Sys.time(), '%Y-%m-%d %H:%M:%S')`"
+output:
+  html_document:
+    keep_md: yes
+---
+```{r setup, include=FALSE}
+library('dplyr')
+library('tidyr')
+library('purrr')
+library('ggplot2')
+library('knitr')
+PAL <- khroma::color('highcontrast')(3) # prior, likelihood, and posterior
+PAL[3] <- 'darkgreen'
+# set default ggplot theme
+theme_set(theme_bw() +
+            theme(legend.position = 'none',
+                  text = element_text(size = 15),
+                  panel.grid = element_blank()))
+A <- 0.4
+
+opts_chunk$set(echo = FALSE, cache = TRUE, fig.align = 'center', fig.height=4)
+```
+
+## Imagine you have a cat (or a dog)...
+
+```{r, out.width='75%'}
+include_graphics('../../docs/assets/images/intro-to-bayes/cat.jpg')
+```
+
+<!-- Imagine you have a cat (or a dog, if that helps – just read all mentions of “cat” as “dog”). -->
+
+## Imagine you have a cat (or a dog)... and they broke a frame
+
+```{r, out.width='75%'}
+include_graphics('../../docs/assets/images/intro-to-bayes/cat.jpg')
+```
+
+<!-- One day you come home to find a framed picture on the floor; the frame broken and the glass cracked. Did your cat break it? -->
+
+# Priors | An opinion before data collection {.neg data-background=images/pacto-visual-cWOzOnSoh6Q-unsplash.jpg  data-background-size=cover}
+
+## Priors | We all have opinions, even before data collection
+
+<!-- Before you start collecting any information, you may already have an opinion about whether or not it did. If you have no information at all, you may say the chances of it being guilty are the same as it being innocent. You may also say the same if you have some information but are highly uncertain. If you believe your cat is likely innocent, you would place a larger probability on it being innocent, and you would place less if you believe it to be guilty. -->
+
+```{r guess}
+expand_grid(status = c('Innocent', 'Guilty') %>%
+              factor(., levels = .),
+            prior_name = c('No information', 'Uncertain', 'Likely innocent', 'Likely guilty') %>%
+              factor(., levels = .)) %>%
+  mutate(prior = case_when(
+    prior_name == 'No information' & status == 'Guilty' ~ 0.5,
+    prior_name == 'No information' & status != 'Guilty' ~ 0.5,
+    prior_name == 'Uncertain' & status == 'Guilty' ~ 0.5,
+    prior_name == 'Uncertain' & status != 'Guilty' ~ 0.5,
+    prior_name == 'Likely innocent' & status == 'Guilty' ~ 0.2,
+    prior_name == 'Likely innocent' & status != 'Guilty' ~ 0.8,
+    prior_name == 'Likely guilty' & status == 'Guilty' ~ 0.8,
+    prior_name == 'Likely guilty' & status != 'Guilty' ~ 0.2)) %>%
+  ggplot() +
+  facet_wrap(~ prior_name) +
+  geom_bar(aes(status, prior), fill = 'grey', color = 'black', lwd = 1,
+           alpha = A, stat = 'identity') +
+  labs(x = NULL, y = 'Probability mass') +
+  ylim(c(0, 1))
+```
+
+## Prior distributions | Expressing uncertainty in prior guesses
+
+- How do you distinguish between no information and uncertain information?
+- How do you express your uncertainty in your initial guess?
+
+- **Express prior belief as a distribution rather than a single value.**
+- Call it your **prior** for short
+
+<!-- However, how do you distinguish between having no information at all about the cat and having some small amount of information? And how do you express your uncertainty in your initial guess? We can do this by expressing our prior belief as a distribution rather than a single value. You could say that this distribution is your entire belief state (the most likely value and the uncertainty around it) prior to any data collection, which we will call your **prior** for short. If use $\theta$ to indicate the **probability of your cat breaking the frame** (note: not just whether it broke it or not), $\text{P(guilty)}$, your prior may look like one of the distributions below. -->
+
+## Prior distributions | Representing priors graphically
+
+- Prior distributions are your entire belief state 
+- Write it as $\theta = \text{P(guilty)}$ (not just whether it broke it or not)
+
+```{r priors}
+d <- expand_grid(theta = seq(0, 1, by = 0.001),
+                 prior_name = c('No information', 'Uncertain', 'Likely innocent', 'Likely guilty') %>%
+                   factor(., levels = .)) %>%
+  mutate(shape_1 = case_when(prior_name == 'No information' ~ 1,
+                             prior_name == 'Uncertain' ~ 1.5,
+                             prior_name == 'Likely innocent' ~ 3,
+                             prior_name == 'Likely guilty' ~ 5),
+         shape_2 = case_when(prior_name == 'No information' ~ 1,
+                             prior_name == 'Uncertain' ~ 1.5,
+                             prior_name == 'Likely innocent' ~ 5,
+                             prior_name == 'Likely guilty' ~ 2),
+         prior = dbeta(theta, shape_1, shape_2))
+
+ggplot(d) +
+  facet_wrap(~ prior_name) +
+  geom_area(aes(theta, prior), fill = PAL[1], color = PAL[1], lwd = 1, alpha = A) +
+  labs(x = expression(P(guilty)==theta),
+       y = expression(Probability~density~of~theta))
+```
+
+## Are there priors in Frequentist statistics?
+
+Beyesian statistics (generally) start with analyst-informed priors
+
+\ 
+
+Frequentist statistics:
+
+- Hypothesis testing $H_0$, $H_a$, and p-values
+- Ignore priors / always start with no prior information, i.e. the "flat prior"
+- Interested in likelihood of a parameter given the data: $P(\text{data} | \theta) = \mathcal L(\theta | \text{data})$
+- Not interested in finding the most likely value of $\theta$
+- $\mathcal L(\theta | \text{data})$ is a function, not a probability distribution
+
+# Likelihood | The information in the data {data-background=images/paul-hanaoka-w2DsS-ZAP4U-unsplash.jpg data-background-size=cover}
+
+## Likelihood | Learning from data
+
+- Inspect the frame and the area around it:
+  <!-- - Is anything else out of order? -->
+  <!-- - Are other objects knocked down? -->
+  <!-- - Could your cat have reached the frame? -->
+- Summarize all new information in a new probability distribution: $P(D|\theta)$
+- The **likelihood**:
+  - Contains all information you gathered on your data, $D$
+  - Gives $P(D|\theta = \theta_i)$ for all possible values of $\theta$
+- $p$-values are the probability of observing $D$ or a more extreme one
+
+## Likelihood | Summarizing your data
+
+* The nail gave out due to excessive weight
+* Other things are knocked over
+
+```{r likelihood}
+d$likelihood <- dbeta(d$theta, 15, 10)
+
+p_l <- d %>%
+  filter(prior_name == prior_name[1]) %>%
+  ggplot() +
+  geom_area(aes(theta, likelihood), fill = PAL[2], color = PAL[2], lwd = 1, alpha = A) +
+  geom_vline(xintercept = 0.5, lty = 'dashed') +
+  labs(y = expression('Likelihood,'~P(D~'|'~theta)),
+       x = expression(P(guilty)==theta))
+p_l
+```
+
+<!-- It seems reasonable to believe that the cat did indeed cause the frame to fall, since would be fairly unlikely to observe this evidence if the cat is most probably innocent ($P(\theta < 0.5$). Consequently, most of the likelihood density is for $\theta > 0.5$, with $\theta = 0.5$ being a 50-50 change of the cat being guilty. -->
+
+## Likelihood | What if it was just chance?
+
+* Maybe the frame just fell and scared the cat?
+* More probable if the cat is generally innocent.
+<!-- * Combine likelihood and prior to find $P(\theta|D)$. -->
+
+```{r}
+p_l
+```
+
+# Posterior | Your updated belief {data-background=images/jason-leung-cwhtQIssH9k-unsplash.jpg data-background-size=cover}
+
+## Did the cat knock the frame off the wall?
+
+* Ultimately, we want the posterior probability of the cat being guilty, $P(\theta | D)$
+* Combine prior and likelihood using **Bayes' theorem**:
+
+$$\text{Posterior} = \frac{\text{Prior} \times \text{Likelihood}}{\text{constant}}$$
+
+<!-- $$P(\theta | D) = \frac{P(\theta)~P(D|\theta)}{P(D)},$$ -->
+
+## Did the cat knock the frame off the wall?
+
+* Ultimately, we want the posterior probability of the cat being guilty, $P(\theta | D)$
+* Combine prior and likelihood using **Bayes' theorem**:
+
+$$\text{Posterior} = \frac{\text{Prior} \times \text{Likelihood}}{\text{constant}}$$
+
+<!-- $$P(\theta | D) = \frac{P(\theta)~P(D|\theta)}{P(D)},$$ -->
+
+* Can find the constant through some simulations (e.g., the [Metropolis–Hastings algorithm](https://en.wikipedia.org/wiki/Metropolis%E2%80%93Hastings_algorithm))
+
+```{r mh-sampler, fig.cap="CC BY 4.0: Maxwell B. Joseph", out.width='50%'}
+include_graphics('../../docs/assets/images/intro-to-bayes/mh-sampler.gif')
+```
+
+## Updating our belief
+
+$$\text{Posterior} = \frac{\text{Prior} \times \text{Likelihood}}{\text{constant}}$$
+
+```{r posterior}
+d <- mutate(d,
+            posterior = prior * likelihood) %>%
+  group_by(prior_name) %>%
+  # not multiplying by x because x intervals are uniform
+  mutate(posterior = posterior / sum(posterior))
+
+d %>%
+  ggplot() +
+  facet_wrap(~ prior_name) +
+  geom_area(aes(theta, posterior), fill = PAL[3], color = PAL[3], lwd = 1, alpha = A) +
+  geom_vline(xintercept = 0.5, lty = 'dashed') +
+  labs(x = expression(P(guilty)==theta),
+       y = expression('Posterior,'~P(theta~'|'~D)))
+```
+
+<!-- As you can see, your starting belief impacts whether or not you believe your cat was guilty, even after seeing the evidence, but in each case you believe them to be most probably guilty. -->
+
+<!-- Note that if you started with no information (i.e., a flat prior), your posterior looks identical to your likelihood. Each of the other three priors "pulled" the likelihood slightly towards its own peak. -->
+
+## How much does our prior affect our posterior?
+
+<!-- In each case, more than 50% of the probability density for $\theta$ is greater than 0.5, but you are less inclined to think that the cat did break the frame if you initially believed it to be innocent. In contrast, you are more than 90% certain it is guilty if you started from with the "likely guilty" prior. -->
+
+$$\text{Posterior} = \frac{\text{Prior} \times \text{Likelihood}}{\text{constant}}$$
+
+```{r guilty}
+d %>%
+  mutate(guilty = theta > 0.5) %>%
+  group_by(prior_name) %>%
+  mutate(certainty_guilty = sum(posterior * (theta >= 0.5)) / sum(posterior),
+         certainty_guilty = round(certainty_guilty, 2)) %>%
+  ungroup() %>%
+  mutate(prior_name = paste0(prior_name, ': P(\U03B8 > 0.5) = ',
+                             certainty_guilty) %>%
+           factor(., levels = unique(.))) %>%
+  ggplot() +
+  facet_wrap(~ prior_name) +
+  geom_area(aes(theta, posterior, fill = guilty, color = guilty),
+            lwd = 1, alpha = A) +
+  geom_vline(xintercept = 0.5, lty = 'dashed') +
+  scale_fill_brewer(type = 'qual', palette = 6, direction = -1) +
+  scale_color_brewer(type = 'qual', palette = 6, direction = -1) +
+  labs(x = expression(P(guilty)==theta),
+       y = expression('Posterior,'~P(theta~'|'~D)))
+```
+
+<!--                                          not in the first workshop -->
+
+<!-- ## Bayesian updating: when posteriors become the new priors -->
+
+<!-- What if we collected our information about the scene piece by piece? Since our posterior contains all our knowledge about the scene, we can update our current belief state after each new piece of evidence. In this way we can start with our prior (which may also be based on data collected previously), and add one observation at a time. To do this, we decide our original prior before collecting any data from this scene, collect data on the first observation, and calculate the first posterior. When we observe the second observation, we can include our first posterior as the second prior, we continue the process until all data are collected: the second posterior becomes the third prior, the third posterior becomes the fourth prior, and so on. This process is called **Bayesian updating**, and it represents the idea of updating our beliefs gradually as we collect new information: each time what was once new information becomes old information that we use to evaluate along with the new information. Richard McElreath has a good example of this in [his second lecture in the Statistical Rethinking lecture series](https://www.youtube.com/watch?v=R1vcdhPBlXA&t=3137s) where he is trying to estimate the proportion of the Earth that is covered by water, and a related example on the wait times at Starbucks coffee places in his [twelfth lecture](https://youtu.be/iwVqiiXYeC4?si=SuuG3E-QPtaD0y5J&t=368), although this second example is a bit more complicated because it includes learning about wait times at different Starbucks at once. -->
+
+# Expressing uncertainty | Show distributions, not point estimates {data-background=images/michael-sum-LEpfefQf4rU-unsplash.jpg data-background-size=cover}
+
+## Expressing uncertainty with prior predictions
+
+* Prior, likelihood, and posterior are probability distributions
+* We can use them to express our uncertainty using intuitive measures of probability
+
+\ 
+
+<!-- While this may make some people uncomfortable, most people use this thought process daily: You do not have to have tried something to have an opinion about the potential outcome. However, if your information about the topic is limited, your prior should be appropriately vague. Excessively tight priors can produce unrealistic predictions on their own, but the same can be said about excessively vague priors. For example, let's look at the possible ranges of prior predictions from each of the priors in Figure \@ref(fig:priors), which are shown in Figure \@ref(fig:prior-preds). As you may expect, the "flat and "no information" and "uncertain" priors result in a very wide variety of frequencies of "guilty verdicts", including the cat being essentially always innocent ($\theta = 0$) or always guilty ($\theta = 1$), both of which are unrealistic. A more informed (i.e., tighter) prior would be better at constraining such extreme values of $\theta$. -->
+
+<!-- A thousand prior predictive simulations -->
+
+```{r prior-preds}
+prior_preds <- d %>%
+  group_by(prior_name) %>%
+  slice(1) %>%
+  select(prior_name, shape_1, shape_2) %>%
+  mutate(sims = map2(shape_1, shape_2, function(a, b) {
+    tibble(p_sim = rbeta(n = 1e3, a, b),
+           dens = map(p_sim, function(.p) {
+             tibble(guilty = 0:1,
+                    p_outcome = dbinom(guilty, 1, .p))
+           })) %>%
+      unnest(dens)
+  })) %>%
+  unnest(sims) %>%
+  mutate(guilty = if_else(guilty == 0, 'Innocent', 'Guilty') %>%
+           factor(., levels = unique(.)))
+
+ggplot(prior_preds) +
+  facet_wrap(~ prior_name) +
+  geom_line(aes(x = guilty, y = p_outcome, group = p_sim), alpha = 0.02,
+            color = '#004488') +
+  labs(x = 'Outcome', y = 'Frequency')
+```
+
+## Expressing uncertainty before data collection
+
+**Prior predictive intervals**: range of credible (i.e., believable) values with some degree of credibility
+
+\ 
+
+E.g., 50% prior predictive intervals using 25% and 75% percentiles:
+
+```{r prior-cis-1}
+#' approximating the priors using quantiles on the simulations
+#' could also just use `qbeta()` for rigorous and consistent values
+prior_preds %>%
+  group_by(prior_name, guilty) %>%
+  summarize(q_25 = quantile(p_outcome, 0.25),
+            q_75 = quantile(p_outcome, 0.75),
+            .groups = 'drop') %>%
+  group_by(prior_name) %>%
+  mutate(lwr = if_else(guilty == 'Guilty', q_75, q_25),
+         upr = if_else(guilty == 'Guilty', q_25, q_75),
+         guilty = as.numeric(guilty)) %>%
+  ggplot() +
+  facet_wrap(~ prior_name) +
+  geom_ribbon(aes(x = guilty, ymin = lwr, ymax = upr), alpha = 0.5,
+              fill = '#004488', color = '#004488') +
+  scale_x_continuous('Outcome', breaks = c(1:2), limits = c(0.5, 2.5),
+                     labels = unique(prior_preds$guilty)) +
+  scale_y_continuous('Frequency', limits = 0:1)
+```
+
+## Expressing uncertainty before data collection
+
+**Prior predictive intervals**: range of credible (i.e., believable) values with some degree of credibility
+
+\ 
+
+E.g., 50% prior predictive intervals using 10% and 60% percentiles:
+
+```{r prior-cis-2}
+#' approximating the priors using quantiles on the simulations
+#' could also just use `qbeta()` for rigorous and consistent values
+prior_preds %>%
+  group_by(prior_name, guilty) %>%
+  summarize(q_10 = quantile(p_outcome, 0.1),
+            q_60 = quantile(p_outcome, 0.6),
+            .groups = 'drop') %>%
+  group_by(prior_name) %>%
+  mutate(lwr = if_else(guilty == 'Guilty', q_60, q_10),
+         upr = if_else(guilty == 'Guilty', q_10, q_60),
+         guilty = as.numeric(guilty)) %>%
+  ggplot() +
+  facet_wrap(~ prior_name) +
+  geom_ribbon(aes(x = guilty, ymin = lwr, ymax = upr), alpha = 0.5,
+              fill = '#004488', color = '#004488') +
+  scale_x_continuous('Outcome', breaks = c(1:2), limits = c(0.5, 2.5),
+                     labels = unique(prior_preds$guilty)) +
+  scale_y_continuous('Frequency', limits = 0:1)
+```
+
+
+## Expressing uncertainty in the likelihood
+
+**Compatibility intervals**: compatibility of the data with specific values of $\theta$
+
+**NOTE:** this interval indicates a probability of the data, not of $\theta$!
+
+E.g., 50% likelihood confidence interval using 25% and 75% percentiles:
+
+```{r likelihood-cis}
+d %>%
+  filter(prior_name == prior_name[1]) %>%
+  mutate(cl = cumsum(likelihood) / max(cumsum(likelihood))) %>%
+  filter(cl > 0.25 & cl < 0.75) %>%
+  ggplot() +
+  geom_area(aes(theta, likelihood), filter(d, prior_name == prior_name[1]),
+  fill = 'transparent', color = PAL[2], lwd = 1, alpha = A) +
+  geom_area(aes(theta, likelihood), fill = PAL[2], color = PAL[2], lwd = 1, alpha = A) +
+  geom_vline(xintercept = 0.5, lty = 'dashed') +
+  labs(y = expression('Likelihood,'~P(D~'|'~theta)),
+       x = expression(P(guilty)==theta)) +
+  xlim(0:1)
+```
+
+## Expressing uncertainty in your updated knowledge
+
+**Posterior credible intervals**: range of credible (i.e., believable) values of $\theta$ with some degree of credibility
+
+E.g., 50% posterior credible intervals using 25% and 75% percentiles:
+
+<!-- There is nothing specifically wrong about either set of intervals, since both include ranges of values with 50% credibility, but the two figures tell different stories. You should choose the intervals you use carefully, and base your choice on what you are trying to show. Ideally, include entire distributions (like Figures \@ref(fig:priors), \@ref(fig:likelihood), and \@ref(fig:posterior)) rather than just point estimates and intervals. For example, if we wanted to summarize the posterior distributions in Figure \@ref(fig:posterior) we could use something like Figure \@ref(fig:posterior-summary) below. -->
+
+```{r posterior-cis}
+d %>%
+  # filter(prior_name == prior_name[1]) %>%
+  mutate(cp = cumsum(posterior) / max(cumsum(posterior))) %>%
+  filter(cp > 0.25 & cp < 0.75) %>%
+  ggplot() +
+  facet_wrap(~ prior_name) +
+  geom_area(aes(theta, posterior), filter(d, prior_name == prior_name[1]),
+  fill = 'transparent', color = PAL[3], lwd = 1, alpha = A) +
+  geom_area(aes(theta, posterior), fill = PAL[3], color = PAL[3], lwd = 1, alpha = A) +
+  geom_vline(xintercept = 0.5, lty = 'dashed') +
+  labs(y = expression('Posterior,'~P(theta~'|'~D)),
+       x = expression(P(guilty)==theta))
+```
+
+## Summarizing the posterior distribution
+
+$\bullet$ posterior mean
+
+$\textbf{-}$ posterior median
+
+$\color{forestgreen}{\text{green lines}}$ 50%, 70%, 90%, and 99% credible intervals
+
+```{r posterior-summary}
+d %>%
+  group_by(prior_name) %>%
+  reframe(mean = weighted.mean(theta, posterior),
+          quantile = sort(c(0.005, 0.05, 0.15, 0.25, 0.5, # labels for q
+                            0.995, 0.95, 0.85, 0.75)),
+          #      intervals: 0.990, 0.90, 0.70, 0.50
+          q = map_dbl(quantile, function(.q) {
+            theta[which.min(abs(cumsum(posterior) - .q))]
+          })) %>%
+  pivot_wider(values_from = q, names_from = quantile, names_prefix = 'q_') %>%
+  ggplot(aes(x = prior_name)) +
+  geom_point(aes(y = mean)) +
+  geom_errorbar(aes(ymin = q_0.5, ymax = q_0.5), width = 0.2) +
+  geom_errorbar(aes(ymin = q_0.005, ymax = q_0.995), width = 0,
+                alpha = 0.2, lwd = 3, color = PAL[3]) +
+  geom_errorbar(aes(ymin = q_0.05, ymax = q_0.95), width = 0,
+                alpha = 0.2, lwd = 3, color = PAL[3]) +
+  geom_errorbar(aes(ymin = q_0.15, ymax = q_0.85), width = 0,
+                alpha = 0.2, lwd = 3, color = PAL[3]) +
+  geom_errorbar(aes(ymin = q_0.25, ymax = q_0.75), width = 0,
+                alpha = 0.2, lwd = 3, color = PAL[3]) +
+  labs(x = 'Prior', y = 'Posterior estimates') +
+  ylim(c(0, 1))
+```
+
+
+<!-- # Competing hypotheses: multiple cats -->

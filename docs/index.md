@@ -1,4 +1,4 @@
----
+v---
 title: "Workshops"
 pagetitle: "Workshops"
 ---
@@ -156,4 +156,4 @@ This series introduces researchers to statistical and machine-learning methods f
 
 All workshops will use `R` and RStudio, so some experience with `R` or other programming languages is encouraged but not required.  See the [R Fundamentals for Data Anlysis](https://csc-ubc-okanagan.github.io/workshops/#r-fundamentals-for-data-analysis) for an introduction to `R` and RStudio. Attendees who do not have experience with `R` are encouraged to review this content or take the introductory workshop concurrently if it's being offered.
 
-* Hierarchical Models: [script](), [slides]()
+* Hierarchical Models: [script](https://github.com/csc-ubc-okanagan/Clustering-Classification/blob/main/AdvanceRSeriesCodeandSlides/WS1Code-Hierarchical.R), [slides](https://github.com/csc-ubc-okanagan/Clustering-Classification/blob/main/AdvanceRSeriesCodeandSlides/WS1Slides.pdf)

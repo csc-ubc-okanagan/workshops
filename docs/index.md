@@ -158,3 +158,4 @@ All workshops will use `R` and RStudio, so some experience with `R` or other pro
 
 * Hierarchical Models: [script](https://github.com/csc-ubc-okanagan/Clustering-Classification/blob/main/AdvanceRSeriesCodeandSlides/WS1Code-Hierarchical.R), [slides](https://github.com/csc-ubc-okanagan/Clustering-Classification/blob/main/AdvanceRSeriesCodeandSlides/WS1Slides.pdf)
 * Centroid-Based Models: [script](https://github.com/csc-ubc-okanagan/Clustering-Classification/blob/main/AdvanceRSeriesCodeandSlides/WS2Code-Centroids.R), [slides](https://github.com/csc-ubc-okanagan/Clustering-Classification/blob/main/AdvanceRSeriesCodeandSlides/WS2Slides.pdf)
+* Fuzzy Clustering: [script](https://github.com/csc-ubc-okanagan/Clustering-Classification/blob/main/AdvanceRSeriesCodeandSlides/WS3Code-Fuzzy.R), [slides](https://github.com/csc-ubc-okanagan/Clustering-Classification/blob/main/AdvanceRSeriesCodeandSlides/WS3Slides.pdf)

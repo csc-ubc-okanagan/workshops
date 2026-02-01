@@ -187,3 +187,7 @@ These non-parametric tests provide robust alternatives to t-tests, especially us
 
 
 **Note:** The slides used in this class can be found below.
+
+
+## References and Sources
+[https://www.youtube.com/watch?v=BZ-Go7VTquk](https://www.youtube.com/watch?v=BZ-Go7VTquk)

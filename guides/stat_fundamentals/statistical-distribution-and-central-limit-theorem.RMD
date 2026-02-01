@@ -8,30 +8,34 @@ output:
 # Statistical Distribution and Central Limit Theorem
 
 ## Introduction
-This workshop covers the basics of generating and visualizing statistical distributions in R using the `tidyverse` package. We will create three different distributions (normal, uniform, and exponential) and visualize them using kernel density plots.
+This workshop covers one of the most powerful theorems in statistics: the **Central Limit Theorem (CLT)** by generating and visualizing statistical distributions in R using the `tidyverse` package. By the end of this session, you should understand *why statisticians can make reliable inferences about populations* even when those populations themselves aren't normal. 
 
+**What we'll learn today:** We will create three different very distributions (normal, uniform, and exponential). Then, we will watch something remarkable happen: as we repeatedly **sample** from these populations the **sample statistics** (in our case the sample means) will form normal distributions, *regardless of the shape of the original population*. This is the power of the CLT.
 
-**Quick Overview**
-* The CLT states that if you take sufficiently large random samples from any population (no matter the shape of the population's distribution), the distribution of the sample means will approximate a normal distribution (a bell-shaped curve). This approximation becomes better as the sample size increases.
-* When you take a sample from a population and calculate its mean (average), you get a sample mean. The CLT is about the distribution of these sample means, not the distribution of individual data points in the population.
+## What is the Central Limit Theorem?
+Before we get into what the CLT is, let's first introduce a few definitions. In statistics, a **population** is the complete set of similar items or events which is of interest for some question or experiment [8]. In general, we cannot possibly measure or know everything about a population, and so we must rely on samples—subsets of observations drawn from the population. This is where *statistical inference* comes in: the process of drawing conclusions about populations based on sample data.
+
+To understand how inference works, we need to think about what would happen if we could repeat our sampling process many times. This brings us to a critical concept: the **sampling distribution**. A sampling distribution is the probability distribution of a statistic (like the sample mean or proportion) calculated from many random samples of the same size from a *population*. It shows us how that statistic varies from sample to sample—how often different values occur if we repeated our study over and over [5, 6]. It is this *sampling distribution* that makes inference possible, and it is the CLT that tells us what shape that distribution has.
+
+### The Central Limit Theorem Explained
+* The CLT states that if you take sufficiently large random samples from any population (no matter the shape of the population's distribution), the *sampling distribution* of statistics (e.g., sample means, proportions, or regression coefficients) will approximate a normal distribution (a bell-shaped curve). This approximation becomes better as the sample size increases
+* When you take a sample from a population and calculate a statistic like the mean, proportion, or regression coefficient, the CLT describes how that statistic would vary across repeated samples. The CLT applies to statistics that can be expressed as sums or linear combinations of observations—this includes means, proportions, and regression coefficients, but not statistics like the sample variance or maximum.
 * This theorem is powerful because it allows statisticians to make inferences about population parameters (like the mean) using sample data, even when the population is not normally distributed. It's the foundation for many statistical methods and hypothesis tests.
 * For the CLT to hold, the samples need to be:
     1. Randomly selected.
     2. Large enough (usually sample sizes greater than 30 are considered sufficient, but this can vary).
     3. Independent from each other (the selection of one sample should not influence the selection of another).
-* The normal distribution is a probability distribution that is symmetric about the mean. The CLT explains why many processes and measurements in nature and social sciences tend to follow this normal distribution when averaged over many instances.
+* The *normal distribution* is a probability distribution that is symmetric about the mean. The CLT explains why many processes and measurements in nature and social sciences tend to follow this normal distribution when averaged over many instances.
 
-#### Importance of CLT
-- **Inferences About Populations**: Allows for population-wide inferences from sample data, more practical than studying entire populations.
-- **Applicable to Various Populations**: Effective for populations with any distribution shape, given a large sample size.
-- **Supports Parametric Tests**: Underpins many parametric tests by supporting the normal distribution assumption.
-- **Simplifies Data Analysis**: Transforms complex data into a manageable normal distribution.
-- **Decision Making in Uncertainty**: Provides a statistical framework for decision-making under uncertainty.
+### Connecting the CLT to Statistical Inference
+Here's the **key insight** that makes the CLT so valuable: it bridges the gap between your sample and the population you care about. When you calculate a sample mean (say, $\bar{x} = 42$), you want to know something about the true population mean ($\mu$). However, (as anyone who is going through grad school knows) the confidence in that estimate is almost as (if not more) important as the estimate itself. But how do we quantify that confidence? The CLT provides the answer:
 
-### 1: Setup and Population Generation
+The CLT guarantees that follows an approximately normal distribution centered at $\mu$. Furthermore, because normal distributions have well-known properties (95% of values fall within ±1.96 standard deviations of the mean), we can quantify our uncertainty. This allows us to construct confidence intervals (e.g., "We're 95% confident $\mu$ is between 42 and 45") and perform hypothesis tests (e.g., p < 0.05). But that's enough talk let's actually show that this is real.
+
+## 1: Setup and Population Generation
 
 **Loading Package**: Let's load the tidyverse package, a collection of R packages for data science, including data manipulation and visualization tools.
-```{r}
+```{r, warning = FALSE}
 # Check if tidyverse is installed and install it if not
 if (!requireNamespace("tidyverse", quietly = TRUE)) {
   install.packages("tidyverse")
@@ -46,9 +50,8 @@ library(tidyverse)
 set.seed(123)
 ```
 
-**Defining Population Size**: Sets the number of data points for each distribution (population_size = 100,000).
-```{r}
-# Define the population size
+**Defining Population Size**: So back to the *population* bit. Let's determine the size of the population that we want to sample from.
+```{r set population size}
 population_size <- 100000
 ```
 
@@ -62,7 +65,23 @@ populations <- tibble(
 )
 ```
 
-Now let's look at the first 5 rows of the tibble.
+::: {style="padding: 15px; margin-bottom: 20px; border: 2px solid #3498db; border-radius: 5px; background-color: #ecf0f1;"}
+**rnorm, pnorm, qnorm, dnorm...oh my!**
+
+| Prefix | Name | Input → Output | Remember |
+|:------:|------|----------------|----------|
+| **r** | Random | n → random values | "**R**andom samples" |
+| **d** | Density | x → probability density | "**D**rawing the curve" |
+| **p** | Probability | x → P(X ≤ x) | "**P**ercentage below x" |
+| **q** | Quantile | p → x where P(X ≤ x) = p | "**Q**uantile/percentile value" |
+
+**Note:** `pnorm()` and `qnorm()` are inverses of each other! 
+- `pnorm(1.96)` = 0.975 → `qnorm(0.975)` = 1.96. 
+
+Also note that these functions exist in base R for most probability distributions you could think of. For great information on these functions see John Fieberg's *Statistics for Ecologists* (Reference 5 in the references section).
+:::
+
+Now let's look at the first 5 rows of the table.
 ```{r}
 head(populations)
 ```
@@ -98,7 +117,7 @@ sample_means <- function(population, sample_size) {
 **Setting up sample sizes** : This following creates a vector sample_sizes containing different sizes. These sizes represent the number of data points in each sample that will be drawn from the populations.
 ```{r}
 # Sample sizes for more intervals
-sample_sizes <- c(5, 10, 20, 30, 40, 50, 100)
+sample_sizes <- c(2, 5, 10, 20, 30)
 ```
 
 **Replication for Robustness**: Within the function, replicate(1000, ...) is used to repeat a process 1000 times, enhancing the statistical robustness of the results.
@@ -116,11 +135,11 @@ sample_means_data <- map_df(sample_sizes, function(size) {
 - `map_df` is used to apply the `sample_means` function across all values in `sample_sizes`.
 - For each specified sample size, `sample_means` is further applied to each distribution in the `populations` dataframe.
 
-#### Data Transformation
+## Data Transformation
 - The `pivot_longer` function converts the data into a long format, which is more suitable for visualization.
 - The `mutate` function is used to add a new column named `size`. This column categorizes each mean by its corresponding sample size.
 
-#### Creating a Dataset
+## Creating a Dataset
 - The output is a dataframe named `sample_means_data`.
 - Each row in this dataframe represents a sample mean. It also includes the associated distribution type and sample size for each sample mean.
 
@@ -139,13 +158,165 @@ ggplot(sample_means_data, aes(x = value, fill = distribution)) +
   theme_minimal() +
   guides(fill = guide_legend(title = "Distribution Type"))
 ```
+## Connecting CLT to Regression Confidence Intervals
+
+So far we've seen how sample means become normally distributed. But remember—CLT applies to regression coefficients too! Let's prove this with simulation!
+
+### Generate a Dataset
+
+First, let's create a simple linear relationship between two variables:
+```{r}
+# "true" population parameters
+true_intercept <- 10
+true_slope <- 2.5
+true_sigma <- 5  # residual standard deviation
+
+# generate one dataset (our "sample")
+n <- 100
+x <- runif(n, min = 0, max = 10)
+y <- true_intercept + true_slope * x + rnorm(n, mean = 0, sd = true_sigma)
+
+# Look at the data
+plot(x, y, main = "Our Sample Data", 
+     xlab = "X", ylab = "Y", pch = 16, col = "steelblue")
+abline(a = true_intercept, b = true_slope, col = "red", lwd = 2, lty = 2)
+legend("topleft", legend = "True relationship", col = "red", lty = 2, lwd = 2)
+```
+
+## Fit a Regression Model
+```{r}
+# fit the model
+model <- lm(y ~ x)
+summary(model)
+```
+
+
+**Notice the output:**
+- The slope estimate $x$ is close to 2.5 (the true value)
+- There's a standard error for the slope (0.1736)
+- There's a 95% confidence interval (that we have to calculate) `r t_critical <- qt(0.975, df = 98)  # = 1.984467`.
+
+
+
+::: {style="padding: 15px; margin-bottom: 20px; border: 2px solid #3498db; border-radius: 5px; background-color: #ecf0f1;"}
+**Calculating a Confidence Interval**
+Calculating a confidence interval from `lm` output is pretty straightforward once you know the ingredients. All we need is the standard error, the degrees of freedom, our estimate of the value and the critical value from a t-distribution corresponding with our degrees of freedom.
+
+$\beta \pm t_{critical} * SE $
+$2.7282 - t_{critical} * 0.1736; 2.7282 + t_{critical} * 0.1736$
+`r 2.7282 - t_critical * 0.1736` `r 2.7282 + t_critical * 0.1736`
+:::
+
+**Let's extract the CI:**
+```{r}
+# grab the 95% confidence interval for the slope
+ci_theory <- confint(model)["x", ]
+ci_theory
+
+# notice that this is the same CI that we calculated manually above
+# this CI is calculated using: β̂ ± t* × SE(β̂)
+# where t* comes from the t-distribution
+# this ASSUMES that the CLT holds: that β̂ is approximately normally distributed!
+```
+
+### Empirically Verify the CLT
+
+Now let's check if the CLT's prediction is correct. We'll repeatedly:
+1. Generate new datasets from the same population
+2. Fit the model each time
+3. Record the slope estimate
+4. See if those estimates are normally distributed
+```{r}
+# Simulate 10,000 datasets and fit regression each time
+n_simulations <- 10000
+
+slope_estimates <- replicate(n_simulations, {
+  # Generate new data from same population
+  y_new <- true_intercept + true_slope * x + rnorm(n, mean = 0, sd = true_sigma)
+  
+  # Fit model and extract slope
+  coef(lm(y_new ~ x))["x"]
+})
+
+# Look at the distribution of slope estimates
+hist(slope_estimates, breaks = 50, freq = FALSE,
+     main = "Sampling Distribution of Slope Estimates",
+     xlab = "Estimated Slope (β̂)",
+     col = "lightblue", border = "white")
+
+# Overlay the theoretical normal distribution
+# (what the CLT predicts)
+x_vals <- seq(min(slope_estimates), max(slope_estimates), length = 100)
+se_slope <- summary(model)$coefficients["x", "Std. Error"]
+lines(x_vals, dnorm(x_vals, mean = true_slope, sd = se_slope), 
+      col = "red", lwd = 2)
+
+# Add the true value
+abline(v = true_slope, col = "darkgreen", lwd = 2, lty = 2)
+
+legend("topright", 
+       legend = c("Empirical distribution", "CLT prediction (normal)", "True slope"),
+       col = c("lightblue", "red", "darkgreen"), 
+       lwd = c(8, 2, 2), lty = c(1, 1, 2))
+```
+### Visualize the Coverage
+
+Let's verify that the 95% CI actually captures the true slope 95% of the time:
+```{r}
+# we're asking how often the CI contain the true value?
+ci_simulations <- replicate(1000, {
+  y_new <- true_intercept + true_slope * x + rnorm(n, mean = 0, sd = true_sigma)
+  confint(lm(y_new ~ x))["x", ]
+})
+
+# count how many CIs contain the true slope
+coverage <- mean(ci_simulations[1,] <= true_slope & 
+                ci_simulations[2,] >= true_slope)
+
+cat("Coverage probability (should be ~95%):", round(coverage * 100, 1), "%\n")
+```
+
+### The Connection to Our Earlier Work
+
+Remember our sampling distribution plots for sample means? **This is the exact same principle**:
+
+**For sample means:**
+- Population → Many samples → Many $\bar{x}$ values → Distribution is normal (CLT)
+- Use this to calculate CI: $\bar{x} \pm 1.96 *SE$
+
+**For regression slopes:**
+- Population → Many samples → Many β̂ values → Distribution is normal (CLT)  
+- Use this to calculate CI: $\beta \pm t_{critical}*SE$
+
+**Same theorem, different statistics!**
+
+### Summary: Why This Matters
+
+When you run `lm()` in practice:
+1. You have **one dataset** and get **one** $\beta$ (like 2.48)
+2. R calculates **one SE** (like 0.15) from your residuals
+3. R gives you a **95% CI** [2.18, 2.78] using the formula: β̂ ± t* × SE
+
+**This CI is calculated using the CLT assumption** that $\beta$ is normally distributed.
+
+Our simulation just proved that assumption is correct! The theoretical normal distribution (predicted by CLT) matches the empirical distribution (from 10,000 simulations).
+
+**Therefore:** When you see a confidence interval or p-value in regression output, you can trust it—**because the CLT guarantees the sampling distribution is approximately normal**.
 
 ## References
 
-1. **Tidyverse Package**: Wickham, H. et al. (2019). Welcome to the tidyverse. _Journal of Open Source Software, 4(43), 1686_. [https://doi.org/10.21105/joss.01686](https://doi.org/10.21105/joss.01686)  
+1. Wickham, H. et al. (2019). **Tidyverse Package**: _Journal of Open Source Software, 4(43), 1686_. [https://doi.org/10.21105/joss.01686](https://doi.org/10.21105/joss.01686)  
 
 2. **The R Project**: R Core Team. _The R Project for Statistical Computing_. [https://www.r-project.org/](https://www.r-project.org/)  
 
-3. **R Manuals**: R Core Team. _An Introduction to R_. [https://cran.r-project.org/manuals.html](https://cran.r-project.org/manuals.html)
+3. R Core Team. **R Manuals**:  _An Introduction to R_. [https://cran.r-project.org/manuals.html](https://cran.r-project.org/manuals.html)
 
-4. **Understanding the Central Limit Theorem**: Rice, J. A. (2007). _Mathematical Statistics and Data Analysis_ (3rd ed.). Duxbury Press.
+4. Rice, J. A. (2007). **Understanding the Central Limit Theorem** _Mathematical Statistics and Data Analysis_ (2rd ed.). Duxbury Press.
+
+5. Fieberg, John. (2024). **Statistics for Ecologists: A Frequentist and Bayesian Treatment of Modern Regression Models.** *University of Minnesota Libraries Publishing.* Retrieved from the University of Minnesota Digital Conservancy. https://doi.org/10.24926/9781959870029
+
+6. (What is a "Sampling Distribution")[https://www.youtube.com/watch?v=uPX0NBrJfRI&t=28s]
+
+7. (The Central Limit Theorem)[https://www.youtube.com/watch?v=ckkrS752tjU]
+
+8. (https://en.wikipedia.org/wiki/Statistical_population#cite_note-2)[Wiki page]

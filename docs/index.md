@@ -1,4 +1,4 @@
----
+v---
 title: "Workshops"
 pagetitle: "Workshops"
 ---
@@ -147,3 +147,15 @@ This series introduces early-career researchers to statistical models that exten
 * Penalized Models [script](https://github.com/csc-ubc-okanagan/ubco-csc-modeling-workshop/blob/main/R-scripts/9-penalized-models.R), [slides](https://github.com/csc-ubc-okanagan/workshops/blob/main/docs/FittingModelsSlides/CSCWS09T01.pdf)
 * Survival Models [script](https://github.com/csc-ubc-okanagan/ubco-csc-modeling-workshop/blob/main/R-scripts/10-survival-models.R), [slides](https://github.com/csc-ubc-okanagan/workshops/blob/main/docs/FittingModelsSlides/CSCWS10T01.pdf)
 * Nonparametric Models [script](https://github.com/csc-ubc-okanagan/ubco-csc-modeling-workshop/blob/main/R-scripts/10-nonparametric-models.R), [slides](https://github.com/csc-ubc-okanagan/workshops/blob/main/docs/FittingModelsSlides/CSCWS11T01.pdf)
+
+## The Advance `R` Series: Clustering & Classification
+
+Data rarely comes neatly labelled or structured, yet patterns still exist—even when they are not immediately obvious. Clustering and classification methods allow researchers to uncover structure in their data, group similar observations, and reduce dimensionality without imposing rigid assumptions about the underlying relationships.
+
+This series introduces researchers to statistical and machine-learning methods for grouping, modelling, and interpreting high-dimensional data. Participants will learn a broad range of approaches—from hierarchical and centroid-based models to probabilistic, fuzzy, density-based, graph-based, and mixed-type clustering techniques—along with strategies for dimensionality reduction and fairness considerations. Emphasis is placed on understanding model assumptions, evaluating model performance, and selecting methods that align with the characteristics of the data rather than forcing data to fit inappropriate models.
+
+All workshops will use `R` and RStudio, so some experience with `R` or other programming languages is encouraged but not required.  See the [R Fundamentals for Data Anlysis](https://csc-ubc-okanagan.github.io/workshops/#r-fundamentals-for-data-analysis) for an introduction to `R` and RStudio. Attendees who do not have experience with `R` are encouraged to review this content or take the introductory workshop concurrently if it's being offered.
+
+* Hierarchical Models: [script](https://github.com/csc-ubc-okanagan/Clustering-Classification/blob/main/AdvanceRSeriesCodeandSlides/WS1Code-Hierarchical.R), [slides](https://github.com/csc-ubc-okanagan/Clustering-Classification/blob/main/AdvanceRSeriesCodeandSlides/WS1Slides.pdf)
+* Centroid-Based Models: [script](https://github.com/csc-ubc-okanagan/Clustering-Classification/blob/main/AdvanceRSeriesCodeandSlides/WS2Code-Centroids.R), [slides](https://github.com/csc-ubc-okanagan/Clustering-Classification/blob/main/AdvanceRSeriesCodeandSlides/WS2Slides.pdf)
+* Fuzzy Clustering: [script](https://github.com/csc-ubc-okanagan/Clustering-Classification/blob/main/AdvanceRSeriesCodeandSlides/WS3Code-Fuzzy.R), [slides](https://github.com/csc-ubc-okanagan/Clustering-Classification/blob/main/AdvanceRSeriesCodeandSlides/WS3Slides.pdf)

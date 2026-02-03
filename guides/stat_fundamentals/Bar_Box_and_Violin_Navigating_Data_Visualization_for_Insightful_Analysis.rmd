@@ -1,5 +1,5 @@
 ---
-title: 'Bar, Box, and Violin: Navigating Data Visualization for Insightful Analysis'
+title: 'Statistical Fundamentals (4 of 8): Visualizing Samples with Boxplots: Evicting the Bar Chart'
 output:
   html_document:
     keep_md: yes

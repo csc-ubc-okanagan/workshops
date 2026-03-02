@@ -5,6 +5,19 @@ output:
     keep_md: yes
 ---
 
+# The "Student's t"
+
+**A quick history of the "Student's t":** William Sealy Gosset was a statistician working for the Guiness Brewery in Dublin, Ireland (1876-1937). He was tasked with the problem of how to test the quality of the beer in a way that didn't require them to sample every ounce of beer the brewery produced (because that wouldn't have been possible). His needed to test the quality of the beer in small batches and make decisions without knowing how variable the population (in this case all of the beer that Guinness produced in a given batch). 
+
+**Why the "Student's t":** To solve this problem Gosset published a paper entitled *The probable Error of a Mean*. However,  because Guinness prohibited it's employees to publish research under their legal names he published the paper under the psuedonym **Student**. This paper was important because many prior statistical works assumed that the population standard deviation was known (which of course is almost never the case).
+
+# T-distributions and T-tests
+
+Because of Gosset's contribution we can now calculate a *t-statistic* (and thus a t-test). I'll quickly introduce the one-sample t-test formula
+
+$$t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} \ \  (1), $$
+which shows that we we're  comparing the sample mean ($\bar{x}$) to the theoretical value or population mean ($\mu_0$). Then (and here's the catch) because we don't know the true population SD we need to normalize it by the sample SD ($s$) and the sample size $n$.
+
 # Types of T-Tests: A Concise Overview
 
 T-tests are statistical methods used to assess if there's a significant difference in means between groups. These tests cater to different study designs and assumptions:
@@ -29,52 +42,76 @@ T-tests are statistical methods used to assess if there's a significant differen
 - **Sample Independence**: Required for the independent two-sample t-test; not applicable for the paired t-test where samples are inherently related.
 - **Variance Assumptions**: Critical for choosing between equal and unequal variance tests in independent samples; not relevant for paired tests.
 
-Selecting the right t-test depends on the study design, sample relationship, and hypothesis. Understanding these elements is essential for accurate result interpretation.
+Selecting the right t-test depends on the study design, sample relationship, and hypothesis. Understanding these elements is essential for accurate result interpretation. But before we really get going, let's load a library or two and set our random seed (as alwasy) for reproducibility purposes.
+
+```{r load libraries & setup}
+library(ggplot2)
+set.seed(123)
+```
 
 
-### One-Sample T-Test
+
+## One-Sample Test
 **Scenario**: A nutritionist wants to evaluate the effectiveness of a newly formulated protein bar designed to aid in muscle recovery. They claim that consuming this protein bar daily improves muscle recovery speed by reducing recovery time significantly below the industry standard of 48 hours.
 
-* One-Tailed Test: The nutritionist hypothesizes that the recovery time for athletes using the protein bar is less than 48 hours. This scenario warrants a one-tailed test because the hypothesis specifies a direction (improvement means a decrease in recovery time).
 
-
-```{r}
-library(ggplot2)
-
-set.seed(123)
-recovery_times <- rnorm(30, mean = 46, sd = 5)
-
-t_test_result <- t.test(recovery_times, mu = 48, alternative = "less")
-
-print(t_test_result)
-
+```{r recovery times}
+# sample from a normal distribution with true mean 45 and sd 5
+recovery_times <- rnorm(30, mean = 46, sd = 5) 
+sample_mean <- mean(recovery_times) # x bar; at a sample size of n this should be very close to 46
 ggplot(data.frame(RecoveryTime = recovery_times), aes(x = factor(1), y = RecoveryTime)) +
   geom_violin(trim = FALSE, fill = "lightblue") +
   geom_jitter(width = 0.1, color = "darkblue") +
+  geom_hline(aes(yintercept = sample_mean, linetype = "sample mean")) + # add dashed line to show the sample mean
+  geom_hline(aes(yintercept = 48, linetype = "hypothesized mean")) +  # hypothesized mean
+  #scale_linetype_manual(values = c("sample mean" = "dotdash", "hypothesized mean" = "dot"))+
   labs(title = "Violin Plot of Recovery Times",
        x = "",
        y = "Recovery Time (hours)") +
-  theme_minimal()
+  theme_minimal() +
+  theme(axis.text.x = element_blank(), axis.ticks.x = element_blank()) # remove unecessary x-axis labels
 
 ```
-* Two-Tailed Test: If the nutritionist wants to test whether the protein bar affects recovery time without specifying the direction of the effect (i.e., it could either decrease or increase recovery time), a two-tailed test is used.
-```{r}
+### One-sample one-tailed test 
+
+The nutritionist hypothesizes that the recovery time for athletes using the protein bar is less than 48 hours. This scenario warrants a one-tailed test because the hypothesis specifies a direction (improvement means a decrease in recovery time).
+
+
+```{r one-tailed test}
+t_test <- t.test(recovery_times, mu = 48, alternative = "less")
+t_test
+```
+**Result**: This shows that our *t-value* is negative. This indicates that the theoretical value that we proposed ($\mu = 48$) is in fact larger than the sample mean `r sample_mean`. A *p-value* of `r `t_test$p.value` indicates that we can safely reject our null which is again that the means are the same.
+
+### One-sample two-tailed test
+
+Now let's consider the scenario If the nutritionist wants to test whether the protein bar affects recovery time without specifying the direction of the effect (i.e., it could either decrease or increase recovery time), a two-tailed test is used.
+
+
+```{r one-sample two-sided t-test}
+# alternative specifies the type of one-sample test 
 t.test(recovery_times, mu = 48, alternative = "two.sided")
 ```
-## Independent Two-Sample T-Test
+
+
+## Two-Sample T-Tests
+**Recap** Two sample t-tests (as the name suggests) are essentially asking if the means from two separate populations are different.
+
+$$t = \frac{\bar{x_1} - \bar{x_2}}{\sqrt{\frac{s_1^2}{n_1} + \frac{s^2_2}{n_2}}} \ \ (2)$$
+
+### Independent two-sample t-test
+
 **Scenario**: An exercise physiologist conducts a study to compare the effectiveness of two different strength training programs (Program A and Program B) on improving squat strength. Participants are randomly assigned to one of the two programs.
 
-* Two-Tailed Test: If the hypothesis is that there is a difference in effectiveness between the two programs without specifying which one is expected to be better, a two-tailed test is appropriate.
 
-```{r}
-set.seed(123)
+```{r simulate two groups}
+# let's simulate strength gains for two different training programs
+# these programs are creatively named program a and program b
 strength_gains_a <- rnorm(30, mean = 20, sd = 5)
 strength_gains_b <- rnorm(30, mean = 15, sd = 5)
-
-t_test_result <- t.test(strength_gains_a, strength_gains_b, alternative = "two.sided")
-
-
-df_strength <- data.frame(Group = factor(rep(c("Program A", "Program B"), each = 30)),
+# make a data frame to hold the simulated populations
+df_strength <- data.frame(Group = factor(rep(c("Program A", "Program B"),
+                                             each = 30)), # the function 'rep' repeats the values 30 times (our sample size)
                           StrengthGain = c(strength_gains_a, strength_gains_b))
 
 ggplot(df_strength, aes(x = Group, y = StrengthGain, fill = Group)) +
@@ -86,25 +123,44 @@ ggplot(df_strength, aes(x = Group, y = StrengthGain, fill = Group)) +
   theme_minimal()
 
 ```
-* One-Tailed Test: The hypothesis is that Program A results in greater strength gains than Program B. This is a one-tailed test because the hypothesis specifies that one program is superior to the other in increasing squat strength.
+
+### Welch's Two-sided two-tailed t-test
+
+If the hypothesis is that there is a difference in effectiveness between the two programs without specifying which one is expected to be better, a two-tailed test is appropriate. This is also called a Welch's t-test. Welch's t-tests differ from other types (and are more standard) because they **do not** assume that the variance between the two groups is the same. 
 
 ```{r}
-t.test(strength_gains_a, strength_gains_b, alternative = "greater")
+two_sample_two_tailed_test <- t.test(strength_gains_a, strength_gains_b, alternative = "two.sided")
+two_sample_two_tailed_test
 ```
+**Result**: So this result shows that the sample mean from population A is larger than the sample mean from population B (unsurprising since we coded it that way) `r two_sample_two_tailed_test$statistic` and that difference is statistically significant $p-value =$ `r two_sample_two_tailed_test$p.value`.
+
+### One-Tailed Test
+
+The *hypothesis* is that Program A results in greater strength gains than Program B. This is a one-tailed test because the hypothesis specifies that one program is superior to the other in increasing squat strength.
+
+```{r}
+one_sample_one_tailed_test <- t.test(strength_gains_a, strength_gains_b, alternative = "greater")
+one_sample_one_tailed_test
+```
+**Result**: So this result shows that the sample mean from population A is larger than the sample mean from population B (unsurprising since we coded it that way) `r one_sample_one_tailed_test$statistic` and that difference is statistically significant $p-value =$ `r one_sample_one_tailed_test$p.value`.
+
+
 ## Paired T-Test
+
+A paired t-test is pretty similar to the two-sample tests we have previously seen, but the difference is that this is typically used for repeated measures of the same population. We can write the t-statistic for these tests as:
+
+$$t = \frac{x_{i1} - x_{i2}}{s_d/\sqrt{n}}$$
+where $x_{i1}$ is the first measurement of population $i$ and $x_{i2}$ is the second. $s_d$ is the difference of the variances and $n$ is the sample size.
+
 **Scenario**: A dietitian investigates the effect of a special diet plan on reducing cholesterol levels. For this, they measure the cholesterol levels of participants before starting the diet and again after 12 weeks on the diet.
 
 
-* Two-Tailed Test: If the dietitian wants to test for any change in cholesterol levels without specifying the direction (i.e., the levels could either increase or decrease), they would use a two-tailed test.
+### Two-Tailed Test: If the dietitian wants to test for any change in cholesterol levels without specifying the direction (i.e., the levels could either increase or decrease), they would use a two-tailed test.
 
 
 ```{r}
-
-set.seed(123)
 before <- rnorm(30, mean = 220, sd = 20)
 after <- before - rnorm(30, mean = 10, sd = 5)
-
-t_test_result <- t.test(before, after, paired = TRUE, alternative = "two.sided")
 
 df_cholesterol <- data.frame(Condition = factor(rep(c("Before", "After"), each = 30)),
                              Cholesterol = c(before, after))
@@ -118,7 +174,16 @@ ggplot(df_cholesterol, aes(x = Condition, y = Cholesterol, fill = Condition)) +
   theme_minimal()
 
 ```
-* One-Tailed Test: The dietitian hypothesizes that the diet will lead to a reduction in cholesterol levels. This scenario suits a one-tailed test since the expected direction of effect is specified (a decrease in cholesterol levels).
+
+### Two-tailed test
+```{r}
+paired_two_tailed <- t.test(before, after, paired = TRUE, alternative = "two.sided")
+paired_two_tailed
+```
+**Result**: So this result shows that the sample mean from population A is larger than the sample mean from population B (unsurprising since we coded it that way) `r paired_two_tailed$statistic` and that difference is statistically significant $p-value =$ `r paired_two_tailed$p.value`.
+
+
+### One-Tailed Test: The dietitian hypothesizes that the diet will lead to a reduction in cholesterol levels. This scenario suits a one-tailed test since the expected direction of effect is specified (a decrease in cholesterol levels).
 
 
 ```{r}
@@ -132,7 +197,6 @@ Imagine a school is testing the effectiveness of two different teaching methods 
 
 Let's assume we have preliminary data or domain knowledge suggesting that the variation in test scores within each teaching method group is similar. This assumption of equal variances allows us to use the standard independent two-sample t-test.
 ```{r}
-set.seed(123)
 scores_method_a <- rnorm(30, mean = 75, sd = 10)  # Group A
 scores_method_b <- rnorm(30, mean = 80, sd = 10)  # Group B
 
@@ -143,7 +207,6 @@ t_test_equal_var
 
 Later, suppose another set of scores is collected under slightly different conditions, or further analysis suggests that the assumption of equal variances between the two groups may not hold. In this case, Welch's t-test, which does not assume equal variances, is more appropriate.
 ```{r}
-set.seed(123)
 scores_method_a_adj <- rnorm(30, mean = 75, sd = 12)
 scores_method_b_adj <- rnorm(30, mean = 80, sd = 8)
 
@@ -166,7 +229,17 @@ t_test_unequal_var
 
 # What if your data is not normal: Non-Parametric Alternatives to the T-Test
 
-Non-parametric tests are used when data do not meet the assumptions required for parametric tests like the t-test. Here's a concise summary of the non-parametric counterparts for each type of t-test:
+::: {style="padding: 15px; margin-bottom: 20px; border: 2px solid #3498db; border-radius: 5px; background-color: #ecf0f1;"}
+**Parametric versus Non-parametric**
+
+* **Parametric** means that we assume something (a distributional shape) of the population that we are estimating from parameters from. 
+
+* **Non-parametric** does not make those assumptions. Instead they assume the data can be ordered. This is often useful when data are highly skewed (non-normal) or sample sizes are small.
+:::
+
+In short, **non-parametric tests are used when data do not meet the assumptions required for parametric tests like the t-test**.
+
+Here's a concise summary of the non-parametric counterparts for each type of t-test:
 
 ## 1. One-Sample and Paired T-Test
 - **Wilcoxon Signed-Rank Test**
@@ -189,5 +262,8 @@ These non-parametric tests provide robust alternatives to t-tests, especially us
 **Note:** The slides used in this class can be found below.
 
 
-## References and Sources
+## References and further reading
 [https://www.youtube.com/watch?v=BZ-Go7VTquk](https://www.youtube.com/watch?v=BZ-Go7VTquk)
+[https://en.wikipedia.org/wiki/Student%27s_t-test](https://en.wikipedia.org/wiki/Student%27s_t-test)
+[https://www.openintro.org/book/os/](https://www.openintro.org/book/os/)
+

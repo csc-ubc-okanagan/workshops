@@ -4,66 +4,144 @@ output:
   html_document:
     keep_md: yes
 ---
+# Parametric vs Non-Parametric Methods: What's the Difference?
 
-# Main Non-Parametric Methods and Their Uses
+```{r load packages, eval = TRUE, echo = FALSE}
+library(knitr)
+library(emoji)
+```
 
-Non-parametric methods provide powerful alternatives to parametric tests, especially useful when data do not meet the assumptions required for parametric analyses. Here’s a concise overview of the main types of non-parametric methods and their typical applications:
+**Parametric methods** (like t-tests and ANOVA) make strong assumptions about your data:
+- Data follows a specific distribution
+- Variance is equal across groups (aka homoscedasticity)
+- Observations are independent
+- Data are measured on an interval or ratio scale
 
-## 1. Mann-Whitney U Test (Wilcoxon Rank-Sum Test)
-- **Description**: Compares the medians between two independent groups.
-- **Used When**: You have two unrelated groups and cannot assume the population distributions are normal, or when dealing with ordinal data.
-- **R Code**:
+These methods estimate **population parameters** (mean, standard deviation) and test hypotheses about those parameters.
+
+**Non-parametric methods** (like Mann-Whitney and Kruskal-Wallis) are more flexible:
+- **Distribution-free**: Don't assume a specific distribution shape
+- Many work with **ranks** or frequencies instead of raw values
+- More robust to outliers and skewed data
+- Can handle ordinal (ranked) data
+- Generally require fewer assumptions
+
+## The Trade-off with non-parametric Tests
+
+**Parametric tests:**
+
+- `r emoji("heavy_check_mark")` More **powerful** (better at detecting true effects) *when assumptions are met*
+- `r emoji("heavy_check_mark")` More information (estimates of means, effect sizes)
+- `r emoji("skull_and_crossbones")` Can give misleading results when assumptions are violated
+
+**Non-parametric tests:**
+
+- `r emoji("heavy_check_mark")` **Robust** to violations of normality and outliers
+- `r emoji("heavy_check_mark")` Work with small sample sizes
+- `r emoji("heavy_check_mark")` Valid for ordinal data
+- `r emoji("skull_and_crossbones")` Less powerful when parametric assumptions *are* met
+- `r emoji("skull_and_crossbones")` Compare medians instead of means
+
+### So When Should you Choose Non-Parametric `r emoji("thinking")`
+
+Use non-parametric methods when:
+1. **Sample size is small** (n < 30 per group) and you can't verify normality
+2. **Data are heavily skewed** or have outliers
+3. **Data are ordinal** (rankings, Likert scales)
+4. **Normality tests fail** (Shapiro-Wilk p < 0.05)
+5. **Variances are very unequal** between groups
+
+::: {style="padding: 15px; margin: 20px 0; border-left: 5px solid #0072B2; background-color: #f0f7ff;"}
+**📊 Note on Ranking and Ordinal Data**
+
+Ordinal data are naturally ranked already ranked! Examples:
+- Likert scales (e.g., 1 = Strongly Disagree, ... ,5 = Strongly Agree)
+- Educational levels (High School < Bachelor's < Master's < PhD)
+- Income (Low < Middle < High)
+
+Since non-parametric tests work with ranks, they're **perfect** for ordinal data—no transformation needed!
+However, much of the data that we work with day to day is not naturally ranked, so we have to
+do the best we can. Thankfully, `R` provides clean ways to rank data which are not naturally **ordinal**.
+
+```{r rank data, echo = FALSE, eval = TRUE}
+n <- 10          # Number of frogs to simulate
+mean_weight <- 22  # Average weight in grams
+sd_weight <- 1.25  # Standard deviation in grams
+frog_weights <- rnorm(n, mean = mean_weight, sd = sd_weight)
+```
+
+```{r look at ranked versus unranked data}
+frog_weights_ranked <- rank(frog_weights)
+comparison <- data.frame(
+  Frog = 1:n,
+  Weight_g = round(frog_weights, 2),
+  Rank = rank(frog_weights)
+)
+kable(comparison, 
+      col.names = c("Frog ID", "Weight (g)", "Rank"),
+      caption = "Raw Weights vs Ranks",
+      align = c("c", "c", "c"))
+```
+:::
+
+### Rule of Thumb
+
+If your data meet parametric assumptions, use parametric tests. If in doubt or assumptions are violated, non-parametric methods provide a safe, reliable alternative. Non-parametric methods provide powerful alternatives to parametric tests, especially useful when data do not meet the assumptions required for parametric analyses. Here’s a concise overview of the main types of non-parametric methods and their typical applications:
+
+```{r summary table, echo = FALSE, eval = TRUE}
+
+nonparam_summary <- data.frame(
+  Test = c(
+    "Mann-Whitney U\n(Wilcoxon Rank-Sum)",
+    "Wilcoxon Signed-Rank",
+    "Kruskal-Wallis",
+    "Friedman",
+    "Spearman's Correlation",
+    "Chi-Square"
+  ),
   
-```{r}
-wilcox.test(x ~ group, data = df)
+  Measures = c(
+    "Difference in medians/distributions",
+    "Difference in paired observations",
+    "Difference in medians/distributions",
+    "Difference across repeated measures",
+    "Monotonic association between variables",
+    "Association between categorical variables"
+  ),
+  
+  Groups = c(
+    "2 independent",
+    "2 paired",
+    "3+ independent",
+    "3+ paired/repeated",
+    "N/A (2 variables)",
+    "N/A (categorical)"
+  ),
+  
+  Uses = c(
+    "Ranks",
+    "Ranks (of differences)",
+    "Ranks",
+    "Ranks (within blocks)",
+    "Ranks (of both variables)",
+    "Frequency counts"
+  ),
+  
+  Code = c(
+    "wilcox.test(y ~ group)",
+    "wilcox.test(x, y, paired=TRUE)",
+    "kruskal.test(y ~ group)",
+    "friedman.test(y ~ time | subject)",
+    "cor.test(x, y, method='spearman')",
+    "chisq.test(table(x, y))"
+  )
+)
+
+kable(nonparam_summary, 
+      caption = "Non-Parametric Tests Quick Reference",
+      align = c("l", "l", "c", "c", "l"))
+
 ```
-
-## 2. Wilcoxon Signed-Rank Test
-- **Description**: Tests differences between paired observations.
-- **Used When**: Dealing with two related samples or matched pairs (e.g., before-after studies) where the normality assumption may not hold.
-- **R Code**:
-```r
-  wilcox.test(before, after, paired = TRUE)
-```
-
-## 3. Kruskal-Wallis Test
-- **Description**: An extension of the Mann-Whitney U Test for more than two groups.
-- **Used When**: Comparing medians across three or more independent groups without assuming normal distributions.
-- **R Code**:
-  ```r
-  kruskal.test(x ~ group, data = df)
-  ```
-
-## 4. Friedman Test
-- **Description**: Used for detecting differences in treatments across multiple test attempts.
-- **Used When**: Comparing three or more related groups or repeated measures on the same subjects, especially when the data are not normally distributed.
-- **R Code**:
-  ```r
-  friedman.test(x ~ time | subject, data = df)
-  ```
-
-## 5. Spearman's Rank Correlation
-- **Description**: Measures the strength and direction of association between two ranked variables.
-- **Used When**: Assessing the relationship between two variables without assuming a linear relationship or normality in the data.
-- **R Code**:
-  ```r
-  cor.test(x, y, method = "spearman")
-  ```
-
-## 6. Chi-Square Test
-- **Description**: Tests whether there is a significant association between two categorical variables.
-- **Used When**: Analyzing frequency counts and testing independence in a contingency table format.
-- **R Code**:
-  ```r
-  chisq.test(table(df$Var1, df$Var2))
-  ```
-
-## Applications and Considerations:
-- **Non-normal Data**: Ideal for data that do not meet the normality assumption required by many parametric tests.
-- **Ordinal Data**: Suitable for analyses involving ordinal variables or ranks.
-- **Small Sample Sizes**: Can be more appropriate than parametric tests in situations with limited data.
-- **Outliers and Skewed Distributions**: Robust against outliers and non-symmetrical distributions.
-
 
 ### ToothGrowth Dataset Summary
 
@@ -75,10 +153,10 @@ The `ToothGrowth` dataset in R examines the impact of Vitamin C on tooth growth 
 
 This dataset is useful for statistical analysis, exploring how Vitamin C dosage and supplement type influence tooth growth.
 
-
-
 ```{r}
 # Load the ToothGrowth data
+# these data measure the effects of vitamin C on tooth growth
+# in guinea pigs
 data("ToothGrowth")
 
 # Load necessary libraries
@@ -87,97 +165,55 @@ library(dplyr)
 library(tidyr)
 ```
 
-
 ```{r}
 # Summary statistics
 summary(ToothGrowth)
 aggregate(len ~ supp + dose, data = ToothGrowth, FUN = function(x) c(mean = mean(x), sd = sd(x)))
 ```
-```{r}
-## Histogram of tooth lengths
-ggplot(ToothGrowth, aes(x = len)) +
-  geom_histogram(binwidth = 1, fill = "blue", color = "black") +
-  ggtitle("Distribution of Tooth Lengths") +
-  xlab("Tooth Length") + ylab("Frequency")
-```
-```{r}
-# KDE plot
-ggplot(ToothGrowth, aes(x = len)) +
-  geom_density(fill = "blue", alpha = 0.5) +
-  ggtitle("Kernel Density Estimation of Tooth Lengths") +
-  xlab("Tooth Length") + ylab("Density")
-```
-```{r}
-ggplot(ToothGrowth, aes(x = supp, y = len, fill = supp)) +
-  geom_boxplot() +
-  ggtitle("Tooth Length by Supplement Type") +
-  xlab("Supplement Type") + ylab("Tooth Length")
-```
-```{r}
-ggplot(ToothGrowth, aes(x = as.factor(dose), y = len, fill = as.factor(dose))) +
-  geom_boxplot() +
-  ggtitle("Tooth Length by Dose") +
-  xlab("Dose (mg/day)") + ylab("Tooth Length")
 
-```
 ```{r}
-library(dplyr)
-
-ToothGrowth_agg <- ToothGrowth %>%
-  group_by(supp, dose) %>%
-  summarise(mean_len = mean(len), .groups = "drop")
-
-ggplot(ToothGrowth_agg, aes(x=dose, y=mean_len, group=supp, color=supp)) +
-  geom_line() +
-  geom_point() +
-  labs(title="Mean Tooth Length by Supplement and Dose",
-       x="Dose (mg/day)", y="Mean Tooth Length") +
+ggplot(ToothGrowth, aes(x = dose, y = len, color = supp, shape = supp)) +
+  geom_point(size = 3, alpha = 0.7) +
+  geom_smooth(method = "loess", se = FALSE) +
+  labs(title = "Tooth Length by Dose and Supplement Type",
+       x = "Dose (mg/day)",
+       y = "Tooth Length",
+       color = "Supplement",
+       shape = "Supplement") +
   theme_minimal()
-
-
-
 ```
+
 ```{r}
-# Normality check with QQ plots
-qqnorm(ToothGrowth$len)
-qqline(ToothGrowth$len)
+# Fit the model first
+model <- lm(len ~ supp, data = ToothGrowth)
+# Test if RESIDUALS are normal
+shapiro.test(residuals(model))
 ```
-```{r}
+
+Shapiro-Wilk test is designed for small to medium sample sizes $50 \lt n \leq 2000$. The null hypothesis $H_0$ is that the data are normally distributed. The calculated $W$-statistic tells us the magntiude of the difference from normal, so $W == 1$ means it's normal and deviations from that (less than 1) indicate it's non-normal. 
+
+```{r examine some residual plots}
 # Test normality
-shapiro.test(ToothGrowth$len)
+# shapiro-wilk test explicitly tests for normality
+qqnorm(residuals(model))
+qqline(residuals(model))
 ```
-
-## 1. Comparing Two Independent Groups (Supplement Type)
+## 1. **Comparing Two Independent Groups (Supplement Type)**
 To compare the tooth length (len) between the two supplement types (supp), you can use the Mann-Whitney U test (also known as the Wilcoxon rank-sum test).
-
 
 ```{r}
 wilcox.test(len ~ supp, data = ToothGrowth)
 ```
-This test compares the median tooth lengths between groups given ascorbic acid (VC) and orange juice (OJ) without assuming the data are normally distributed.
+This test compares the median tooth lengths between groups given ascorbic acid (VC) and orange juice (OJ) without assuming the data are normally distributed. The null hypothesis ($H_0$) is that the median difference between the pairs is zero (no effect) and the alternative ($H_A$) is that there is a difference between the groups. `p-value` less than 0.05 indicates that they are significantly different.
 
-## 2. Comparing More Than Two Independent Groups (Dose Levels)
+## 2. **Comparing More Than Two Independent Groups (Dose Levels)**
 For comparing the effects of different dose levels (0.5, 1, and 2 mg/day) on tooth length, you can use the Kruskal-Wallis test.
-
-
 ```{r}
 kruskal.test(len ~ dose, data = ToothGrowth)
 ```
-This test is an extension of the Mann-Whitney U test for more than two groups. It compares the median tooth lengths across different dose levels without assuming normal distribution.
-
-### 3. Analyzing Paired Data
-If your data structure included paired observations (which the ToothGrowth dataset does not inherently have, but could if measuring tooth length before and after treatment within the same subjects), you would use the Wilcoxon signed-rank test.
-
-
-```{r}
-# Hypothetical example if you had pre- and post-treatment measurements
-#wilcox.test(preTreatmentLengths, postTreatmentLengths, paired = TRUE)
-```
-
-This test compares the median of the paired differences to zero, suitable for before-after studies or matched pairs.
+This test is an extension of the Mann-Whitney U test for more than two groups. It compares the median tooth lengths across different dose levels without assuming normal distribution. Here the null hypothesis reads slightly differently because we are working with 2+ groups. The null hypothesis ($H_0$) is that the median difference between all groups is zero (no effect) and the alternative ($H_A$) is that there is a difference between at least one of the groups. `p-value` less than 0.05 indicates that they are significantly different.
 
 **While non-parametric tests do not assume normality, they still have assumptions (e.g., independence of observations). Always ensure these assumptions are met before proceeding. Additionally, non-parametric tests generally compare medians rather than means, so interpret your results accordingly.**
-
 
 ## Second dataset: Faithful Dataset
 
@@ -186,40 +222,38 @@ The `faithful` dataset comprises 272 observations of Old Faithful geyser in Yell
 - `eruptions`: Duration of eruptions (minutes).
 - `waiting`: Waiting time until the next eruption (minutes).
 
-
-
 ```{r}
 data("faithful")
 summary(faithful)
 hist(faithful$eruptions, breaks = 20, main = "Eruption Duration", xlab = "Duration (minutes)")
-hist(faithful$waiting, breaks = 20, main = "Waiting Time to Next Eruption", xlab = "Time (minutes)")
-
 ```
 ```{r}
-qqnorm(faithful$eruptions)
-qqline(faithful$eruptions)
-```
-```{r}
-qqnorm(faithful$waiting)
-qqline(faithful$waiting)
-```
-```{r}
+model <- lm(eruptions ~ waiting, data = faithful)
 # Shapiro-Wilk test for normality
-shapiro.test(faithful$eruptions)
-shapiro.test(faithful$waiting)
+shapiro.test(residuals(model))
 ```
-## Suppose you want to compare the eruption durations (eruptions) between short and long waiting times. You first need to categorize the waiting times into two groups. 
+Test for normality.
 
+```{r}
+qqnorm(residuals(model))
+qqline(residuals(model))
+```
+
+
+## Suppose you want to compare the eruption durations (eruptions) between short and long waiting times. You first need to categorize the waiting times into two groups. 
 
 ```{r}
 # Categorize 'waiting' into two groups
 faithful$waiting_group <- ifelse(faithful$waiting < median(faithful$waiting), "Short", "Long")
-
 # Mann-Whitney U test 
-wilcox.test(eruptions ~ waiting_group, data = faithful)
-
+faithful_wilcox <- wilcox.test(eruptions ~ waiting_group, data = faithful)
+faithful_wilcox
 ```
+
+The null hypothesis ($ H_0 $) is that the median difference between the pairs is zero (no effect) and the alternative ($ H_A $) is that there is a difference between the groups. `p-value` less than 0.05 indicates that they are significantly different. Here we can clearly see that there is a significant difference ($ p $ `r faithful_wilcox$p.value`).
+
 If you had more than two groups and wanted to compare the distributions across those groups, you’d use the Kruskal-Wallis test. For demonstration purposes, let’s simulate a scenario by dividing waiting times into three groups based on quantiles:
+
 ```{r}
 # Divide 'waiting' into three groups
 faithful$waiting_quantiles <- cut(faithful$waiting, breaks = quantile(faithful$waiting, probs = c(0, 1/3, 2/3, 1)), include.lowest = TRUE, labels = c("Low", "Medium", "High"))
@@ -230,14 +264,11 @@ kruskal.test(eruptions ~ waiting_quantiles, data = faithful)
 ```
 If you want to examine the relationship between the two variables without assuming a linear relationship or normality, use Spearman's rank correlation.
 
-
 ```{r}
 # Spearman correlation
 cor.test(faithful$eruptions, faithful$waiting, method = "spearman")
 ```
-
 This means that there's strong evidence to reject the null hypothesis that there's no monotonic relationship between the two variables.
-
 
 ```{r}
 ggplot(faithful, aes(x = waiting, y = eruptions)) +

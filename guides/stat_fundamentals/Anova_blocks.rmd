@@ -3,190 +3,150 @@ title: 'ANOVA and Blocking'
 output:
   html_document:
     keep_md: yes
+    mathjax: default
 ---
-
 # One-Way ANOVA Analysis in R
 
-This document outlines the steps taken to perform a one-way/two-way ANOVA analysis using R. The goal is to compare the effects of three different treatments on a continuous outcome variable.
-
-```{r}
-# Set seed for reproducibility
-set.seed(123)
-
-# Simulate data for a one-way ANOVA with three treatments
-group_a <- rnorm(20, mean = 30, sd = 10) # Treatment A
-group_b <- rnorm(20, mean = 75, sd = 10) # Treatment B
-group_c <- rnorm(20, mean = 50, sd = 10) # Treatment C
-# Combine the data into a data frame
-data_anova <- data.frame(
-  value = c(group_a, group_b, group_c),
-  treatment = factor(rep(c("A", "B", "C"), each = 20))
-)
+```{r setup and packages}
+library(ggplot2) # for plotting
+library(agricolae) # for experimental blocking 
+library(dplyr) # for data wrangling purposes
+set.seed(123) # set seed for reproducibility
+data("greenhouse") # we'll work with the sweetpotato dataset
+library(emoji) # very important
 ```
+
+## ANOVA
+
+**What is ANOVA?** Analysis of variance (or ANOVA) is just a special case of linear regression where the independent variable is categorical. While antecendents of ANOVA certainly exist, the ANOVA that we use today was developed by Ronald A. Fisher in the early 20th century to study agricultural plots. Essentially with an ANOVA we are asking: *are the means between two categorical groups different*? To do this Mathematically it's exactly identical to doing a standard linear regression.
+
+## Dataset: Potato Growing Methods
+
+We'll use `greenhouse2` from the R package **agricolae**: testing 4 varieties across 3 growing methods, with 4 replications (blocks).
+
+```{r cleaning and summary}
+gh2 <- greenhouse$greenhouse2
+summary(gh2)
+```
+
+## Statistical blocking
+**Blocking** is a statistical term that owes it's development to early 20th century statisticians such as Ronald Fisher. This term typically appears in the experimental design literature, and is used as a way to account for unwanted variation. For example, suppose you to want to test the efficacy of different types of fertilizer on plant growth. However, your study site has predictable variation in soil quality and drainage. This fact is likely not a quantity you are interested in measuring but rather something you want to control for. So, as a solution you could place an equal number replicates along each soil gradient and account for those in your modelling! 
+
+## What are we blocking? `r emoji("thinking")`
+In this greenhouse experiment, `replication` represents **spatial blocks** within the greenhouse. While we didn't collect these data ourselves these blocks might account for different benches, sections, or growing areas.
+
+## Visualizing the data
+
+```{r make a plot}
+ggplot(gh2, aes(x = method, y = weight, fill = method)) +
+  geom_boxplot() +
+  theme_minimal() +
+  labs(title = "Potato weight versus grow method", y = "Weight (grams)", x = "Method")
+```
+
 ## Perform One-Way ANOVA
 
 - **Objective**: Determine if there are statistically significant differences among the means of three or more independent groups.
-```{r}
+
+```{r perform one-way anova}
 # Perform one-way ANOVA
-anova_result <- aov(value ~ treatment, data = data_anova)
-summary(anova_result)
+one_way_anova_result <- aov(weight ~ method, data = gh2)
+summary(one_way_anova_result)
 ```
+## **Output explained**
+
+- **F-statistic** ratio of explained to unexplained variance $\frac{\text{variance between groups}}{\text{variance within groups}}$. 
+- **p-value** significance of that relationship
+
+## Relationship between ANOVA and Linear Regression
+
+ANOVA is a special case of linear regression for categorical variables. To see this equivalence we'll go ahead and examine the output from linear regression of `weight ~ method`.
+```{r}
+method_lm_mod <- lm(weight ~ method, gh2)
+```
+ANOVA and linear regression are the same model in slightly different fonts. Don't believe me? Let's take a look at some output. You'll notice that both the `lm` model and the `aov` model feature both f-statistics and residuals. Let's take a look at both, for the `lm` model the f-statisic is `r as.numeric(summary(method_lm_mod)$fstatistic['value'])`. For the `aov` model `r summary(one_way_anova_result)[[1]][["F value"]][[1]]`. The residuals are also the same between the `lm` `r formatC(sum(residuals(method_lm_mod)), format = "e", digits = 2)` and the `anova` `r formatC(sum(residuals(one_way_anova_result)), format = "e", digits = 2)`.
+
+Why is this happening? Well because under the hood, both linear regression are (generally) doing a form of least squares regression. Mathematically this is minimizing the distance between the observed values (weights) and those predicted by the model: $\sum_{i=1}^n(Y_i - \hat{Y_i})^2$. Notably though, `lm` and `aov` are asking two different questions. ANOVA is asking "Are there differences between groups? (Yes/No)". Linear regression is asking "How much does each group differ from baseline?"
+
+::: {style="padding: 15px; margin: 20px 0; border-left: 5px solid #0072B2; background-color: #f0f7ff;"}
+**📊 So why have both methods if they're equivalent?**
+The reasons are at least in part historical. Regression has it's roots dating as far back as Newton in the 1700s. However, it wasn't until the early 1800s that both Adrien-Marie Legendre and Johann Carl Friedrich Gauss started publishing on least squares regression (separately). In the late 1800s Sir Francis Galton created linear regression in the modern sense of the word.
+
+It wasn't until the early 20th century that Fisher created the ANOVA framework. The usage of ANOVA was primarily in studies of agricultural treatments (hence the focus on agriculture in this lecture). 
+
+While there's nothing that ANOVA can do that a regression can't do, ANOVA primarily exists today for these historical reasons and is more widely used in experimental sciences. However, given the proliferation of observational data collected in a variety of fields, linear regression feels a bit more modern. 
+:::
+
 
 ```{r}
 # QQ plot of residuals from one-way ANOVA
-qqnorm(residuals(anova_result))
-qqline(residuals(anova_result), col = "steelblue", lwd = 2)
-
+qqnorm(residuals(one_way_anova_result))
+qqline(residuals(one_way_anova_result), col = "steelblue", lwd = 2)
 ```
-    
-![svg](anova_img/output_4_0.svg)
-    
 * Objective: Assess the normality of the residuals, an assumption of ANOVA.
 
 ```{r}
 # Residual plot from one-way ANOVA
-plot(residuals(anova_result), main = "Residuals Plot", xlab = "Index", ylab = "Residuals")
+plot(residuals(one_way_anova_result), main = "Residuals Plot", xlab = "Index", ylab = "Residuals")
 abline(h = 0, col = "red", lwd = 2)
 ```
-
-![svg](anova_img/output_6_0.svg)
 * Objective: Evaluate the homogeneity of variances and check for any patterns in the residuals.
-
-```{r}
-# Perform linear model
-lm_result <- lm(value ~ treatment, data = data_anova)
-summary(lm_result)
-```
-
-* Objective: Provide an alternative method to analyze the data, offering detailed statistics and insights into the relationship between the treatment groups and the outcome variable.
-
-```{r}
-# Plotting using ggplot2
-library(ggplot2)
-ggplot(data_anova, aes(x = treatment, y = value, fill = treatment)) +
-  geom_boxplot() +
-  theme_minimal() +
-  labs(title = "One-way ANOVA", y = "Value", x = "Treatment")
-
-```
-
-
-    
-![svg](anova_img/output_10_0.svg)
-    
-
 
 ## Perform Two-Way ANOVA
 
 - **Objective**: The objective of a two-way ANOVA is to evaluate the main effects of two independent variables on a dependent variable and to investigate if there's a significant interaction between them that affects the outcome.
 
-
 ```{r}
-# Set seed for reproducibility
-set.seed(123)
-
-# Simulate data for a one-way ANOVA with three treatments
-group_a <- rnorm(20, mean = 30, sd = 10) # Treatment A
-group_b <- rnorm(20, mean = 75, sd = 10) # Treatment B
-group_c <- rnorm(20, mean = 50, sd = 10) # Treatment C
-# Combine the data into a data frame
-data_anova <- data.frame(
-  value = c(group_a, group_b, group_c),
-  treatment = factor(rep(c("A", "B", "C"), each = 20))
-)
-```
-
-```{r}
-set.seed(123)
-
-# Simulate data for a two-way ANOVA with three treatments and two blocks
-group_a_day1 <- rnorm(10, mean = 30, sd = 10) # Treatment A, Day 1
-group_b_day1 <- rnorm(10, mean = 75, sd = 10) # Treatment B, Day 1
-group_c_day1 <- rnorm(10, mean = 50, sd = 10) # Treatment C, Day 1
-
-group_a_day2 <- rnorm(10, mean = 30, sd = 10) # Treatment A, Day 2
-group_b_day2 <- rnorm(10, mean = 75, sd = 10) # Treatment B, Day 2
-group_c_day2 <- rnorm(10, mean = 50, sd = 10) # Treatment C, Day 2
-
-# Combine the data into a data frame
-data_anova_block <- data.frame(
-  value = c(group_a_day1, group_b_day1, group_c_day1, group_a_day2, group_b_day2, group_c_day2),
-  treatment = factor(rep(c("A", "B", "C", "A", "B", "C"), each = 10)),
-  day = factor(rep(c("Day1", "Day1", "Day1", "Day2", "Day2", "Day2"), each = 10))
-)
-```
-
-
-```{r}
-# Perform two-way ANOVA with interaction between treatment and block
-anova_block_result <- aov(value ~ treatment + day + treatment:day, data = data_anova_block)
-summary(anova_block_result)
-
-```
-```{r}
-# QQ plot of residuals from two-way ANOVA
-qqnorm(residuals(anova_block_result))
-qqline(residuals(anova_block_result), col = "steelblue", lwd = 2)
-```
-   
-![svg](anova_img/output_14_0.svg)
-    
-
-```{r}
-# Residual plot from two-way ANOVA
-plot(residuals(anova_block_result), main = "Residuals Plot", xlab = "Index", ylab = "Residuals")
-abline(h = 0, col = "red", lwd = 2)
-
-```
-
-```{r}
-# Perform linear model with interaction
-lm_block_result <- lm(value ~ treatment * day, data = data_anova_block)
-summary(lm_block_result)
-```
-```{r}
-# Plotting using ggplot2, showing interaction
-ggplot(data_anova_block, aes(x = treatment, y = value, fill = day)) +
+ggplot(gh2, aes(x = method, y = weight, fill = variety)) +
   geom_boxplot() +
   theme_minimal() +
-  labs(title = "Two-way ANOVA with Blocking", y = "Value", x = "Treatment")
-
+  labs(title = "Comparison of Mean Structure", y = "Value", x = "Treatment")
 ```
+```{r}
+two_way_anova_result <- aov(weight ~ method + variety, data = gh2)
+summary(two_way_anova_result)
+```
+## **Output explained**
+
+- **F-statistic** ratio of explained to unexplained variance $\frac{\text{variance between groups}}{\text{variance within groups}}$. 
+- **p-value** significance of that relationship
+
+So here we again can see that we get an even larger $F-statistic$ for the **method** group when we account for the variety, meaning that variety mopped up some of the within group variance (not surprising). The interpretation here is that even when we account for variety of crop grown, we still see a siginificant effect of the grow method on the resultant weight of the plant. 
+
+## Two-way ANOVA with blocking
 
 ```{r}
-# Perform one-way ANOVA focusing only on treatment effects
-anova_result <- aov(value ~ treatment, data = data_anova_block)
-summary(anova_result)
-
-
-ggplot(data_anova_block, aes(x = treatment, y = value, fill = treatment)) +
-  geom_boxplot() +
-  theme_minimal() +
-  labs(title = "One-way ANOVA", y = "Value", x = "Treatment")
+# here we're adding the blocking term 'replication' to our two-way ANOVA
+two_way_anova_blocking_result <- aov(weight ~ method + variety + replication, data = gh2)
+summary(two_way_anova_blocking_result)
 ```
+## **Output explained**
 
-```{r}
-# Perform one-way ANOVA focusing only on treatment effects
-anova_result <- aov(value ~ treatment, data = data_anova_block)
-summary(anova_result)
+- **F-statistic** ratio of explained to unexplained variance $\frac{\text{variance between groups}}{\text{variance within groups}}$. 
+- **p-value** significance of that relationship
 
+The interpretation here is that even when we account for variety of crop grown and the replication (whatever environmental effect we wanted to account for), we still see a significant effect of the grow method on the resultant weight of the plant. 
 
-ggplot(data_anova_block, aes(x = treatment, y = value, fill = treatment)) +
-  geom_boxplot() +
-  theme_minimal() +
-  labs(title = "One-way ANOVA", y = "Value", x = "Treatment")
-```
+## Summary of One-Way vs. Two-Way ANOVA
 
-# Summary of One-Way vs. Two-Way ANOVA
-
-## One-Way ANOVA
+### One-Way ANOVA
 
 - **Focus**: Examines the effect of a single factor (treatment) on a dependent variable.
 - **Objective**: Determine if there are significant differences between the means of three or more groups.
 - **Usage**: Ideal when interested in the impact of one independent variable.
 
-## Two-Way ANOVA
+### Two-Way ANOVA
 
 - **Focus**: Assesses the impact of two independent variables (treatments and blocks) on a dependent variable.
 - **Objective**: Evaluate the main effects of each independent variable and their interaction effect on the dependent variable.
 - **Usage**: Suitable for exploring the combined effect of two variables and their interaction.
+
+## References and further reading
+
+- [Derek Sonderegger Bookdown](https://bookdown.org/dereksonderegger/571/12-block-designs-1.html)
+- [Biostatistics Youtube Channel](https://www.youtube.com/watch?v=Z1sA5ZGzVJI)
+- [Blog post on ANOVA](https://www.statsimprove.com/en/what-is-the-difference-between-anova-and-regression-and-which-one-to-choose/)
+- Fieberg, John. (2024). Statistics for Ecologists: A Frequentist and Bayesian Treatment of Modern Regression Models. University of Minnesota Libraries Publishing. Retrieved from the University of Minnesota Digital Conservancy. https://doi.org/10.24926/9781959870029
+- [Blocking](https://en.wikipedia.org/wiki/Blocking_(statistics))
+- [ANOVA history](https://en.wikipedia.org/wiki/Analysis_of_variance)
+- [Regression history](https://en.wikipedia.org/wiki/Regression_toward_the_mean)

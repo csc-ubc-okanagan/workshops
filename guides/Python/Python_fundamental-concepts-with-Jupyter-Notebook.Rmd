@@ -1,5 +1,5 @@
 ---
-title: 'Python: Fundamental Concepts with Jupyter Notebook'
+title: 'Python Basics (1 of 5): Getting Started with Python and Jupyter Notebooks'
 output:
   html_document:
     keep_md: yes
@@ -10,8 +10,175 @@ knitr::opts_chunk$set(echo = TRUE,
                       eval = TRUE)
 library(reticulate)
 ```
+# Python Basics: Getting Started with Python and Jupyter Notebooks
 
-Last Updated: `r Sys.Date()`
+# First time setup
+
+I find that a lot of confusion surrounding learning a new programming language arises when you try to set up the ecosystem requiried to *work in* that language. So I will take you step by step thru the set up process assuming no familiarity with shell or command line.   
+
+### Installing Anaconda
+
+1. Go to [anaconda.com/download](https://www.anaconda.com/download)
+2. Download the installer for your operating system (Windows, macOS, or Linux)
+3. Run the installer and follow the prompts — **the default settings are fine for most users**
+4. Once complete, you should be able to find **Anaconda Navigator** in your applications
+
+> **Note for R users:** This is roughly analogous to installing R and RStudio together in a single step, with most common packages already included.
+
+### Launching Jupyter Notebook via Anaconda Navigator
+
+Anaconda Navigator is a point-and-click graphical dashboard — no command line required. Here is how to launch Jupyter Notebook from it:
+
+1. Open **Anaconda Navigator** from your applications menu (search for it like any other app)
+2. You will see a dashboard with several application tiles
+3. Find **Jupyter Notebook** and click **Launch**
+4. Jupyter will open automatically in your default web browser
+
+> **Note:** Although Jupyter opens in your browser, it is **not running on the internet**. It is running locally on your own machine. Your files and code never leave your computer unless you explicitly share them.
+
+This directs you towards what's called the **Jupyter file browser**, which shows your home directory. From here you can navigate to any folder and create a new **notebook**. A notebook (for those coming from a background in `R`) is analogous to an `RMD`. The file extension for a notebook is `.ipynb`. You can write text-like markdown code, write regular python code, and plot figures all in one place. The critical difference is `ipnyb` files store output in the same file, unlike `RMD` which separates the output into either HTML or PDF output in the YAML header.
+
+### Creating Your First Notebook
+
+1. Navigate to the folder where you want to save your work
+2. Click **New** (top right) → **Python 3 (ipykernel)**
+3. A new notebook will open in a new browser tab
+4. Click on the title ("Untitled") at the top to rename it
+
+Each notebook is made up of **cells**. You can run a cell by pressing `Shift + Enter`. There are three types of cells:
+
+- **Code cells:** Where you write and execute Python code
+- **Markdown cells:** Where you write formatted text, headings, and notes (change cell type via the dropdown in the toolbar)
+- **Raw cells:** You can ignore these for now. They are used in advanced document conversion workflows and you're unlikely to need it in this course.
+
+> **Note:** By default (if you're running windows) Jupyter will save the notebook to  `C:\Users\<username>\anaconda_projects`. If you're on Mac it will likely save in somewhere like `/Users/YourUsername`. You might want to change it so it saves to somewhere more familiar.
+
+## Python vs R: Key Differences
+
+If you are coming from `R`, you already have a strong foundation — many core concepts transfer directly. However, Python has a distinct set of conventions and behaviors that are worth understanding upfront to avoid common early frustrations.
+
+### Philosophy and Purpose
+
+`R` was designed from the ground up specifically for statistics and data analysis. Unlike `R`, Python is a **general-purpose language** that has become dominant in data science, but is equally at home in web development, automation, machine learning engineering, and software development more broadly.
+
+In practice this means:
+
+- R's syntax and built-in tools are optimized for statistical workflows
+- Python's ecosystem is much broader, and its data science tools (`NumPy`, `Pandas`, `scikit-learn`) are add-ons rather than the core language itself
+- Python skills transfer more easily outside of academia and into industry
+
+### The Type System
+
+One of the most important conceptual differences between `R` and Python is how they handle **data types**. Python is **strongly typed**, meaning it will not silently coerce one type into another. For example:
+
+```{python, error = TRUE}
+# this will throw a type error
+"5" > 3
+```
+```{r}
+# this will not
+"5" > 3
+```
+`R`, by contrast, is much more permissive — it will often attempt to coerce types automatically, which can be convenient but sometimes leads to silent errors that are difficult to track down.
+
+Like `R`, Python is also **dynamically typed**, meaning you do not need to declare the type of a variable upfront — it is inferred at runtime. This is the same as R. However, where R will often just "figure it out" when types are mixed, Python will stop and tell you something is wrong.
+
+```{python}
+# Python infers the type at runtime
+x = 42        # int
+y = 3.14      # float
+z = "hello"   # str
+```
+
+### Object-Oriented vs Functional Style
+
+R is fundamentally **functional** in style — you typically pass objects *into* functions:
+
+```r
+# R style
+mean(x)
+summary(df)
+```
+
+Python is fundamentally **object-oriented** — everything in Python is an object, and objects have **methods** attached to them that you call using dot `.` notation:
+
+```{python}
+import pandas as pd
+
+data = {'x': [1, 2, 3, 4, 5]}
+df = pd.DataFrame(data)
+
+# Methods are called ON the object
+df.describe()
+```
+
+Both languages can do both styles, but the default mental model differs and affects the syntax you will encounter most often.
+
+### Whitespace is Syntax
+
+In R, code blocks are defined with curly braces `{}` and indentation is optional (though good practice). In Python, **indentation is mandatory** — it defines the structure of your code. Getting the indentation wrong will either throw an error or, worse, silently do the wrong thing.
+
+```{python}
+# this will not error
+for i in range(3):
+    print(i)
+```
+
+```{python, error = TRUE}
+# this will error
+for i in range(3):
+print(i)
+```
+
+> **Tip:** Use 4 spaces per indentation level (this is the Python convention). Most editors handle this automatically.
+
+### Indexing: 0-based vs 1-based
+
+This is one of the most common early stumbling blocks. In R, indexing starts at 1. In Python, it starts at 0.
+
+```{python}
+import numpy as np
+
+my_array = np.array([10, 20, 30, 40, 50])
+
+# First element is index 0
+my_array[0]
+```
+
+```{python}
+# Second element is index 1
+my_array[1]
+```
+
+### Assignment Operator
+
+- R: `x <- 10` (though `=` also works in most contexts)
+- Python: `x = 10` (always)
+
+### True/False Capitalization
+
+- R: `TRUE` / `FALSE`
+- Python: `True` / `False`
+
+Python is case-sensitive, so `true` or `TRUE` will throw a `NameError`.
+
+### Importing Packages
+
+In R you install a package once and load it with `library()`. Python works similarly, but with a few differences:
+
+- Installation: `pip install packagename` or via Anaconda (once, outside your script)
+- Import: `import packagename` at the top of each script/notebook
+
+A very common Python convention — which has no direct R equivalent — is **aliasing** packages on import. This is similar to namespace aliasing in `C++` but not quite the same:
+
+```{python}
+import numpy as np        # np is conventional
+import pandas as pd       # pd is conventional
+```
+
+These aliases are not required but are so universally used in the Python data science community that you should treat them as standard.
+
+## A bit more on Python
 
 Python excels at interactive computational analysis, enabling extensive data exploration and manipulation. Jupyter Notebook seamlessly complements this capability, offering an interactive environment where users can write code, visualize results, and document their workflow. Through its integrated interface, Jupyter provides versatile cells for code execution, rendering outputs, and adding explanatory markdown annotations, making it a powerful tool for data analysis and scientific computing.
 
@@ -75,7 +242,7 @@ In Python, "np" serves as a concise alias for the NumPy library. With this in pl
 np.arange(1,11)
 ```
 
-In the arragne function above, pay special attention to the range we entered. The end number we entered is not included in the output. 
+In the `arrange` function above, pay special attention to the range we entered. The end number we entered is not included in the output. This is consistent across Python so this is just something to be aware of.
 
 ## Variables
 

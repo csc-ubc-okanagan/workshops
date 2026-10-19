@@ -1,169 +1,623 @@
-v---
+---
 title: "Workshops"
 pagetitle: "Workshops"
 ---
 
 # Workshops
 
-<div id = "menu-holder">
+<style>
+html { scroll-behavior: smooth; }
 
-    <div class = "menu-items r">
-        <img src = "https://www.r-project.org/logo/Rlogo.png">
-        <ul>
-        <li><a href="https://csc-ubc-okanagan.github.io/workshops/#r-fundamentals-for-data-analysis">R Fundamentals for Data Analysis</a></li>
-        </ul>
-    </div>
+.ws-layout {
+  display: flex;
+  gap: 36px;
+  align-items: flex-start;
+  max-width: 1150px;
+  margin: 0 auto;
+}
 
-    <div class = "menu-items">
-        <img src = "https://s3.dualstack.us-east-2.amazonaws.com/pythondotorg-assets/media/community/logos/python-logo-only.png">
-        <ul>
-        <li><a href="https://csc-ubc-okanagan.github.io/workshops/#python-basics-for-data-analysis">Python Basics for Data Analysis</a></li>
-        </ul>
-    </div>
+/* ---- Sidebar ---- */
+.ws-sidebar {
+  position: sticky;
+  top: 20px;
+  flex: 0 0 240px;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  font-size: 0.9rem;
+}
+.ws-sidebar .ws-sidebar-title {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.78rem;
+  color: #888;
+  padding: 0 12px 8px;
+}
+.ws-sidebar nav ul { list-style: none; margin: 0; padding: 0; }
+.ws-sidebar nav a {
+  display: block;
+  padding: 7px 12px;
+  color: #333;
+  text-decoration: none;
+  border-left: 2px solid transparent;
+  line-height: 1.35;
+}
+.ws-sidebar nav a:hover {
+  border-left-color: #666;
+  background: rgba(0, 0, 0, 0.04);
+  color: #000;
+}
 
-    <div class = "menu-items">
-        <img src = "https://raw.githubusercontent.com/csc-ubc-okanagan/workshops/main/docs/assets/images/bell-curve_v2.jpeg">
-        <ul>
-        <li><a href="https://csc-ubc-okanagan.github.io/workshops/#statistical-fundamentals-a-visual-approach">Statistical Fundamentals: A Visual Approach</a></li>
-        <li><a href="https://csc-ubc-okanagan.github.io/workshops/#fitting-models-to-data-not-data-to-models">Fitting Models to Data Not Data to Models</a></li>
-        </ul>
-    </div>
+.ws-content { flex: 1 1 auto; min-width: 0; }
 
-    <div class = "menu-items">
-        <img src = "https://raw.githubusercontent.com/csc-ubc-okanagan/workshops/main/docs/assets/images/rdm.png">
-        <ul>
-        <li><a href="https://csc-ubc-okanagan.github.io/workshops/#research-data-management-rdm">Research Data Management</a></li>
-        </ul>
-    </div>
+.ws-series {
+  margin-bottom: 46px;
+  scroll-margin-top: 80px;
+}
+.ws-series h2 {
+  border-bottom: 2px solid #333;
+  padding-bottom: 6px;
+  margin-bottom: 12px;
+}
+.ws-series-desc { margin-bottom: 18px; line-height: 1.6; }
+.ws-series-desc.placeholder { color: #999; font-style: italic; }
 
-    <div class = "menu-items">
-        <img src = "https://upload.wikimedia.org/wikipedia/commons/3/35/Tux.svg">
-        <ul>
-        <li><a href="https://csc-ubc-okanagan.github.io/workshops/#introduction-to-the-bash-shell">Introduction to the Bash shell</a></li>
-        </ul>
-    </div>
+.ws-list { list-style: none; margin: 0; padding: 0; }
+.ws-item {
+  padding: 12px 0;
+  border-bottom: 1px solid #ececec;
+}
+.ws-item-title { font-weight: 600; }
 
-    <div class = "menu-items">
-        <img src = "https://git-scm.com/images/logos/downloads/Git-Icon-1788C.svg">
-        <ul>
-        <li><a href="https://csc-ubc-okanagan.github.io/workshops/#git-and-github">Git and GitHub</a></li>
-        </ul>
-    </div>
+.ws-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 18px;
+  margin-top: 7px;
+}
 
+.ws-desc { font-size: 0.9rem; }
+.ws-desc > summary {
+  cursor: pointer;
+  list-style: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #2c2c2c;
+  font-weight: 600;
+  user-select: none;
+}
+.ws-desc > summary::-webkit-details-marker { display: none; }
+.ws-desc > summary::before {
+  content: '';
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-left: 5px solid currentColor;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  transition: transform 0.2s ease;
+}
+.ws-desc[open] > summary::before { transform: rotate(90deg); }
+.ws-desc-body {
+  margin-top: 8px;
+  padding: 12px 14px;
+  width: min(100%, 660px);
+  min-height: 1.2em;
+  background: rgba(0, 0, 0, 0.03);
+  border-radius: 6px;
+  font-size: 0.93rem;
+  line-height: 1.6;
+}
+
+.ws-links { font-size: 0.9rem; }
+.ws-links a { font-weight: 600; }
+.ws-links a + a { margin-left: 4px; }
+
+@media (max-width: 820px) {
+  .ws-layout { flex-direction: column; gap: 16px; }
+  .ws-sidebar {
+    position: static;
+    flex-basis: auto;
+    width: 100%;
+    max-height: none;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 12px;
+    margin-bottom: 8px;
+  }
+}
+</style>
+
+<div class="ws-layout">
+
+  <aside class="ws-sidebar">
+    <div class="ws-sidebar-title">Workshop Series</div>
+    <nav>
+      <ul>
+        <li><a href="#r-fundamentals">R Fundamentals for Data Analysis</a></li>
+        <li><a href="#python-basics">Python Basics for Data Analysis</a></li>
+        <li><a href="#statistical-fundamentals">Statistical Fundamentals: A Visual Approach</a></li>
+        <li><a href="#clustering-classification">Clustering &amp; Classification in R</a></li>
+        <li><a href="#dimensionality-reduction">Dimensionality Reduction in R</a></li>
+        <li><a href="#linear-regression">Linear Regression in R</a></li>
+        <li><a href="#glms-gams">GLMs and GAMs in R</a></li>
+        <li><a href="#survival-analysis">Survival Analysis in R</a></li>
+        <li><a href="#rdm">Research Data Management (RDM)</a></li>
+        <li><a href="#bash-shell">Introduction to the Bash shell</a></li>
+        <li><a href="#git-github">Git and GitHub</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <div class="ws-content">
+
+    <section id="r-fundamentals" class="ws-series">
+      <h2>R Fundamentals for Data Analysis</h2>
+      <p class="ws-series-desc">This series of introductory workshops are intended for individuals with little to no familiarity with R or similar tools that rely on a scripted environment. They are intended as a low barrier entry into the world of using your computer to engage with data outside of graphical tools like Excel or SPSS.</p>
+      <ul class="ws-list">
+        <li class="ws-item">
+          <span class="ws-item-title">R: Fundamental Concepts with RStudio</span>
+          <div class="ws-controls">
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <span class="ws-links"><a href="R_fundamental-concepts-with-RStudio.html">workshop page</a></span>
+          </div>
+        </li>
+        <li class="ws-item">
+          <span class="ws-item-title">R: Importing Data</span>
+          <div class="ws-controls">
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <span class="ws-links"><a href="R_importing-data.html">workshop page</a></span>
+          </div>
+        </li>
+        <li class="ws-item">
+          <span class="ws-item-title">R: Exploring Data</span>
+          <div class="ws-controls">
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <span class="ws-links"><a href="R_exploring-data.html">workshop page</a></span>
+          </div>
+        </li>
+        <li class="ws-item">
+          <span class="ws-item-title">R: Subsetting &amp; Filtering Data</span>
+          <div class="ws-controls">
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <span class="ws-links"><a href="R_subsetting-and-filtering-data.html">workshop page</a></span>
+          </div>
+        </li>
+        <li class="ws-item">
+          <span class="ws-item-title">R: Iterating Over Data</span>
+          <div class="ws-controls">
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <span class="ws-links"><a href="R_iterating-over-data.html">workshop page</a></span>
+          </div>
+        </li>
+        <li class="ws-item">
+          <span class="ws-item-title">R: Conditions</span>
+          <div class="ws-controls">
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <span class="ws-links"><a href="R_conditions.html">workshop page</a></span>
+          </div>
+        </li>
+        <li class="ws-item">
+          <span class="ws-item-title">R: Visualizations</span>
+          <div class="ws-controls">
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <span class="ws-links"><a href="R_visualization.html">workshop page</a></span>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <section id="python-basics" class="ws-series">
+      <h2>Python Basics for Data Analysis</h2>
+      <p class="ws-series-desc">This series of introductory workshops are intended for individuals with little to no familiarity with Python or similar tools that rely on a scripted environment. They are intended as a low barrier entry into the world of using your computer to engage with data outside of graphical tools like Excel or SPSS.</p>
+      <ul class="ws-list">
+        <li class="ws-item">
+          <span class="ws-item-title">Python: Fundamental Concepts with Jupyter Notebook</span>
+          <div class="ws-controls">
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <span class="ws-links"><a href="Python_fundamental-concepts-with-Jupyter-Notebook.html">workshop page</a></span>
+          </div>
+        </li>
+        <li class="ws-item">
+          <span class="ws-item-title">Python: Importing and Exporting Data with Python</span>
+          <div class="ws-controls">
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <span class="ws-links"><a href="Python_importing-data.html">workshop page</a></span>
+          </div>
+        </li>
+        <li class="ws-item">
+          <span class="ws-item-title">Python: Exploratory Data Analysis</span>
+          <div class="ws-controls">
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <span class="ws-links"><a href="Exploratory_Data_Analysis_Workshop3.html">workshop page</a></span>
+          </div>
+        </li>
+        <li class="ws-item">
+          <span class="ws-item-title">Python: Subsetting and Filtering Data</span>
+          <div class="ws-controls">
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <span class="ws-links"><a href="Subsetting_and_Filtering_Data_Workshop4.html">workshop page</a></span>
+          </div>
+        </li>
+        <li class="ws-item">
+          <span class="ws-item-title">Python: Iterating Over Data</span>
+          <div class="ws-controls">
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <span class="ws-links"><a href="Iterating_Over_Data_Workshop5.html">workshop page</a></span>
+          </div>
+        </li>
+        <li class="ws-item">
+          <span class="ws-item-title">Python: Conditions</span>
+          <div class="ws-controls">
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <span class="ws-links"><a href="Python_conditions.html">workshop page</a></span>
+          </div>
+        </li>
+        <li class="ws-item">
+          <span class="ws-item-title">Python: Visualizations</span>
+          <div class="ws-controls">
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <span class="ws-links"><a href="Python_Visualization.html">workshop page</a></span>
+          </div>
+        </li>
+        <li class="ws-item">
+          <span class="ws-item-title">Python: Data Analysis and Visualization</span>
+          <div class="ws-controls">
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <span class="ws-links"><a href="Workshop8_Visualization_continued.html">workshop page</a></span>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <section id="statistical-fundamentals" class="ws-series">
+      <h2>Statistical Fundamentals: A Visual Approach</h2>
+      <p class="ws-series-desc">This series will use R and Python to help develop an intuition for fundamental statistical concepts using data visualization. These workshops are equally suitable to those hoping to enhance their ability to interpret common statistical tests and concepts as it is for those applying statistical modelling to their work. No background in statistics is required, but some familiarity with R or Python will be advantageous. You may wish to review the asynchronous content of either <a href="https://csc-ubc-okanagan.github.io/workshops/#r-fundamentals-for-data-analysis">R Fundamentals for Data Analysis</a> or <a href="https://csc-ubc-okanagan.github.io/workshops/#python-basics-for-data-analysis">Python Basics for Data Analysis</a>, or keep an eye out for the next time these workshops are offered.</p>
+      <ul class="ws-list">
+        <li class="ws-item">
+          <span class="ws-item-title">Population, Sampling, Sampling Distribution, and Central Limit Theorem</span>
+          <div class="ws-controls">
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <span class="ws-links"><a href="statistical-distribution-and-central-limit-theorem.html">workshop page</a></span>
+          </div>
+        </li>
+        <li class="ws-item">
+          <span class="ws-item-title">Visualizing Errors and Common Pitfalls</span>
+          <div class="ws-controls">
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <span class="ws-links"><a href="error-bars-and-misconceptions.html">workshop page</a></span>
+          </div>
+        </li>
+        <li class="ws-item">
+          <span class="ws-item-title">P value, Significance, and T-test</span>
+          <div class="ws-controls">
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <span class="ws-links"><a href="P_values.md">workshop page</a></span>
+          </div>
+        </li>
+        <li class="ws-item">
+          <span class="ws-item-title">Bar, Box, and Violin: Navigating Data Visualization for Insightful Analysis</span>
+          <div class="ws-controls">
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <span class="ws-links"><a href="Bar_Box_and_Violin_Navigating_Data_Visualization_for_Insightful_Analysis.html">workshop page</a></span>
+          </div>
+        </li>
+        <li class="ws-item">
+          <span class="ws-item-title">All about t-tests and visualizations</span>
+          <div class="ws-controls">
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <span class="ws-links"><a href="T_tests.html">workshop page</a></span>
+          </div>
+        </li>
+        <li class="ws-item">
+          <span class="ws-item-title">Non-parametric tests and visualizations</span>
+          <div class="ws-controls">
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <span class="ws-links"><a href="Non_parametric_tests.html">workshop page</a></span>
+          </div>
+        </li>
+        <li class="ws-item">
+          <span class="ws-item-title">ANOVA and Blocking</span>
+          <div class="ws-controls">
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <span class="ws-links"><a href="Anova_blocks.html">workshop page</a></span>
+          </div>
+        </li>
+        <li class="ws-item">
+          <span class="ws-item-title">Correlation, causation, and association</span>
+          <div class="ws-controls">
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <span class="ws-links"><a href="Correlation_Causation.html">workshop page</a></span>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <section id="clustering-classification" class="ws-series">
+      <h2>Clustering &amp; Classification in R</h2>
+      <p class="ws-series-desc placeholder">[Series description &mdash; add here]</p>
+      <ul class="ws-list">
+        <li class="ws-item">
+          <span class="ws-item-title">Part 1: Hierarchical Models</span>
+          <div class="ws-controls">
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+          </div>
+        </li>
+        <li class="ws-item">
+          <span class="ws-item-title">Part 2: Centroid-Based Models</span>
+          <div class="ws-controls">
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+          </div>
+        </li>
+        <li class="ws-item">
+          <span class="ws-item-title">Part 3: Fuzzy Models</span>
+          <div class="ws-controls">
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+          </div>
+        </li>
+        <li class="ws-item">
+          <span class="ws-item-title">Part 4: Distribution-Based Models</span>
+          <div class="ws-controls">
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+          </div>
+        </li>
+        <li class="ws-item">
+          <span class="ws-item-title">Part 5: Graph-Based Models</span>
+          <div class="ws-controls">
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+          </div>
+        </li>
+        <li class="ws-item">
+          <span class="ws-item-title">Part 6: Density-Based Models</span>
+          <div class="ws-controls">
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <section id="dimensionality-reduction" class="ws-series">
+      <h2>Dimensionality Reduction in R</h2>
+      <p class="ws-series-desc placeholder">[Series description &mdash; add here]</p>
+      <ul class="ws-list">
+        <li class="ws-item">
+          <span class="ws-item-title">Part 1: Linear Methods I &ndash; PCA and ICA</span>
+          <div class="ws-controls">
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+          </div>
+        </li>
+        <li class="ws-item">
+          <span class="ws-item-title">Part 2: Linear Methods II &ndash; Factor Analyzers</span>
+          <div class="ws-controls">
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+          </div>
+        </li>
+        <li class="ws-item">
+          <span class="ws-item-title">Part 3: Nonlinear Methods I &ndash; T-SNE and UMAP</span>
+          <div class="ws-controls">
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+          </div>
+        </li>
+        <li class="ws-item">
+          <span class="ws-item-title">Part 4: Nonlinear Methods II &ndash; MDS and Kernel PCA</span>
+          <div class="ws-controls">
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+          </div>
+        </li>
+        <li class="ws-item">
+          <span class="ws-item-title">Part 5: Supervised Methods &ndash; LDA and PLS</span>
+          <div class="ws-controls">
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+          </div>
+        </li>
+        <li class="ws-item">
+          <span class="ws-item-title">Part 6: FAMD for Mixed-type Data</span>
+          <div class="ws-controls">
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <section id="linear-regression" class="ws-series">
+      <h2>Linear Regression in R</h2>
+      <p class="ws-series-desc placeholder">[Series description &mdash; add here]</p>
+      <ul class="ws-list">
+        <li class="ws-item">
+          <span class="ws-item-title">Part 1: Intro to Linear Regression</span>
+          <div class="ws-controls">
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+          </div>
+        </li>
+        <li class="ws-item">
+          <span class="ws-item-title">Part 2: Multiple Linear Regression</span>
+          <div class="ws-controls">
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+          </div>
+        </li>
+        <li class="ws-item">
+          <span class="ws-item-title">Part 3: Interpreting Results</span>
+          <div class="ws-controls">
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+          </div>
+        </li>
+        <li class="ws-item">
+          <span class="ws-item-title">Part 4: Fitting vs. Predicting</span>
+          <div class="ws-controls">
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+          </div>
+        </li>
+        <li class="ws-item">
+          <span class="ws-item-title">Part 5: Interaction Terms and Hierarchical Linear Models</span>
+          <div class="ws-controls">
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+          </div>
+        </li>
+        <li class="ws-item">
+          <span class="ws-item-title">Part 6: Penalized Models</span>
+          <div class="ws-controls">
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <section id="glms-gams" class="ws-series">
+      <h2>GLMs and GAMs in R</h2>
+      <p class="ws-series-desc placeholder">[Series description &mdash; add here]</p>
+      <ul class="ws-list">
+        <li class="ws-item">
+          <span class="ws-item-title">Part 1: Intro to Generalized Linear Models</span>
+          <div class="ws-controls">
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+          </div>
+        </li>
+        <li class="ws-item">
+          <span class="ws-item-title">Part 2: Interpreting Generalized Linear Models</span>
+          <div class="ws-controls">
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+          </div>
+        </li>
+        <li class="ws-item">
+          <span class="ws-item-title">Part 3: Intro to Generalized Additive Models</span>
+          <div class="ws-controls">
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+          </div>
+        </li>
+        <li class="ws-item">
+          <span class="ws-item-title">Part 4: Interpreting Generalized Additive Models</span>
+          <div class="ws-controls">
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+          </div>
+        </li>
+        <li class="ws-item">
+          <span class="ws-item-title">Part 5: Predicting from GLMs and GAMs</span>
+          <div class="ws-controls">
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+          </div>
+        </li>
+        <li class="ws-item">
+          <span class="ws-item-title">Part 6: Generalized Linear Mixed Effects Models</span>
+          <div class="ws-controls">
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <section id="survival-analysis" class="ws-series">
+      <h2>Survival Analysis in R</h2>
+      <p class="ws-series-desc placeholder">[Series description &mdash; add here]</p>
+      <ul class="ws-list">
+        <li class="ws-item">
+          <span class="ws-item-title">Part 1: Survival Data, Censoring, and Truncation</span>
+          <div class="ws-controls">
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+          </div>
+        </li>
+        <li class="ws-item">
+          <span class="ws-item-title">Part 2: Kaplan-Meier Estimation</span>
+          <div class="ws-controls">
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+          </div>
+        </li>
+        <li class="ws-item">
+          <span class="ws-item-title">Part 3: Cox Proportional Hazards Models</span>
+          <div class="ws-controls">
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+          </div>
+        </li>
+        <li class="ws-item">
+          <span class="ws-item-title">Part 4: Model Diagnostics and Interpretation</span>
+          <div class="ws-controls">
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+          </div>
+        </li>
+        <li class="ws-item">
+          <span class="ws-item-title">Part 5: Parametric and Accelerated Failure Time Models</span>
+          <div class="ws-controls">
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+          </div>
+        </li>
+        <li class="ws-item">
+          <span class="ws-item-title">Part 6: Prediction</span>
+          <div class="ws-controls">
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <section id="rdm" class="ws-series">
+      <h2>Research Data Management (RDM)</h2>
+      <p class="ws-series-desc">These sessions address fundamental concepts in research data management (RDM), including its relevance in the context of research, approaches to implementing effective management through documentation and file system organization, and how to use the Data Management Plan (DMP) Assistant, an online tool, to help researchers adhere to funder requirements to submit a DMP.</p>
+      <ul class="ws-list">
+        <li class="ws-item">
+          <span class="ws-item-title">RDM Part 1: The Basics</span>
+          <div class="ws-controls">
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <span class="ws-links"><a href="RDM_pt1-the-basics.html">workshop page</a></span>
+          </div>
+        </li>
+        <li class="ws-item">
+          <span class="ws-item-title">RDM Part 2: Documentation</span>
+          <div class="ws-controls">
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <span class="ws-links"><a href="RDM_pt2-documentation.html">workshop page</a></span>
+          </div>
+        </li>
+        <li class="ws-item">
+          <span class="ws-item-title">RDM Part 3: Data Management Plans</span>
+          <div class="ws-controls">
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <span class="ws-links"><a href="https://ubc-library-rc.github.io/rdm/content/06_Data_Management_Plan.html">workshop page</a></span>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <section id="bash-shell" class="ws-series">
+      <h2>Introduction to the Bash shell</h2>
+      <p class="ws-series-desc">The command line interface can seem daunting to new users, but it is a very powerful tool that, with some foundational understanding, can be used for a number of different computational and data management tasks, for example routinizing repetetive file management activities or working with UBC's high performance computing (HPC) infrastructure. These sessions are aimed at those who have little to no experience with the command line; it introduces the Bash shell, its core functions, and the basics of navigating files and directories.</p>
+      <ul class="ws-list">
+        <li class="ws-item">
+          <span class="ws-item-title">Introduction to the Bash shell Part 1: Navigating Files and Directories</span>
+          <div class="ws-controls">
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <span class="ws-links"><a href="UNIX_pt1.html">workshop page</a></span>
+          </div>
+        </li>
+        <li class="ws-item">
+          <span class="ws-item-title">Introduction to the Bash shell Part 2: Working with Files and Directories</span>
+          <div class="ws-controls">
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <span class="ws-links"><a href="UNIX_pt2.html">workshop page</a></span>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <section id="git-github" class="ws-series">
+      <h2>Git and GitHub</h2>
+      <p class="ws-series-desc">These sessions provide an introduction to Git and GitHub, respectively a version control application and a remote Git server to facilitate file sharing and back-ups. Topics covered include automated version control and basic Git functions including initiating a Git repository, pushing to and pulling from a remote repository, managing workflows with branching, etc.</p>
+      <ul class="ws-list">
+        <li class="ws-item">
+          <span class="ws-item-title">Introduction to GitHub Part 1</span>
+          <div class="ws-controls">
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <span class="ws-links"><a href="Intro-GitHub-Part-1.html">workshop page</a></span>
+          </div>
+        </li>
+        <li class="ws-item">
+          <span class="ws-item-title">Introduction to GitHub Part 2</span>
+          <div class="ws-controls">
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <span class="ws-links"><a href="Intro-GitHub-Part-2.html">workshop page</a></span>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+  </div>
 </div>
-
-## R Fundamentals for Data Analysis
-
-This series of introductory workshops are intended for individuals with little to no familiarity with R or similar tools that rely on a scripted environment. They are intended as a low barrier entry into the world of using your computer to engage with data outside of graphical tools like Excel or SPSS.
-
-[Read invidiual workshop descriptions here](https://github.com/csc-ubc-okanagan/workshops/blob/main/outlines/r-fundamentals-for-data-analysis.md). See full materials with links below &darr;
-
-* [R: Fundamental Concepts with RStudio](R_fundamental-concepts-with-RStudio.html)
-* [R: Importing Data](R_importing-data.html)
-* [R: Exploring Data](R_exploring-data.html)
-* [R: Subsetting & Filtering Data](R_subsetting-and-filtering-data.html)
-* [R: Iterating Over Data](R_iterating-over-data.html)
-* [R: Conditions](R_conditions.html)
-* [R: Visualizations](R_visualization.html)
-
-## Python Basics for Data Analysis
-
-This series of introductory workshops are intended for individuals with little to no familiarity with Python or similar tools that rely on a scripted environment. They are intended as a low barrier entry into the world of using your computer to engage with data outside of graphical tools like Excel or SPSS.
-
-[Read invidiual workshop descriptions here](https://github.com/csc-ubc-okanagan/workshops/blob/main/outlines/python-basics-for-data-analysis.md). See full materials with links below &darr;
-
-* [Python: Fundamental Concepts with Jupyter Notebook](Python_fundamental-concepts-with-Jupyter-Notebook.html)
-* [Python: Importing and Exporting Data with Python](Python_importing-data.html)
-* [Python: Exploratory Data Analysis](Exploratory_Data_Analysis_Workshop3.html)
-* [Python: Subsetting and Filtering Data](Subsetting_and_Filtering_Data_Workshop4.html)
-* [Python: Iterating Over Data](Iterating_Over_Data_Workshop5.html)
-* [Python: Conditions](Python_conditions.html)
-* [Python: Visualizations](Python_Visualization.html)
-* [Python: Data Analysis and Visualization](Workshop8_Visualization_continued.html)
-
-## Research Data Management (RDM)
-
-These sessions address fundamental concepts in research data management (RDM), including its relevance in the context of research, approaches to implementing effective management through documentation and file system organization, and how to use the Data Management Plan (DMP) Assistant, an online tool, to help researchers adhere to funder requirements to submit a DMP.
-
-[Read invidiual workshop descriptions here](https://github.com/csc-ubc-okanagan/workshops/blob/main/outlines/rdm.md). See full materials with links below &darr;
-
-* [RDM Part 1: The Basics](RDM_pt1-the-basics.html)
-* [RDM Part 2: Documentation](RDM_pt2-documentation.html)
-* [RDM Part 3: Data Management Plans](https://ubc-library-rc.github.io/rdm/content/06_Data_Management_Plan.html)
-
-## Introduction to the Bash shell
-
-The command line interface can seem daunting to new users, but it is a very powerful tool that, with some foundational understanding, can be used for a number of different computational and data management tasks, for example routinizing repetetive file management activities or working with UBC's high performance computing (HPC) infrastructure.
-
-These sessions are aimed at those who have little to no experience with the command line; it introduces the Bash shell, its core functions, and the basics of navigating files and directories.
-
-[Read invidiual workshop descriptions here](https://github.com/csc-ubc-okanagan/workshops/blob/main/outlines/bash-shell.md). See full materials with links below &darr;
-
-* [Introduction to the Bash shell Part 1: Navigating Files and Directories](UNIX_pt1.html)
-* [Introduction to the Bash shell Part 2: Working with Files and Directories](UNIX_pt2.html)
-
-## Git and GitHub
-
-These sessions provide an introduction to Git and GitHub, respectively a version control application and a remote Git server to facilitate file sharing and back-ups. Topics covered include automated version control and basic Git functions including initiating a Git repository, pushing to and pulling from a remote repository, managing workflows with branching, etc.
-
-[Read invidiual workshop descriptions here](https://github.com/csc-ubc-okanagan/workshops/blob/main/outlines/git.md). See full materials with links below &darr;
-
-* [Introduction to GitHub Part 1](Intro-GitHub-Part-1.html)
-* [Introduction to GitHub Part 2](Intro-GitHub-Part-2.html)
-
-## Statistical Fundamentals: A Visual Approach
-
-This series will use R and Python to help develop an intuition for fundamental statistical concepts using data visualization. These workshops are equally suitable to those hoping to enhance their ability to interpret common statistical tests and concepts as it is for those applying statistical modelling to their work. No background in statistics is required, but some familiarity with R or Python will be advantageous. 
-
-You may wish to review the asynchronous content of either [R Fundamentals for Data Anlysis](https://csc-ubc-okanagan.github.io/workshops/#r-fundamentals-for-data-analysis) or [Python Basics for Data Analysis](https://csc-ubc-okanagan.github.io/workshops/#python-basics-for-data-analysis), or keep an eye out for the next time these workshops are offered.
-
-[Read invidiual workshop descriptions here](https://github.com/csc-ubc-okanagan/workshops/blob/main/outlines/statistical-fundamentals_a-visual-approach.md). Materials links will be made available as workshops are developped.
-
-* [Population, Sampling, Sampling Distribution, and Central Limit Theorem](statistical-distribution-and-central-limit-theorem.html)
-* [Visualizing Errors and Common Pitfalls](error-bars-and-misconceptions.html)
-* [P value, Significance, and T-test](P_values.md)
-* [Bar, Box, and Violin: Navigating Data Visualization for Insightful Analysis](Bar_Box_and_Violin_Navigating_Data_Visualization_for_Insightful_Analysis.html)
-* [All about t-tests and visualizations](T_tests.html)
-* [Non-parametric tests and visualizations](Non_parametric_tests.html)
-* [ANOVA and Blocking](Anova_blocks.html)
-* [Correlation, causation, and association](Correlation_Causation.html)
-
-## Fitting Models to Data Not Data to Models
-
-You might have heard someone say that "all models are wrong, but some are useful". The best way to ensure models are useful is to choose a model that is appropriate to your data and research questions, rather than forcing your data to fit your model's assumptions (e.g., normality, independence, constant variance).
-
-This series introduces early-career researchers to statistical models that extend beyond linear models (i.e., ANOVAs) so that they may learn how to *fit models to their data rather than fitting their data to models*. All workshops will use `R` and RStudio, so some experience with `R` or other programming languages is encouraged but not required. See the [R Fundamentals for Data Anlysis](https://csc-ubc-okanagan.github.io/workshops/#r-fundamentals-for-data-analysis) for an introduction to `R` and RStudio. Attendees who do not have experience with `R` are encouraged to review this content or take the introductory workshop concurrently if it's being offered.
-
-[Read invidiual workshop descriptions here](https://github.com/csc-ubc-okanagan/workshops/blob/main/outlines/fitting-models-to-data-not-data-to-models.md). html formatted materials coming soon. Links to scripts available below.
-
-* Simple Linear Regression: [script](https://github.com/csc-ubc-okanagan/ubco-csc-modeling-workshop/blob/main/R-scripts/1-simple-linear-regression.R), [slides](https://github.com/csc-ubc-okanagan/workshops/blob/main/docs/FittingModelsSlides/CSCWS01T01.pdf)
-* Fitting linear models in `R`: [script](https://github.com/csc-ubc-okanagan/ubco-csc-modeling-workshop/blob/main/R-scripts/2-fitting-linear-models-in-R.R), [slides](https://github.com/csc-ubc-okanagan/workshops/blob/main/docs/FittingModelsSlides/CSCWS02T01.pdf)
-* Multiple linear regression in `R`: [script](https://github.com/csc-ubc-okanagan/ubco-csc-modeling-workshop/blob/main/R-scripts/3-multiple-linear-regression.R), [slides](https://github.com/csc-ubc-okanagan/workshops/blob/main/docs/FittingModelsSlides/CSCWS03T01.pdf)
-* Interaction terms and Hierarchical Linear Models/Linear Mixed Models: [script](https://github.com/csc-ubc-okanagan/ubco-csc-modeling-workshop/blob/main/R-scripts/4-hierarchical-linear-models.R), [slides](https://github.com/csc-ubc-okanagan/workshops/blob/main/docs/FittingModelsSlides/CSCWS04T01.pdf)
-* (Hierarchical) Generalized Linear Models:  [script](https://github.com/csc-ubc-okanagan/ubco-csc-modeling-workshop/blob/main/R-scripts/5-hierarchical-generalized-linear-models.R), [slides](https://github.com/csc-ubc-okanagan/workshops/blob/main/docs/FittingModelsSlides/CSCWS05T01.pdf)
-* Generalized Additive Models: [script](https://github.com/csc-ubc-okanagan/ubco-csc-modeling-workshop/blob/main/R-scripts/6-generalized-additive-models.R), [slides](https://github.com/csc-ubc-okanagan/workshops/blob/main/docs/FittingModelsSlides/CSCWS06T01.pdf)
-* Interpreting and predicting from Generalized Additive Models: [script](https://github.com/csc-ubc-okanagan/ubco-csc-modeling-workshop/blob/main/R-scripts/7-interpreting-and-predicting-from-gams.R), [slides](https://github.com/csc-ubc-okanagan/workshops/blob/main/docs/FittingModelsSlides/CSCWS07T01.pdf)
-* Hierarchical GAMs [script](https://github.com/csc-ubc-okanagan/ubco-csc-modeling-workshop/blob/main/R-scripts/8-hierarchical-generalized-additive-models.R), [slides](https://github.com/csc-ubc-okanagan/workshops/blob/main/docs/FittingModelsSlides/CSCWS08T01.pdf), [data](https://github.com/csc-ubc-okanagan/ubco-csc-modeling-workshop/blob/main/data/weatherstats_kelowna_daily.csv)
-* Penalized Models [script](https://github.com/csc-ubc-okanagan/ubco-csc-modeling-workshop/blob/main/R-scripts/9-penalized-models.R), [slides](https://github.com/csc-ubc-okanagan/workshops/blob/main/docs/FittingModelsSlides/CSCWS09T01.pdf)
-* Survival Models [script](https://github.com/csc-ubc-okanagan/ubco-csc-modeling-workshop/blob/main/R-scripts/10-survival-models.R), [slides](https://github.com/csc-ubc-okanagan/workshops/blob/main/docs/FittingModelsSlides/CSCWS10T01.pdf)
-* Nonparametric Models [script](https://github.com/csc-ubc-okanagan/ubco-csc-modeling-workshop/blob/main/R-scripts/10-nonparametric-models.R), [slides](https://github.com/csc-ubc-okanagan/workshops/blob/main/docs/FittingModelsSlides/CSCWS11T01.pdf)
-
-## The Advance `R` Series: Clustering & Classification
-
-Data rarely comes neatly labelled or structured, yet patterns still exist—even when they are not immediately obvious. Clustering and classification methods allow researchers to uncover structure in their data, group similar observations, and reduce dimensionality without imposing rigid assumptions about the underlying relationships.
-
-This series introduces researchers to statistical and machine-learning methods for grouping, modelling, and interpreting high-dimensional data. Participants will learn a broad range of approaches—from hierarchical and centroid-based models to probabilistic, fuzzy, density-based, graph-based, and mixed-type clustering techniques—along with strategies for dimensionality reduction and fairness considerations. Emphasis is placed on understanding model assumptions, evaluating model performance, and selecting methods that align with the characteristics of the data rather than forcing data to fit inappropriate models.
-
-All workshops will use `R` and RStudio, so some experience with `R` or other programming languages is encouraged but not required.  See the [R Fundamentals for Data Anlysis](https://csc-ubc-okanagan.github.io/workshops/#r-fundamentals-for-data-analysis) for an introduction to `R` and RStudio. Attendees who do not have experience with `R` are encouraged to review this content or take the introductory workshop concurrently if it's being offered.
-
-* Hierarchical Models: [script](https://github.com/csc-ubc-okanagan/Clustering-Classification/blob/main/AdvanceRSeriesCodeandSlides/WS1Code-Hierarchical.R), [slides](https://github.com/csc-ubc-okanagan/Clustering-Classification/blob/main/AdvanceRSeriesCodeandSlides/WS1Slides.pdf)
-* Centroid-Based Models: [script](https://github.com/csc-ubc-okanagan/Clustering-Classification/blob/main/AdvanceRSeriesCodeandSlides/WS2Code-Centroids.R), [slides](https://github.com/csc-ubc-okanagan/Clustering-Classification/blob/main/AdvanceRSeriesCodeandSlides/WS2Slides.pdf)
-* Fuzzy Clustering: [script](https://github.com/csc-ubc-okanagan/Clustering-Classification/blob/main/AdvanceRSeriesCodeandSlides/WS3Code-Fuzzy.R), [slides](https://github.com/csc-ubc-okanagan/Clustering-Classification/blob/main/AdvanceRSeriesCodeandSlides/WS3Slides.pdf)
-* Distribution-Based Clustering: [script](https://github.com/csc-ubc-okanagan/Clustering-Classification/blob/main/AdvanceRSeriesCodeandSlides/WS4Code-Distribution.R), [slides](https://github.com/csc-ubc-okanagan/Clustering-Classification/blob/main/AdvanceRSeriesCodeandSlides/WS4Slides.pdf)
-* Density-Based Clustering: [script](https://github.com/csc-ubc-okanagan/Clustering-Classification/blob/main/AdvanceRSeriesCodeandSlides/WS5Code-Density.R), [slides](https://github.com/csc-ubc-okanagan/Clustering-Classification/blob/main/AdvanceRSeriesCodeandSlides/WS5Slides.pdf)
-* Graph-Based Clustering: [script](https://github.com/csc-ubc-okanagan/Clustering-Classification/blob/main/AdvanceRSeriesCodeandSlides/WS6Code-Graph.R), [slides](https://github.com/csc-ubc-okanagan/Clustering-Classification/blob/main/AdvanceRSeriesCodeandSlides/WS6Slides.pdf)
-* Mixed-Type Data Quantification: [script](https://github.com/csc-ubc-okanagan/Clustering-Classification/blob/main/AdvanceRSeriesCodeandSlides/WS7Code-MixedDistances.R), [slides](https://github.com/csc-ubc-okanagan/Clustering-Classification/blob/main/AdvanceRSeriesCodeandSlides/WS7Slides.pdf)
-* Mixed-Type Data Clustering: [script](https://github.com/csc-ubc-okanagan/Clustering-Classification/blob/main/AdvanceRSeriesCodeandSlides/WS8Code-MixedClustering.R), [slides](https://github.com/csc-ubc-okanagan/Clustering-Classification/blob/main/AdvanceRSeriesCodeandSlides/WS8Slides.pdf)
-* Bias Reduction and Fairness: [script](https://github.com/csc-ubc-okanagan/Clustering-Classification/blob/main/AdvanceRSeriesCodeandSlides/WS9Code-FairCluster.R), [slides](https://github.com/csc-ubc-okanagan/Clustering-Classification/blob/main/AdvanceRSeriesCodeandSlides/WS9Slides.pdf)
-* Dimensionality Reduction Reduction Techniques I: [script](https://github.com/csc-ubc-okanagan/Clustering-Classification/blob/main/AdvanceRSeriesCodeandSlides/WS10Code-Reduction1.R), [slides](https://github.com/csc-ubc-okanagan/Clustering-Classification/blob/main/AdvanceRSeriesCodeandSlides/WS10Slides.pdf)
-* Dimensionality Reduction Reduction Techniques II: [script](https://github.com/csc-ubc-okanagan/Clustering-Classification/blob/main/AdvanceRSeriesCodeandSlides/WS11Code-Reduction2.R), [slides](https://github.com/csc-ubc-okanagan/Clustering-Classification/blob/main/AdvanceRSeriesCodeandSlides/WS11Slides.pdf)

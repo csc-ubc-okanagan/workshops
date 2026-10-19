@@ -8,6 +8,8 @@ pagetitle: "Workshops"
 <style>
 html { scroll-behavior: smooth; }
 
+.footer { display: none; }
+  
 .ws-layout {
   display: flex;
   gap: 36px;
@@ -16,7 +18,6 @@ html { scroll-behavior: smooth; }
   margin: 0 auto;
 }
 
-/* ---- Sidebar ---- */
 .ws-sidebar {
   position: sticky;
   top: 20px;

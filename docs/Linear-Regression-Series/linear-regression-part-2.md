@@ -5,7 +5,14 @@ output:
     keep_md: yes
 ---
 
-
+<script>
+  MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']],
+           displayMath: [['$$','$$'], ['\\[','\\]']] },
+    svg: { fontCache: 'global' }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" id="MathJax-script" async></script>
 
 # Linear Regression in R (Part 2): Multiple Linear Regression
 

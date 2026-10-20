@@ -75,7 +75,7 @@ ggplot(trees, aes(x = Girth, y = Volume)) +
        title = "Tree volume increases with girth")
 ```
 
-![](assets/images/intro-to-linear-regression/1-tree-scatter.png)
+![](../assets/images/intro-to-linear-regression/1-tree-scatter.png)
 
 The points rise from the lower left to the upper right. The trend looks close to a straight line, so simple linear regression is a reasonable starting model.
 
@@ -249,7 +249,7 @@ ggplot(trees, aes(x = Girth, y = Volume)) +
        title = "Fitted regression line with 95% confidence band")
 ```
 
-![](assets/images/intro-to-linear-regression/1-tree-fitted.png)
+![](../assets/images/intro-to-linear-regression/1-tree-fitted.png)
 
 The orange line is the estimated mean volume at each girth. The band is a 95% confidence interval for that mean. The band is narrow in the middle of the data and widens toward the edges, because we have less information about the relationship far from the bulk of the observations.
 
@@ -342,7 +342,7 @@ plot(treeModel)
 par(mfrow = c(1, 1))   
 ```
 
-![](assets/images/intro-to-linear-regression/1-tree-diagnostics.png)
+![](../assets/images/intro-to-linear-regression/1-tree-diagnostics.png)
 
 What to look for:
 
@@ -368,7 +368,7 @@ fanModel <- lm(fanResponse ~ widthSpread)
 plot(fanModel, which = 1) 
 ```
 
-![](assets/images/intro-to-linear-regression/1-tree-fanning.png)
+![](../assets/images/intro-to-linear-regression/1-tree-fanning.png)
 
 Curvature (broken linearity). The true relationship bends, so a straight line leaves a curved pattern in the residuals.
 
@@ -383,7 +383,7 @@ curvedModel <- lm(curvedResponse ~ inputValue)
 plot(curvedModel, which = 1)  
 ```
 
-![](assets/images/intro-to-linear-regression/1-tree-nonlinear.png)
+![](../assets/images/intro-to-linear-regression/1-tree-nonlinear.png)
 
 Each plot shows the straight-line model failing in a specific way. The fix depends on which assumption broke.
 

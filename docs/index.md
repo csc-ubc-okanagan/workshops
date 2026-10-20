@@ -344,7 +344,7 @@ html { scroll-behavior: smooth; }
         <li class="ws-item">
           <span class="ws-item-title">Part 1: Hierarchical Models</span>
           <div class="ws-controls">
-            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"><Hierarchical clustering builds groups step by step, making it possible to explore structure without selecting the number of clusters in advance. Participants will learn how distance measures and linkage methods affect the resulting hierarchy, create and interpret dendrograms, and use common diagnostics to decide where the hierarchy should be divided./div></details>
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">Hierarchical clustering builds groups step by step, making it possible to explore structure without selecting the number of clusters in advance. Participants will learn how distance measures and linkage methods affect the resulting hierarchy, create and interpret dendrograms, and use common diagnostics to decide where the hierarchy should be divided.</div></details>
           </div>
         </li>
         <li class="ws-item">

@@ -337,7 +337,9 @@ html { scroll-behavior: smooth; }
 
     <section id="clustering-classification" class="ws-series">
       <h2>Clustering &amp; Classification in R</h2>
-      <p class="ws-series-desc">Data rarely comes neatly labelled or structured, yet patterns can still exist even when they are not immediately obvious. Clustering methods help researchers uncover that structure by grouping similar observations, while classification provides a framework for understanding and predicting known groups.</p><p class="ws-series-desc">This six-part series introduces several of the main ways that similarity and group structure can be defined. Participants will work with hierarchical, centroid-based, fuzzy, distribution-based, graph-based, and density-based models. Emphasis is placed on understanding how each method forms groups, recognizing the assumptions behind the method, evaluating the resulting clusters, and choosing an approach that makes sense for the data rather than simply using the most familiar algorithm.</p><p class="ws-series-desc">All workshops will use R and RStudio, so some experience with R or another programming language is encouraged but not required. See <a href="#r-fundamentals">R Fundamentals for Data Analysis</a> for an introduction to R and RStudio. Attendees without prior experience are encouraged to review this content. No prior knowledge of clustering or classification is required, and each workshop will introduce the background needed for that session.</p>
+      <p class="ws-series-desc">Data rarely comes neatly labelled or structured, yet patterns can still exist even when they are not immediately obvious. Clustering methods help researchers uncover that structure by grouping similar observations, while classification provides a framework for understanding and predicting known groups.</p>
+      <p class="ws-series-desc">This six-part series introduces several of the main ways that similarity and group structure can be defined. Participants will work with hierarchical, centroid-based, fuzzy, distribution-based, graph-based, and density-based models. Emphasis is placed on understanding how each method forms groups, recognizing the assumptions behind the method, evaluating the resulting clusters, and choosing an approach that makes sense for the data rather than simply using the most familiar algorithm.</p><
+      p class="ws-series-desc">All workshops will use R and RStudio, so some experience with R or another programming language is encouraged but not required. See <a href="#r-fundamentals">R Fundamentals for Data Analysis</a> for an introduction to R and RStudio. Attendees without prior experience are encouraged to review this content. No prior knowledge of clustering or classification is required, and each workshop will introduce the background needed for that session.</p>
       <ul class="ws-list">
         <li class="ws-item">
           <span class="ws-item-title">Part 1: Hierarchical Models</span>
@@ -380,7 +382,9 @@ html { scroll-behavior: smooth; }
 
     <section id="dimensionality-reduction" class="ws-series">
       <h2>Dimensionality Reduction in R</h2>
-      <p class="ws-series-desc placeholder">[Series description &mdash; add here]</p>
+      <p class="ws-series-desc">Large datasets often contain many variables, but more variables do not always mean more information. Strong relationships, redundant measurements, and noise can make patterns harder to see and models harder to interpret. Dimensionality reduction provides a collection of tools for representing complex data with fewer dimensions while retaining the information that matters most.</p>
+      <p class="ws-series-desc">This six-part series introduces both linear and nonlinear approaches to dimensionality reduction. Participants will work with methods designed for visualization, feature extraction, latent structure, supervised outcomes, and mixed-type data. Emphasis is placed on understanding what each reduced dimension represents, what information may be lost, and how the purpose and structure of the analysis should guide the choice of method.</p>
+      <p class="ws-series-desc">All workshops will use R and RStudio, so some experience with R or another programming language is encouraged but not required. See <a href="#r-fundamentals">R Fundamentals for Data Analysis</a> for an introduction to R and RStudio. Attendees without prior experience are encouraged to review this content. No prior knowledge of dimensionality reduction is required, and each workshop will introduce the background needed for that session.</p>
       <ul class="ws-list">
         <li class="ws-item">
           <span class="ws-item-title">Part 1: Linear Methods I &ndash; PCA and ICA</span>
@@ -423,7 +427,9 @@ html { scroll-behavior: smooth; }
 
     <section id="linear-regression" class="ws-series">
       <h2>Linear Regression in R</h2>
-      <p class="ws-series-desc placeholder">[Series description &mdash; add here]</p>
+      <p class="ws-series-desc">Linear regression is often one of the first statistical models researchers encounter, but using it well involves much more than drawing a straight line. Researchers must understand what the model is estimating, whether its assumptions are reasonable, and how the results relate to the original research question.</p>
+      <p class="ws-series-desc">This series introduces linear regression as a framework for studying relationships, testing hypotheses, and making predictions. Participants will progress from simple and multiple linear regression to model interpretation, prediction, interaction effects, hierarchical models, and penalized regression. Emphasis is placed on understanding model assumptions, evaluating model fit and predictive performance, and communicating results without overstating what the model can establish.</p>
+      <p class="ws-series-desc">All workshops will use R and RStudio, so some experience with R or another programming language is encouraged but not required. See the <a href="#r-fundamentals">R Fundamentals for Data Analysis</a> for an introduction to R and RStudio. Attendees without prior experience are encouraged to review this content. No prior knowledge of linear regression is required, and each workshop will introduce the background needed for that session.</p>
       <ul class="ws-list">
         <li class="ws-item">
           <span class="ws-item-title">Part 1: Intro to Linear Regression</span>
@@ -466,7 +472,9 @@ html { scroll-behavior: smooth; }
 
     <section id="glms-gams" class="ws-series">
       <h2>GLMs and GAMs in R</h2>
-      <p class="ws-series-desc placeholder">[Series description &mdash; add here]</p>
+      <p class="ws-series-desc">Linear regression is a powerful starting point, but many outcomes are not continuous and many relationships are not straight lines. Binary responses, counts, proportions, and nonlinear trends require models that can adapt to the structure of the data while remaining interpretable.</p>
+      <p class="ws-series-desc">This six-part series introduces generalized linear models and generalized additive models as flexible extensions of ordinary linear regression. Participants will learn how response distributions, link functions, smooth effects, prediction, and grouped data can be incorporated into a statistical model. Emphasis is placed on selecting a model that matches the outcome, interpreting results on the correct scale, checking model adequacy, and communicating what the fitted model can support.</p>
+      <p class="ws-series-desc">All workshops will use R and RStudio, so some experience with R or another programming language is encouraged but not required. See <a href="#r-fundamentals">R Fundamentals for Data Analysis</a> for an introduction to R and RStudio. Attendees without prior experience are encouraged to review this content. No prior knowledge of generalized linear or additive models is required, and each workshop will introduce the background needed for that session.</p>
       <ul class="ws-list">
         <li class="ws-item">
           <span class="ws-item-title">Part 1: Intro to Generalized Linear Models</span>
@@ -509,7 +517,9 @@ html { scroll-behavior: smooth; }
 
     <section id="survival-analysis" class="ws-series">
       <h2>Survival Analysis in R</h2>
-      <p class="ws-series-desc placeholder">[Series description &mdash; add here]</p>
+      <p class="ws-series-desc">Time-to-event data (sometimes referred to as 'survival' data) are commonplace across a diverse set of disciplines including biology, engineering, medicine, economics, and the social sciences and occur whenever researchers are interested in modeling how long it takes for an event of interest (e.g., disease remission, death, or component failure) to occur. However, working with time-to-event data can be difficult for a variety of reasons including incomplete observation times prior to or after an event (often referred to as 'censored' data); skewed distributions (waiting times between events can have highly 'skewed' or uneven distributions — often 'piling' up very quickly or having long-tailed distributions); and nonconstancy of 'risk' or the likelihood of an event occurring over time.</p>
+      <p class="ws-series-desc">This series introduces researchers to the approaches and programming tools needed to tackle challenges associated with time-to-event data. Participants will learn progressively more advanced frameworks—from the basics of understanding incomplete observation periods using censoring data formats and Kaplan-Meier survival curves, to accounting for nonconstant risk and skewed distributions using parametric models. Throughout, attendees will explore model diagnostics to ensure their findings are statistically valid, and implement predictive validation techniques to assess how accurately their models forecast future events. Emphasis is placed on understanding model assumptions and output, evaluating model fit, and selecting methods that align with the model assumptions.</p>
+      <p class="ws-series-desc">All workshops will use R and RStudio, so some experience with R or other programming languages is encouraged but not required. See the <a href="#r-fundamentals">R Fundamentals for Data Analysis</a> for an introduction to R and RStudio. Attendees without prior experience are encouraged to review this content.</p>
       <ul class="ws-list">
         <li class="ws-item">
           <span class="ws-item-title">Part 1: Survival Data, Censoring, and Truncation</span>

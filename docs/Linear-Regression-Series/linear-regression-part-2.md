@@ -390,6 +390,4 @@ If you finish early, draw a DAG for your variables with `dagify()` and `ggdag()`
 
 ## What Is Next
 
-Every model today assumed each predictor acts on the response independently of the others. The effect of income did not depend on the region; the effect of the murder rate was the same everywhere.
-
-That is often too simple. Sometimes the effect of one predictor depends on the value of another. The benefit of education might differ by region. The next workshop is Interaction Terms and Hierarchical Linear Models, where we let predictors modify each other's effects, and where we handle data that comes in natural groups.
+There are many more diagnostics and visuals we can use to validate our model and explore it more. Next time, we will look into these more.

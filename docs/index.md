@@ -344,37 +344,37 @@ html { scroll-behavior: smooth; }
         <li class="ws-item">
           <span class="ws-item-title">Part 1: Hierarchical Models</span>
           <div class="ws-controls">
-            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"><Hierarchical clustering builds groups step by step, making it possible to explore structure without selecting the number of clusters in advance. Participants will learn how distance measures and linkage methods affect the resulting hierarchy, create and interpret dendrograms, and use common diagnostics to decide where the hierarchy should be divided./div></details>
           </div>
         </li>
         <li class="ws-item">
           <span class="ws-item-title">Part 2: Centroid-Based Models</span>
           <div class="ws-controls">
-            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">Centroid-based methods assign observations to groups represented by a central point. This session introduces methods such as k-means and k-medoids, including how to select the number of clusters, assess the stability and quality of a solution, and recognize when a centroid-based model may not suit the shape or structure of the data.</div></details>
           </div>
         </li>
         <li class="ws-item">
           <span class="ws-item-title">Part 3: Fuzzy Models</span>
           <div class="ws-controls">
-            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">Not every observation belongs cleanly to a single group. Fuzzy clustering replaces hard assignments with degrees of membership, allowing uncertainty and overlap between clusters to be represented directly. Participants will fit fuzzy clustering models in R, interpret membership values, and compare fuzzy and hard cluster solutions.</div></details>
           </div>
         </li>
         <li class="ws-item">
           <span class="ws-item-title">Part 4: Distribution-Based Models</span>
           <div class="ws-controls">
-            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">Distribution-based clustering treats the data as arising from a mixture of underlying probability distributions. Participants will be introduced to finite mixture models and model-based clustering, learn how these models describe clusters with different shapes and variability, and use statistical criteria and uncertainty estimates to evaluate a fitted solution.</div></details>
           </div>
         </li>
         <li class="ws-item">
           <span class="ws-item-title">Part 5: Graph-Based Models</span>
           <div class="ws-controls">
-            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">Graph-based methods represent observations as a network of connections, allowing clusters to emerge from patterns of local similarity. This session introduces graph construction and spectral clustering, with attention to how the similarity measure and graph structure influence the final groups. Participants will apply these methods and interpret the resulting cluster structure in R.</div></details>
           </div>
         </li>
         <li class="ws-item">
           <span class="ws-item-title">Part 6: Density-Based Models</span>
           <div class="ws-controls">
-            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">Density-based clustering finds groups as regions where observations are concentrated and treats isolated observations as potential noise. Participants will use methods such as DBSCAN to identify clusters with irregular shapes, examine the effect of tuning parameters, and determine when a density-based approach is more appropriate than methods built around cluster centres.</div></details>
           </div>
         </li>
       </ul>
@@ -389,37 +389,37 @@ html { scroll-behavior: smooth; }
         <li class="ws-item">
           <span class="ws-item-title">Part 1: Linear Methods I &ndash; PCA and ICA</span>
           <div class="ws-controls">
-            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">Principal component analysis and independent component analysis both create new variables from existing ones, but they look for different kinds of structure. Participants will learn how the methods differ, fit both in R, determine how many components to retain, and interpret the resulting components, loadings, and visualizations.</div></details>
           </div>
         </li>
         <li class="ws-item">
           <span class="ws-item-title">Part 2: Linear Methods II &ndash; Factor Analyzers</span>
           <div class="ws-controls">
-            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">Factor analysis explains relationships among observed variables through a smaller number of unobserved factors. This session introduces the underlying model, its distinction from principal component analysis, and practical decisions such as selecting the number of factors and choosing a rotation. Participants will interpret factor loadings, communalities, and factor scores in R.</div></details>
           </div>
         </li>
         <li class="ws-item">
           <span class="ws-item-title">Part 3: Nonlinear Methods I &ndash; T-SNE and UMAP</span>
           <div class="ws-controls">
-            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">Some patterns cannot be represented well by a straight line or a linear combination of variables. This session introduces t-SNE and UMAP for constructing low-dimensional representations of nonlinear data. Participants will create and compare embeddings, explore the effect of tuning parameters, and learn what conclusions these popular visualizations can and cannot support.</div></details>
           </div>
         </li>
         <li class="ws-item">
           <span class="ws-item-title">Part 4: Nonlinear Methods II &ndash; MDS and Kernel PCA</span>
           <div class="ws-controls">
-            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">Multidimensional scaling and kernel principal component analysis provide two different ways to uncover structure beyond ordinary linear projections. Participants will learn how distances and kernels define the resulting representation, implement both approaches in R, and evaluate how well the lower-dimensional space preserves meaningful relationships in the original data.</div></details>
           </div>
         </li>
         <li class="ws-item">
           <span class="ws-item-title">Part 5: Supervised Methods &ndash; LDA and PLS</span>
           <div class="ws-controls">
-            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">Unlike unsupervised methods, supervised dimensionality reduction uses information about an outcome when constructing a smaller set of features. This session introduces linear discriminant analysis and partial least squares, with attention to how the two methods use outcome information differently. Participants will fit, visualize, and evaluate these models in R for classification or prediction.</div></details>
           </div>
         </li>
         <li class="ws-item">
           <span class="ws-item-title">Part 6: FAMD for Mixed-type Data</span>
           <div class="ws-controls">
-            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">Many real datasets contain both numeric and categorical variables, making standard principal component analysis an incomplete solution. Factor analysis of mixed data provides a joint representation that balances information across variable types. Participants will apply FAMD in R, interpret the reduced dimensions and variable contributions, and use the resulting representation to explore heterogeneous data.</div></details>
           </div>
         </li>
       </ul>
@@ -434,37 +434,37 @@ html { scroll-behavior: smooth; }
         <li class="ws-item">
           <span class="ws-item-title">Part 1: Intro to Linear Regression</span>
           <div class="ws-controls">
-            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">Linear regression provides a direct way to describe how a continuous outcome changes with an explanatory variable. Participants will fit simple linear regression models in R, interpret the slope and intercept, visualize fitted relationships, and examine the main assumptions that determine whether the model can be trusted.</div></details>
           </div>
         </li>
         <li class="ws-item">
           <span class="ws-item-title">Part 2: Multiple Linear Regression</span>
           <div class="ws-controls">
-            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">Research questions rarely involve only one explanatory variable. This session extends the linear model to include several predictors and explores how the interpretation of a coefficient changes once other variables are included. Participants will fit and compare multiple regression models, work with numeric and categorical predictors, and examine collinearity and confounding.</div></details>
           </div>
         </li>
         <li class="ws-item">
           <span class="ws-item-title">Part 3: Interpreting Results</span>
           <div class="ws-controls">
-            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">Regression output contains a great deal of information, but statistical significance alone does not tell the whole story. Participants will learn to interpret coefficients, confidence intervals, hypothesis tests, and measures of model fit in the context of a research question. The session will also discuss practical significance and how to communicate results without overstating what the model establishes.</div></details>
           </div>
         </li>
         <li class="ws-item">
           <span class="ws-item-title">Part 4: Fitting vs. Predicting</span>
           <div class="ws-controls">
-            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">A model that describes the observed data well does not necessarily predict new observations well. This session separates explanatory modelling from prediction and introduces training and test data, out-of-sample evaluation, and common prediction metrics. Participants will also distinguish confidence intervals from prediction intervals and examine how overfitting can give a misleading impression of performance.</div></details>
           </div>
         </li>
         <li class="ws-item">
           <span class="ws-item-title">Part 5: Interaction Terms and Hierarchical Linear Models</span>
           <div class="ws-controls">
-            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">Relationships can change across groups, settings, or levels of another variable, and observations collected within the same group may not be independent. Participants will use interaction terms to model changing effects and hierarchical linear models to account for grouped or repeated observations. Emphasis is placed on interpreting conditional effects and understanding the roles of fixed and random effects.</div></details>
           </div>
         </li>
         <li class="ws-item">
           <span class="ws-item-title">Part 6: Penalized Models</span>
           <div class="ws-controls">
-            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">Models with many or strongly related predictors can become unstable and difficult to interpret. Penalized regression controls model complexity by shrinking coefficient estimates and, in some cases, selecting variables. Participants will fit ridge, lasso, and elastic-net models in R, use cross-validation to choose the amount of penalization, and compare their predictive performance.</div></details>
           </div>
         </li>
       </ul>
@@ -479,37 +479,37 @@ html { scroll-behavior: smooth; }
         <li class="ws-item">
           <span class="ws-item-title">Part 1: Intro to Generalized Linear Models</span>
           <div class="ws-controls">
-            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">Generalized linear models extend linear regression to outcomes such as binary responses and counts. Participants will learn how the response distribution and link function define a model, fit introductory logistic and Poisson regression models in R, and recognize when an ordinary linear model is not appropriate.</div></details>
           </div>
         </li>
         <li class="ws-item">
           <span class="ws-item-title">Part 2: Interpreting Generalized Linear Models</span>
           <div class="ws-controls">
-            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">Coefficients from a generalized linear model are not always expressed on the scale researchers care about most. This session shows how to move between the link and response scales and interpret quantities such as odds ratios, rate ratios, fitted probabilities, and expected counts. Participants will also examine uncertainty, model fit, and common diagnostics.</div></details>
           </div>
         </li>
         <li class="ws-item">
           <span class="ws-item-title">Part 3: Intro to Generalized Additive Models</span>
           <div class="ws-controls">
-            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">Generalized additive models allow relationships to bend when a straight line is too restrictive. Participants will learn how smooth terms are constructed and controlled, fit additive models in R, and compare linear and nonlinear representations of the same relationship without having to specify its shape in advance.</div></details>
           </div>
         </li>
         <li class="ws-item">
           <span class="ws-item-title">Part 4: Interpreting Generalized Additive Models</span>
           <div class="ws-controls">
-            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">The flexibility of an additive model is useful only if its fitted effects are interpreted carefully. This session focuses on visualizing smooth terms, understanding their uncertainty and effective degrees of freedom, and describing nonlinear relationships in clear language. Participants will also use diagnostics to identify models that are too simple, unnecessarily complex, or poorly supported by the data.</div></details>
           </div>
         </li>
         <li class="ws-item">
           <span class="ws-item-title">Part 5: Predicting from GLMs and GAMs</span>
           <div class="ws-controls">
-            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">Predictions from generalized models depend on the outcome distribution, the link function, and the scale on which results are reported. Participants will generate predictions and uncertainty intervals from GLMs and GAMs, evaluate performance on new data, and choose measures suited to continuous, binary, or count outcomes.</div></details>
           </div>
         </li>
         <li class="ws-item">
           <span class="ws-item-title">Part 6: Generalized Linear Mixed Effects Models</span>
           <div class="ws-controls">
-            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">Binary, count, and other non-normal outcomes often arise from grouped, repeated, or multilevel data. Generalized linear mixed-effects models combine the flexibility of a generalized linear model with random effects that account for this dependence. Participants will fit these models in R, interpret fixed and random effects, and examine how the data structure influences model specification.</div></details>
           </div>
         </li>
       </ul>
@@ -524,37 +524,37 @@ html { scroll-behavior: smooth; }
         <li class="ws-item">
           <span class="ws-item-title">Part 1: Survival Data, Censoring, and Truncation</span>
           <div class="ws-controls">
-            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"><Survival analysis is, at its core, about modeling risk, or the probability that an event occurs, over time. But before that risk can be modeled, the data must be structured correctly. However,  time-to-event data are rarely complete: some subjects leave a study before experiencing the event of interest, and others enter observation only after time has already passed. We show why ignoring incomplete data risks biasing estimates from the very first model fit. Participants will learn how to establish a consistent 'time origin' across subjects with different start dates, define who is at risk of the event at any given point in follow-up, and represent this structure correctly in R using the Surv() function./div></details>
           </div>
         </li>
         <li class="ws-item">
           <span class="ws-item-title">Part 2: Kaplan-Meier Estimation</span>
           <div class="ws-controls">
-            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">Once our data are structured with a clear time origin and event status, the natural next question is: what does survival look like over time? This workshop introduces the survival curve — a 'step-shaped' plot showing the estimated probability of remaining event-free at each point in follow-up. We build this curve using Kaplan-Meier estimation — an approach that typically requires no assumptions about the underlying 'shape' of risk (or in other words is non-parametric) — making it an ideal first step for describing time-to-event data before introducing more structured models later in the series. </div></details>
           </div>
         </li>
         <li class="ws-item">
           <span class="ws-item-title">Part 3: Cox Proportional Hazards Models</span>
           <div class="ws-controls">
-            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">After developing an understanding of how risk changes over time, we may want to model that risk as a function of some factors of interest. Cox proportional hazards (Cox PH) models extend the simple survival curve from Part 2 into a framework that allows us to ask not only what survival 'looks' like, but also why it differs across individuals. Rather than modeling survival probability directly, the Cox model works on the instantaneous risk of the event at a given moment (the 'hazard') and allows us to estimate how covariates (e.g., age; control or treatment status; or disease stage) change that risk. Critically, this modelling framework assumes that the relative proportion of risk between 'groups' remains the same over time — and hence is called 'proportional'. This model leaves the underlying shape of the baseline hazard unspecified, just as in the case of survival curve estimation. Cox PH models are thus referred to as semi-parametric.</div></details>
           </div>
         </li>
         <li class="ws-item">
           <span class="ws-item-title">Part 4: Model Diagnostics and Interpretation</span>
           <div class="ws-controls">
-            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">Having fit a Cox model in Part 3, the next (and most important) task is making sense of and communicating the results. In this workshop we build that skill by reading hazard ratios, confidence intervals, and coefficient tables, and translating those outputs into meaningful statements about risk. However, up to this point we have supposed that the model is appropriate for our data — an assumption that the relative risk  between individuals remains constant over time. In the second half of the workshop, we introduce the tools used to test whether the 'proportionality' assumption actually holds — spoiler alert: it rarely does. We close by setting up the question the rest of the series must answer: what do we do when it doesn't?</div></details>
           </div>
         </li>
         <li class="ws-item">
           <span class="ws-item-title">Part 5: Parametric and Accelerated Failure Time Models</span>
           <div class="ws-controls">
-            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">Part 4 left us with a critical (and unresolved) question: What do we do when the proportional hazards assumption fails? One answer is to step outside the Cox framework altogether. This workshop introduces  survival models, which specify the exact shape of the hazard function using a chosen probability distribution (such as Weibull or exponential). Within this framework, we will focus on Accelerated Failure Time (AFT) models. AFT asks how a variable speeds up or slows down time to the event itself. Because AFT models completely bypass the proportional hazards assumption, they offer a valid alternative when your diagnostics flag a violation.</div></details>
           </div>
         </li>
         <li class="ws-item">
           <span class="ws-item-title">Part 6: Prediction</span>
           <div class="ws-controls">
-            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">It has been asserted that the utility of any given model is best measured by how well it predicts data it has not yet seen. In this final workshop, we take this assertion seriously and ask: how well do our models predict outcomes for new individuals? We shift from describing and explaining the data used to build a model, to evaluating a model's ability to generalize beyond it. In the process we introduce two complementary ways to assess model predictions: discrimination (the model's ability to correctly rank risk among individuals) and calibration (the model's ability to accurately predict survival probabilities).</div></details>
           </div>
         </li>
       </ul>

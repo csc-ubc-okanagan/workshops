@@ -174,7 +174,7 @@ ggplot(states, aes(x = Income, y = MurderRate)) +
        title = "Income and murder rate are related")
 ```
 
-![](assets/images/intro-to-linear-regression/2-income-vs-murder.png)
+![](../assets/images/intro-to-linear-regression/2-income-vs-murder.png)
 
 A coefficient is not a fixed property of a predictor. It depends on which other predictors share the model.
 
@@ -197,7 +197,7 @@ lifeDag <- dagify(
 ggdag(lifeDag, text = TRUE) + theme_dag()
 ```
 
-![](assets/images/intro-to-linear-regression/2-dag.png)
+![](../assets/images/intro-to-linear-regression/2-dag.png)
 
 The arrow from income into murder rate, and from murder rate into life expectancy, is exactly the indirect path that explains why income's coefficient shifted when we added murder rate. The DAG is a reasoning tool, not an output of the data. You bring the arrows; the data cannot tell you their direction.
 

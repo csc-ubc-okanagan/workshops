@@ -442,6 +442,7 @@ html { scroll-behavior: smooth; }
           <span class="ws-item-title">Part 2: Multiple Linear Regression</span>
           <div class="ws-controls">
             <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">Research questions rarely involve only one explanatory variable. This session extends the linear model to include several predictors and explores how the interpretation of a coefficient changes once other variables are included. Participants will fit and compare multiple regression models, work with numeric and categorical predictors, and examine collinearity and confounding.</div></details>
+             <span class="ws-links"><a href="Linear-Regression-Series/linear-regression-part-2.html">workshop page</a></span>
           </div>
         </li>
         <li class="ws-item">

@@ -435,6 +435,7 @@ html { scroll-behavior: smooth; }
           <span class="ws-item-title">Part 1: Intro to Linear Regression</span>
           <div class="ws-controls">
             <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">Linear regression provides a direct way to describe how a continuous outcome changes with an explanatory variable. Participants will fit simple linear regression models in R, interpret the slope and intercept, visualize fitted relationships, and examine the main assumptions that determine whether the model can be trusted.</div></details>
+            <span class="ws-links"><a href="Linear-Regression-Series/linear-regression-part-1.html">workshop page</a></span>
           </div>
         </li>
         <li class="ws-item">

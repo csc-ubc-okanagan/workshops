@@ -449,6 +449,7 @@ html { scroll-behavior: smooth; }
           <span class="ws-item-title">Part 3: Interpreting Results</span>
           <div class="ws-controls">
             <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">Regression output contains a great deal of information, but statistical significance alone does not tell the whole story. Participants will learn to interpret coefficients, confidence intervals, hypothesis tests, and measures of model fit in the context of a research question. The session will also discuss practical significance and how to communicate results without overstating what the model establishes.</div></details>
+            <span class="ws-links"><a href="Linear-Regression-Series/linear-regression-part-3.html">workshop page</a></span>
           </div>
         </li>
         <li class="ws-item">

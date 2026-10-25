@@ -14,6 +14,11 @@ output:
 </script>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" id="MathJax-script" async></script>
 
+<style>
+  .site-footer,
+  .footer { display: none; }
+</style>
+
 # Linear Regression in R (Part 2): Multiple Linear Regression
 
 > This is the second workshop in a six-part series on linear regression. Last time we used a single predictor. Today we use several at once, and we see how the meaning of a coefficient changes when other predictors sit beside it.
@@ -24,18 +29,19 @@ By the end of this session you will be able to:
 
 1. Fit a multiple linear regression model in R with `lm()`.
 2. Interpret a coefficient as a partial effect, holding the other predictors fixed.
-3. Add a categorical predictor and read its coefficients.
-4. Diagnose collinearity with the variance inflation factor.
-5. Reason about confounding with a directed acyclic graph before trusting a coefficient.
-6. Compare models with adjusted `R`-squared and understand why more predictors is not always better.
+3. Add a categorical predictor, and see the columns R builds from it.
+4. Diagnose collinearity with the variance inflation factor, including the version for factors.
+5. Draw partial effect plots, which show one predictor's contribution with the others taken out.
+6. Reason about confounding with a directed acyclic graph before trusting a coefficient.
+7. Compare models with adjusted $R^2$ and understand why more predictors is not always better.
 
 ## Setup
 
-We use base R for modeling, `ggplot2` for plots, `car` for the variance inflation factor, and `ggdag` with `dagitty` for drawing causal diagrams. Install once, then load each session.
+We use base R for modeling, `ggplot2` for plots, `car` for the variance inflation factor and the partial effect plots, and `ggdag` with `dagitty` for drawing causal diagrams. Install once, then load each session.
 
 
 ```r
-packages <- c("ggplot2", "car", "dagitty", "ggdag")
+packages <- c("ggplot2", "car", "dagitty", "ggdag", "leaps")
 toInstall <- packages[!(packages %in% installed.packages()[, "Package"])]
 if (length(toInstall)) install.packages(toInstall)
 
@@ -79,19 +85,45 @@ Colorado         2541   4884        0.7   72.06        6.8   63.9   166 103766  
 
 The variables we use today:
 
-- `LifeExp`: life expectancy in years. This is the response.
-- `Income`: per capita income in dollars.
-- `MurderRate`: murders per 100,000 people.
-- `HSGrad`: percent of adults who are high school graduates.
-- `Region`: a categorical variable with four levels (Northeast, South, North Central, West).
+- `LifeExp` is life expectancy in years. This is the response.
+- `Income` is per capita income in dollars.
+- `MurderRate` is murders per 100,000 people.
+- `HSGrad` is the percent of adults who are high school graduates.
+- `Region` is a categorical variable with four levels (Northeast, South, North Central, West).
+
+> **One caveat about these data.** The columns come from different years. Life expectancy covers 1969 to 1971, the murder rate is from 1976, income is from 1974, and the graduation rate is from 1970. So the response was measured before some of the predictors. We use the dataset because it is built in and convenient for learning the mechanics. Do not read the coefficients as causal effects.
+
+## Looking at the Predictors Together
+
+In Part 1 we plotted one predictor against the response. With several predictors we also want to see how the predictors relate to each other, because that relationship is what makes multiple regression different.
+
+
+```r
+pairs(states[, c("LifeExp", "Income", "MurderRate", "HSGrad")],
+      pch = 19, col = "grey30")
+
+round(cor(states[, c("LifeExp", "Income", "MurderRate", "HSGrad")]), 3)
+```
+
+![](../assets/images/intro-to-linear-regression/2-pairs.png)
+
+```
+           LifeExp Income MurderRate HSGrad
+LifeExp      1.000   0.34     -0.781  0.582
+Income       0.340   1.00     -0.230  0.620
+MurderRate  -0.781  -0.23      1.000 -0.488
+HSGrad       0.582   0.62     -0.488  1.000
+```
+
+Read the top row for the response against each predictor. Read the rest of the panels for the predictors against each other. Strong relationships among the predictors are the thing to watch. They are harmless for prediction and they make individual coefficients hard to pin down, which is the subject of the collinearity section below.
 
 ## From One Predictor to Several
 
-Simple linear regression used one predictor:
+Simple linear regression used one predictor,
 
 $$Y_i = \beta_0 + \beta_1 x_i + \epsilon_i.$$
 
-Multiple linear regression uses $p$ predictors at once:
+Multiple linear regression uses $p$ predictors at once,
 
 $$Y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \cdots + \beta_p x_{ip} + \epsilon_i,$$
 
@@ -102,9 +134,13 @@ where
 - $\beta_j$ is the coefficient for predictor $j$,
 - $\epsilon_i$ is the error, assumed $N(0, \sigma^2)$ as before.
 
-The assumptions from Part 1 carry over unchanged: certainty in the predictors, linearity, constant error variance, independence, and normal errors.
+In matrix form nothing changes from Part 1 except the width of $\mathbf{X}$,
 
-The one idea that changes is interpretation. In simple regression, $\beta_1$ is the total effect of `x` on `Y`. In multiple regression, $\beta_j$ is the effect of $x_j$ **holding every other predictor fixed**. This is called a partial effect.
+$$\mathbf{Y} = \mathbf{X}\beta + \epsilon, \qquad \hat\beta = (\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{Y},$$
+
+where $\mathbf{X}$ is now $n \times (p+1)$. The assumptions from Part 1 carry over unchanged. Certainty in the predictors, linearity, constant error variance, independence, and normal errors.
+
+The one idea that changes is interpretation. In simple regression, $\beta_1$ is the total effect of $x$ on $Y$. In multiple regression, $\beta_j$ is the effect of $x_j$ **holding every other predictor fixed**. This is called a partial effect.
 
 ## Fitting a First Model
 
@@ -133,7 +169,7 @@ Multiple R-squared:  0.1158,	Adjusted R-squared:  0.09735
 F-statistic: 6.285 on 1 and 48 DF,  p-value: 0.01562
 ```
 
-Income has a positive, statistically detectable association with life expectancy, but the adjusted `R`-squared is low. The model leaves most of the variation in life expectancy unexplained, which suggests we are missing predictors that matter.
+Income has a positive, statistically detectable association with life expectancy, but the adjusted $R^2$ is low. The model leaves most of the variation in life expectancy unexplained, which suggests we are missing predictors that matter.
 
 ## Adding a Second Predictor
 
@@ -165,11 +201,11 @@ F-statistic: 41.23 on 2 and 47 DF,  p-value: 4.561e-11
 
 Two things happen worth pausing on.
 
-First, the adjusted `R`-squared jumps substantially. Murder rate explains a large share of the variation that income alone missed.
+First, the adjusted $R^2$ jumps. Murder rate explains a large share of the variation that income alone missed.
 
-Second, the coefficient and p-value for income **change**. Income looked clearly useful on its own, and now it looks weaker. Nothing is wrong. The reason is that income and murder rate are related, so some of what income appeared to explain was really the murder rate working through it. Once murder rate is in the model, income is credited only with what it adds *beyond* murder rate.
+Second, the coefficient and p-value for income **change**. Income looked useful on its own, and now it looks weaker. Nothing is wrong. Income and murder rate are related, so some of what income appeared to explain was really the murder rate working through it. Once murder rate is in the model, income is credited only with what it adds *beyond* murder rate.
 
-You can see the relationship between the two predictors directly:
+You can see the relationship between the two predictors on its own:
 
 
 ```r
@@ -178,7 +214,7 @@ ggplot(states, aes(x = Income, y = MurderRate)) +
   geom_smooth(method = "lm", formula = y ~ x) +
   labs(x = "Per capita income (dollars)",
        y = "Murders per 100,000",
-       title = "Income and murder rate are related")
+       title = "")
 ```
 
 ![](../assets/images/intro-to-linear-regression/2-income-vs-murder.png)
@@ -187,9 +223,9 @@ A coefficient is not a fixed property of a predictor. It depends on which other 
 
 ## Thinking About Confounding with a DAG
 
-Before adding more predictors, it helps to draw what we believe about how the variables influence one another. A directed acyclic graph (DAG) is a picture of assumed causal relationships. Arrows point from cause to effect. DAGs make confounding visible: a confounder is a variable that influences both a predictor and the response, and ignoring it distorts the coefficient you care about.
+Before adding more predictors, it helps to draw what we believe about how the variables influence one another. A directed acyclic graph (DAG) is a picture of assumed causal relationships. Arrows point from cause to effect. DAGs make confounding visible. A confounder is a variable that influences both a predictor and the response, and ignoring it distorts the coefficient you care about.
 
-We sketch a DAG where income affects life expectancy both directly and indirectly through the murder rate.
+We sketch a DAG where income affects life expectancy both directly and through the murder rate.
 
 
 ```r
@@ -206,11 +242,162 @@ ggdag(lifeDag, text = TRUE) + theme_dag()
 
 ![](../assets/images/intro-to-linear-regression/2-dag.png)
 
-The arrow from income into murder rate, and from murder rate into life expectancy, is exactly the indirect path that explains why income's coefficient shifted when we added murder rate. The DAG is a reasoning tool, not an output of the data. You bring the arrows; the data cannot tell you their direction.
+The arrow from income into murder rate, and from murder rate into life expectancy, is the indirect path that explains why income's coefficient shifted when we added murder rate. The DAG is a reasoning tool, not an output of the data. You bring the arrows. The data cannot tell you their direction.
 
-## Adding a Categorical Predictor
+## Categorical Predictors
 
-So far every predictor is numeric. Region is categorical. R handles this automatically: a factor with $k$ levels enters the model as $k - 1$ indicator variables, each comparing one level against a baseline level.
+So far every predictor is numeric. Region is categorical. Look at it before modeling it.
+
+
+```r
+table(states$Region)
+tapply(states$LifeExp, states$Region, mean)
+
+ggplot(states, aes(x = Region, y = LifeExp)) +
+  geom_boxplot(outlier.shape = NA, fill = "grey90") +
+  geom_jitter(width = 0.15, height = 0, colour = "grey30") +
+  labs(x = "", y = "Life expectancy (years)", title = "")
+```
+
+![](../assets/images/intro-to-linear-regression/2-lifeexp-by-region.png)
+
+```
+> table(states$Region)
+    Northeast         South North Central          West 
+            9            16            12            13 
+            
+> tapply(states$LifeExp, states$Region, mean)
+    Northeast         South North Central          West 
+     71.26444      69.70625      71.76667      71.23462 
+```
+
+The boxes sit at different heights, so region carries information about life expectancy. The question is how a label like "South" enters a model built on arithmetic.
+
+### What R Builds From a Factor
+
+A factor with $k$ levels enters the model as $k - 1$ indicator columns, also called dummy variables. Each column is 1 when an observation belongs to that level and 0 otherwise. The level with no column of its own is the baseline. With Northeast as the baseline, the model for region alone is
+
+$$Y_i = \beta_0 + \beta_1 D_{i,\text{South}} + \beta_2 D_{i,\text{NorthCentral}} + \beta_3 D_{i,\text{West}} + \epsilon_i,$$
+
+where each $D$ is 0 or 1. Reading off the fitted means one level at a time shows what the coefficients mean. A Northeast state has all three indicators at 0, so its mean is $\beta_0$. A South state has only the first indicator at 1, so its mean is $\beta_0 + \beta_1$. Each coefficient is the difference between that region's mean and the baseline's mean.
+
+You can see the columns R builds:
+
+
+```r
+levels(states$Region)       
+contrasts(states$Region)    
+
+regionDummies <- model.matrix(~ Region, data = states)
+head(regionDummies)
+colnames(regionDummies)
+
+# a factor on its own reproduces the group means
+coef(lm(LifeExp ~ Region, data = states))
+tapply(states$LifeExp, states$Region, mean)
+```
+
+```
+> contrasts(states$Region)
+              South North Central West
+Northeast         0             0    0
+South             1             0    0
+North Central     0             1    0
+West              0             0    1
+
+> head(regionDummies)
+           (Intercept) RegionSouth RegionNorth Central RegionWest
+Alabama              1           1                   0          0
+Alaska               1           0                   0          1
+Arizona              1           0                   0          1
+Arkansas             1           1                   0          0
+California           1           0                   0          1
+Colorado             1           0                   0          1
+
+> coef(lm(LifeExp ~ Region, data = states))
+        (Intercept)         RegionSouth RegionNorth Central          RegionWest 
+        71.26444444         -1.55819444          0.50222222         -0.02982906
+        
+> tapply(states$LifeExp, states$Region, mean)
+    Northeast         South North Central          West 
+     71.26444      69.70625      71.76667      71.23462 
+```
+
+Compare the last two lines. The intercept matches the Northeast mean, and each coefficient matches the gap between a region's mean and that figure.
+
+> **Why $k - 1$ columns and not $k$.** If we gave every level its own indicator, those four columns would add up to the column of ones that carries the intercept. The model matrix would lose full column rank, $\mathbf{X}^\top\mathbf{X}$ would be singular, and $(\mathbf{X}^\top\mathbf{X})^{-1}$ would not exist. That is assumption 1 from Part 1 failing. Dropping one level fixes it, and the dropped level becomes the reference point.
+
+### Dummy Variables Shift the Intercept
+
+Put a factor and a numeric predictor in the same model and you get a set of parallel lines. The numeric predictor sets one common slope. Each indicator moves its region's line up or down.
+
+
+```r
+regionLineModel <- lm(LifeExp ~ MurderRate + Region, data = states)
+summary(regionLineModel)
+
+statesLines <- data.frame(states, fitted = as.numeric(fitted(regionLineModel)))
+
+ggplot(statesLines, aes(x = MurderRate, y = LifeExp, colour = Region)) +
+  geom_point() +
+  geom_line(aes(y = fitted), linewidth = 1) +
+  labs(x = "Murders per 100,000",
+       y = "Life expectancy (years)",
+       colour = "", title = "")
+```
+
+![](../assets/images/intro-to-linear-regression/2-region-parallel-lines.png)
+
+```
+lm(formula = LifeExp ~ MurderRate + Region, data = states)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-1.49034 -0.42439  0.04298  0.50142  2.11032 
+
+Coefficients:
+                    Estimate Std. Error t value Pr(>|t|)    
+(Intercept)         72.45066    0.33239 217.967  < 2e-16 ***
+MurderRate          -0.25120    0.04114  -6.105 2.18e-07 ***
+RegionSouth         -0.08642    0.41444  -0.209   0.8358    
+RegionNorth Central  0.64108    0.35749   1.793   0.0797 .  
+RegionWest           0.59645    0.36553   1.632   0.1097    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.8091 on 45 degrees of freedom
+Multiple R-squared:  0.6664,	Adjusted R-squared:  0.6367 
+F-statistic: 22.47 on 4 and 45 DF,  p-value: 2.998e-10
+```
+
+The four lines are parallel because the model has one slope on `MurderRate` shared across regions. Letting the slope change by region requires an interaction term, which is a later workshop.
+
+### Changing the Baseline
+
+The baseline is whichever level comes first, which by default is alphabetical or whatever order the factor was built in. It changes the coefficients without changing the fitted values, so pick the level that makes the comparisons you want to report.
+
+
+```r
+statesSouth <- states
+statesSouth$Region <- relevel(statesSouth$Region, ref = "South")
+
+coef(lm(LifeExp ~ MurderRate + Region, data = states))        # Northeast baseline
+coef(lm(LifeExp ~ MurderRate + Region, data = statesSouth))   # South baseline
+```
+
+```
+> coef(lm(LifeExp ~ MurderRate + Region, data = states))        # Northeast baseline
+        (Intercept)          MurderRate         RegionSouth RegionNorth Central          RegionWest 
+        72.45065547         -0.25119763         -0.08642056          0.64107869          0.59644742 
+        
+> coef(lm(LifeExp ~ MurderRate + Region, data = statesSouth))   # South baseline
+        (Intercept)          MurderRate     RegionNortheast RegionNorth Central          RegionWest 
+        72.36423492         -0.25119763          0.08642056          0.72749925          0.68286798 
+```
+
+> Note that we relevelled a copy of the data. Calling `relevel()` on `states$Region` would change the baseline for every model fitted afterwards in the session, which makes earlier output in your notes stop matching your code.
+
+## Four Predictors, Including the Factor
 
 
 ```r
@@ -240,38 +427,30 @@ Multiple R-squared:  0.6871,	Adjusted R-squared:  0.6435
 F-statistic: 15.74 on 6 and 43 DF,  p-value: 1.837e-09
 ```
 
-The coefficient table now has rows like `RegionSouth`, `RegionNorth Central`, and `RegionWest`. There is no row for the Northeast, because R uses it as the baseline (the first factor level). Each region coefficient is the difference in mean life expectancy between that region and the Northeast, holding income and murder rate fixed.
+Each region coefficient is the difference in mean life expectancy between that region and the Northeast, now holding income, murder rate, and graduation rate fixed. Interpreting a categorical coefficient uses the same partial-effect idea as a numeric one. It is a comparison against the baseline, with the other predictors held constant.
 
-To see which level is the baseline, and to change it if you prefer a different reference:
-
-
-```r
-levels(states$Region)                             
-states$Region <- relevel(states$Region, ref = "South")   # make South the baseline instead
-```
-
-Interpreting a categorical coefficient is the same partial-effect idea: it is a comparison against the baseline level, with the other predictors held constant.
+Notice that no single region coefficient stands out, even though the boxplot showed clear separation between regions. That is the collinearity story, and we come to it after the model matrix.
 
 ## The Model Matrix Still Does the Work
 
-In Part 1 we solved the single-predictor model by hand with the model matrix. The same estimator handles any number of predictors. Nothing about the method changes. We only add columns to $X$.
-
-The model matrix $X$ is $n \times (p + 1)$: one row per observation, one column per predictor, plus a leading column of ones for the intercept. The least squares estimates are
-
-$$\hat{\beta} = (X^\top X)^{-1} X^\top Y.$$
+In Part 1 we solved the single-predictor model by hand with the model matrix. The same estimator handles any number of predictors. Nothing about the method changes. We only add columns to $\mathbf{X}$.
 
 
 ```r
-designMatrix <- cbind(intercept = 1,
+designMatrix <- cbind(intercept  = 1,
                       Income     = states$Income,
                       MurderRate = states$MurderRate,
                       HSGrad     = states$HSGrad)
 
 betaHat <- solve(t(designMatrix) %*% designMatrix) %*%
-           t(designMatrix) %*% states$LifeExp
+  t(designMatrix) %*% states$LifeExp
 betaHat
 
 coef(lm(LifeExp ~ Income + MurderRate + HSGrad, data = states))   # compare
+
+# the matrix lm() builds for the model with the factor in it
+dim(model.matrix(regionModel))
+head(model.matrix(regionModel))
 ```
 
 ```
@@ -284,11 +463,233 @@ HSGrad      3.905862e-02
 > coef(lm(LifeExp ~ Income + MurderRate + HSGrad, data = states))
   (Intercept)        Income    MurderRate        HSGrad 
  7.014211e+01  9.525615e-05 -2.385975e-01  3.905862e-02 
- ```
+```
+
+The last two lines show the matrix for the model that includes `Region`. The three indicator columns are there beside the numeric ones. Once a factor is turned into columns, least squares cannot tell the difference between an indicator and any other predictor.
+
+## The Full Model
+
+Nothing stops us from using every variable in the data frame. The dot on the right-hand side of the formula means "every other column".
+
+
+```r
+fullModel <- lm(LifeExp ~ ., data = states)
+summary(fullModel)
+```
+
+```
+Call:
+lm(formula = LifeExp ~ ., data = states)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-1.17171 -0.42762 -0.01391  0.48361  1.19012 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)          6.908e+01  2.237e+00  30.883  < 2e-16 ***
+Population           5.490e-05  3.432e-05   1.600   0.1178    
+Income              -1.623e-05  2.428e-04  -0.067   0.9471    
+Illiteracy           4.075e-01  3.959e-01   1.029   0.3097    
+MurderRate          -3.075e-01  5.311e-02  -5.789 1.02e-06 ***
+HSGrad               6.790e-02  3.393e-02   2.001   0.0524 .  
+Frost               -4.824e-03  3.673e-03  -1.313   0.1968    
+Area                -1.065e-06  1.722e-06  -0.618   0.5399    
+RegionSouth          3.679e-01  5.091e-01   0.723   0.4742    
+RegionNorth Central  8.724e-01  3.542e-01   2.463   0.0183 *  
+RegionWest           3.018e-01  4.963e-01   0.608   0.5466    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.7129 on 39 degrees of freedom
+Multiple R-squared:  0.7756,	Adjusted R-squared:  0.718 
+F-statistic: 13.48 on 10 and 39 DF,  p-value: 8.265e-10
+```
+
+Compare this output against `regionModel`. The residual standard error changes little, several coefficients have large standard errors, and few predictors look individually useful even though the overall F test is strong. That pattern is the signature of collinearity, and the next section measures it.
+
+## Collinearity and the Variance Inflation Factor
+
+Two predictors that move together carry overlapping information. Least squares then has trouble deciding how much credit each should get, and the standard errors grow. The variance of a coefficient makes this precise,
+
+$$\text{Var}(\hat\beta_j) = \frac{\sigma^2}{S_{jj}} \cdot \frac{1}{1 - R_j^2},
+\qquad S_{jj} = \sum_{i=1}^{n}(x_{ij} - \bar{x}_j)^2,$$
+
+where $R_j^2$ is the $R^2$ from regressing predictor $j$ on all the other predictors. The second factor is the **variance inflation factor**,
+
+$$\text{VIF}_j = \frac{1}{1 - R_j^2}.$$
+
+Read it as a multiplier. A VIF of 1 means predictor $j$ is unrelated to the others and nothing is lost. A VIF of 9 means the variance of $\hat\beta_j$ is nine times what it would be, so the standard error is $\sqrt{9} = 3$ times larger. The common thresholds of 5 and 10 are conventions, not results. Treat them as a prompt to look closer.
+
+
+```r
+vif(regionModel)
+vif(fullModel)
+```
+
+```
+> vif(regionModel)
+               GVIF Df GVIF^(1/(2*Df))
+Income     1.865535  1        1.365846
+MurderRate 2.066116  1        1.437399
+Region     5.845983  3        1.342176
+HSGrad     5.570531  1        2.360197
+> vif(fullModel)
+
+                GVIF Df GVIF^(1/(2*Df))
+Population  2.264138  1        1.504705
+Income      2.147101  1        1.465299
+Illiteracy  5.616334  1        2.369881
+MurderRate  3.706646  1        1.925265
+HSGrad      7.244044  1        2.691476
+Frost       3.515058  1        1.874849
+Area        2.081605  1        1.442777
+Region     13.712583  3        1.547105
+```
+
+When every term has one degree of freedom, `vif()` returns one number per predictor. With a factor in the model it returns three columns instead, because a factor occupies several columns of $\mathbf{X}$ and the plain formula does not apply to a group of columns. The columns are `GVIF`, the generalized variance inflation factor for the whole term, `Df`, the number of indicator columns, and `GVIF^(1/(2*Df))`, which rescales the first column so terms with different `Df` can be compared. To use the familiar thresholds, square that third column and compare it against 5 or 10.
+
+Region comes out high here. The reason is visible in the boxplot and the pairs plot. Region is a coarse summary of things the numeric predictors already measure, since murder rate, illiteracy, income, and frost all vary by region in a systematic way. Once those are in the model, the region indicators have little left to contribute, and their coefficients become hard to estimate.
+
+Compute one VIF by hand to see where the number comes from:
+
+
+```r
+incomeOnRest <- lm(Income ~ Population + Illiteracy + MurderRate +
+                     HSGrad + Frost + Area + Region, data = states)
+rSqIncome <- summary(incomeOnRest)$r.squared
+rSqIncome
+1 / (1 - rSqIncome)        
+
+# how much the standard error is inflated
+sqrt(1 / (1 - rSqIncome))
+```
+
+```
+> rSqIncome
+[1] 0.5342557
+
+> 1 / (1 - rSqIncome)        
+[1] 2.147101
+
+> # how much the standard error is inflated
+> sqrt(1 / (1 - rSqIncome))
+[1] 1.465299
+```
+
+A high VIF is not an error. It does not bias the coefficients and it does not hurt prediction. It means the data cannot separate the predictors, so individual coefficients should be read with caution. The usual responses are to drop one of the overlapping predictors, to combine them, or to keep them and report that the model cannot tell them apart.
+
+## Partial Effect Plots
+
+A coefficient is one number summarizing a partial effect. A partial effect plot shows the same thing as a picture, which makes it easier to spot curvature and influential points. There are three kinds worth knowing, and they answer slightly different questions.
+
+### Added-Variable Plots
+
+An added-variable plot takes the other predictors out of both the response and the predictor of interest, then plots what is left. The recipe is two regressions and a scatter plot.
+
+1. Regress $Y$ on all predictors except $x_j$. Keep the residuals.
+2. Regress $x_j$ on all predictors except $x_j$ itself. Keep the residuals.
+3. Plot the first set against the second.
+
+The slope of that scatter plot equals $\hat\beta_j$ from the full model. That is the Frisch-Waugh-Lovell theorem, and it is worth seeing demonstrated, because it says what "holding the others fixed" means in operational terms.
+
+
+```r
+# take the other predictors out of both the response and Income
+yOnRest <- lm(LifeExp ~ MurderRate + HSGrad + Region, data = states)
+xOnRest <- lm(Income  ~ MurderRate + HSGrad + Region, data = states)
+
+avFrame <- data.frame(xResid = as.numeric(resid(xOnRest)),
+                      yResid = as.numeric(resid(yOnRest)))
+
+# the slope of this one-predictor fit equals Income's coefficient
+coef(lm(yResid ~ xResid, data = avFrame))
+coef(regionModel)["Income"]
+
+ggplot(avFrame, aes(x = xResid, y = yResid)) +
+  geom_hline(yintercept = 0, linetype = "dashed", colour = "grey70") +
+  geom_vline(xintercept = 0, linetype = "dashed", colour = "grey70") +
+  geom_point() +
+  geom_smooth(method = "lm", formula = y ~ x, se = FALSE,
+              colour = "darkorange") +
+  labs(x = "Income, with the other predictors removed",
+       y = "Life expectancy, with the other predictors removed",
+       title = "")
+```
+
+![](../assets/images/intro-to-linear-regression/2-av-income.png)
+
+```
+> coef(lm(yResid ~ xResid, data = avFrame))
+  (Intercept)        xResid 
+-3.630505e-17  5.806810e-05 
+
+> coef(regionModel)["Income"]
+     Income 
+5.80681e-05 
+```
+
+A nearly flat cloud means the predictor adds little once the others are present. The `car` package draws these for every term at once.
+
+
+```r
+avPlots(regionModel, terms = ~ Income + MurderRate + HSGrad)
+```
+
+![](../assets/images/intro-to-linear-regression/2-avplots.png)
+
+Compare the three panels. A steep, tight band means the predictor carries its own information. A flat scatter means it does not. The horizontal spread in each panel is also informative. A predictor whose residuals barely spread out is one the other predictors have nearly pinned down, which is collinearity shown as a picture.
+
+### Partial Residual Plots
+
+A partial residual plot asks a different question. Instead of asking whether a predictor helps, it asks whether its contribution is shaped like a straight line. For predictor $j$ it plots
+
+$$e_i + \hat\beta_j x_{ij} \quad \text{against} \quad x_{ij},$$
+
+which adds that predictor's fitted contribution back into the residuals. The dashed line is the fitted linear contribution and the solid curve is a smoother. The two separating is evidence that the predictor belongs in the model in some other form.
+
+
+```r
+crPlots(regionModel, terms = ~ Income + MurderRate + HSGrad)
+```
+
+![](../assets/images/intro-to-linear-regression/2-crplots.png)
+
+### Predicted Values Over a Grid
+
+The most direct way to show a partial effect is to vary one predictor across its range, hold the others at fixed values, and plot the predictions. This one needs no theory to explain to an audience, and it handles the factor naturally by drawing one line per level.
+
+
+```r
+effectGrid <- expand.grid(
+  MurderRate = seq(min(states$MurderRate), max(states$MurderRate),
+                   length.out = 50),
+  Region     = levels(states$Region),
+  Income     = mean(states$Income),
+  HSGrad     = mean(states$HSGrad)
+)
+effectGrid$Region <- factor(effectGrid$Region, levels = levels(states$Region))
+
+effectFrame <- data.frame(effectGrid,
+                          predict(regionModel, newdata = effectGrid,
+                                  interval = "confidence"))
+
+ggplot(effectFrame, aes(x = MurderRate, y = fit,
+                        colour = Region, fill = Region)) +
+  geom_ribbon(aes(ymin = lwr, ymax = upr), alpha = 0.15, colour = NA) +
+  geom_line(linewidth = 1) +
+  labs(x = "Murders per 100,000",
+       y = "Predicted life expectancy (years)",
+       colour = "", fill = "", title = "")
+```
+
+![](../assets/images/intro-to-linear-regression/2-effect-murder.png)
+
+The four lines are parallel again, for the same reason as before. The vertical gaps between them are the region coefficients. The bands are confidence intervals for the mean, and where they overlap heavily the model cannot separate those regions. Holding income and graduation rate at their means is a choice. Any fixed value works, and the shape of the lines does not depend on which you pick.
 
 ## More Predictors Is Not Always Better
 
-Adjusted `R`-squared is the version of `R`-squared to trust when comparing models of different sizes. Plain `R`-squared can only rise when you add a predictor, even a useless one. Adjusted `R`-squared penalizes extra predictors:
+Adjusted $R^2$ is the version to trust when comparing models of different sizes. Plain $R^2$ can only rise when you add a predictor, even a useless one. Adjusted $R^2$ charges for extra predictors,
 
 $$R^2_{\text{adj}} = 1 - \frac{(1 - R^2)(n - 1)}{n - p - 1}.$$
 
@@ -299,9 +700,24 @@ It rises only when a new predictor earns its place. Compare the models we built:
 summary(incomeModel)$adj.r.squared
 summary(twoModel)$adj.r.squared
 summary(regionModel)$adj.r.squared
+summary(fullModel)$adj.r.squared
 ```
 
-Watch whether adjusted `R`-squared keeps climbing as predictors are added, or whether it stalls. A stall means the new predictors are not adding real explanatory power, only complexity.
+```
+> summary(incomeModel)$adj.r.squared
+[1] 0.09735231
+
+> summary(twoModel)$adj.r.squared
+[1] 0.6215054
+
+> summary(regionModel)$adj.r.squared
+[1] 0.6434798
+
+> summary(fullModel)$adj.r.squared
+[1] 0.7180018
+```
+
+Watch whether adjusted $R^2$ keeps climbing as predictors are added, or whether it stalls. A stall means the new predictors are not adding explanatory power, only complexity.
 
 ## Letting the Data Suggest a Model
 
@@ -332,7 +748,7 @@ Selection Algorithm: exhaustive
 3  ( 1 ) "*"    "*"        "*"   
 ```
 
-The output marks which predictors are chosen at each model size. Do not take the "best" subset as a final answer. Variable selection driven only by fit can select predictors that happen to correlate with the response in this sample. Pair it with what you know about the problem, which is where a DAG earns its keep.
+The output marks which predictors are chosen at each model size. Do not take the "best" subset as a final answer. Variable selection driven only by fit can pick predictors that happen to correlate with the response in this sample. Pair it with what you know about the problem, which is where a DAG earns its keep.
 
 ## Statistical Significance Is Not Causal Effect
 
@@ -380,14 +796,39 @@ If you finish early, draw a DAG for your variables with `dagify()` and `ggdag()`
 
 ## So... what did we learn?
 
-1. Multiple regression extends the linear model to several predictors: $Y = \beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p + \epsilon$.
+1. Multiple regression extends the linear model to several predictors, $Y = \beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p + \epsilon$.
 2. Each coefficient is a partial effect, the change in the response per unit change in that predictor, holding the others constant.
 3. A coefficient depends on the company it keeps. Adding or removing predictors can move it.
-4. Categorical predictors enter as indicator variables, each compared to a baseline level.
-5. Adjusted `R`-squared penalizes complexity, so more predictors is not always better.
-6. The model matrix estimator $(X^\top X)^{-1} X^\top Y$ from Part 1 handles any number of predictors unchanged.
-7. Statistical significance is not causal effect. Use a DAG to reason about causality.
+4. A factor with $k$ levels becomes $k-1$ indicator columns. Each coefficient compares one level against the baseline, and using all $k$ columns would break the rank condition from Part 1.
+5. The variance inflation factor measures how much collinearity widens a coefficient's standard error. Factors get a generalized version with one row per term.
+6. Partial effect plots show a coefficient as a picture. Added-variable plots show what a predictor contributes, partial residual plots show whether that contribution is linear, and a prediction grid shows the effect in the units of the response.
+7. Adjusted $R^2$ charges for complexity, so more predictors is not always better.
+8. The model matrix estimator $(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{Y}$ from Part 1 handles any number of predictors unchanged.
+9. Statistical significance is not causal effect. Use a DAG to reason about causality.
 
 ## What Is Next
 
 There are many more diagnostics and visuals we can use to validate our model and explore it more. Next time, we will look into these more.
+
+## References
+
+Part 1 lists the general regression textbooks. The entries below cover what is new in this workshop.
+
+**Methods.**
+
+- Waugh, F. V. and Frisch, R. (1933). Partial time regressions as compared with individual trends. *Econometrica*, 1(4), 387-401. The original result behind added-variable plots.
+- Lovell, M. C. (1963). Seasonal adjustment of economic time series and multiple regression analysis. *Journal of the American Statistical Association*, 58, 993-1010. The second half of what is now called the Frisch-Waugh-Lovell theorem.
+- Fox, J. and Monette, G. (1992). Generalized collinearity diagnostics. *Journal of the American Statistical Association*, 87, 178-183. The source of the GVIF that `vif()` reports for factors.
+- Fox, J. (2003). Effect displays in R for generalised linear models. *Journal of Statistical Software*, 8(15). Background for the prediction-grid plots.
+- Fox, J. and Weisberg, S. (2019). *An R Companion to Applied Regression*, 3rd edition. Sage. Documents `vif()`, `avPlots()`, and `crPlots()`.
+- Miller, A. J. (2002). *Subset Selection in Regression*, 2nd edition. Chapman and Hall/CRC. The method behind `regsubsets()`.
+
+**Causal diagrams.**
+
+- Textor, J., van der Zander, B., Gilthorpe, M. S., Liśkiewicz, M. and Ellison, G. T. (2016). Robust causal inference using directed acyclic graphs: the R package 'dagitty'. *International Journal of Epidemiology*, 45(6), 1887-1894.
+- Pearl, J. (2009). *Causality: Models, Reasoning, and Inference*, 2nd edition. Cambridge University Press.
+
+**Data.**
+
+- U.S. Department of Commerce, Bureau of the Census (1977). *Statistical Abstract of the United States*, and *County and City Data Book*. Sources for `state.x77`. Run `?state.x77` for the measurement year of each column.
+- Becker, R. A., Chambers, J. M. and Wilks, A. R. (1988). *The New S Language*. Chapman and Hall. Cited in R's help page for the state datasets.

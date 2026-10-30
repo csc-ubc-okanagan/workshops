@@ -153,62 +153,85 @@ html { scroll-behavior: smooth; }
 
   <div class="ws-content">
 
+    <!-- ===================== BEGIN R Fundamentals Series ===================== -->
+    
     <section id="r-fundamentals" class="ws-series">
       <h2>R Fundamentals for Data Analysis</h2>
+
+      <!-- Overall description -->
       <p class="ws-series-desc">This series of introductory workshops are intended for individuals with little to no familiarity with R or similar tools that rely on a scripted environment. They are intended as a low barrier entry into the world of using your computer to engage with data outside of graphical tools like Excel or SPSS.</p>
+
+      <!-- Workshop list -->
       <ul class="ws-list">
+
+        <!-- Workshop 1: Fundamental Concepts -->
         <li class="ws-item">
           <span class="ws-item-title">R: Fundamental Concepts with RStudio</span>
           <div class="ws-controls">
-            <details class="ws-desc"><summary>This workshop introduces students to foundational computing concepts such as data structures, data types, variables, and directory structures while building confidence in R and RStudio.</summary><div class="ws-desc-body"></div></details>
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">This workshop introduces students to foundational computing concepts such as data structures, data types, variables, and directory structures while building confidence in R and RStudio.</div></details>
             <span class="ws-links"><a href="R_fundamental-concepts-with-RStudio.html">workshop page</a></span>
           </div>
         </li>
+
+        <!-- Workshop 2: Importing Data -->
         <li class="ws-item">
           <span class="ws-item-title">R: Importing Data</span>
           <div class="ws-controls">
-            <details class="ws-desc"><summary>This workshop walks students through the basics of reading data using the menagerie of tools available in R. Students will learn to bring their data into R and, in the process, touch on concepts such as the working directory and wide- versus long-formatted data.</summary><div class="ws-desc-body"></div></details>
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">This workshop walks students through the basics of reading data using the menagerie of tools available in R. Students will learn to bring their data into R and, in the process, touch on concepts such as the working directory and wide- versus long-formatted data.</div></details>
             <span class="ws-links"><a href="R_importing-data.html">workshop page</a></span>
           </div>
         </li>
+
+        <!-- Workshop 3: Exploring Data -->
         <li class="ws-item">
           <span class="ws-item-title">R: Exploring Data</span>
           <div class="ws-controls">
-            <details class="ws-desc"><summary>Once data are imported, the next step is getting familiar with them. This workshop covers functionality R offers for exploring a dataset before diving into formal analysis. Students will be introduced to missing data, basic plotting in R (e.g., histograms and boxplots), and options for quickly scanning datasets with tidyverse syntax.</summary><div class="ws-desc-body"></div></details>
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">Once data are imported, the next step is getting familiar with them. This workshop covers functionality R offers for exploring a dataset before diving into formal analysis. Students will be introduced to missing data, basic plotting in R (e.g., histograms and boxplots), and options for quickly scanning datasets with tidyverse syntax.</div></details>
             <span class="ws-links"><a href="R_exploring-data.html">workshop page</a></span>
           </div>
         </li>
+
+        <!-- Workshop 4: Subsetting & Filtering Data -->
         <li class="ws-item">
           <span class="ws-item-title">R: Subsetting &amp; Filtering Data</span>
           <div class="ws-controls">
-            <details class="ws-desc"><summary>Researchers often do not need their entire dataset at once, whether because of computation time, hierarchically structured (non-independent) data, or study design choices. Being able to quickly and efficiently split data into the subsets or groups most important for an analysis is an essential skill. This workshop walks students through recipes for subsetting and filtering data using tidyverse, data.table, and base R.</summary><div class="ws-desc-body"></div></details>
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">Researchers often do not need their entire dataset at once, whether because of computation time, hierarchically structured (non-independent) data, or study design choices. Being able to quickly and efficiently split data into the subsets or groups most important for an analysis is an essential skill. This workshop walks students through recipes for subsetting and filtering data using tidyverse, data.table, and base R.</div></details>
             <span class="ws-links"><a href="R_subsetting-and-filtering-data.html">workshop page</a></span>
           </div>
         </li>
+
+        <!-- Workshop 5: Iterating Over Data -->
         <li class="ws-item">
           <span class="ws-item-title">R: Iterating Over Data</span>
           <div class="ws-controls">
-            <details class="ws-desc"><summary>Iteration (repeatedly executing a command until some condition is met) is part of what makes computer-based computation so powerful, but not all styles of iteration are created equal. This workshop introduces students to the advantages and pitfalls of different types of iteration in R, as well as the concept of vectorization in the R language.</summary><div class="ws-desc-body"></div></details>
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">Iteration (repeatedly executing a command until some condition is met) is part of what makes computer-based computation so powerful, but not all styles of iteration are created equal. This workshop introduces students to the advantages and pitfalls of different types of iteration in R, as well as the concept of vectorization in the R language.</div></details>
             <span class="ws-links"><a href="R_iterating-over-data.html">workshop page</a></span>
           </div>
         </li>
+
+        <!-- Workshop 6: Conditional Statements  -->
         <li class="ws-item">
           <span class="ws-item-title">R: Conditions</span>
           <div class="ws-controls">
-            <details class="ws-desc"><summary>Conditions are logical statements that allow computers to respond to different cases in a dataset in a predictable way. This workshop introduces students to common conditional statements in R, including if/else statements, switch statements, and their vectorized equivalents.</summary><div class="ws-desc-body"></div></details>
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">Conditions are logical statements that allow computers to respond to different cases in a dataset in a predictable way. This workshop introduces students to common conditional statements in R, including if/else statements, switch statements, and their vectorized equivalents.</div></details>
             <span class="ws-links"><a href="R_conditions.html">workshop page</a></span>
           </div>
         </li>
+
+        <!-- Workshop 7: Visualizating Data -->
         <li class="ws-item">
           <span class="ws-item-title">R: Visualizations</span>
           <div class="ws-controls">
-            <details class="ws-desc"><summary>Visualization is critical to communicating science. In this workshop, students will become familiar with the popular data visualization package ggplot2 while learning about the importance of visualization and the types of messages data can convey.</summary><div class="ws-desc-body"></div></details>
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">Visualization is critical to communicating science. In this workshop, students will become familiar with the popular data visualization package ggplot2 while learning about the importance of visualization and the types of messages data can convey.</div></details>
             <span class="ws-links"><a href="R_visualization.html">workshop page</a></span>
           </div>
         </li>
+
       </ul>
     </section>
-
+    
+    <!-- =================== END R Fundamentals Series =================== -->
+    
     <section id="python-basics" class="ws-series">
       <h2>Python Basics for Data Analysis</h2>
       <p class="ws-series-desc">This series of introductory workshops are intended for individuals with little to no familiarity with Python or similar tools that rely on a scripted environment. They are intended as a low barrier entry into the world of using your computer to engage with data outside of graphical tools like Excel or SPSS.</p>

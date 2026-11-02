@@ -330,7 +330,7 @@ ggplot(compareFrame, aes(x = fitted, y = std)) +
 
 ### How can I tell if the residual spread changes?
 
-Look at the same residual plot for a funnel rather than a curve. The scale-location plot makes it easier by plotting $\sqrt{|r_i|}$ against the fitted values, which folds the negative residuals onto the positive ones so only the spread is left.
+Look at the same residual plot for a funnel rather than a curve. The scale-location plot makes it easier by plotting $(r_i)^{1/2}$ against the fitted values, which folds the negative residuals onto the positive ones so only the spread is left.
 
 
 ```r

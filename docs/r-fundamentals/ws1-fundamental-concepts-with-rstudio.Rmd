@@ -12,7 +12,7 @@ output:
     smart: true
     lib_dir: "site_libs"
   md_document:
-    variant: gfm
+    variant: gfm-raw_html
     preserve_yaml: false
     pandoc_args: ["--lua-filter=flat.lua"]
 ---

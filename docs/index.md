@@ -169,7 +169,8 @@ html { scroll-behavior: smooth; }
           <span class="ws-item-title">R: Fundamental Concepts with RStudio</span>
           <div class="ws-controls">
             <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">This workshop introduces students to foundational computing concepts such as data structures, data types, variables, and directory structures while building confidence in R and RStudio.</div></details>
-            <span class="ws-links"><a href="R_fundamental-concepts-with-RStudio.html">workshop page</a></span>
+            <span class="ws-links"><a href="r-fundamentals/ws1-r-fundamentals/fundamental-concepts-with-rstudio-flat.html">workshop page</a></span>
+            <span class="ws-links"><a href="r-fundamentals/ws1-r-fundamentals/fundamental-concepts-with-rstudio-js.html">slides page</a></span>
           </div>
         </li>
 

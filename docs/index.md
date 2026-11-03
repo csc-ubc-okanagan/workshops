@@ -232,6 +232,10 @@ html { scroll-behavior: smooth; }
     
     <!-- =================== END R Fundamentals Series =================== -->
     
+    
+    
+    <!-- =================== BEGIN Python Basics Series =================== -->
+    
     <section id="python-basics" class="ws-series">
       <h2>Python Basics for Data Analysis</h2>
       <p class="ws-series-desc">This series of introductory workshops are intended for individuals with little to no familiarity with Python or similar tools that rely on a scripted environment. They are intended as a low barrier entry into the world of using your computer to engage with data outside of graphical tools like Excel or SPSS.</p>
@@ -295,6 +299,11 @@ html { scroll-behavior: smooth; }
       </ul>
     </section>
 
+    <!-- =================== END Python Basics Series =================== -->
+
+
+    <!-- =============== BEGIN Stat Fundamentals Series ================= -->
+        
     <section id="statistical-fundamentals" class="ws-series">
       <h2>Statistical Fundamentals: A Visual Approach</h2>
       <p class="ws-series-desc">This series will use R and Python to help develop an intuition for fundamental statistical concepts using data visualization. These workshops are equally suitable to those hoping to enhance their ability to interpret common statistical tests and concepts as it is for those applying statistical modelling to their work. No background in statistics is required, but some familiarity with R or Python will be advantageous. You may wish to review the asynchronous content of either <a href="https://csc-ubc-okanagan.github.io/workshops/#r-fundamentals-for-data-analysis">R Fundamentals for Data Analysis</a> or <a href="https://csc-ubc-okanagan.github.io/workshops/#python-basics-for-data-analysis">Python Basics for Data Analysis</a>, or keep an eye out for the next time these workshops are offered.</p>
@@ -357,6 +366,11 @@ html { scroll-behavior: smooth; }
         </li>
       </ul>
     </section>
+    
+    <!-- ================= END Stat Fundamentals Series ==================== -->
+
+
+    <!-- =================== BEGIN Clustering Series ======================= -->
 
     <section id="clustering-classification" class="ws-series">
       <h2>Clustering &amp; Classification in R</h2>
@@ -401,7 +415,12 @@ html { scroll-behavior: smooth; }
           </div>
         </li>
       </ul>
-    </section>
+    </section
+    
+    <!-- =================== END Clustering Series ======================= -->
+
+
+    <!-- ================= BEGIN Dimensionality Series ===================== -->
 
     <section id="dimensionality-reduction" class="ws-series">
       <h2>Dimensionality Reduction in R</h2>
@@ -447,6 +466,11 @@ html { scroll-behavior: smooth; }
         </li>
       </ul>
     </section>
+    
+    <!-- ================= END Dimensionality Series ====================== -->
+
+
+    <!-- =============== BEGIN Linear Regression Series =================== -->
 
     <section id="linear-regression" class="ws-series">
       <h2>Linear Regression in R</h2>
@@ -495,6 +519,11 @@ html { scroll-behavior: smooth; }
         </li>
       </ul>
     </section>
+    
+    <!-- =============== BEGIN Linear Regression Series =================== -->
+
+
+    <!-- =============== BEGIN GLM/GAM Series =================== -->
 
     <section id="glms-gams" class="ws-series">
       <h2>GLMs and GAMs in R</h2>
@@ -585,6 +614,8 @@ html { scroll-behavior: smooth; }
         </li>
       </ul>
     </section>
+
+    <!-- =============== END GLM/GAM Series =================== -->
 
     <section id="rdm" class="ws-series">
       <h2>Research Data Management (RDM)</h2>

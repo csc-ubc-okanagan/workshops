@@ -504,6 +504,7 @@ html { scroll-behavior: smooth; }
           <span class="ws-item-title">Part 4: Fitting vs. Predicting</span>
           <div class="ws-controls">
             <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">A model that describes the observed data well does not necessarily predict new observations well. This session separates explanatory modelling from prediction and introduces training and test data, out-of-sample evaluation, and common prediction metrics. Participants will also distinguish confidence intervals from prediction intervals and examine how overfitting can give a misleading impression of performance.</div></details>
+            <span class="ws-links"><a href="Linear-Regression-Series/linear-regression-part-4.html">workshop page</a></span>
           </div>
         </li>
         <li class="ws-item">

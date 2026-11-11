@@ -209,7 +209,8 @@ html { scroll-behavior: smooth; }
           <span class="ws-item-title">R: Iterating Over Data</span>
           <div class="ws-controls">
             <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">Iteration (repeatedly executing a command until some condition is met) is part of what makes computer-based computation so powerful, but not all styles of iteration are created equal. This workshop introduces students to the advantages and pitfalls of different types of iteration in R, as well as the concept of vectorization in the R language.</div></details>
-            <span class="ws-links"><a href="R_iterating-over-data.html">workshop page</a></span>
+             <span class="ws-links"><a href="r-fundamentals/output/ws5-iterating-over-data-flat.html">workshop page</a></span>
+             <span class="ws-links"><a href="r-fundamentals/output/ws5-iterating-over-data-js.html">slides page</a></span>
           </div>
         </li>
 

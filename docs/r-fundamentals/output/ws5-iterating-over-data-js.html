@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title>Learning R: Iterating Over Data</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="output\ws5-iterating-over-data-js_files/reveal.js-4.2.1/dist/reset.css">
+  <link rel="stylesheet" href="output\ws5-iterating-over-data-js_files/reveal.js-4.2.1/dist/reveal.css">
+
+  <style type="text/css">
+    /* CSS from pandoc style.html() */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+            html { -webkit-text-size-adjust: 100%; }
+            pre > code.sourceCode { white-space: pre; position: relative; }
+            pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+            pre > code.sourceCode > span:empty { height: 1.2em; }
+            .sourceCode { overflow: visible; }
+            code.sourceCode > span { color: inherit; text-decoration: inherit; }
+            div.sourceCode { margin: 1em 0; }
+            pre.sourceCode { margin: 0; }
+            @media screen {
+            div.sourceCode { overflow: auto; }
+            }
+            @media print {
+            pre > code.sourceCode { white-space: pre-wrap; }
+            pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+            }
+            pre.numberSource code
+              { counter-reset: source-line 0; }
+            pre.numberSource code > span
+              { position: relative; left: -4em; counter-increment: source-line; }
+            pre.numberSource code > span > a:first-child::before
+              { content: counter(source-line);
+                position: relative; left: -1em; text-align: right; vertical-align: baseline;
+                border: none; display: inline-block;
+                -webkit-touch-callout: none; -webkit-user-select: none;
+                -khtml-user-select: none; -moz-user-select: none;
+                -ms-user-select: none; user-select: none;
+                padding: 0 4px; width: 4em;
+                color: #aaaaaa;
+              }
+            pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+            div.sourceCode
+              {   }
+            @media screen {
+            pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+            }
+            code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+            code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+            code span.at { color: #7d9029; } /* Attribute */
+            code span.bn { color: #40a070; } /* BaseN */
+            code span.bu { color: #008000; } /* BuiltIn */
+            code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+            code span.ch { color: #4070a0; } /* Char */
+            code span.cn { color: #880000; } /* Constant */
+            code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+            code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+            code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+            code span.dt { color: #902000; } /* DataType */
+            code span.dv { color: #40a070; } /* DecVal */
+            code span.er { color: #ff0000; font-weight: bold; } /* Error */
+            code span.ex { } /* Extension */
+            code span.fl { color: #40a070; } /* Float */
+            code span.fu { color: #06287e; } /* Function */
+            code span.im { color: #008000; font-weight: bold; } /* Import */
+            code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+            code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+            code span.op { color: #666666; } /* Operator */
+            code span.ot { color: #007020; } /* Other */
+            code span.pp { color: #bc7a00; } /* Preprocessor */
+            code span.sc { color: #4070a0; } /* SpecialChar */
+            code span.ss { color: #bb6688; } /* SpecialString */
+            code span.st { color: #4070a0; } /* String */
+            code span.va { color: #19177c; } /* Variable */
+            code span.vs { color: #4070a0; } /* VerbatimString */
+            code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+              </style>
+
+  <link rel="stylesheet" href="output\ws5-iterating-over-data-js_files/reveal.js-4.2.1/dist/theme/simple.css" id="theme">
+
+
+  <style type="text/css">
+  /* some tweaks to reveal css */
+    .reveal h1 { font-size: 2.0em; }
+    .reveal h2 { font-size: 1.5em;  }
+    .reveal h3 { font-size: 1.25em;	}
+    .reveal h4 { font-size: 1em;	}
+
+    .reveal .slides>section,
+    .reveal .slides>section>section {
+      padding: 0px 0px;
+    }
+    .reveal table {
+      border-width: 1px;
+      border-spacing: 2px;
+      border-style: dotted;
+      border-color: gray;
+      border-collapse: collapse;
+      font-size: 0.7em;
+    }
+
+    .reveal table th {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      font-weight: bold;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+    .reveal table td {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      border-style: dotted;
+      border-color: gray;
+    }
+  </style>
+
+    <script src="ws5-iterating-over-data-js_files/header-attrs-2.31/header-attrs.js"></script>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide">
+  <h1 class="title">Learning R: Iterating Over Data</h1>
+  <h3 class="date">2026-11-11 22:27:14</h3>
+</section>
+
+<section id="roadmap" class="slide level2">
+<h2>Roadmap 📍</h2>
+<style type="text/css">
+/* Horizontal scroll for code, R output, and tables */
+.reveal pre,
+.reveal table {
+  display: block;
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+.reveal pre code {
+  white-space: pre;  /* keep long lines intact instead of wrapping */
+}
+
+/* Vertical scroll for slides that are too tall */
+.reveal .slides section {
+  height: 100%;
+  overflow-y: auto !important;
+}
+</style>
+<ul>
+<li><strong>iteration</strong> the process of repeating a set of
+instructions until a specific condition is met</li>
+<li><strong>iterate</strong> sequentially or in
+<strong>vectorized</strong> fashion</li>
+<li>topics:
+<ul>
+<li><strong>vectorization:</strong> what it is and why it’s fast</li>
+<li><strong>thinking in vectors:</strong> element-wise operations,
+recycling, logical vectors</li>
+<li><strong>loops in disguise:</strong> the <code>apply()</code> family
+and <code>purrr::map()</code></li>
+<li><strong>for-loops done right:</strong> preallocating your
+output</li>
+</ul></li>
+</ul>
+<aside class="notes">
+<p>The power of computers comes from their ability to compute a lot of
+values fast. This task regularly involves <em>iterating</em> through a
+series of data (whether those data are vectors, data frames, or others).
+Given the fundamnetal nature of iteration to computing, it’s essential
+that we grasp the various ways available to us as researchers to iterate
+over data. We’ll look at where that way of thinking breaks down, and at
+the cases where you genuinely need a loop. Then we’ll cover the apply
+family and purrr’s map(), which are tidier ways to write loops, and
+finish with how to write a for-loop properly when you need one.</p>
+</aside>
+</section>
+<section id="vectorization" class="slide level2">
+<h2>Vectorization</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># look inside the sum() and sqrt() functions</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>sum</span></code></pre></div>
+<pre><code>## function (..., na.rm = FALSE)  .Primitive(&quot;sum&quot;)</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>sqrt</span></code></pre></div>
+<pre><code>## function (x)  .Primitive(&quot;sqrt&quot;)</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># look inside the colSums() function that does some tests in R first before passing along</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>colSums</span></code></pre></div>
+<pre><code>## function (x, na.rm = FALSE, dims = 1L) 
+## {
+##     if (is.data.frame(x)) 
+##         x &lt;- as.matrix(x)
+##     if (!is.array(x) || length(dn &lt;- dim(x)) &lt; 2L) 
+##         stop(&quot;&#39;x&#39; must be an array of at least two dimensions&quot;)
+##     if (length(dims) != 1L || dims &lt; 1L || dims &gt; length(dn) - 
+##         1L) 
+##         stop(&quot;invalid &#39;dims&#39;&quot;)
+##     n &lt;- prod(dn[id &lt;- seq_len(dims)])
+##     dn &lt;- dn[-id]
+##     z &lt;- .Internal(colSums(x, n, prod(dn), na.rm))
+##     if (length(dn) &gt; 1L) {
+##         dim(z) &lt;- dn
+##         dimnames(z) &lt;- dimnames(x)[-id]
+##     }
+##     else names(z) &lt;- dimnames(x)[[dims + 1L]]
+##     z
+## }
+## &lt;bytecode: 0x000001faa2e75210&gt;
+## &lt;environment: namespace:base&gt;</code></pre>
+<aside class="notes">
+<p>In general, R takes care of a lot of iteration for you; this is
+perhaps why R is based around atomic vectors as a fundamental data
+structure. When processing your data, R looks at the data type of the
+vector – not every value in it – and frequently passes the task off to
+code written in a much faster language, like <code>C</code> or
+<code>Fortran.</code> This helps to keep R code as fast as possible. You
+can see this by looking at a function’s internals - these ‘vectorized’
+functions are often denoted by something like <code>Primitive</code> or
+<code>Internal</code>.</p>
+</aside>
+</section>
+<section id="why-work-with-vectors" class="slide level2">
+<h2>Why work with vectors 🤔</h2>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="fl">1e6</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>loop_sqrt <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  out <span class="ot">&lt;-</span> <span class="fu">numeric</span>(<span class="fu">length</span>(x))</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(x)) out[i] <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(x[i] <span class="sc">+</span> <span class="dv">2</span>)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  out</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>bench<span class="sc">::</span><span class="fu">mark</span>(</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">loop       =</span> <span class="fu">loop_sqrt</span>(x),</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">vectorized =</span> <span class="fu">sqrt</span>(x <span class="sc">+</span> <span class="dv">2</span>)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>)[, <span class="fu">c</span>(<span class="st">&quot;expression&quot;</span>, <span class="st">&quot;median&quot;</span>)]</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 2
+##   expression   median
+##   &lt;bch:expr&gt; &lt;bch:tm&gt;
+## 1 loop        64.92ms
+## 2 vectorized   8.68ms</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>timings <span class="ot">&lt;-</span> bench<span class="sc">::</span><span class="fu">mark</span>(</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">loop           =</span> <span class="fu">loop_sqrt</span>(x),</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">vectorized     =</span> <span class="fu">sqrt</span>(x <span class="sc">+</span> <span class="dv">2</span>),</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">iterations     =</span> <span class="dv">5</span>,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">check          =</span> <span class="cn">FALSE</span> </span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(<span class="at">expression =</span> <span class="fu">c</span>(<span class="st">&quot;Base R&quot;</span>, <span class="st">&quot;data.table&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="fu">c</span>(expression, min, median))</span></code></pre></div>
+<aside class="notes">
+<p>The reason why we might want to learn about vectorization is that
+vectorizing code is fast–much faster that processing data
+sequentially.</p>
+</aside>
+</section>
+<section id="working-with-vectors" class="slide level2">
+<h2>Working with vectors</h2>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>some_numbers <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(some_numbers <span class="sc">+</span> <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>##  [1] 1.732051 2.000000 2.236068 2.449490 2.645751 2.828427 3.000000 3.162278 3.316625 3.464102</code></pre>
+<aside class="notes">
+<p>What this means in practice, is that we can pass a vector to one of
+these functions, and the function operates on the entire vector.</p>
+</aside>
+</section>
+<section id="vectorize-your-code" class="slide level2">
+<h2>Vectorize your code</h2>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>data_gapminder_num <span class="ot">&lt;-</span> <span class="fu">select</span>(gap_dat, is.numeric) <span class="co"># grab any column where is.numeric() is true</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(data_gapminder_num) </span></code></pre></div>
+<pre><code>##         year      lifeExp          pop    gdpPercap 
+## 3.373068e+06 1.013444e+05 5.044047e+10 1.229492e+07</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colMeans</span>(data_gapminder_num)</span></code></pre></div>
+<pre><code>##         year      lifeExp          pop    gdpPercap 
+## 1.979500e+03 5.947444e+01 2.960121e+07 7.215327e+03</code></pre>
+<aside class="notes">
+<p>Similarly, we can pass an object made of vectors and the whole
+‘package’ is passed along. If you hear people talking about ‘vectorizing
+your code’, generally they mean taking advantage of this construct.</p>
+</aside>
+</section>
+<section id="functions-that-loop-for-you" class="slide level2">
+<h2>Functions That Loop For You</h2>
+<aside class="notes">
+<p>R also has several several built in functions that hide the need to
+build a loop for you; these are generally simpler and faster than
+writing your own loops. Perhaps the most common are the
+<code>apply()</code> family of functions. Generally, these functions
+work such that you provide a data set and function to apply across that
+data set, but each is a little unique in terms of what it expects, how
+it expects it, and what it returns. Each will cater to slightly
+different use cases.</p>
+</aside>
+</section>
+<section id="apply" class="slide level2">
+<h2><code>apply()</code></h2>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(data_gapminder_num, <span class="dv">2</span>, sum)</span></code></pre></div>
+<pre><code>##         year      lifeExp          pop    gdpPercap 
+## 3.373068e+06 1.013444e+05 5.044047e+10 1.229492e+07</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">apply</span>(data_gapminder_num[data_gapminder_num<span class="sc">$</span>year <span class="sc">==</span> <span class="dv">1952</span>, ], <span class="dv">2</span>, sort))</span></code></pre></div>
+<pre><code>##      year lifeExp    pop gdpPercap
+## [1,] 1952  28.801  60011  298.8462
+## [2,] 1952  30.000  63149  299.8503
+## [3,] 1952  30.015 120447  328.9406
+## [4,] 1952  30.331 147962  331.0000
+## [5,] 1952  31.286 153936  339.2965
+## [6,] 1952  31.975 160000  362.1463</code></pre>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(data_gapminder_num, <span class="dv">2</span>, max)</span></code></pre></div>
+<pre><code>##         year      lifeExp          pop    gdpPercap 
+## 2.007000e+03 8.260300e+01 1.318683e+09 1.135231e+05</code></pre>
+<aside class="notes">
+<p><code>apply()</code> operates on a matrix or array (it will convert
+an eligible data frame to a matrix) and takes three arguments, the data
+set, a dimension (1 = row, 2 = column) on which to apply a function, and
+a function.</p>
+</aside>
+</section>
+<section id="lapply-and-sapply" class="slide level2">
+<h2><code>lapply()</code> and <code>sapply()</code></h2>
+<ul>
+<li><p><code>lapply()</code> always returns a list</p></li>
+<li><p><code>sapply()</code> simplifies the output, returning a vector
+or matrix</p></li>
+</ul>
+<aside class="notes">
+<p><code>lapply()</code> and <code>sapply()</code> are similar to
+<code>apply()</code>, but a little simpler in their construction; both
+require only a data set (vector, data frame, or list) and a function as
+an argument.</p>
+<p><code>lapply()</code> always returns a list and <code>sapply()</code>
+‘simplifies’ the output, returning a vector or matrix.</p>
+</aside>
+</section>
+<section id="working-with-lapply-and-sapply" class="slide level2">
+<h2>Working with <code>lapply()</code> and <code>sapply()</code></h2>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(data_gapminder_num, sum)</span></code></pre></div>
+<pre><code>## $year
+## [1] 3373068
+## 
+## $lifeExp
+## [1] 101344.4
+## 
+## $pop
+## [1] 50440465801
+## 
+## $gdpPercap
+## [1] 12294917</code></pre>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(data_gapminder_num, sum)</span></code></pre></div>
+<pre><code>##         year      lifeExp          pop    gdpPercap 
+## 3.373068e+06 1.013444e+05 5.044047e+10 1.229492e+07</code></pre>
+</section>
+<section id="unlist" class="slide level2">
+<h2><code>unlist()</code></h2>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unlist</span>(<span class="fu">lapply</span>(data_gapminder_num, sum))</span></code></pre></div>
+<pre><code>##         year      lifeExp          pop    gdpPercap 
+## 3.373068e+06 1.013444e+05 5.044047e+10 1.229492e+07</code></pre>
+<aside class="notes">
+<p>When using <code>lapply()</code> it can be handy to be familiar with
+<code>unlist()</code>, which simplifies a list to a vector:</p>
+</aside>
+</section>
+<section id="mapply" class="slide level2">
+<h2><code>mapply()</code></h2>
+<ul>
+<li><code>mapply()</code> applies function <em>across</em> more than one
+object</li>
+</ul>
+<aside class="notes">
+<p><code>apply()</code>, <code>sapply()</code>, etc all take a single
+object (vector, data frame, etc), as an argument and perform a function
+on that object. <code>mapply()</code> applies a function <em>across</em>
+more than one object. To do this, you start with the function and then a
+list of data objects:</p>
+</aside>
+</section>
+<section id="using-mapply" class="slide level2">
+<h2>Using <code>mapply()</code></h2>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># three vectors</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">11</span><span class="sc">:</span><span class="dv">20</span>)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>c <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">21</span><span class="sc">:</span><span class="dv">30</span>)</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="co"># sum each element together in order (first value of each object, second value, etc)</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="fu">mapply</span>(sum, a, b, c)</span></code></pre></div>
+<pre><code>##  [1] 33 36 39 42 45 48 51 54 57 60</code></pre>
+</section>
+<section id="mapply-is-just-apply" class="slide level2">
+<h2><code>mapply()</code> is just <code>apply()</code></h2>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">cbind</span>(a, b, c)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>d</span></code></pre></div>
+<pre><code>##        a  b  c
+##  [1,]  1 11 21
+##  [2,]  2 12 22
+##  [3,]  3 13 23
+##  [4,]  4 14 24
+##  [5,]  5 15 25
+##  [6,]  6 16 26
+##  [7,]  7 17 27
+##  [8,]  8 18 28
+##  [9,]  9 19 29
+## [10,] 10 20 30</code></pre>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(d, <span class="dv">1</span>, sum)</span></code></pre></div>
+<pre><code>##  [1] 33 36 39 42 45 48 51 54 57 60</code></pre>
+<aside class="notes">
+<p>This is functionally equivalent to first merging the objects into one
+object and then using one of the other members of the
+<code>apply()</code> family</p>
+</aside>
+</section>
+<section id="iterating-with-tidyverse" class="slide level2">
+<h2>Iterating with <strong>Tidyverse</strong></h2>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install purr if not already installed</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;purrr&quot;)</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>(data_gapminder_num, sum)</span></code></pre></div>
+<pre><code>## $year
+## [1] 3373068
+## 
+## $lifeExp
+## [1] 101344.4
+## 
+## $pop
+## [1] 50440465801
+## 
+## $gdpPercap
+## [1] 12294917</code></pre>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">map2</span>(a, b, sum)</span></code></pre></div>
+<pre><code>## [[1]]
+## [1] 12
+## 
+## [[2]]
+## [1] 14
+## 
+## [[3]]
+## [1] 16
+## 
+## [[4]]
+## [1] 18
+## 
+## [[5]]
+## [1] 20
+## 
+## [[6]]
+## [1] 22
+## 
+## [[7]]
+## [1] 24
+## 
+## [[8]]
+## [1] 26
+## 
+## [[9]]
+## [1] 28
+## 
+## [[10]]
+## [1] 30</code></pre>
+<aside class="notes">
+<p>The purrr package from Tidyverse provides an equivalent to the
+<code>apply()</code> family of functions, called <code>map()</code> and
+<code>map2()</code>. These are constructed to be consistent in how they
+take their inputs and specific in what they return. <code>map()</code>
+expects one data object, <code>map2()</code> expects two data
+objects.</p>
+</aside>
+</section>
+<section id="note" class="slide level2">
+<h2>Note</h2>
+<ul>
+<li><code>map()</code>: <a
+href="https://purrr.tidyverse.org/reference/map.html"
+class="uri">https://purrr.tidyverse.org/reference/map.html</a></li>
+<li><code>map2()</code>: <a
+href="https://purrr.tidyverse.org/reference/map2.html"
+class="uri">https://purrr.tidyverse.org/reference/map2.html</a></li>
+</ul>
+<aside class="notes">
+<p>There are several variations on <code>map()</code> and
+<code>map2()</code> - it’s worth consulting the documentation if you
+plan to use the Tidyverse approach:</p>
+</aside>
+</section>
+<section id="for-loops" class="slide level2">
+<h2>For-loops</h2>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (int <span class="cf">in</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)) { <span class="co"># for each int in the range 1 through 10</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(int) <span class="co"># print that int</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## [1] 1
+## [1] 2
+## [1] 3
+## [1] 4
+## [1] 5
+## [1] 6
+## [1] 7
+## [1] 8
+## [1] 9
+## [1] 10</code></pre>
+<aside class="notes">
+<p>Vectorization and pre-existing looping functions will be the fastest
+and likely simplest way to iterate over your data. When your task is
+unique, however, you may need to write your own loop. Two common loop
+constructs are ‘for loops’ and ‘while loops’. Here we cover the
+former.</p>
+<p>For loops iterate for a pre-determined number of iterations and take
+the following basic approach</p>
+</aside>
+</section>
+<section id="sampling" class="slide level2">
+<h2>Sampling</h2>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># sample our data to keep things small</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>data_gapminder_sample <span class="ot">&lt;-</span> data_gapminder_num[<span class="fu">sample</span>(<span class="fu">nrow</span>(data_gapminder_num), <span class="dv">20</span>), ]</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>data_gapminder_sample</span></code></pre></div>
+<pre><code>##      year lifeExp       pop  gdpPercap
+## 617  1972  38.842   3811387   741.6662
+## 401  1972  70.290   9862158 13108.4536
+## 835  1982  69.100  17647518  4106.5253
+## 210  1977  45.910   3834415   556.1033
+## 1591 1982  49.849  12939400   682.2662
+## 452  1987  67.231   9545158  6481.7770
+## 1544 1987  56.941   3154264  1202.2014
+## 1540 1967  46.769   1735550  1477.5968
+## 811  1982  63.739   2347031  4161.4160
+## 1300 1967  54.425     70787  1384.8406
+## 183  1962  69.510   8012946  4254.3378
+## 1650 1977  55.764  50533506   713.5371
+## 691  1982  76.990    233997 23269.6075
+## 1174 1997  61.818 135564834  2049.3505
+## 1279 1982  69.660  22356726  9605.3141
+## 1148 1987  75.890   4186147 31540.9748
+## 458  1957  44.444  25009741  1458.9153
+## 393  1992  74.414  10723260  5592.8440
+## 1514 1957  42.974   9452826   698.5356
+## 208  1967  43.548   3330989   412.9775</code></pre>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co">#example of what we want to print, the log base 10 of the first value in the column gdpPercap</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">log10</span>(data_gapminder_sample<span class="sc">$</span>gdpPercap[<span class="dv">1</span>]))</span></code></pre></div>
+<pre><code>## [1] 2.870209</code></pre>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># for demonstration purposes</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="co"># for each indexed position in our sampled data</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="co"># print the index position and</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="co"># the log base 10 of the per capita gdp for that index point</span></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (index <span class="cf">in</span> <span class="fu">seq_along</span>(data_gapminder_sample<span class="sc">$</span>gdpPercap)) {</span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(index)</span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">log10</span>(data_gapminder_sample<span class="sc">$</span>gdpPercap[index]))</span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## [1] 1
+## [1] 2.870209
+## [1] 2
+## [1] 4.117551
+## [1] 3
+## [1] 3.613475
+## [1] 4
+## [1] 2.745155
+## [1] 5
+## [1] 2.833954
+## [1] 6
+## [1] 3.811694
+## [1] 7
+## [1] 3.079977
+## [1] 8
+## [1] 3.169556
+## [1] 9
+## [1] 3.619241
+## [1] 10
+## [1] 3.1414
+## [1] 11
+## [1] 3.628832
+## [1] 12
+## [1] 2.853417
+## [1] 13
+## [1] 4.366789
+## [1] 14
+## [1] 3.311616
+## [1] 15
+## [1] 3.982512
+## [1] 16
+## [1] 4.498875
+## [1] 17
+## [1] 3.16403
+## [1] 18
+## [1] 3.747633
+## [1] 19
+## [1] 2.844189
+## [1] 20
+## [1] 2.615926</code></pre>
+<aside class="notes">
+<p>We can similarly walk over a data frame.</p>
+</aside>
+</section>
+<section id="anatomy-of-a-for-loop" class="slide level2">
+<h2>Anatomy of a ‘For-loop’</h2>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">numeric</span>(<span class="fu">length</span>(x))   <span class="co"># output: somewhere to store results</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(x)) {   <span class="co"># for (loop variable in sequence)</span></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>  out[i] <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(x[i])      <span class="co"># body: runs once per iteration</span></span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>} </span></code></pre></div>
+<aside class="notes">
+<p>Read a for-loop out loud as “for each i in this sequence, do the
+body.” The loop variable i takes the first value of the sequence, the
+body runs, then i takes the next value, and so on until the sequence
+runs out. Each pass through the body is called an iteration.</p>
+</aside>
+</section>
+<section id="writing-a-for-loop" class="slide level2">
+<h2>Writing a for-loop</h2>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (index <span class="cf">in</span> <span class="fu">seq_along</span>(data_gapminder_sample<span class="sc">$</span>gdpPercap)) {</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  index_number <span class="ot">&lt;-</span> index</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  log <span class="ot">&lt;-</span> <span class="fu">log10</span>(data_gapminder_sample<span class="sc">$</span>gdpPercap[index])</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="fu">paste0</span>(<span class="st">&quot;The log base 10 of the index point &quot;</span>, index, <span class="st">&quot; is: &quot;</span>, log, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>))</span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## The log base 10 of the index point 1 is: 2.87020850531013
+## The log base 10 of the index point 2 is: 4.11755146113333
+## The log base 10 of the index point 3 is: 3.6134745020876
+## The log base 10 of the index point 4 is: 2.74515544499733
+## The log base 10 of the index point 5 is: 2.83395387358472
+## The log base 10 of the index point 6 is: 3.81169408495358
+## The log base 10 of the index point 7 is: 3.07997721529327
+## The log base 10 of the index point 8 is: 3.16955593013409
+## The log base 10 of the index point 9 is: 3.61924112835474
+## The log base 10 of the index point 10 is: 3.14139978526705
+## The log base 10 of the index point 11 is: 3.62883197446838
+## The log base 10 of the index point 12 is: 2.85341657088882
+## The log base 10 of the index point 13 is: 4.36678905788829
+## The log base 10 of the index point 14 is: 3.31161624650109
+## The log base 10 of the index point 15 is: 3.98251156901606
+## The log base 10 of the index point 16 is: 4.49887511143166
+## The log base 10 of the index point 17 is: 3.16403007052858
+## The log base 10 of the index point 18 is: 3.74763270294109
+## The log base 10 of the index point 19 is: 2.84418854883211
+## The log base 10 of the index point 20 is: 2.61592640520288</code></pre>
+<aside class="notes">
+<p>We can store values within a for loop, but they are confined to that
+for loop and are not accessible outside of it.</p>
+</aside>
+</section>
+<section id="storing-output-with-for-loops" class="slide level2">
+<h2>Storing output with for-loops</h2>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create an empty vector of a known length and data type</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>gdp_percapita_log <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="at">mode =</span> <span class="st">&quot;double&quot;</span>,</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>                            <span class="at">length =</span> <span class="fu">nrow</span>(data_gapminder_sample))</span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a><span class="co"># update the values of the vector as we iterate over gdpPercap</span></span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(data_gapminder_sample<span class="sc">$</span>gdpPercap)){</span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>  gdp_percapita_log[i] <span class="ot">&lt;-</span> <span class="fu">log10</span>(data_gapminder_sample<span class="sc">$</span>gdpPercap[i])</span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a><span class="co"># print the vector</span></span>
+<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a>gdp_percapita_log</span></code></pre></div>
+<pre><code>##  [1] 2.870209 4.117551 3.613475 2.745155 2.833954 3.811694 3.079977 3.169556 3.619241 3.141400 3.628832 2.853417 4.366789
+## [14] 3.311616 3.982512 4.498875 3.164030 3.747633 2.844189 2.615926</code></pre>
+<aside class="notes">
+<p>In order to store the output of a for loop, we first need to create
+an object to hold the data.</p>
+</aside>
+</section>
+<section id="takeaway" class="slide level2">
+<h2>Takeaway</h2>
+<ul>
+<li>R is built on vectors, so let functions work on a <strong>whole
+vector at once</strong></li>
+<li>Vectorized functions are <em>fast</em></li>
+<li>Think in element-wise operations (e.g., <code>sum(x &gt; 70)</code>,
+<code>mean(x &gt; 70)</code>)</li>
+<li>The <code>apply()</code> family and <code>purrr::map()</code>
+<strong>are loops</strong>
+<ul>
+<li><code>lapply()</code> / <code>map()</code> return a list;
+<code>sapply()</code> simplifies</li>
+<li><code>mapply()</code> / <code>map2()</code> iterate over more than
+one object</li>
+</ul></li>
+<li>Write a <code>for</code> loop when each step depends on the last
+<ul>
+<li><strong>preallocate</strong> your output first</li>
+</ul></li>
+</ul>
+<aside class="notes">
+<p>The big idea from today: before you write a loop, ask whether a
+vectorized function already does the job. If it does, it will almost
+always be shorter, clearer, and faster. If you need to apply a function
+over many columns or list elements, the apply family or purrr’s map()
+keep your code tidy. And when each step genuinely depends on the
+previous one, a for loop is the right tool, just create the output
+object before the loop rather than growing it inside.</p>
+</aside>
+</section>
+    </div>
+  </div>
+
+  <script src="output\ws5-iterating-over-data-js_files/reveal.js-4.2.1/dist/reveal.js"></script>
+  
+  <!-- reveal.js plugins -->
+  <script src="output\ws5-iterating-over-data-js_files/reveal.js-4.2.1/plugin/notes/notes.js"></script>
+  
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: true,
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: true,
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'bottom-right',
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+        // Display a presentation progress bar
+        progress: true,
+        // Can be used to limit the contexts in which the slide number appears
+        showSlideNumber: 'all',
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+        // Push each slide change to the browser history
+        // Implies `hash: true`
+        history: true,
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+        // Enable the slide overview mode
+        overview: true,
+        // Vertical centering of slides
+        center: false,
+        // Enables touch navigation on devices with touch input
+        touch: true,
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'default',
+        // Turns fragments on and off globally
+        fragments: true,
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: true,
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Transition style
+        transition: 'convex', // none/fade/slide/convex/concave/zoom
+        // Transition speed
+        transitionSpeed: 'default', // default/fast/slow
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+        // The display mode that will be used to show slides
+        display: 'block',
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+
+
+        // Optional reveal.js plugins
+        plugins: [
+          RevealNotes,
+        ]
+      });
+
+    </script>
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+
+<script>
+  (function() {
+    if (window.jQuery) {
+      Reveal.addEventListener( 'slidechanged', function(event) {  
+        window.jQuery(event.previousSlide).trigger('hidden');
+        window.jQuery(event.currentSlide).trigger('shown');
+      });
+    }
+  })();
+</script>
+
+
+  </body>
+</html>

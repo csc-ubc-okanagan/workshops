@@ -1,0 +1,425 @@
+---
+title: 'Learning R: Iterating Over Data'
+date: "`r format(Sys.time(), '%Y-%m-%d %H:%M:%S')`"
+output:
+  revealjs::revealjs_presentation:
+    slide-level: 1
+    scrollable: true
+    code-overflow: scroll
+    self_contained: false
+    reveal_plugins: ["notes"]
+  html_document:
+    toc: true
+    toc_float: true
+    self_contained: true
+  powerpoint_presentation:
+    reference_doc: "../../assets/powerpoint-styles/light-theme.pptx"
+---
+
+```{r setup, include = FALSE, echo = FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      eval = TRUE,
+                      message = FALSE,
+                      warning = FALSE)
+
+
+suppressPackageStartupMessages({
+  library(skimr)
+  library(dplyr)
+  library(data.table)
+  library(knitr) 
+  library(flextable)
+  library(dplyr)
+  library(ggplot2)
+  library(emoji)
+  library(dplyr)
+  library(purrr)
+  library(bench)
+})
+```
+
+```{r flat-only-css, echo = FALSE, results = "asis"}
+if (!knitr::pandoc_to("revealjs")) {
+  cat("<style>
+  .notes { display: none; }
+  hr { display: none; }
+  .site-footer, .footer { display: none; }
+</style>")
+}
+```
+
+```{r, echo = FALSE}
+# load the data
+gap_dat <- read.csv(file = "../../data/gapminder.csv")
+```
+
+## Roadmap `r emoji::emoji("map")`
+
+```{css, echo = FALSE}
+/* Horizontal scroll for code, R output, and tables */
+.reveal pre,
+.reveal table {
+  display: block;
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+.reveal pre code {
+  white-space: pre;  /* keep long lines intact instead of wrapping */
+}
+
+/* Vertical scroll for slides that are too tall */
+.reveal .slides section {
+  height: 100%;
+  overflow-y: auto !important;
+}
+```
+
+- **iteration** the process of repeating a set of instructions until a specific
+condition is met
+- **iterate** sequentially or in **vectorized** fashion 
+- topics:
+  - **vectorization:** what it is and why it's fast
+  - **thinking in vectors:** element-wise operations, recycling, logical vectors
+  - **loops in disguise:** the `apply()` family and `purrr::map()`
+  - **for-loops done right:** preallocating your output
+
+:::notes
+The power of computers comes from their ability to compute a lot of values fast.
+This task regularly involves *iterating* through a series of data (whether those
+data are vectors, data frames, or others). Given the fundamnetal nature of
+iteration to computing, it's essential that we grasp the various ways available
+to us as researchers to iterate over data. We'll look at where that way of
+thinking breaks down, and at the cases where you genuinely need a loop. Then
+we'll cover the apply family and purrr's map(), which are tidier ways to write
+loops, and finish with how to write a for-loop properly when you need one.
+:::
+
+## Vectorization
+
+```{r}
+# look inside the sum() and sqrt() functions
+sum
+sqrt
+
+# look inside the colSums() function that does some tests in R first before passing along
+colSums
+```
+
+:::notes
+In general, R takes care of a lot of iteration for you; this is perhaps why R
+is based around atomic vectors as a fundamental data structure. When processing
+your data, R looks at the data type of the vector -- not every value in it -- 
+and frequently passes the task off to code written in a much faster language,
+like `C` or `Fortran.` This helps to keep R code as fast as possible. You can
+see this by looking at a function's internals - these 'vectorized' functions are
+often denoted by something like `Primitive` or `Internal`.
+:::
+
+## Why work with vectors `r emoji::emoji('thinking')`
+
+```{r}
+x <- runif(1e6)
+
+loop_sqrt <- function(x) {
+  out <- numeric(length(x))
+  for (i in seq_along(x)) out[i] <- sqrt(x[i] + 2)
+  out
+}
+
+bench::mark(
+  loop       = loop_sqrt(x),
+  vectorized = sqrt(x + 2)
+)[, c("expression", "median")]
+
+timings <- bench::mark(
+  loop           = loop_sqrt(x),
+  vectorized     = sqrt(x + 2),
+  iterations     = 5,
+  check          = FALSE 
+) %>% 
+mutate(expression = c("Base R", "data.table")) %>%
+  dplyr::select(c(expression, min, median))
+```
+
+:::notes
+The reason why we might want to learn about vectorization is that vectorizing
+code is fast--much faster that processing data sequentially.
+:::
+
+## Working with vectors
+
+```{r}
+some_numbers <- c(1:10)
+sqrt(some_numbers + 2)
+```
+
+
+:::notes
+What this means in practice, is that we can pass a vector to one of these functions, and the function operates on the entire vector.
+:::
+
+## Vectorize your code
+
+```{r}
+data_gapminder_num <- select(gap_dat, is.numeric) # grab any column where is.numeric() is true
+colSums(data_gapminder_num) 
+colMeans(data_gapminder_num)
+```
+
+:::notes
+Similarly, we can pass an object made of vectors and the whole 'package' is passed along.
+If you hear people talking about 'vectorizing your code', generally they mean taking advantage of this construct.
+:::
+
+## Functions That Loop For You
+
+:::notes
+R also has several several built in functions that hide the need to build a
+loop for you; these are generally simpler and faster than writing your own
+loops. Perhaps the most common are the `apply()` family of functions. Generally,
+these functions work such that you provide a data set and function to apply
+across that data set, but each is a little unique in terms of what it expects,
+how it expects it, and what it returns. Each will cater to slightly different
+use cases.
+:::
+
+## `apply()`
+
+```{r}
+apply(data_gapminder_num, 2, sum)
+head(apply(data_gapminder_num[data_gapminder_num$year == 1952, ], 2, sort))
+apply(data_gapminder_num, 2, max)
+```
+
+:::notes
+`apply()` operates on a matrix or array (it will convert an eligible data frame
+to a matrix) and takes three arguments, the data set, a dimension (1 = row,
+2 = column) on which to apply a function, and a function.
+:::
+
+## `lapply()` and `sapply()`
+
+- `lapply()` always returns a list
+
+- `sapply()` simplifies the output, returning a vector or matrix
+
+:::notes
+`lapply()` and `sapply()` are similar to `apply()`, but a little simpler
+in their construction; both require only a data set (vector, data frame,
+or list) and a function as an argument.
+
+`lapply()` always returns a list and `sapply()` 'simplifies' the output,
+returning a vector or matrix.
+:::
+
+## Working with `lapply()` and `sapply()`
+
+```{r}
+lapply(data_gapminder_num, sum)
+sapply(data_gapminder_num, sum)
+```
+
+## `unlist()`
+
+```{r}
+unlist(lapply(data_gapminder_num, sum))
+```
+
+:::notes
+When using `lapply()` it can be handy to be familiar with `unlist()`, which
+simplifies a list to a vector:
+:::
+
+## `mapply()`
+
+- `mapply()` applies function *across* more than one object
+
+:::notes
+`apply()`, `sapply()`, etc all take a single object (vector, data frame, etc), as an argument and perform a function on that object. `mapply()` applies a function *across* more than one object. To do this, you start with the function and then a list of data objects:
+:::
+
+## Using `mapply()`
+
+```{r}
+# three vectors
+a <- c(1:10)
+b <- c(11:20)
+c <- c(21:30)
+
+# sum each element together in order (first value of each object, second value, etc)
+mapply(sum, a, b, c)
+```
+
+## `mapply()` is just `apply()`
+
+
+```{r}
+d <- cbind(a, b, c)
+d
+apply(d, 1, sum)
+```
+
+:::notes
+This is functionally equivalent to first merging the objects into one object and then using one of the other members of the `apply()` family
+:::
+
+## Iterating with **Tidyverse**
+
+```{r}
+# install purr if not already installed
+# install.packages("purrr")
+map(data_gapminder_num, sum)
+map2(a, b, sum)
+```
+
+:::notes
+The purrr package from Tidyverse provides an equivalent to the `apply()` family of functions, called `map()` and `map2()`. These are constructed to be consistent in how they take their inputs and specific in what they return. `map()` expects one data object, `map2()` expects two data objects. 
+:::
+
+## Note
+
+* `map()`: https://purrr.tidyverse.org/reference/map.html
+* `map2()`: https://purrr.tidyverse.org/reference/map2.html
+
+:::notes
+There are several variations on `map()` and `map2()` - it's worth consulting the documentation if you plan to use the Tidyverse approach:
+:::
+
+## For-loops
+
+```{r}
+for (int in c(1:10)) { # for each int in the range 1 through 10
+  print(int) # print that int
+}
+```
+
+:::notes
+Vectorization and pre-existing looping functions will be the fastest and likely
+simplest way to iterate over your data. When your task is unique, however, you
+may need to write your own loop. Two common loop constructs are 'for loops' and
+'while loops'. Here we cover the former.
+
+For loops iterate for a pre-determined number of iterations and take the
+following basic approach
+:::
+
+## Sampling 
+
+```{r}
+# sample our data to keep things small
+data_gapminder_sample <- data_gapminder_num[sample(nrow(data_gapminder_num), 20), ]
+
+data_gapminder_sample
+
+#example of what we want to print, the log base 10 of the first value in the column gdpPercap
+print(log10(data_gapminder_sample$gdpPercap[1]))
+
+# for demonstration purposes
+# for each indexed position in our sampled data
+# print the index position and
+# the log base 10 of the per capita gdp for that index point
+for (index in seq_along(data_gapminder_sample$gdpPercap)) {
+  print(index)
+  print(log10(data_gapminder_sample$gdpPercap[index]))
+}
+```
+
+:::notes
+We can similarly walk over a data frame.
+:::
+
+## Anatomy of a 'For-loop' 
+
+```{r eval = FALSE}
+
+out <- numeric(length(x))   # output: somewhere to store results
+
+for (i in seq_along(x)) {   # for (loop variable in sequence)
+  out[i] <- sqrt(x[i])      # body: runs once per iteration
+} 
+```
+
+:::notes
+Read a for-loop out loud as "for each i in this sequence, do the body." The
+loop variable i takes the first value of the sequence, the body runs, then
+i takes the next value, and so on until the sequence runs out. Each pass
+through the body is called an iteration.
+:::
+
+## Writing a for-loop
+
+```{r}
+for (index in seq_along(data_gapminder_sample$gdpPercap)) {
+  index_number <- index
+  log <- log10(data_gapminder_sample$gdpPercap[index])
+  cat(paste0("The log base 10 of the index point ", index, " is: ", log, "\n"))
+}
+```
+
+:::notes
+We can store values within a for loop, but they are confined to that for loop
+and are not accessible outside of it.
+:::
+
+## Storing output with for-loops
+
+```{r}
+# create an empty vector of a known length and data type
+gdp_percapita_log <- vector(mode = "double",
+                            length = nrow(data_gapminder_sample))
+
+# update the values of the vector as we iterate over gdpPercap
+for (i in seq_along(data_gapminder_sample$gdpPercap)){
+  gdp_percapita_log[i] <- log10(data_gapminder_sample$gdpPercap[i])
+}
+
+# print the vector
+gdp_percapita_log
+```
+
+:::notes
+In order to store the output of a for loop, we first need to create an object
+to hold the data.
+:::
+
+## Takeaway
+
+- R is built on vectors, so let functions work on a **whole vector at once**
+- Vectorized functions are *fast* 
+- Think in element-wise operations (e.g., `sum(x > 70)`, `mean(x > 70)`)
+- The `apply()` family and `purrr::map()` **are loops** 
+  - `lapply()` / `map()` return a list; `sapply()` simplifies
+  - `mapply()` / `map2()` iterate over more than one object
+- Write a `for` loop when each step depends on the last
+  - **preallocate** your output first
+
+:::notes
+The big idea from today: before you write a loop, ask whether a vectorized
+function already does the job. If it does, it will almost always be shorter,
+clearer, and faster. If you need to apply a function over many columns or
+list elements, the apply family or purrr's map() keep your code tidy. And
+when each step genuinely depends on the previous one, a for loop is the
+right tool, just create the output object before the loop rather than
+growing it inside.
+:::
+
+```{r}
+#| label: knit to html
+#| echo: FALSE
+#| eval: FALSE
+
+# this will render to reveal js for presentation purposes
+rmarkdown::render(
+    input = "ws5-iterating-over-data.Rmd",
+    output_format = "revealjs::revealjs_presentation",
+    output_file = "output/ws5-iterating-over-data-js.html"
+)
+
+# this will render to a flat HTML
+rmarkdown::render(
+  input = "ws5-iterating-over-data.Rmd",
+  output_format = "md_document",
+  output_file = "output/ws5-iterating-over-data-flat.md"
+)
+```

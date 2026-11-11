@@ -199,7 +199,8 @@ html { scroll-behavior: smooth; }
           <span class="ws-item-title">R: Subsetting &amp; Filtering Data</span>
           <div class="ws-controls">
             <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">Researchers often do not need their entire dataset at once, whether because of computation time, hierarchically structured (non-independent) data, or study design choices. Being able to quickly and efficiently split data into the subsets or groups most important for an analysis is an essential skill. This workshop walks students through recipes for subsetting and filtering data using tidyverse, data.table, and base R.</div></details>
-            <span class="ws-links"><a href="R_subsetting-and-filtering-data.html">workshop page</a></span>
+             <span class="ws-links"><a href="r-fundamentals/output/ws4-subsetting-and-filtering-data-flat.html">workshop page</a></span>
+             <span class="ws-links"><a href="r-fundamentals/output/ws4-subsetting-and-filtering-data-js.html">slides page</a></span>
           </div>
         </li>
 

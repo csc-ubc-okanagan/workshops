@@ -1,0 +1,410 @@
+---
+title: 'R: Subsetting & Filtering Data'
+date: "`r format(Sys.time(), '%Y-%m-%d %H:%M:%S')`"
+output:
+  revealjs::revealjs_presentation:
+    slide-level: 1
+    scrollable: true
+    code-overflow: scroll
+    reveal_plugins: ["notes"]
+    self_contained: false
+    smart: true
+    lib_dir: output/site_libs
+  md_document:
+    variant: gfm-raw_html
+    preserve_yaml: false
+    pandoc_args: ["--lua-filter=flat.lua"]
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      eval = TRUE)
+
+suppressPackageStartupMessages({
+  library(skimr)
+  library(dplyr)
+  library(data.table)
+  library(knitr) 
+  library(flextable)
+  library(dplyr)
+  library(ggplot2)
+  library(emoji)
+})
+```
+
+
+```{r flat-only-css, echo = FALSE, results = "asis"}
+if (!knitr::pandoc_to("revealjs")) {
+  cat("<style>
+  .notes { display: none; }
+  hr { display: none; }
+  .site-footer, .footer { display: none; }
+</style>")
+}
+```
+
+## Roadmap `r emoji::emoji("map")`
+
+```{css, echo = FALSE}
+/* Horizontal scroll for code, R output, and tables */
+.reveal pre,
+.reveal table {
+  display: block;
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+.reveal pre code {
+  white-space: pre;  /* keep long lines intact instead of wrapping */
+}
+
+/* Vertical scroll for slides that are too tall */
+.reveal .slides section {
+  height: 100%;
+  overflow-y: auto !important;
+}
+```
+
+
+- **Why subset?** Real datasets are big, and we rarely need all of them at once
+    - Focus on the rows and columns that answer our question
+    - Cleaner, faster analysis and easier-to-read output
+- Topics:
+  - **Base R**
+  - **Tidyverse (`dplyr`)**
+  - **Regular expressions**
+  - **`data.table`**
+  - **Additional packages**
+  
+:::notes
+Today we're looking at the different ways R lets us pull out just the
+parts of a dataset we care about. We'll start with base R, since everything
+else builds on it, then see how `dplyr` splits the job cleanly into selecting
+columns and filtering rows. Regular expressions help when we know what a value
+looks like but not exactly what it is. `data.table` gives us a fast, compact
+syntax for filtering, summarizing, and grouping in one step. We'll finish with
+`skimr` for quick data summaries.
+:::
+
+## Base R
+
+```{r}
+data_gapminder <- read.csv("../../data/gapminder.csv")
+lifeExp <- data_gapminder$lifeExp
+head(lifeExp)
+```
+
+:::notes
+We've already seen that we can select a single variable of a data frame with `$`.
+
+It's important to note that generally R simplifies data structures when possible, so `lifeExp` has lost most of its attributes, and is now simply a vector...
+:::
+
+```{r, eval = FALSE, echo = FALSE}
+class(lifeExp)
+```
+
+## Lists
+
+```{r}
+basic_list <- list(item_1 = letters,
+     item_2 = 1:10,
+     item_3 = c(TRUE, FALSE))
+
+item_1 <- basic_list$item_1
+
+item_1
+
+# again, it defaults to creating a vector
+class(item_1)
+```
+:::notes
+`$` can be used with both data frames and lists.
+:::
+
+## Bracket notation: `[` and `[[`
+
+```{r}
+pop_preserved <- data_gapminder["pop"]
+pop_simple <- data_gapminder[["pop"]]
+
+head(pop_preserved, 3)
+head(pop_simple, 3)
+
+class(pop_preserved)
+class(pop_simple)
+```
+
+:::notes
+You can also subset using single or double square brackets. These provide you with more flexibility than `$`. They can also be more verbose. The primary difference between the two is that `[` preserves the original data structure, while `[[` discards it and simplifies.
+
+`[` and `[[` allow you to specify specific ranges of columns and rows to extract. The arguments are passed as `[row range, column range]`. Leaving an argument blank returns all rows or columns.
+:::
+
+## Accessing rows and columns in data frames
+
+```{r}
+# value in the first row and first column
+data_gapminder[1,1]
+
+# values in the second row
+data_gapminder[2,]
+```
+
+## Accessing multiple rows and columns at once
+
+```{r}
+# values in the first 5 rows and first 3 columns
+data_gapminder[1:5, 1:3]
+```
+
+## Working with lists
+
+```{r}
+# return the first element of a list
+basic_list[1]
+# extract the first value from the first list item
+basic_list[[1]][1]
+```
+
+:::notes
+You can specify the row and column to subset either by its name, wrapped in "", or by its indexed number. However, if you want an item (value) from within a list, you need to simplify that object first with `[[` and then apply a single `[`.
+:::
+
+## Comparison & Logical Operators
+
+You can also filter your data to specific cases based on conditions. This is done by placing the condition within the subsetting operators.
+
+Conditions include:
+
+| Operator   | Meaning
+| --------:  | -------------------------------- |
+| `!=`       | not equal to?                    |
+| `==`       | equal to?                        |
+| `<`        | less than                        |
+| `>`        | greater than                     |
+| `<=`       | less than or equal to            |
+| `>=`       | equal to or greater than         |
+| `!`        | not                              |
+| `\|`       | or                               |
+| `&`        | and                              |
+| `%in%`     | in set (membership)              |
+
+## Vectors
+
+```{r}
+# using the lifeExp vector created earlier
+lifeExp_gt_70 <- lifeExp[lifeExp > 70]
+head(lifeExp_gt_70, n = 20)
+length(lifeExp_gt_70)
+```
+
+## Data Frames
+
+For data frames, you identify the column and the condition for the values in that column, which will give you all rows that match that condition, followed by the columns of interest.
+
+```{r}
+# all columns for 1952
+gapminder_1952 <- data_gapminder[data_gapminder$year == 1952, ]
+
+head(gapminder_1952)
+
+# country and gdp for 1952
+gdp_1952 <- data_gapminder[data_gapminder$year == 1952, c(1,6)]
+
+head(gdp_1952)
+```
+
+## `subset()`
+
+
+```{r}
+head(subset(data_gapminder, year == 1952), 1)
+head(subset(data_gapminder, year == 1952,
+            select = c("country", "gdpPercap")), 1)
+```
+
+:::notes
+`subset()` allows you to achieve similar results to those above. At its most basic, it takes a data set and a condition on which to subset.
+You can also list the columns you'd like to keep with the `select` argument.
+:::
+
+## Multiple conditions
+
+```{r}
+# 1952 and Americas
+am_52 <- data_gapminder[data_gapminder$year == 1952 & data_gapminder$continent == "Americas", ]
+head(am_52)
+
+am_52_ss <- subset(data_gapminder, year == 1952 & continent == "Americas")
+head(am_52_ss)
+```
+
+:::notes
+Multiple conditions can be passed when subsetting, whether using `[` or `subset()`
+:::
+
+## Tidyverse
+
+- The `dplyr` package 
+- The `filter`, `select` operations
+
+:::notes
+from Tidyverse draws a good conceptual break between selecting variables and filtering for cases based on values with its `select()` and `filter()` functions.
+:::
+
+## `select()`
+
+```{r, message = FALSE}
+# load the library
+library(dplyr)
+
+# select 1 column
+head(select(data_gapminder, country))
+
+# select multiple columns
+head(select(data_gapminder, year, lifeExp))
+
+# select range of columns
+head(select(data_gapminder, continent:pop))
+
+# select numeric columns
+head(select(data_gapminder, where(is.numeric)))
+
+# select by negation
+head(select(data_gapminder, !country))
+```
+:::notes
+`select()` allows you pick columns based on their names. It takes two arguments, a data set, and a set of parameters by which to select columns; that parameter could be a single name, a span of names separated with a `:`, or some other condition, like names starting with, ending with, or containing specific characters, or even by the data type held in the column.
+More options can be found here [https://dplyr.tidyverse.org/reference/select.html](https://dplyr.tidyverse.org/reference/select.html). 
+:::
+
+## `filter()`
+
+```{r}
+head(filter(data_gapminder, continent == "Americas"))
+```
+
+:::notes
+`filter()` works well with other offerings from Tidyverse. And more options can be found here [https://dplyr.tidyverse.org/reference/filter.html](https://dplyr.tidyverse.org/reference/filter.html).
+
+Filter is very similar to subset for working on data frames (it doesn't work on vectors), and follows the same basic approach of requiring a dataset and a condition on which to filter.
+:::
+
+## Regular Expressions: `grep()` and `grepl()` `r emoji::emoji("thinking")`
+
+- Sometimes we don't know the **exact** value we want to search or filter for,
+  but we know what it **looks like**
+- **Regular expressions** (regex) let us describe that pattern (without 
+knowing exactly what we're looking for)
+- `grep()` returns the **positions** (or values) of matches; `grepl()` returns
+  `TRUE`/`FALSE` for each element
+
+```{r}
+fruits <- c("apple", "banana", "blueberry", "cherry")
+grep("^b", fruits)                 # 2 3
+grep("^b", fruits, value = TRUE)   # "banana" "blueberry"
+grepl("^b", fruits)                # FALSE TRUE TRUE FALSE
+```
+
+:::notes
+We don't always know the exact string we're looking for, but we often know
+its shape: it starts with a certain letter, contains digits, ends in ".csv".
+Regular expressions describe that shape. Use `grep()` when you want to know
+*which* elements match, and `grepl()` when you want a logical vector, which is
+handy inside `filter()` or `subset()`.
+:::
+
+## Filtering and mutating with `data.table`
+
+
+```{r}
+health_dt <- fread("../../data/health_data.csv") # load quickly with fread
+health_dt[age >= 20, .(
+  n = .N, # denotes
+  mean_bmi_pre = mean(bmi_pre, na.rm = TRUE),
+  mean_bmi_post = mean(bmi_post, na.rm = TRUE)
+), by = group]
+```
+
+:::notes
+The advantages of using data.table. `data.table` is fast...like really fast (built on `C` programming language). Expressive and logical `i`,`j`, `by` syntax. Does operations by reference meaning you don't have copies of big datasets floating around in your environment.
+:::
+
+## `data.table` logic
+
+- `DT[i, j, by]`
+
+- `i` operator is row-wise, like a filter statement (used above)
+
+- `j` operator tells what to do and what to return
+
+- `by` operator tells what to group by 
+
+```{r}
+health_dt[age >= 20, # `i` operator
+          # `j` operator for what to do
+          .(n = .N,
+            mean_bmi_pre = mean(bmi_pre, na.rm = TRUE),
+            mean_bmi_post = mean(bmi_post, na.rm = TRUE)
+            ), by = group] # by operator tells what columns to group our j, i operation over
+```
+
+
+
+## Column operators with `data.table`
+
+- `.SD` stands for subset data and is `data.table` shorthand for get all columns
+
+```{r}
+health_dt[, lapply(.SD, mean, na.rm = TRUE),
+          by = smoker,
+          .SDcols = !is.character] # notice ! operator
+```
+
+:::notes
+`data.table` also plays well with **functional programming**. Truly can handle big datasets `fread` that would crash other base R reading funcitons. ! is.character tells data.table to operate mean on numeric columns only.
+:::
+
+## Subsetting column operations in `data.table` with `.SDcols 
+
+```{r}
+health_dt[, lapply(.SD, mean, na.rm = TRUE),
+          by = smoker,
+          .SDcols = c('weight_pre', 'weight_post')]
+
+```
+
+:::notes
+We can also subset our `data.table` to specific columns by specifying a vector of col names we want to operate on.
+:::
+
+
+## Additional packages: `skimr`
+
+```{r}
+data_gapminder %>% select(country, lifeExp) %>% skim()
+```
+
+:::notes
+:::
+
+```{r}
+#| label: knit to html
+#| echo: FALSE
+#| eval: FALSE
+
+# this will render to reveal js for presentation purposes
+rmarkdown::render(
+    input = "ws4-subsetting-and-filtering-data.Rmd",
+    output_format = "revealjs::revealjs_presentation",
+    output_file = "output/ws4-subsetting-and-filtering-data-js.html"
+)
+
+# this will render to a flat HTML
+rmarkdown::render(
+  input = "ws4-subsetting-and-filtering-data.Rmd",
+  output_format = "md_document",
+  output_file = "output/ws4-subsetting-and-filtering-data-flat.md"
+)
+```

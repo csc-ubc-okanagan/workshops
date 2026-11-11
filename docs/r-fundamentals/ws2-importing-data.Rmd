@@ -432,14 +432,14 @@ datasets can save you hours.
 
 # this will render to reveal js for presentation purposes
 rmarkdown::render(
-    input = "ws2-importing-data.RMD",
+    input = "ws2-importing-data.Rmd",
     output_format = "revealjs::revealjs_presentation",
     output_file = "ws2-importing-data-js.html"
 )
 
 # this will render to a flat HTML
 rmarkdown::render(
-  input = "ws2-importing-data.RMD",
+  input = "ws2-importing-data.Rmd",
   output_format = "md_document",
   output_file = "ws2-importing-data-flat.md"
 )

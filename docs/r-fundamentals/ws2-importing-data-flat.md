@@ -116,8 +116,10 @@ baTable <- read.table("../../data/health_data.csv", sep = ",", header=TRUE)
 baTable |> head(1)
 ```
 
-    ##   id   group gender age smoker weight_pre weight_post bmi_pre bmi_post vo2max_pre vo2max_post improved
-    ## 1  1 Control Female  28     No       78.3        78.4    26.2     26.3       46.4        45.4    False
+    ##   id   group gender age smoker weight_pre weight_post bmi_pre bmi_post vo2max_pre
+    ## 1  1 Control Female  28     No       78.3        78.4    26.2     26.3       46.4
+    ##   vo2max_post improved
+    ## 1        45.4    False
 
 ### `read.csv()`
 
@@ -154,7 +156,7 @@ data_readr <- read_csv(file = "../../data/gapminder.csv")
 ```
 
     ## Rows: 1704 Columns: 6
-    ## ── Column specification ────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+    ## ── Column specification ──────────────────────────────────────────────────────────────
     ## Delimiter: ","
     ## chr (2): country, continent
     ## dbl (4): year, lifeExp, pop, gdpPercap
@@ -239,8 +241,9 @@ health_df <- read.csv("../../data/health_data.csv")
 names(health_df)
 ```
 
-    ##  [1] "id"          "group"       "gender"      "age"         "smoker"      "weight_pre"  "weight_post" "bmi_pre"     "bmi_post"   
-    ## [10] "vo2max_pre"  "vo2max_post" "improved"
+    ##  [1] "id"          "group"       "gender"      "age"         "smoker"     
+    ##  [6] "weight_pre"  "weight_post" "bmi_pre"     "bmi_post"    "vo2max_pre" 
+    ## [11] "vo2max_post" "improved"
 
 ## Long-format data
 

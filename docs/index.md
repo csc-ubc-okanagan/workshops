@@ -159,7 +159,7 @@ html { scroll-behavior: smooth; }
       <h2>R Fundamentals for Data Analysis</h2>
 
       <!-- Overall description -->
-      <p class="ws-series-desc">This series of introductory workshops are intended for individuals with little to no familiarity with R or similar tools that rely on a scripted environment. They are intended as a low barrier entry into the world of using your computer to engage with data outside of graphical tools like Excel or SPSS.</p>
+      <p class="ws-series-desc">{% include_relative r-fundamentals/ws-descriptions/series.txt %}</p>
 
       <!-- Workshop list -->
       <ul class="ws-list">
@@ -179,7 +179,8 @@ html { scroll-behavior: smooth; }
           <span class="ws-item-title">R: Importing Data</span>
           <div class="ws-controls">
             <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">This workshop walks students through the basics of reading data using the menagerie of tools available in R. Students will learn to bring their data into R and, in the process, touch on concepts such as the working directory and wide- versus long-formatted data.</div></details>
-            <span class="ws-links"><a href="R_importing-data.html">workshop page</a></span>
+            <span class="ws-links"><a href="r-fundamentals/ws2-importing-data-flat.html">workshop page</a></span>
+            <span class="ws-links"><a href="r-fundamentals/ws2-importing-data-js.html">slides page</a></span>
           </div>
         </li>
 

@@ -3,7 +3,6 @@
 <head>
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
-  <meta name="author" content="Alex Jack" />
   <title>R: Fundamental Concepts with RStudio</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -134,8 +133,7 @@
 
 <section id="title-slide">
   <h1 class="title">R: Fundamental Concepts with RStudio</h1>
-  <h2 class="author">Alex Jack</h2>
-  <h3 class="date">2026-11-03 21:32:15</h3>
+  <h3 class="date">2026-11-11 02:42:53</h3>
 </section>
 
 <section id="what-is-this-series-about"
@@ -353,7 +351,8 @@ miscellaneous pane, for lack of a better word).</p>
 
 <section id="installing-packages" class="title-slide slide level1">
 <h1>Installing packages</h1>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;dplyr&quot;) # This call installs a package </span></span>
+<div class="sourceCode" id="cb1" data-custom-style="CodeDark"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;dplyr&quot;) # This call installs a package </span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># library(dplyr) # This loads a package</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># devtools packages</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;devtools&quot;)</span></span>
@@ -369,15 +368,20 @@ writing of this RMD there are over 22,000 packages on CRAN.</p>
 
 <section id="simple-math" class="title-slide slide level1">
 <h1>Simple Math</h1>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">+</span> <span class="dv">2</span> <span class="co"># add</span></span></code></pre></div>
+<div class="sourceCode" id="cb2" data-custom-style="CodeDark"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">+</span> <span class="dv">2</span> <span class="co"># add</span></span></code></pre></div>
 <pre><code>## [1] 4</code></pre>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="sc">-</span> <span class="dv">2</span> <span class="co"># subtract</span></span></code></pre></div>
+<div class="sourceCode" id="cb4" data-custom-style="CodeDark"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="sc">-</span> <span class="dv">2</span> <span class="co"># subtract</span></span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="sc">*</span> <span class="dv">3</span> <span class="co"># multiply</span></span></code></pre></div>
+<div class="sourceCode" id="cb6" data-custom-style="CodeDark"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="sc">*</span> <span class="dv">3</span> <span class="co"># multiply</span></span></code></pre></div>
 <pre><code>## [1] 9</code></pre>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> <span class="sc">/</span> <span class="dv">2</span> <span class="co"># division</span></span></code></pre></div>
+<div class="sourceCode" id="cb8" data-custom-style="CodeDark"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> <span class="sc">/</span> <span class="dv">2</span> <span class="co"># division</span></span></code></pre></div>
 <pre><code>## [1] 2</code></pre>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="dv">9</span>) <span class="co"># square root</span></span></code></pre></div>
+<div class="sourceCode" id="cb10" data-custom-style="CodeDark"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="dv">9</span>) <span class="co"># square root</span></span></code></pre></div>
 <pre><code>## [1] 3</code></pre>
 <aside class="notes">
 <p>At it’s most basic, R is a glorified calculator, capable of any
@@ -387,7 +391,8 @@ operation might wish to throw at it…</p>
 
 <section id="functions" class="title-slide slide level1">
 <h1>Functions</h1>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># c() is a common function for concatenating things together</span></span>
+<div class="sourceCode" id="cb12" data-custom-style="CodeDark"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># c() is a common function for concatenating things together</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span></code></pre></div>
 <pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
 <aside class="notes">
@@ -414,7 +419,8 @@ later use.</p>
 
 <section id="creating-variables" class="title-slide slide level1">
 <h1>Creating variables</h1>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># You can then recall the values (object) associated with your variable...</span></span>
+<div class="sourceCode" id="cb14" data-custom-style="CodeDark"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># You can then recall the values (object) associated with your variable...</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>my_variable <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>myAlphabet <span class="ot">&lt;-</span> letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>myNumbers <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>)</span>
@@ -422,7 +428,8 @@ later use.</p>
 <span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>my_variable</span></code></pre></div>
 <pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>my_variable <span class="sc">*</span> <span class="dv">2</span></span></code></pre></div>
+<div class="sourceCode" id="cb16" data-custom-style="CodeDark"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>my_variable <span class="sc">*</span> <span class="dv">2</span></span></code></pre></div>
 <pre><code>##  [1]  2  4  6  8 10 12 14 16 18 20</code></pre>
 <aside class="notes">
 <p>When naming variables in R, keep in mind that variable names. We do
@@ -434,7 +441,8 @@ left.</p>
 
 <section id="naming-variables" class="title-slide slide level1">
 <h1>Naming variables</h1>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># camel case</span></span>
+<div class="sourceCode" id="cb18" data-custom-style="CodeDark"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># camel case</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>myNumber <span class="ot">&lt;-</span> <span class="st">&quot;Hello&quot;</span> <span class="co"># bad naming</span></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>myNumber <span class="ot">&lt;-</span> <span class="dv">10</span> <span class="co"># good naming</span></span>
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># skeleton case</span></span>
@@ -476,7 +484,8 @@ working with dichotomous values.</p>
 <li><code>boolean</code> data are generally referred to as
 <code>logical</code></li>
 </ul>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>myBool <span class="ot">&lt;-</span> <span class="cn">TRUE</span> <span class="co"># this is camel case</span></span>
+<div class="sourceCode" id="cb19" data-custom-style="CodeDark"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>myBool <span class="ot">&lt;-</span> <span class="cn">TRUE</span> <span class="co"># this is camel case</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(myBool)</span></code></pre></div>
 <pre><code>## [1] &quot;logical&quot;</code></pre>
 </section>
@@ -488,7 +497,8 @@ working with dichotomous values.</p>
 <li>in <code>R</code> <code>numeric</code> data are subdivided into
 <code>double</code> and <code>integer</code></li>
 </ul>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>myDouble <span class="ot">&lt;-</span> <span class="fl">10.5</span></span>
+<div class="sourceCode" id="cb21" data-custom-style="CodeDark"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>myDouble <span class="ot">&lt;-</span> <span class="fl">10.5</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(myDouble)</span></code></pre></div>
 <pre><code>## [1] &quot;double&quot;</code></pre>
 </section>
@@ -498,7 +508,8 @@ working with dichotomous values.</p>
 <section>
 <section id="numeric-integer" class="title-slide slide level1">
 <h1>Numeric (Integer)</h1>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>myInteger <span class="ot">&lt;-</span> <span class="dv">10</span><span class="dt">L</span></span>
+<div class="sourceCode" id="cb23" data-custom-style="CodeDark"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>myInteger <span class="ot">&lt;-</span> <span class="dv">10</span><span class="dt">L</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(myInteger)</span></code></pre></div>
 <pre><code>## [1] &quot;integer&quot;</code></pre>
 </section>
@@ -512,7 +523,8 @@ working with dichotomous values.</p>
 <li><code>character</code> data always needs to be wrapped in single or
 double quotations.</li>
 </ul>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>myChar <span class="ot">&lt;-</span> <span class="st">&quot;a&quot;</span> <span class="co"># Note that R does not distinguish between &#39;&#39; and &quot;&quot; but the use has to match</span></span>
+<div class="sourceCode" id="cb25" data-custom-style="CodeDark"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>myChar <span class="ot">&lt;-</span> <span class="st">&quot;a&quot;</span> <span class="co"># Note that R does not distinguish between &#39;&#39; and &quot;&quot; but the use has to match</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(myChar)</span></code></pre></div>
 <pre><code>## [1] &quot;character&quot;</code></pre>
 </section>
@@ -521,7 +533,8 @@ double quotations.</li>
 </section></section>
 <section id="complex" class="title-slide slide level1">
 <h1>Complex</h1>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>myComplexNum <span class="ot">&lt;-</span> <span class="dv">9</span> <span class="sc">+</span> <span class="dv">3</span><span class="dt">i</span> <span class="co"># remember sqrt(-1) :)</span></span>
+<div class="sourceCode" id="cb27" data-custom-style="CodeDark"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>myComplexNum <span class="ot">&lt;-</span> <span class="dv">9</span> <span class="sc">+</span> <span class="dv">3</span><span class="dt">i</span> <span class="co"># remember sqrt(-1) :)</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(myComplexNum)</span></code></pre></div>
 <pre><code>## [1] &quot;complex&quot;</code></pre>
 <!--
@@ -558,23 +571,28 @@ So, a vector can be:</p>
 </ul>
 <p>A vector can be created with <code>c()</code></p>
 </aside>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># numeric vector</span></span>
+<div class="sourceCode" id="cb29" data-custom-style="CodeDark"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># numeric vector</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span></code></pre></div>
 <pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># character vector</span></span>
+<div class="sourceCode" id="cb31" data-custom-style="CodeDark"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># character vector</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;a&quot; &quot;b&quot; &quot;c&quot;</code></pre>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># logical vector</span></span>
+<div class="sourceCode" id="cb33" data-custom-style="CodeDark"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># logical vector</span></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## [1]  TRUE  TRUE FALSE</code></pre>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># note that vectors do not allow you to mix types</span></span>
+<div class="sourceCode" id="cb35" data-custom-style="CodeDark"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># note that vectors do not allow you to mix types</span></span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="co"># c(TRUE, 10) # this will convert TRUE to 1</span></span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="co"># c(TRUE, &quot;10&quot;) # this will convert TRUE to &quot;TRUE&quot;</span></span></code></pre></div>
 </section>
 
 <section id="matrices" class="title-slide slide level1">
 <h1>Matrices</h1>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">nrow =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb36" data-custom-style="CodeDark"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">nrow =</span> <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5]
 ## [1,]    1    3    5    7    9
 ## [2,]    2    4    6    8   10</code></pre>
@@ -593,7 +611,8 @@ atomic - the data type must be the same throughout.</p>
 
 <section id="data-frames" class="title-slide slide level1">
 <h1>Data frames</h1>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">letter =</span> letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>],</span>
+<div class="sourceCode" id="cb38" data-custom-style="CodeDark"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">letter =</span> letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>],</span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">nol =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) <span class="co"># nol mean number of letter</span></span></code></pre></div>
 <pre><code>##   letter nol
 ## 1      a   1
@@ -614,7 +633,8 @@ can also create them with the <code>data.frame()</code> function.</p>
 
 <section id="lists" class="title-slide slide level1">
 <h1>Lists</h1>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(<span class="at">item_1 =</span> myAlphabet,</span>
+<div class="sourceCode" id="cb40" data-custom-style="CodeDark"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(<span class="at">item_1 =</span> myAlphabet,</span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">item_2 =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>))</span></code></pre></div>
 <pre><code>## $item_1
 ## [1] &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;e&quot;
@@ -640,7 +660,8 @@ demonstration puropses, a list can be created with the
 layers</li>
 <li>Like a stack of ice cube trays or milk carton containers</li>
 </ul>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>my_array <span class="ot">&lt;-</span> <span class="fu">array</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>, <span class="at">dim =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">2</span>)) <span class="co"># 2 rows, 3 columns, 2 layers</span></span>
+<div class="sourceCode" id="cb42" data-custom-style="CodeDark"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>my_array <span class="ot">&lt;-</span> <span class="fu">array</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>, <span class="at">dim =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">2</span>)) <span class="co"># 2 rows, 3 columns, 2 layers</span></span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>my_array</span></code></pre></div>
 <pre><code>## , , 1
 ## 
@@ -674,13 +695,17 @@ like imaging, climate data, and genomics.</p>
 <section id="identifying-data-structures"
 class="title-slide slide level1">
 <h1>Identifying Data Structures</h1>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb44" data-custom-style="CodeDark"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>))</span></code></pre></div>
 <pre><code>## [1] &quot;integer&quot;</code></pre>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(<span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">ncol =</span> <span class="dv">2</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb46" data-custom-style="CodeDark"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(<span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">ncol =</span> <span class="dv">2</span>))</span></code></pre></div>
 <pre><code>## [1] &quot;matrix&quot; &quot;array&quot;</code></pre>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(<span class="fu">data.frame</span>(<span class="at">var_1 =</span> letters,<span class="at">var_2 =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">26</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb48" data-custom-style="CodeDark"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(<span class="fu">data.frame</span>(<span class="at">var_1 =</span> letters,<span class="at">var_2 =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">26</span>))</span></code></pre></div>
 <pre><code>## [1] &quot;data.frame&quot;</code></pre>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(<span class="fu">list</span>(<span class="at">item_1 =</span> letters,<span class="at">item_2 =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,<span class="at">item_3 =</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb50" data-custom-style="CodeDark"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(<span class="fu">list</span>(<span class="at">item_1 =</span> letters,<span class="at">item_2 =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,<span class="at">item_3 =</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>)))</span></code></pre></div>
 <pre><code>## [1] &quot;list&quot;</code></pre>
 <aside class="notes">
 <p>The function <code>class()</code> will tell you what kind of
@@ -730,7 +755,8 @@ Some are listed on the References slide.</p>
 <section id="resources-the-operator-and-vignettes"
 class="title-slide slide level1">
 <h1>Resources: the <code>?</code> operator (and vignettes)</h1>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>?sqrt                    <span class="co"># help page for a function</span></span>
+<div class="sourceCode" id="cb52" data-custom-style="CodeDark"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>?sqrt                    <span class="co"># help page for a function</span></span>
 <span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>??regression             <span class="co"># search all help pages for a topic</span></span>
 <span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="fu">browseVignettes</span>(<span class="st">&quot;dplyr&quot;</span>) <span class="co"># long-form guides for a package</span></span></code></pre></div>
 <aside class="notes">

@@ -1,7 +1,6 @@
 ---
 title: 'R: Fundamental Concepts with RStudio'
 date: "`r format(Sys.time(), '%Y-%m-%d %H:%M:%S')`"
-author: Alex Jack
 output:
   revealjs::revealjs_presentation:
     slide-level: 1
@@ -10,7 +9,7 @@ output:
     reveal_plugins: ["notes"]
     self_contained: false
     smart: true
-    lib_dir: "site_libs"
+    lib_dir: site_libs
   md_document:
     variant: gfm-raw_html
     preserve_yaml: false

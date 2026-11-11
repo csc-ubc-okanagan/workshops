@@ -6,14 +6,14 @@ output:
     slide-level: 1
     scrollable: true
     code-overflow: scroll
-    self_contained: false
     reveal_plugins: ["notes"]
-  html_document:
-    toc: true
-    toc_float: true
-    self_contained: true
-  powerpoint_presentation:
-    reference_doc: "../../assets/powerpoint-styles/light-theme.pptx"
+    self_contained: false
+    smart: true
+    lib_dir: output/site_libs
+  md_document:
+    variant: gfm-raw_html
+    preserve_yaml: false
+    pandoc_args: ["--lua-filter=flat.lua"]
 ---
 
 ```{r setup, include = FALSE, echo = FALSE}

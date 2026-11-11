@@ -133,7 +133,7 @@
 
 <section id="title-slide">
   <h1 class="title">R: Importing Data</h1>
-  <h3 class="date">2026-11-11 18:58:18</h3>
+  <h3 class="date">2026-11-11 21:47:40</h3>
 </section>
 
 <section id="where-do-your-data-live-before-r" class="slide level2">
@@ -253,7 +253,7 @@ data)
 </ul></li>
 <li></li>
 </ul>
-<p><img data-src="../../docs/assets/gifs/R_projects.gif" /></p>
+<p><img data-src="../../assets/gifs/R_projects.gif" /></p>
 <aside class="notes">
 <p>So I have included a GIF on how to create a new RStudio Project. When
 you open the .Rproj file, RStudio automatically sets the working
@@ -272,7 +272,7 @@ structure.</p>
 </section>
 <section id="relative-versus-absolute-filepaths" class="slide level2">
 <h2>Relative versus absolute filepaths</h2>
-<p><img data-src="../../docs/assets/gifs/file-path-example.gif" /></p>
+<p><img data-src="../../assets/gifs/file-path-example.gif" /></p>
 </section>
 <section id="working-with-absolute-and-relative-filepaths"
 class="slide level2">
@@ -312,10 +312,8 @@ structure. For example, lets say we are working in the
 <pre><code>## [1] &quot;id,group,gender,age,smoker,weight_pre,weight_post,bmi_pre,bmi_post,vo2max_pre,vo2max_post,improved&quot;</code></pre>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>baTable <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;../../data/health_data.csv&quot;</span>, <span class="at">sep =</span> <span class="st">&quot;,&quot;</span>, <span class="at">header=</span><span class="cn">TRUE</span>)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>baTable <span class="sc">|&gt;</span> <span class="fu">head</span>(<span class="dv">1</span>)</span></code></pre></div>
-<pre><code>##   id   group gender age smoker weight_pre weight_post bmi_pre bmi_post vo2max_pre
-## 1  1 Control Female  28     No       78.3        78.4    26.2     26.3       46.4
-##   vo2max_post improved
-## 1        45.4    False</code></pre>
+<pre><code>##   id   group gender age smoker weight_pre weight_post bmi_pre bmi_post vo2max_pre vo2max_post improved
+## 1  1 Control Female  28     No       78.3        78.4    26.2     26.3       46.4        45.4    False</code></pre>
 <aside class="notes">
 <p><code>read.table()</code> is R’s primary means of importing data,
 allowing the user to specify a variety of options.
@@ -379,7 +377,7 @@ systems) may lack a header row; header = FALSE helps handle those.</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>data_readr <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="at">file =</span> <span class="st">&quot;../../data/gapminder.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## Rows: 1704 Columns: 6
-## ── Column specification ──────────────────────────────────────────────────────────────
+## ── Column specification ───────────────────────────────────────────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot;
 ## chr (2): country, continent
 ## dbl (4): year, lifeExp, pop, gdpPercap
@@ -506,9 +504,8 @@ noted for giving nicer readout for especially wide data.</p>
 <h2>What is in a name?</h2>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>health_df <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../../data/health_data.csv&quot;</span>)</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(health_df)</span></code></pre></div>
-<pre><code>##  [1] &quot;id&quot;          &quot;group&quot;       &quot;gender&quot;      &quot;age&quot;         &quot;smoker&quot;     
-##  [6] &quot;weight_pre&quot;  &quot;weight_post&quot; &quot;bmi_pre&quot;     &quot;bmi_post&quot;    &quot;vo2max_pre&quot; 
-## [11] &quot;vo2max_post&quot; &quot;improved&quot;</code></pre>
+<pre><code>##  [1] &quot;id&quot;          &quot;group&quot;       &quot;gender&quot;      &quot;age&quot;         &quot;smoker&quot;      &quot;weight_pre&quot;  &quot;weight_post&quot;
+##  [8] &quot;bmi_pre&quot;     &quot;bmi_post&quot;    &quot;vo2max_pre&quot;  &quot;vo2max_post&quot; &quot;improved&quot;</code></pre>
 <aside class="notes">
 <p>One of my favorite data manipulation functions in base <code>R</code>
 is the names function. People who work with data a lot spend a lot of
@@ -599,14 +596,14 @@ only the first 5 columns with the <code>select(1:5)</code> command.</p>
 <pre><code>## # A tibble: 2 × 3
 ##   expression   median mem_alloc
 ##   &lt;chr&gt;      &lt;bch:tm&gt; &lt;bch:byt&gt;
-## 1 Base R      281.7ms   16.25MB
-## 2 data.table   15.3ms    2.95MB</code></pre>
+## 1 Base R     197.15ms   16.25MB
+## 2 data.table   9.92ms    2.95MB</code></pre>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>ms <span class="ot">&lt;-</span> <span class="fu">setNames</span>(<span class="fu">as.numeric</span>(timings<span class="sc">$</span>median) <span class="sc">*</span> <span class="dv">1000</span>, <span class="fu">c</span>(<span class="st">&quot;base&quot;</span>, <span class="st">&quot;dt&quot;</span>))</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="co"># double check that tmpfile is deleted</span></span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">unlink</span>(tmp)</span></code></pre></div>
 <aside class="notes">
-<p>Over five runs, <code>read.csv()</code> took a median of 282 ms,
-while <code>fread()</code> took 15 ms, about 18 times faster. While
+<p>Over five runs, <code>read.csv()</code> took a median of 197 ms,
+while <code>fread()</code> took 10 ms, about 20 times faster. While
 milliseconds are tiny units of measurement (a thousandth of a second),
 scaling this to much larger datasets can save you hours.</p>
 </aside>

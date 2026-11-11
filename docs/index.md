@@ -189,7 +189,8 @@ html { scroll-behavior: smooth; }
           <span class="ws-item-title">R: Exploring Data</span>
           <div class="ws-controls">
             <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">Once data are imported, the next step is getting familiar with them. This workshop covers functionality R offers for exploring a dataset before diving into formal analysis. Students will be introduced to missing data, basic plotting in R (e.g., histograms and boxplots), and options for quickly scanning datasets with tidyverse syntax.</div></details>
-            <span class="ws-links"><a href="R_exploring-data.html">workshop page</a></span>
+             <span class="ws-links"><a href="r-fundamentals/output/ws3-exploring-data-flat.html">workshop page</a></span>
+             <span class="ws-links"><a href="r-fundamentals/output/ws3-exploring-data-js.html">slides page</a></span>
           </div>
         </li>
 

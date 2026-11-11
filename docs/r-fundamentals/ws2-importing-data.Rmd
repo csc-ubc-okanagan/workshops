@@ -144,7 +144,7 @@ The current working directory can be seen using the `getwd()` command. Similarly
 #   }
 # }, movie.name = "../../docs/assets/gifs/R_projects.gif",ani.width = 900, ani.height = 600)
 ```
-![](../../docs/assets/gifs/R_projects.gif)
+![](../../assets/gifs/R_projects.gif)
 
 :::notes
 So I have included a GIF on how to create a new RStudio Project. When you open the .Rproj file, RStudio automatically sets the working directory to that project folder.
@@ -169,7 +169,7 @@ No more setwd() headaches or “file not found” errors. All your scripts, data
 # }, movie.name = "../../docs/assets/gifs/file-path-example.gif",ani.width = 900, ani.height = 600)
 ```
 
-![](../../docs/assets/gifs/file-path-example.gif)
+![](../../assets/gifs/file-path-example.gif)
 
 ## Working with absolute and relative filepaths
 

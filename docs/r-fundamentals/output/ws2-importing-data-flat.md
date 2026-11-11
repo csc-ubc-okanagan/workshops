@@ -82,11 +82,11 @@ getwd()
     `Restor .Rdata into workspace at startup`
 - 
 
-![](../../docs/assets/gifs/R_projects.gif)
+![](../../assets/gifs/R_projects.gif)
 
 ### Relative versus absolute filepaths
 
-![](../../docs/assets/gifs/file-path-example.gif)
+![](../../assets/gifs/file-path-example.gif)
 
 ### Working with absolute and relative filepaths
 
@@ -116,10 +116,8 @@ baTable <- read.table("../../data/health_data.csv", sep = ",", header=TRUE)
 baTable |> head(1)
 ```
 
-    ##   id   group gender age smoker weight_pre weight_post bmi_pre bmi_post vo2max_pre
-    ## 1  1 Control Female  28     No       78.3        78.4    26.2     26.3       46.4
-    ##   vo2max_post improved
-    ## 1        45.4    False
+    ##   id   group gender age smoker weight_pre weight_post bmi_pre bmi_post vo2max_pre vo2max_post improved
+    ## 1  1 Control Female  28     No       78.3        78.4    26.2     26.3       46.4        45.4    False
 
 ### `read.csv()`
 
@@ -156,7 +154,7 @@ data_readr <- read_csv(file = "../../data/gapminder.csv")
 ```
 
     ## Rows: 1704 Columns: 6
-    ## ── Column specification ──────────────────────────────────────────────────────────────
+    ## ── Column specification ───────────────────────────────────────────────────────────────────────────────────────────
     ## Delimiter: ","
     ## chr (2): country, continent
     ## dbl (4): year, lifeExp, pop, gdpPercap
@@ -241,9 +239,8 @@ health_df <- read.csv("../../data/health_data.csv")
 names(health_df)
 ```
 
-    ##  [1] "id"          "group"       "gender"      "age"         "smoker"     
-    ##  [6] "weight_pre"  "weight_post" "bmi_pre"     "bmi_post"    "vo2max_pre" 
-    ## [11] "vo2max_post" "improved"
+    ##  [1] "id"          "group"       "gender"      "age"         "smoker"      "weight_pre"  "weight_post"
+    ##  [8] "bmi_pre"     "bmi_post"    "vo2max_pre"  "vo2max_post" "improved"
 
 ## Long-format data
 
@@ -306,8 +303,8 @@ timings[, c("expression", "median", "mem_alloc")]
     ## # A tibble: 2 × 3
     ##   expression   median mem_alloc
     ##   <chr>      <bch:tm> <bch:byt>
-    ## 1 Base R      292.9ms   16.25MB
-    ## 2 data.table   15.8ms    2.95MB
+    ## 1 Base R        199ms   16.25MB
+    ## 2 data.table     10ms    2.95MB
 
 ``` r
 ms <- setNames(as.numeric(timings$median) * 1000, c("base", "dt"))

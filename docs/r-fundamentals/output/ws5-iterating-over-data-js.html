@@ -133,7 +133,7 @@
 
 <section id="title-slide">
   <h1 class="title">Learning R: Iterating Over Data</h1>
-  <h3 class="date">2026-11-11 22:36:13</h3>
+  <h3 class="date">2026-11-11 22:40:58</h3>
 </section>
 
 <section id="roadmap" class="slide level2">
@@ -244,8 +244,8 @@ functions are often denoted by something like <code>Primitive</code> or
 <pre><code>## # A tibble: 2 × 2
 ##   expression   median
 ##   &lt;bch:expr&gt; &lt;bch:tm&gt;
-## 1 loop        64.01ms
-## 2 vectorized   8.46ms</code></pre>
+## 1 loop        64.23ms
+## 2 vectorized   8.38ms</code></pre>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>timings <span class="ot">&lt;-</span> bench<span class="sc">::</span><span class="fu">mark</span>(</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">loop           =</span> <span class="fu">loop_sqrt</span>(x),</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">vectorized     =</span> <span class="fu">sqrt</span>(x <span class="sc">+</span> <span class="dv">2</span>),</span>
@@ -516,30 +516,30 @@ the following basic approach</p>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>data_gapminder_sample <span class="ot">&lt;-</span> data_gapminder_num[<span class="fu">sample</span>(<span class="fu">nrow</span>(data_gapminder_num), <span class="dv">20</span>), ]</span>
 <span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>data_gapminder_sample</span></code></pre></div>
-<pre><code>##      year lifeExp      pop  gdpPercap
-## 320  1987  54.926   395114  1315.9808
-## 844  1967  57.716 30131000  2029.2281
-## 1047 1962  45.108 23634436   388.0000
-## 1082 1957  72.990 11026383 11276.1934
-## 436  1967  56.751  4049146  1653.7230
-## 763  1982  74.450  3858421 15367.0292
-## 1557 1992  69.862  1183669  7370.9909
-## 1503 1962  65.200 11918938  1822.8790
-## 1171 1982  56.158 91462088  1443.4298
-## 1006 1997  63.625  2494803  1902.2521
-## 1242 1977  70.410  9662600 10172.4857
-## 377  1972  69.610  4225310  9164.0901
-## 1118 1957  38.598  3692184   835.5234
-## 1704 2007  43.487 12311143   469.7093
-## 596  1987  76.670  9974490 16120.5284
-## 214  1997  45.326  6121610   463.1151
-## 1456 1967  46.633   420690  2613.1017
-## 1272 2007  76.442   798094  7670.1226
-## 979  1982  66.711   992040  3688.0377
-## 964  1967  46.289  1230542  1421.1452</code></pre>
+<pre><code>##      year lifeExp        pop  gdpPercap
+## 126  1977  49.190    3168267  1029.1613
+## 1301 1972  56.480      76595  1532.9853
+## 798  1977  75.380  113872473 16610.3770
+## 993  1992  71.455   88111030  9472.3843
+## 1142 1957  73.440    3491938 11653.9730
+## 1357 1952  60.396    1127000  2315.1382
+## 1226 1957  65.770   28235346  4734.2530
+## 50   1957  64.399   19610538  6856.8562
+## 1376 1987  71.080    5199318 12037.2676
+## 1517 1972  47.620   14706593   915.9851
+## 250  1997  78.610   30305843 28954.9259
+## 1255 1982  73.750    3279001 10330.9891
+## 1039 1982  42.795   12587223   462.2114
+## 548  1987  60.190     880397 11864.4084
+## 613  1952  33.609    2664249   510.1965
+## 989  1972  62.361   55984294  6809.4067
+## 1104 2007  80.204    4115771 25185.0091
+## 316  1967  46.472     217378  1876.0296
+## 299  2002  72.028 1280400000  3119.2809
+## 963  1962  44.248    1146757  1055.8960</code></pre>
 <div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co">#example of what we want to print, the log base 10 of the first value in the column gdpPercap</span></span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">log10</span>(data_gapminder_sample<span class="sc">$</span>gdpPercap[<span class="dv">1</span>]))</span></code></pre></div>
-<pre><code>## [1] 3.11925</code></pre>
+<pre><code>## [1] 3.012483</code></pre>
 <div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># for demonstration purposes</span></span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="co"># for each indexed position in our sampled data</span></span>
 <span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="co"># print the index position and</span></span>
@@ -549,45 +549,45 @@ the following basic approach</p>
 <span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">log10</span>(data_gapminder_sample<span class="sc">$</span>gdpPercap[index]))</span>
 <span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <pre><code>## [1] 1
-## [1] 3.11925
+## [1] 3.012483
 ## [1] 2
-## [1] 3.307331
+## [1] 3.185538
 ## [1] 3
-## [1] 2.588832
+## [1] 4.220379
 ## [1] 4
-## [1] 4.052163
+## [1] 3.976459
 ## [1] 5
-## [1] 3.218463
+## [1] 4.066474
 ## [1] 6
-## [1] 4.18659
+## [1] 3.364577
 ## [1] 7
-## [1] 3.867526
+## [1] 3.675251
 ## [1] 8
-## [1] 3.260758
+## [1] 3.836125
 ## [1] 9
-## [1] 3.159396
+## [1] 4.080528
 ## [1] 10
-## [1] 3.279268
+## [1] 2.961888
 ## [1] 11
-## [1] 4.007427
+## [1] 4.461722
 ## [1] 12
-## [1] 3.962089
+## [1] 4.014142
 ## [1] 13
-## [1] 2.921959
+## [1] 2.664841
 ## [1] 14
-## [1] 2.671829
+## [1] 4.074246
 ## [1] 15
-## [1] 4.207379
+## [1] 2.707737
 ## [1] 16
-## [1] 2.665689
+## [1] 3.833109
 ## [1] 17
-## [1] 3.417156
+## [1] 4.401142
 ## [1] 18
-## [1] 3.884802
+## [1] 3.27324
 ## [1] 19
-## [1] 3.566795
+## [1] 3.494054
 ## [1] 20
-## [1] 3.152638</code></pre>
+## [1] 3.023621</code></pre>
 <aside class="notes">
 <p>We can similarly walk over a data frame.</p>
 </aside>
@@ -613,26 +613,26 @@ runs out. Each pass through the body is called an iteration.</p>
 <span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  log <span class="ot">&lt;-</span> <span class="fu">log10</span>(data_gapminder_sample<span class="sc">$</span>gdpPercap[index])</span>
 <span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="fu">paste0</span>(<span class="st">&quot;The log base 10 of the index point &quot;</span>, index, <span class="st">&quot; is: &quot;</span>, log, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>))</span>
 <span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<pre><code>## The log base 10 of the index point 1 is: 3.11924955698062
-## The log base 10 of the index point 2 is: 3.30733087662514
-## The log base 10 of the index point 3 is: 2.58883172559421
-## The log base 10 of the index point 4 is: 4.05216251746597
-## The log base 10 of the index point 5 is: 3.21846276740337
-## The log base 10 of the index point 6 is: 4.18658991650744
-## The log base 10 of the index point 7 is: 3.86752587691881
-## The log base 10 of the index point 8 is: 3.26075784846008
-## The log base 10 of the index point 9 is: 3.15939567680982
-## The log base 10 of the index point 10 is: 3.27926807221425
-## The log base 10 of the index point 11 is: 4.00742708886894
-## The log base 10 of the index point 12 is: 3.96208935173804
-## The log base 10 of the index point 13 is: 2.92195861872286
-## The log base 10 of the index point 14 is: 2.67182915731664
-## The log base 10 of the index point 15 is: 4.20737927277307
-## The log base 10 of the index point 16 is: 2.66568898634557
-## The log base 10 of the index point 17 is: 3.41715630666173
-## The log base 10 of the index point 18 is: 3.88480230343241
-## The log base 10 of the index point 19 is: 3.56679535645849
-## The log base 10 of the index point 20 is: 3.15263845040986</code></pre>
+<pre><code>## The log base 10 of the index point 1 is: 3.0124834262036
+## The log base 10 of the index point 2 is: 3.18553797733498
+## The log base 10 of the index point 3 is: 4.22037948985684
+## The log base 10 of the index point 4 is: 3.97645930908032
+## The log base 10 of the index point 5 is: 4.06647400906966
+## The log base 10 of the index point 6 is: 3.3645769259938
+## The log base 10 of the index point 7 is: 3.67525146479271
+## The log base 10 of the index point 8 is: 3.83612504242298
+## The log base 10 of the index point 9 is: 4.08052791469559
+## The log base 10 of the index point 10 is: 2.96188838986882
+## The log base 10 of the index point 11 is: 4.46172245769608
+## The log base 10 of the index point 12 is: 4.01414190543257
+## The log base 10 of the index point 13 is: 2.66484066673129
+## The log base 10 of the index point 14 is: 4.07424608914852
+## The log base 10 of the index point 15 is: 2.7077374684251
+## The log base 10 of the index point 16 is: 3.83310927307515
+## The log base 10 of the index point 17 is: 4.40114211228811
+## The log base 10 of the index point 18 is: 3.27323969635094
+## The log base 10 of the index point 19 is: 3.49405448539833
+## The log base 10 of the index point 20 is: 3.02362115947219</code></pre>
 <aside class="notes">
 <p>We can store values within a for loop, but they are confined to that
 for loop and are not accessible outside of it.</p>
@@ -651,10 +651,10 @@ for loop and are not accessible outside of it.</p>
 <span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a><span class="co"># print the vector</span></span>
 <span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a>gdp_percapita_log</span></code></pre></div>
-<pre><code>##  [1] 3.119250 3.307331 2.588832 4.052163 3.218463 4.186590
-##  [7] 3.867526 3.260758 3.159396 3.279268 4.007427 3.962089
-## [13] 2.921959 2.671829 4.207379 2.665689 3.417156 3.884802
-## [19] 3.566795 3.152638</code></pre>
+<pre><code>##  [1] 3.012483 3.185538 4.220379 3.976459 4.066474 3.364577
+##  [7] 3.675251 3.836125 4.080528 2.961888 4.461722 4.014142
+## [13] 2.664841 4.074246 2.707737 3.833109 4.401142 3.273240
+## [19] 3.494054 3.023621</code></pre>
 <aside class="notes">
 <p>In order to store the output of a for loop, we first need to create
 an object to hold the data.</p>

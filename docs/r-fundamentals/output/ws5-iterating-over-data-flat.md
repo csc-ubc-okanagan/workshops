@@ -6,7 +6,7 @@
   .site-footer, .footer { display: none; }
 </style>
 
-### Roadmap 📍
+### Roadmap 🗾
 
 <style type="text/css">
 /* Horizontal scroll for code, R output, and tables */
@@ -98,8 +98,8 @@ bench::mark(
     ## # A tibble: 2 × 2
     ##   expression   median
     ##   <bch:expr> <bch:tm>
-    ## 1 loop        64.54ms
-    ## 2 vectorized   8.58ms
+    ## 1 loop        64.34ms
+    ## 2 vectorized   8.41ms
 
 ``` r
 timings <- bench::mark(
@@ -339,34 +339,34 @@ data_gapminder_sample <- data_gapminder_num[sample(nrow(data_gapminder_num), 20)
 data_gapminder_sample
 ```
 
-    ##      year lifeExp       pop  gdpPercap
-    ## 1315 1982  63.012  11254672 33693.1753
-    ## 879  1962  47.747    893143   411.8006
-    ## 336  2007  46.462  64606759   277.5519
-    ## 1222 1997  68.564  75012988  2536.5349
-    ## 1346 1957  31.570   2295678  1004.4844
-    ## 801  1992  79.360 124329269 26824.8951
-    ## 1371 1962  70.330   4237384  7481.1076
-    ## 1502 1957  62.400  10164215  1507.8613
-    ## 495  1962  40.158   1666618   380.9958
-    ## 421  1952  34.812     63149  2669.5295
-    ## 1497 1992  69.249  13219062  3340.5428
-    ## 159  1962  51.520    512764   983.6540
-    ## 27   1962  48.303  11000948  2550.8169
-    ## 860  1987  74.174   1891487 28118.4300
-    ## 1369 1952  64.360   3558137  5074.6591
-    ## 414  1977  74.690   5088419 20422.9015
-    ## 273  1992  51.724   6429417  1058.0643
-    ## 1030 1997  67.660  28529501  2982.1019
-    ## 1050 1977  56.059  31528087   371.0000
-    ## 460  1967  49.293  31681188  1814.8807
+    ##      year lifeExp      pop  gdpPercap
+    ## 751  1982  73.100  3480000 12618.3214
+    ## 1421 1972  73.060 34513161 10638.7513
+    ## 137  1972  46.714  4565872  2980.3313
+    ## 1457 1972  49.552   480105  3364.8366
+    ## 1038 1977  42.495 11127868   502.3197
+    ## 21   1992  71.581  3326498  2497.4379
+    ## 1195 1982  66.874  3366439  4258.5036
+    ## 213  1992  44.736  5809236   631.6999
+    ## 1589 1972  51.016 10190285   950.7359
+    ## 1203 1962  49.096 10516500  4957.0380
+    ## 1466 1957  72.490  7363802  9911.8782
+    ## 192  2007  73.005  7322858 10680.7928
+    ## 467  2002  69.806 73312559  4754.6044
+    ## 1277 1972  69.210 20662648  8011.4144
+    ## 918  1977  46.881  8007166  1544.2286
+    ## 515  2002  50.725 67946797   530.0535
+    ## 1106 1957  45.432  1358828  3457.4159
+    ## 78   1977  72.170  7568430 19749.4223
+    ## 1585 1952  39.978  5824797   734.7535
+    ## 529  1952  67.410 42459667  7029.8093
 
 ``` r
 #example of what we want to print, the log base 10 of the first value in the column gdpPercap
 print(log10(data_gapminder_sample$gdpPercap[1]))
 ```
 
-    ## [1] 4.527542
+    ## [1] 4.101002
 
 ``` r
 # for demonstration purposes
@@ -380,45 +380,45 @@ for (index in seq_along(data_gapminder_sample$gdpPercap)) {
 ```
 
     ## [1] 1
-    ## [1] 4.527542
+    ## [1] 4.101002
     ## [1] 2
-    ## [1] 2.614687
+    ## [1] 4.026891
     ## [1] 3
-    ## [1] 2.443344
+    ## [1] 3.474265
     ## [1] 4
-    ## [1] 3.404241
+    ## [1] 3.526964
     ## [1] 5
-    ## [1] 3.001943
+    ## [1] 2.70098
     ## [1] 6
-    ## [1] 4.428538
+    ## [1] 3.397495
     ## [1] 7
-    ## [1] 3.873966
+    ## [1] 3.629257
     ## [1] 8
-    ## [1] 3.178361
+    ## [1] 2.800511
     ## [1] 9
-    ## [1] 2.58092
+    ## [1] 2.97806
     ## [1] 10
-    ## [1] 3.426435
+    ## [1] 3.695222
     ## [1] 11
-    ## [1] 3.523817
+    ## [1] 3.996156
     ## [1] 12
-    ## [1] 2.992842
+    ## [1] 4.028603
     ## [1] 13
-    ## [1] 3.406679
+    ## [1] 3.677114
     ## [1] 14
-    ## [1] 4.448991
+    ## [1] 3.903709
     ## [1] 15
-    ## [1] 3.705407
+    ## [1] 3.188712
     ## [1] 16
-    ## [1] 4.310117
+    ## [1] 2.72432
     ## [1] 17
-    ## [1] 3.024512
+    ## [1] 3.538752
     ## [1] 18
-    ## [1] 3.474522
+    ## [1] 4.295554
     ## [1] 19
-    ## [1] 2.569374
+    ## [1] 2.866142
     ## [1] 20
-    ## [1] 3.258848
+    ## [1] 3.846944
 
 ### Anatomy of a ‘For-loop’
 
@@ -440,26 +440,26 @@ for (index in seq_along(data_gapminder_sample$gdpPercap)) {
 }
 ```
 
-    ## The log base 10 of the index point 1 is: 4.52754194088831
-    ## The log base 10 of the index point 2 is: 2.61468700310939
-    ## The log base 10 of the index point 3 is: 2.44334414004637
-    ## The log base 10 of the index point 4 is: 3.40424084640125
-    ## The log base 10 of the index point 5 is: 3.00194321238603
-    ## The log base 10 of the index point 6 is: 4.42853803247444
-    ## The log base 10 of the index point 7 is: 3.87396590108497
-    ## The log base 10 of the index point 8 is: 3.1783613920919
-    ## The log base 10 of the index point 9 is: 2.58092023750837
-    ## The log base 10 of the index point 10 is: 3.42643472038373
-    ## The log base 10 of the index point 11 is: 3.52381703627158
-    ## The log base 10 of the index point 12 is: 2.99284235191855
-    ## The log base 10 of the index point 13 is: 3.40667928226323
-    ## The log base 10 of the index point 14 is: 4.4489910677682
-    ## The log base 10 of the index point 15 is: 3.70540687333909
-    ## The log base 10 of the index point 16 is: 4.31011744274222
-    ## The log base 10 of the index point 17 is: 3.0245120611648
-    ## The log base 10 of the index point 18 is: 3.47452247332618
-    ## The log base 10 of the index point 19 is: 2.56937390961505
-    ## The log base 10 of the index point 20 is: 3.25884808894596
+    ## The log base 10 of the index point 1 is: 4.10100158542625
+    ## The log base 10 of the index point 2 is: 4.02689065700032
+    ## The log base 10 of the index point 3 is: 3.47426454954607
+    ## The log base 10 of the index point 4 is: 3.5269639825025
+    ## The log base 10 of the index point 5 is: 2.70098023955392
+    ## The log base 10 of the index point 6 is: 3.39749469826406
+    ## The log base 10 of the index point 7 is: 3.62925701912801
+    ## The log base 10 of the index point 8 is: 2.80051079288172
+    ## The log base 10 of the index point 9 is: 2.97805987911551
+    ## The log base 10 of the index point 10 is: 3.69522224658516
+    ## The log base 10 of the index point 11 is: 3.99615595780494
+    ## The log base 10 of the index point 12 is: 4.02860349094832
+    ## The log base 10 of the index point 13 is: 3.67711438920957
+    ## The log base 10 of the index point 14 is: 3.90370919682789
+    ## The log base 10 of the index point 15 is: 3.18871158763867
+    ## The log base 10 of the index point 16 is: 2.72431973268524
+    ## The log base 10 of the index point 17 is: 3.53875163080657
+    ## The log base 10 of the index point 18 is: 4.29555439638822
+    ## The log base 10 of the index point 19 is: 2.86614165405515
+    ## The log base 10 of the index point 20 is: 3.84694354559525
 
 ### Storing output with for-loops
 
@@ -477,10 +477,10 @@ for (i in seq_along(data_gapminder_sample$gdpPercap)){
 gdp_percapita_log
 ```
 
-    ##  [1] 4.527542 2.614687 2.443344 3.404241 3.001943 4.428538
-    ##  [7] 3.873966 3.178361 2.580920 3.426435 3.523817 2.992842
-    ## [13] 3.406679 4.448991 3.705407 4.310117 3.024512 3.474522
-    ## [19] 2.569374 3.258848
+    ##  [1] 4.101002 4.026891 3.474265 3.526964 2.700980 3.397495
+    ##  [7] 3.629257 2.800511 2.978060 3.695222 3.996156 4.028603
+    ## [13] 3.677114 3.903709 3.188712 2.724320 3.538752 4.295554
+    ## [19] 2.866142 3.846944
 
 ### Takeaway
 

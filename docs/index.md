@@ -219,8 +219,9 @@ html { scroll-behavior: smooth; }
           <span class="ws-item-title">R: Conditions</span>
           <div class="ws-controls">
             <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">Conditions are logical statements that allow computers to respond to different cases in a dataset in a predictable way. This workshop introduces students to common conditional statements in R, including if/else statements, switch statements, and their vectorized equivalents.</div></details>
-            <span class="ws-links"><a href="R_conditions.html">workshop page</a></span>
-          </div>
+            <span class="ws-links"><a href="r-fundamentals/output/ws6-conditions-flat.html">workshop page</a></span>
+            <span class="ws-links"><a href="r-fundamentals/output/ws6-conditions-js.html">slides page</a></span>
+            </div>
         </li>
 
         <!-- Workshop 7: Visualizating Data -->

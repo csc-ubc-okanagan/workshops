@@ -306,8 +306,8 @@ timings[, c("expression", "median", "mem_alloc")]
     ## # A tibble: 2 × 3
     ##   expression   median mem_alloc
     ##   <chr>      <bch:tm> <bch:byt>
-    ## 1 Base R        925ms   16.25MB
-    ## 2 data.table     26ms    2.95MB
+    ## 1 Base R      292.9ms   16.25MB
+    ## 2 data.table   15.8ms    2.95MB
 
 ``` r
 ms <- setNames(as.numeric(timings$median) * 1000, c("base", "dt"))

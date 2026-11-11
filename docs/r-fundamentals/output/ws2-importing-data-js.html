@@ -133,7 +133,7 @@
 
 <section id="title-slide">
   <h1 class="title">R: Importing Data</h1>
-  <h3 class="date">2026-11-11 02:58:20</h3>
+  <h3 class="date">2026-11-11 18:58:18</h3>
 </section>
 
 <section id="where-do-your-data-live-before-r" class="slide level2">
@@ -599,14 +599,14 @@ only the first 5 columns with the <code>select(1:5)</code> command.</p>
 <pre><code>## # A tibble: 2 × 3
 ##   expression   median mem_alloc
 ##   &lt;chr&gt;      &lt;bch:tm&gt; &lt;bch:byt&gt;
-## 1 Base R      611.4ms   18.25MB
-## 2 data.table   29.1ms    3.38MB</code></pre>
+## 1 Base R      281.7ms   16.25MB
+## 2 data.table   15.3ms    2.95MB</code></pre>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>ms <span class="ot">&lt;-</span> <span class="fu">setNames</span>(<span class="fu">as.numeric</span>(timings<span class="sc">$</span>median) <span class="sc">*</span> <span class="dv">1000</span>, <span class="fu">c</span>(<span class="st">&quot;base&quot;</span>, <span class="st">&quot;dt&quot;</span>))</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="co"># double check that tmpfile is deleted</span></span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">unlink</span>(tmp)</span></code></pre></div>
 <aside class="notes">
-<p>Over five runs, <code>read.csv()</code> took a median of 611 ms,
-while <code>fread()</code> took 29 ms, about 21 times faster. While
+<p>Over five runs, <code>read.csv()</code> took a median of 282 ms,
+while <code>fread()</code> took 15 ms, about 18 times faster. While
 milliseconds are tiny units of measurement (a thousandth of a second),
 scaling this to much larger datasets can save you hours.</p>
 </aside>

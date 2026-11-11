@@ -9,7 +9,7 @@ output:
     reveal_plugins: ["notes"]
     self_contained: false
     smart: true
-    lib_dir: site_libs
+    lib_dir: output/site_libs
   md_document:
     variant: gfm-raw_html
     preserve_yaml: false
@@ -554,14 +554,14 @@ concepts and with reading this kind of documentation.
 rmarkdown::render(
     input = "ws1-fundamental-concepts-with-rstudio.RMD",
     output_format = "revealjs::revealjs_presentation",
-    output_file = "ws1-fundamental-concepts-with-rstudio-js.html"
+    output_file = "output/ws1-fundamental-concepts-with-rstudio-js.html"
 )
 
 # this will render to a flat HTML
 rmarkdown::render(
   input = "ws1-fundamental-concepts-with-rstudio.RMD",
   output_format = "md_document",
-  output_file = "ws1-fundamental-concepts-with-rstudio-flat.md"
+  output_file = "output/ws1-fundamental-concepts-with-rstudio-flat.md"
 )
 ```
 

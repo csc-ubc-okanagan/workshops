@@ -169,8 +169,8 @@ html { scroll-behavior: smooth; }
           <span class="ws-item-title">R: Fundamental Concepts with RStudio</span>
           <div class="ws-controls">
             <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">This workshop introduces students to foundational computing concepts such as data structures, data types, variables, and directory structures while building confidence in R and RStudio.</div></details>
-            <span class="ws-links"><a href="r-fundamentals/ws1-fundamental-concepts-with-rstudio-flat.html">workshop page</a></span>
-            <span class="ws-links"><a href="r-fundamentals/ws1-fundamental-concepts-with-rstudio-js.html">slides page</a></span>
+            <span class="ws-links"><a href="r-fundamentals/output/ws1-fundamental-concepts-with-rstudio-flat.html">workshop page</a></span>
+            <span class="ws-links"><a href="r-fundamentals/output/ws1-fundamental-concepts-with-rstudio-js.html">slides page</a></span>
           </div>
         </li>
 
@@ -179,8 +179,8 @@ html { scroll-behavior: smooth; }
           <span class="ws-item-title">R: Importing Data</span>
           <div class="ws-controls">
             <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">This workshop walks students through the basics of reading data using the menagerie of tools available in R. Students will learn to bring their data into R and, in the process, touch on concepts such as the working directory and wide- versus long-formatted data.</div></details>
-            <span class="ws-links"><a href="r-fundamentals/ws2-importing-data-flat.html">workshop page</a></span>
-            <span class="ws-links"><a href="r-fundamentals/ws2-importing-data-js.html">slides page</a></span>
+            <span class="ws-links"><a href="r-fundamentals/output/ws2-importing-data-flat.html">workshop page</a></span>
+            <span class="ws-links"><a href="r-fundamentals/output/ws2-importing-data-js.html">slides page</a></span>
           </div>
         </li>
 

@@ -1,0 +1,379 @@
+---
+title: 'R: Conditions'
+date: "`r format(Sys.time(), '%Y-%m-%d %H:%M:%S')`"
+output:
+  revealjs::revealjs_presentation:
+    slide-level: 1
+    scrollable: true
+    code-overflow: scroll
+    reveal_plugins: ["notes"]
+    self_contained: false
+    smart: true
+    lib_dir: output/site_libs
+  md_document:
+    variant: gfm-raw_html
+    preserve_yaml: false
+    pandoc_args: ["--lua-filter=flat.lua"]
+---
+
+```{r setup, include = FALSE, echo = FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      eval = TRUE,
+                      message = FALSE,
+                      warning = FALSE)
+
+suppressPackageStartupMessages({
+  library(dplyr)
+  library(emoji)
+})
+```
+
+```{r flat-only-css, echo = FALSE, results = "asis"}
+if (!knitr::pandoc_to("revealjs")) {
+  cat("<style>
+  .notes { display: none; }
+  hr { display: none; }
+  .site-footer, .footer { display: none; }
+</style>")
+}
+```
+
+## Motivation 
+
+```{css, echo = FALSE}
+/* Horizontal scroll for code, R output, and tables */
+.reveal pre,
+.reveal table {
+  display: block;
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+.reveal pre code {
+  white-space: pre;  /* keep long lines intact instead of wrapping */
+}
+
+/* Vertical scroll for slides that are too tall */
+.reveal .slides section {
+  height: 100%;
+  overflow-y: auto !important;
+}
+```
+
+- Conditional statements are good for many purposes in coding:
+  - conditional iteration
+  - binning data
+  - catching errors
+
+:::notes
+Conditionally iterating over data can be a powerful tool, for such things as
+catching errors, testing a user input, or, perhaps more commonly in data
+analysis tasks, creating categorical values from numeric interval or ratio data.
+:::
+
+```{r, echo = FALSE}
+# load the data
+gap_dat <- read.csv(file = "../../data/gapminder.csv")
+```
+
+## `if ... else` construct
+
+```{r}
+if("Afghanistan" %in% gap_dat$country){
+  print("Afghanistan in dataset")
+}else{
+  print("Afghanistan not in dataset")
+}
+```
+
+:::notes
+`if else` statements apply a test to a value, and if it returns `TRUE`,
+one thing is done, and if it returns `FALSE` an alternative thing is done. 
+Although this syntax is useful it is limited in it's applications.
+:::
+
+## *problem*: `if` needs exactly one `TRUE` or `FALSE`
+
+```{r, error = TRUE}
+# a whole column is many values, so if() doesn't know which to use
+if (gap_dat$lifeExp > 60) "long" else "short"
+
+# NA is neither TRUE nor FALSE
+x <- NA
+if (x > 5) print("big")
+```
+
+:::notes
+The problem is that `if ... else` asks a single yes/no question. Given a
+whole column data it will fail, because it can't tell which of the answers you
+meant (note that this ties in neatly to our discussion last week about
+vectorization). A missing value fails too, because "is NA bigger than 5?" has no
+answer. This is the line between this slide and the rest of the session:
+`if` is for one value (an argument, a setting, a check), and `ifelse()`,
+`case_when()` and `cut()` are for whole columns, the same vectorized idea from
+the iteration session. Related: use `&&` and `||` to combine single values
+inside `if`, and `&` and `|` to combine whole vectors.
+:::
+
+## A possible solution: chaining multiple `if` statements
+
+```{r}
+x <- 7
+
+if (x < 6) {
+  print("x is less than 6")
+}
+if (x == 5) {
+  print("x is equal to 5")
+}else{
+  print("x is greater than not less than 6 and is not equal to 5")
+}
+```
+
+:::notes
+Although I don't recommend doing this, you can also chain multiple
+(an infinite!) `if` statements together.
+:::
+
+## Iterating over vectors
+
+```{r}
+# create an empty variable to hold our ordered categorical data
+gap_dat$income_level <- ordered(NA, levels = c("low-income",
+                                                      "middle-income",
+                                                      "high-income"))
+# start the for loop to add values to income-level based on GDP values
+for (i in seq_along(gap_dat$income_level)) { # for each item along the dataframe
+  if (gap_dat$gdpPercap[i] <= 10000) { # if gdpPercap is LT = to 10000
+    gap_dat$income_level[i] <- 'low-income' # add 'low-income' to that observation's income level variable
+  }else if (gap_dat$gdpPercap[i] <= 75000) { # else, if gdpPercap is LT = 75000
+    gap_dat$income_level[i] <- "middle-income" #  add 'middle-income' to that observation's income level variable
+  }else { # otherwise
+    gap_dat$income_level[i] <- "high-income"  #  add 'high-income' to that observation's income level variable
+  }
+}
+summary(gap_dat$income_level)
+```
+
+
+:::notes
+A more practical implementation of an if else statement would be creating a
+new variable with values based off of those in another variable. This process
+can get a little convoluted as it combines an `if else` statement with a
+`for loop`.
+
+As an example, lets assume that we want to categorize countries based on their
+GDP as either high, middle, or low income. This can be cumbersome. Luckily R
+offers some simpler options for iterating over data with an if else construct.
+:::
+
+## `ifelse()`
+
+```{r}
+# Assign values
+# of 'below-average' if lifeExp is equal to or below 59.47 
+# and 'above-average' if above 59.47
+gap_dat$lifeExp_cat <- ifelse(gap_dat$lifeExp <= 59.47,
+                              "below-average",
+                              "above-average")
+
+# assign appropriate data type
+gap_dat$lifeExp_cat <- ordered(gap_dat$lifeExp_cat,
+                               levels = c("below-average", "above-average"))
+
+summary(gap_dat$lifeExp_cat)
+```
+
+:::notes
+R has a built in function, `ifelse()` that allows us to provide a condition,
+and, if that condition returns `TRUE` to do one thing, and if it returns `FALSE`
+to do something else. We'll split life expectancy into 'above average' and
+below average' categories.
+:::
+
+## `ifelse()` construct
+
+```{r, warning=TRUE}
+# create a numeric vector
+some_numbers <- c(6:-4)
+
+# take the square root of each value, which creates a bit of an issue
+sqrt(some_numbers)
+```
+
+:::notes
+`ifelse()` works well when we have a two condition set to work through. One more
+example, pulled from its documentation, to help avoid an error / warning being
+thrown or unwanted values being produced...
+:::
+
+# Solution: use `if_else()`
+
+```{r}
+# using if else to test for numbers greater than or equal to 0
+# if true, calculate the square root
+# if false, produce NA
+sqrt(ifelse(some_numbers >= 0, some_numbers, NA))
+```
+
+:::notes
+We can use `if_else()` to sort through data. Here we bin the data by those that
+are above or below zero to avoid taking the `sqrt` of a negative number.
+:::
+
+# Same result, less code: `case_when()` and `cut()`
+
+```{r}
+income_cw <- dplyr::case_when(
+  gap_dat$gdpPercap <= 10000 ~ "low-income",
+  gap_dat$gdpPercap <= 75000 ~ "middle-income",
+  .default = "high-income"
+)
+
+income_cw <- ordered(income_cw,
+                     levels = c("low-income", "middle-income", "high-income"))
+
+# cut() takes in a numeric value (gdpperCap)
+# sets the bins (breaks)
+# and assigns new levels
+income_cut <- cut(gap_dat$gdpPercap,
+                  breaks = c(-Inf, 10000, 75000, Inf),
+                  labels = c("low-income", "middle-income", "high-income"),
+                  ordered_result = TRUE)
+
+
+identical(income_cw, gap_dat$income_level)  # same as the for loop?
+identical(income_cut, gap_dat$income_level)
+summary(income_cut)
+```
+
+:::notes
+This is the income loop from earlier rewritten two ways. `case_when()` reads
+top to bottom and stops at the first condition that's TRUE, so the order of
+the lines matters, just like `else if`. `.default` catches everything left
+over. `cut()` is base R's tool for binning numbers into ordered categories in
+one call: `breaks` are the cut points, and by default each bin includes its
+upper edge, which matches `<=` in the loop. `identical()` checks that all
+three approaches agree, which is a good habit whenever you refactor code.
+:::
+
+# `case_when()`
+
+```{r}
+gap_dat$pop_size <- dplyr::case_when(
+  gap_dat$pop <= 1000000 ~ "small",
+  gap_dat$pop <= 100000000 ~ "medium",
+  gap_dat$pop > 100000000 ~ "large"
+)
+
+gap_dat$pop_size <- ordered(gap_dat$pop_size, levels = c("small", "medium", "large"))
+
+summary(gap_dat$pop_size)
+```
+
+
+:::notes
+`case_when()` is a more compact version of using multiple if_else statements
+that is native to `dplyr`.
+:::
+
+# `switch()`: choosing by name
+
+```{r, error = TRUE}
+# switch assigns values based on character string
+summarise_col <- function(x, stat = "mean") {
+  switch(stat,
+         mean   = mean(x),     # if stat = 'mean'
+         median = median(x),   # if stat = 'median'
+         sd     = sd(x),
+         # stop defines an error message if input is not accepted
+         # can be captured by a log file
+         stop("stat must be mean, median or sd, not ", stat))
+}
+
+summarise_col(gap_dat$lifeExp, "median")
+summarise_col(gap_dat$lifeExp, "mod")
+```
+
+:::notes
+When you're choosing between several options by name, `switch()` is cleaner
+than a chain of `if (stat == "mean") ... else if (stat == "median") ...`.
+R matches the first argument against the names and runs that one. An unnamed
+last argument is the fallback, used here to give a helpful error. Like `if`,
+`switch()` takes one value, not a vector, so it belongs inside functions, not
+on columns. You can also leave an option empty, as in `Americas = , Europe =
+"west"`, to have several names share one result.
+:::
+
+# Catching problems: `stop()`, `stopifnot()` and `warning()`
+
+```{r, error = TRUE, warning = TRUE}
+safe_log <- function(x) {
+  # idicates output is not numeric
+  stopifnot(is.numeric(x))                    # stop: can't continue
+  if (any(x <= 0, na.rm = TRUE)) {            # warn: can continue
+    # return descriptive custom warning
+    warning("x has values <= 0; log() returns NaN or -Inf for those") 
+  }
+  # if x is numeric and > 0 return the log of x
+  log(x)
+}
+
+safe_log(c(1, 10, 100))
+safe_log("10")
+safe_log(c(-1, 10))
+```
+
+:::notes
+Conditions are how your own functions protect their users, including you.
+`stop()` halts with a message when continuing would be meaningless;
+`stopifnot()` is a shortcut for checks that should always be true. `warning()`
+flags something suspicious but lets the code finish. Checking inputs at the
+top of a function means errors show up where the mistake is made, with a
+clear message, not three steps later as a confusing result. To handle an
+error instead of stopping, look up `tryCatch()`.
+:::
+
+# Takeaway
+
+- `if` / `else if` / `else` choose what to do for **one** value
+  - the condition must be a single `TRUE` or `FALSE`: no vectors, no `NA`
+  - use `&&` / `||` inside `if`, `&` / `|` for whole vectors
+- For whole columns, use vectorized conditions:
+  - `ifelse()` / `if_else()` for two outcomes
+  - `case_when()` for many outcomes; order matters, first `TRUE` wins
+  - `cut()` to bin numbers into ordered categories
+- `switch()` chooses between options by name
+- `stop()`, `stopifnot()` and `warning()` catch problems early with clear
+messages
+- When you rewrite code, check that the old and new versions agree with
+`identical()`
+
+:::notes
+The main thing to remember from today is the split between single values and
+whole vectors. `if` and `switch()` make one decision, which is why they live
+inside functions: checking an argument, picking a method, stopping on bad
+input. When you want a decision for every row of your data, reach for
+`ifelse()`, `case_when()` or `cut()` instead of wrapping `if` in a for loop.
+They're shorter, faster, and harder to get wrong.
+:::
+
+```{r}
+#| label: knit to html
+#| echo: FALSE
+#| eval: FALSE
+
+# this will render to reveal js for presentation purposes
+rmarkdown::render(
+    input = "ws6-conditions.Rmd",
+    output_format = "revealjs::revealjs_presentation",
+    output_file = "output/ws6-conditions-js.html"
+)
+
+# this will render to a flat HTML
+rmarkdown::render(
+  input = "ws6-conditions.Rmd",
+  output_format = "md_document",
+  output_file = "output/ws6-conditions-flat.md"
+)
+```

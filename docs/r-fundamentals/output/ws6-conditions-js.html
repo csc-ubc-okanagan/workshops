@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title>R: Conditions</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="site_libs/reveal.js-4.2.1/dist/reset.css">
+  <link rel="stylesheet" href="site_libs/reveal.js-4.2.1/dist/reveal.css">
+
+  <style type="text/css">
+    /* CSS from pandoc style.html() */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+            html { -webkit-text-size-adjust: 100%; }
+            pre > code.sourceCode { white-space: pre; position: relative; }
+            pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+            pre > code.sourceCode > span:empty { height: 1.2em; }
+            .sourceCode { overflow: visible; }
+            code.sourceCode > span { color: inherit; text-decoration: inherit; }
+            div.sourceCode { margin: 1em 0; }
+            pre.sourceCode { margin: 0; }
+            @media screen {
+            div.sourceCode { overflow: auto; }
+            }
+            @media print {
+            pre > code.sourceCode { white-space: pre-wrap; }
+            pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+            }
+            pre.numberSource code
+              { counter-reset: source-line 0; }
+            pre.numberSource code > span
+              { position: relative; left: -4em; counter-increment: source-line; }
+            pre.numberSource code > span > a:first-child::before
+              { content: counter(source-line);
+                position: relative; left: -1em; text-align: right; vertical-align: baseline;
+                border: none; display: inline-block;
+                -webkit-touch-callout: none; -webkit-user-select: none;
+                -khtml-user-select: none; -moz-user-select: none;
+                -ms-user-select: none; user-select: none;
+                padding: 0 4px; width: 4em;
+                color: #aaaaaa;
+              }
+            pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+            div.sourceCode
+              {   }
+            @media screen {
+            pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+            }
+            code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+            code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+            code span.at { color: #7d9029; } /* Attribute */
+            code span.bn { color: #40a070; } /* BaseN */
+            code span.bu { color: #008000; } /* BuiltIn */
+            code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+            code span.ch { color: #4070a0; } /* Char */
+            code span.cn { color: #880000; } /* Constant */
+            code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+            code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+            code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+            code span.dt { color: #902000; } /* DataType */
+            code span.dv { color: #40a070; } /* DecVal */
+            code span.er { color: #ff0000; font-weight: bold; } /* Error */
+            code span.ex { } /* Extension */
+            code span.fl { color: #40a070; } /* Float */
+            code span.fu { color: #06287e; } /* Function */
+            code span.im { color: #008000; font-weight: bold; } /* Import */
+            code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+            code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+            code span.op { color: #666666; } /* Operator */
+            code span.ot { color: #007020; } /* Other */
+            code span.pp { color: #bc7a00; } /* Preprocessor */
+            code span.sc { color: #4070a0; } /* SpecialChar */
+            code span.ss { color: #bb6688; } /* SpecialString */
+            code span.st { color: #4070a0; } /* String */
+            code span.va { color: #19177c; } /* Variable */
+            code span.vs { color: #4070a0; } /* VerbatimString */
+            code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+              </style>
+
+  <link rel="stylesheet" href="site_libs/reveal.js-4.2.1/dist/theme/simple.css" id="theme">
+
+
+  <style type="text/css">
+  /* some tweaks to reveal css */
+    .reveal h1 { font-size: 2.0em; }
+    .reveal h2 { font-size: 1.5em;  }
+    .reveal h3 { font-size: 1.25em;	}
+    .reveal h4 { font-size: 1em;	}
+
+    .reveal .slides>section,
+    .reveal .slides>section>section {
+      padding: 0px 0px;
+    }
+    .reveal table {
+      border-width: 1px;
+      border-spacing: 2px;
+      border-style: dotted;
+      border-color: gray;
+      border-collapse: collapse;
+      font-size: 0.7em;
+    }
+
+    .reveal table th {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      font-weight: bold;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+    .reveal table td {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      border-style: dotted;
+      border-color: gray;
+    }
+  </style>
+
+    <script src="site_libs/header-attrs-2.31/header-attrs.js"></script>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide">
+  <h1 class="title">R: Conditions</h1>
+  <h3 class="date">2026-11-11 22:49:17</h3>
+</section>
+
+<section id="motivation" class="slide level2">
+<h2>Motivation</h2>
+<style type="text/css">
+/* Horizontal scroll for code, R output, and tables */
+.reveal pre,
+.reveal table {
+  display: block;
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+.reveal pre code {
+  white-space: pre;  /* keep long lines intact instead of wrapping */
+}
+
+/* Vertical scroll for slides that are too tall */
+.reveal .slides section {
+  height: 100%;
+  overflow-y: auto !important;
+}
+</style>
+<ul>
+<li>Conditional statements are good for many purposes in coding:
+<ul>
+<li>conditional iteration</li>
+<li>binning data</li>
+<li>catching errors</li>
+</ul></li>
+</ul>
+<aside class="notes">
+<p>Conditionally iterating over data can be a powerful tool, for such
+things as catching errors, testing a user input, or, perhaps more
+commonly in data analysis tasks, creating categorical values from
+numeric interval or ratio data.</p>
+</aside>
+</section>
+<section id="if-...-else-construct" class="slide level2">
+<h2><code>if ... else</code> construct</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="st">&quot;Afghanistan&quot;</span> <span class="sc">%in%</span> gap_dat<span class="sc">$</span>country){</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Afghanistan in dataset&quot;</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>}<span class="cf">else</span>{</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Afghanistan not in dataset&quot;</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## [1] &quot;Afghanistan in dataset&quot;</code></pre>
+<aside class="notes">
+<p><code>if else</code> statements apply a test to a value, and if it
+returns <code>TRUE</code>, one thing is done, and if it returns
+<code>FALSE</code> an alternative thing is done. Although this syntax is
+useful it is limited in it’s applications.</p>
+</aside>
+</section>
+<section id="problem-if-needs-exactly-one-true-or-false"
+class="slide level2">
+<h2><em>problem</em>: <code>if</code> needs exactly one
+<code>TRUE</code> or <code>FALSE</code></h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># a whole column is many values, so if() doesn&#39;t know which to use</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (gap_dat<span class="sc">$</span>lifeExp <span class="sc">&gt;</span> <span class="dv">60</span>) <span class="st">&quot;long&quot;</span> <span class="cf">else</span> <span class="st">&quot;short&quot;</span></span></code></pre></div>
+<pre><code>## Error in `if (gap_dat$lifeExp &gt; 60) ...`:
+## ! the condition has length &gt; 1</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># NA is neither TRUE nor FALSE</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (x <span class="sc">&gt;</span> <span class="dv">5</span>) <span class="fu">print</span>(<span class="st">&quot;big&quot;</span>)</span></code></pre></div>
+<pre><code>## Error in `if (x &gt; 5) ...`:
+## ! missing value where TRUE/FALSE needed</code></pre>
+<aside class="notes">
+<p>The problem is that <code>if ... else</code> asks a single yes/no
+question. Given a whole column data it will fail, because it can’t tell
+which of the answers you meant (note that this ties in neatly to our
+discussion last week about vectorization). A missing value fails too,
+because “is NA bigger than 5?” has no answer. This is the line between
+this slide and the rest of the session: <code>if</code> is for one value
+(an argument, a setting, a check), and <code>ifelse()</code>,
+<code>case_when()</code> and <code>cut()</code> are for whole columns,
+the same vectorized idea from the iteration session. Related: use
+<code>&amp;&amp;</code> and <code>||</code> to combine single values
+inside <code>if</code>, and <code>&amp;</code> and <code>|</code> to
+combine whole vectors.</p>
+</aside>
+</section>
+<section id="a-possible-solution-chaining-multiple-if-statements"
+class="slide level2">
+<h2>A possible solution: chaining multiple <code>if</code>
+statements</h2>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">7</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (x <span class="sc">&lt;</span> <span class="dv">6</span>) {</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;x is less than 6&quot;</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (x <span class="sc">==</span> <span class="dv">5</span>) {</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;x is equal to 5&quot;</span>)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>}<span class="cf">else</span>{</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;x is greater than not less than 6 and is not equal to 5&quot;</span>)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## [1] &quot;x is greater than not less than 6 and is not equal to 5&quot;</code></pre>
+<aside class="notes">
+<p>Although I don’t recommend doing this, you can also chain multiple
+(an infinite!) <code>if</code> statements together.</p>
+</aside>
+</section>
+<section id="iterating-over-vectors" class="slide level2">
+<h2>Iterating over vectors</h2>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create an empty variable to hold our ordered categorical data</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>gap_dat<span class="sc">$</span>income_level <span class="ot">&lt;-</span> <span class="fu">ordered</span>(<span class="cn">NA</span>, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;low-income&quot;</span>,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                                                      <span class="st">&quot;middle-income&quot;</span>,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>                                                      <span class="st">&quot;high-income&quot;</span>))</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co"># start the for loop to add values to income-level based on GDP values</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(gap_dat<span class="sc">$</span>income_level)) { <span class="co"># for each item along the dataframe</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (gap_dat<span class="sc">$</span>gdpPercap[i] <span class="sc">&lt;=</span> <span class="dv">10000</span>) { <span class="co"># if gdpPercap is LT = to 10000</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    gap_dat<span class="sc">$</span>income_level[i] <span class="ot">&lt;-</span> <span class="st">&#39;low-income&#39;</span> <span class="co"># add &#39;low-income&#39; to that observation&#39;s income level variable</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  }<span class="cf">else</span> <span class="cf">if</span> (gap_dat<span class="sc">$</span>gdpPercap[i] <span class="sc">&lt;=</span> <span class="dv">75000</span>) { <span class="co"># else, if gdpPercap is LT = 75000</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    gap_dat<span class="sc">$</span>income_level[i] <span class="ot">&lt;-</span> <span class="st">&quot;middle-income&quot;</span> <span class="co">#  add &#39;middle-income&#39; to that observation&#39;s income level variable</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  }<span class="cf">else</span> { <span class="co"># otherwise</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    gap_dat<span class="sc">$</span>income_level[i] <span class="ot">&lt;-</span> <span class="st">&quot;high-income&quot;</span>  <span class="co">#  add &#39;high-income&#39; to that observation&#39;s income level variable</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(gap_dat<span class="sc">$</span>income_level)</span></code></pre></div>
+<pre><code>##    low-income middle-income   high-income 
+##          1312           387             5</code></pre>
+<aside class="notes">
+<p>A more practical implementation of an if else statement would be
+creating a new variable with values based off of those in another
+variable. This process can get a little convoluted as it combines an
+<code>if else</code> statement with a <code>for loop</code>.</p>
+<p>As an example, lets assume that we want to categorize countries based
+on their GDP as either high, middle, or low income. This can be
+cumbersome. Luckily R offers some simpler options for iterating over
+data with an if else construct.</p>
+</aside>
+</section>
+<section id="ifelse" class="slide level2">
+<h2><code>ifelse()</code></h2>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Assign values</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># of &#39;below-average&#39; if lifeExp is equal to or below 59.47 </span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># and &#39;above-average&#39; if above 59.47</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>gap_dat<span class="sc">$</span>lifeExp_cat <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(gap_dat<span class="sc">$</span>lifeExp <span class="sc">&lt;=</span> <span class="fl">59.47</span>,</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>                              <span class="st">&quot;below-average&quot;</span>,</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>                              <span class="st">&quot;above-average&quot;</span>)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="co"># assign appropriate data type</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>gap_dat<span class="sc">$</span>lifeExp_cat <span class="ot">&lt;-</span> <span class="fu">ordered</span>(gap_dat<span class="sc">$</span>lifeExp_cat,</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>                               <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;below-average&quot;</span>, <span class="st">&quot;above-average&quot;</span>))</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(gap_dat<span class="sc">$</span>lifeExp_cat)</span></code></pre></div>
+<pre><code>## below-average above-average 
+##           809           895</code></pre>
+<aside class="notes">
+<p>R has a built in function, <code>ifelse()</code> that allows us to
+provide a condition, and, if that condition returns <code>TRUE</code> to
+do one thing, and if it returns <code>FALSE</code> to do something else.
+We’ll split life expectancy into ‘above average’ and below average’
+categories.</p>
+</aside>
+</section>
+<section id="ifelse-construct" class="slide level2">
+<h2><code>ifelse()</code> construct</h2>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create a numeric vector</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>some_numbers <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">6</span><span class="sc">:-</span><span class="dv">4</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># take the square root of each value, which creates a bit of an issue</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(some_numbers)</span></code></pre></div>
+<pre><code>##  [1] 2.449490 2.236068 2.000000 1.732051 1.414214 1.000000 0.000000      NaN      NaN      NaN      NaN</code></pre>
+<aside class="notes">
+<p><code>ifelse()</code> works well when we have a two condition set to
+work through. One more example, pulled from its documentation, to help
+avoid an error / warning being thrown or unwanted values being
+produced…</p>
+</aside>
+</section>
+<section id="solution-use-if_else" class="title-slide slide level1">
+<h1>Solution: use <code>if_else()</code></h1>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># using if else to test for numbers greater than or equal to 0</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co"># if true, calculate the square root</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"># if false, produce NA</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">ifelse</span>(some_numbers <span class="sc">&gt;=</span> <span class="dv">0</span>, some_numbers, <span class="cn">NA</span>))</span></code></pre></div>
+<pre><code>##  [1] 2.449490 2.236068 2.000000 1.732051 1.414214 1.000000 0.000000       NA       NA       NA       NA</code></pre>
+<aside class="notes">
+<p>We can use <code>if_else()</code> to sort through data. Here we bin
+the data by those that are above or below zero to avoid taking the
+<code>sqrt</code> of a negative number.</p>
+</aside>
+</section>
+
+<section id="same-result-less-code-case_when-and-cut"
+class="title-slide slide level1">
+<h1>Same result, less code: <code>case_when()</code> and
+<code>cut()</code></h1>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>income_cw <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">case_when</span>(</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  gap_dat<span class="sc">$</span>gdpPercap <span class="sc">&lt;=</span> <span class="dv">10000</span> <span class="sc">~</span> <span class="st">&quot;low-income&quot;</span>,</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  gap_dat<span class="sc">$</span>gdpPercap <span class="sc">&lt;=</span> <span class="dv">75000</span> <span class="sc">~</span> <span class="st">&quot;middle-income&quot;</span>,</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">.default =</span> <span class="st">&quot;high-income&quot;</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>income_cw <span class="ot">&lt;-</span> <span class="fu">ordered</span>(income_cw,</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>                     <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;low-income&quot;</span>, <span class="st">&quot;middle-income&quot;</span>, <span class="st">&quot;high-income&quot;</span>))</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="co"># cut() takes in a numeric value (gdpperCap)</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="co"># sets the bins (breaks)</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="co"># and assigns new levels</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>income_cut <span class="ot">&lt;-</span> <span class="fu">cut</span>(gap_dat<span class="sc">$</span>gdpPercap,</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>                  <span class="at">breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="cn">Inf</span>, <span class="dv">10000</span>, <span class="dv">75000</span>, <span class="cn">Inf</span>),</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>                  <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;low-income&quot;</span>, <span class="st">&quot;middle-income&quot;</span>, <span class="st">&quot;high-income&quot;</span>),</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ordered_result =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a><span class="fu">identical</span>(income_cw, gap_dat<span class="sc">$</span>income_level)  <span class="co"># same as the for loop?</span></span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">identical</span>(income_cut, gap_dat<span class="sc">$</span>income_level)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(income_cut)</span></code></pre></div>
+<pre><code>##    low-income middle-income   high-income 
+##          1312           387             5</code></pre>
+<aside class="notes">
+<p>This is the income loop from earlier rewritten two ways.
+<code>case_when()</code> reads top to bottom and stops at the first
+condition that’s TRUE, so the order of the lines matters, just like
+<code>else if</code>. <code>.default</code> catches everything left
+over. <code>cut()</code> is base R’s tool for binning numbers into
+ordered categories in one call: <code>breaks</code> are the cut points,
+and by default each bin includes its upper edge, which matches
+<code>&lt;=</code> in the loop. <code>identical()</code> checks that all
+three approaches agree, which is a good habit whenever you refactor
+code.</p>
+</aside>
+</section>
+
+<section id="case_when" class="title-slide slide level1">
+<h1><code>case_when()</code></h1>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>gap_dat<span class="sc">$</span>pop_size <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">case_when</span>(</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  gap_dat<span class="sc">$</span>pop <span class="sc">&lt;=</span> <span class="dv">1000000</span> <span class="sc">~</span> <span class="st">&quot;small&quot;</span>,</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  gap_dat<span class="sc">$</span>pop <span class="sc">&lt;=</span> <span class="dv">100000000</span> <span class="sc">~</span> <span class="st">&quot;medium&quot;</span>,</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  gap_dat<span class="sc">$</span>pop <span class="sc">&gt;</span> <span class="dv">100000000</span> <span class="sc">~</span> <span class="st">&quot;large&quot;</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>gap_dat<span class="sc">$</span>pop_size <span class="ot">&lt;-</span> <span class="fu">ordered</span>(gap_dat<span class="sc">$</span>pop_size, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;small&quot;</span>, <span class="st">&quot;medium&quot;</span>, <span class="st">&quot;large&quot;</span>))</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(gap_dat<span class="sc">$</span>pop_size)</span></code></pre></div>
+<pre><code>##  small medium  large 
+##    180   1447     77</code></pre>
+<aside class="notes">
+<p><code>case_when()</code> is a more compact version of using multiple
+if_else statements that is native to <code>dplyr</code>.</p>
+</aside>
+</section>
+
+<section id="switch-choosing-by-name" class="title-slide slide level1">
+<h1><code>switch()</code>: choosing by name</h1>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># switch assigns values based on character string</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>summarise_col <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">stat =</span> <span class="st">&quot;mean&quot;</span>) {</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">switch</span>(stat,</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">mean   =</span> <span class="fu">mean</span>(x),     <span class="co"># if stat = &#39;mean&#39;</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">median =</span> <span class="fu">median</span>(x),   <span class="co"># if stat = &#39;median&#39;</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">sd     =</span> <span class="fu">sd</span>(x),</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>         <span class="co"># stop defines an error message if input is not accepted</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>         <span class="co"># can be captured by a log file</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>         <span class="fu">stop</span>(<span class="st">&quot;stat must be mean, median or sd, not &quot;</span>, stat))</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a><span class="fu">summarise_col</span>(gap_dat<span class="sc">$</span>lifeExp, <span class="st">&quot;median&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] 60.7125</code></pre>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summarise_col</span>(gap_dat<span class="sc">$</span>lifeExp, <span class="st">&quot;mod&quot;</span>)</span></code></pre></div>
+<pre><code>## Error in `summarise_col()`:
+## ! stat must be mean, median or sd, not mod</code></pre>
+<aside class="notes">
+<p>When you’re choosing between several options by name,
+<code>switch()</code> is cleaner than a chain of
+<code>if (stat == "mean") ... else if (stat == "median") ...</code>. R
+matches the first argument against the names and runs that one. An
+unnamed last argument is the fallback, used here to give a helpful
+error. Like <code>if</code>, <code>switch()</code> takes one value, not
+a vector, so it belongs inside functions, not on columns. You can also
+leave an option empty, as in <code>Americas = , Europe = "west"</code>,
+to have several names share one result.</p>
+</aside>
+</section>
+
+<section id="catching-problems-stop-stopifnot-and-warning"
+class="title-slide slide level1">
+<h1>Catching problems: <code>stop()</code>, <code>stopifnot()</code> and
+<code>warning()</code></h1>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>safe_log <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># idicates output is not numeric</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stopifnot</span>(<span class="fu">is.numeric</span>(x))                    <span class="co"># stop: can&#39;t continue</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">any</span>(x <span class="sc">&lt;=</span> <span class="dv">0</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) {            <span class="co"># warn: can continue</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># return descriptive custom warning</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">warning</span>(<span class="st">&quot;x has values &lt;= 0; log() returns NaN or -Inf for those&quot;</span>) </span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># if x is numeric and &gt; 0 return the log of x</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">log</span>(x)</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a><span class="fu">safe_log</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">100</span>))</span></code></pre></div>
+<pre><code>## [1] 0.000000 2.302585 4.605170</code></pre>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">safe_log</span>(<span class="st">&quot;10&quot;</span>)</span></code></pre></div>
+<pre><code>## Error in `safe_log()`:
+## ! is.numeric(x) is not TRUE</code></pre>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">safe_log</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">10</span>))</span></code></pre></div>
+<pre><code>## [1]      NaN 2.302585</code></pre>
+<aside class="notes">
+<p>Conditions are how your own functions protect their users, including
+you. <code>stop()</code> halts with a message when continuing would be
+meaningless; <code>stopifnot()</code> is a shortcut for checks that
+should always be true. <code>warning()</code> flags something suspicious
+but lets the code finish. Checking inputs at the top of a function means
+errors show up where the mistake is made, with a clear message, not
+three steps later as a confusing result. To handle an error instead of
+stopping, look up <code>tryCatch()</code>.</p>
+</aside>
+</section>
+
+<section id="takeaway" class="title-slide slide level1">
+<h1>Takeaway</h1>
+<ul>
+<li><code>if</code> / <code>else if</code> / <code>else</code> choose
+what to do for <strong>one</strong> value
+<ul>
+<li>the condition must be a single <code>TRUE</code> or
+<code>FALSE</code>: no vectors, no <code>NA</code></li>
+<li>use <code>&amp;&amp;</code> / <code>||</code> inside
+<code>if</code>, <code>&amp;</code> / <code>|</code> for whole
+vectors</li>
+</ul></li>
+<li>For whole columns, use vectorized conditions:
+<ul>
+<li><code>ifelse()</code> / <code>if_else()</code> for two outcomes</li>
+<li><code>case_when()</code> for many outcomes; order matters, first
+<code>TRUE</code> wins</li>
+<li><code>cut()</code> to bin numbers into ordered categories</li>
+</ul></li>
+<li><code>switch()</code> chooses between options by name</li>
+<li><code>stop()</code>, <code>stopifnot()</code> and
+<code>warning()</code> catch problems early with clear messages</li>
+<li>When you rewrite code, check that the old and new versions agree
+with <code>identical()</code></li>
+</ul>
+<aside class="notes">
+<p>The main thing to remember from today is the split between single
+values and whole vectors. <code>if</code> and <code>switch()</code> make
+one decision, which is why they live inside functions: checking an
+argument, picking a method, stopping on bad input. When you want a
+decision for every row of your data, reach for <code>ifelse()</code>,
+<code>case_when()</code> or <code>cut()</code> instead of wrapping
+<code>if</code> in a for loop. They’re shorter, faster, and harder to
+get wrong.</p>
+</aside>
+</section>
+    </div>
+  </div>
+
+  <script src="site_libs/reveal.js-4.2.1/dist/reveal.js"></script>
+  
+  <!-- reveal.js plugins -->
+  <script src="site_libs/reveal.js-4.2.1/plugin/notes/notes.js"></script>
+  
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: true,
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: true,
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'bottom-right',
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+        // Display a presentation progress bar
+        progress: true,
+        // Can be used to limit the contexts in which the slide number appears
+        showSlideNumber: 'all',
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+        // Push each slide change to the browser history
+        // Implies `hash: true`
+        history: true,
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+        // Enable the slide overview mode
+        overview: true,
+        // Vertical centering of slides
+        center: false,
+        // Enables touch navigation on devices with touch input
+        touch: true,
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'default',
+        // Turns fragments on and off globally
+        fragments: true,
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: true,
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Transition style
+        transition: 'convex', // none/fade/slide/convex/concave/zoom
+        // Transition speed
+        transitionSpeed: 'default', // default/fast/slow
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+        // The display mode that will be used to show slides
+        display: 'block',
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+
+
+        // Optional reveal.js plugins
+        plugins: [
+          RevealNotes,
+        ]
+      });
+
+    </script>
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+
+<script>
+  (function() {
+    if (window.jQuery) {
+      Reveal.addEventListener( 'slidechanged', function(event) {  
+        window.jQuery(event.previousSlide).trigger('hidden');
+        window.jQuery(event.currentSlide).trigger('shown');
+      });
+    }
+  })();
+</script>
+
+
+  </body>
+</html>

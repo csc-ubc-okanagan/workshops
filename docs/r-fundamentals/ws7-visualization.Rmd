@@ -1,0 +1,680 @@
+---
+title: 'R: Visualization with ggplot2'
+date: "`r format(Sys.time(), '%Y-%m-%d %H:%M:%S')`"
+output:
+  revealjs::revealjs_presentation:
+    slide-level: 1
+    scrollable: true
+    code-overflow: scroll
+    reveal_plugins: ["notes"]
+    self_contained: false
+    smart: true
+    lib_dir: output/site_libs
+  md_document:
+    variant: gfm-raw_html
+    preserve_yaml: false
+    pandoc_args: ["--lua-filter=flat.lua"]
+---
+
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      eval = TRUE,
+                      message = FALSE,
+                      warning = FALSE)
+
+suppressPackageStartupMessages({
+  library(ggplot2)       # plotting package
+  library(dplyr)         # data wrangling
+  library(scales)        # plotting options
+  library(patchwork)     # syntax for grouping multiple plots
+  library(cranlogs)      # for getting stats on use of CRAN packages
+  library(RColorBrewer)  # for more colour options
+})
+
+options(tidyverse.quiet = TRUE)
+```
+
+```{r flat-only-css, echo = FALSE, results = "asis"}
+if (!knitr::pandoc_to("revealjs")) {
+  cat("<style>
+  .notes { display: none; }
+  hr { display: none; }
+  .site-footer, .footer { display: none; }
+</style>")
+}
+```
+
+## What is this talk about? 
+
+* *how to* visualize findings and data
+* common data types and their appropriate visualizations 
+
+```{css, echo = FALSE}
+/* Horizontal scroll for code, R output, and tables */
+.reveal pre,
+.reveal table {
+  display: block;
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+.reveal pre code {
+  white-space: pre;  /* keep long lines intact instead of wrapping */
+}
+
+/* Vertical scroll for slides that are too tall */
+.reveal .slides section {
+  height: 100%;
+  overflow-y: auto !important;
+}
+
+```
+
+## Why "plotting" does it matter?
+
+* If no one can understand your research, then does it matter?
+* Data has a story, but raw numbers can't speak and can sometimes mislead (see
+Anscombe's Quartet). Visualizations bridge complex statistics and
+human intuition.
+* Patterns emerge in pictures, not spreadsheets. Plotting reveals hidden trends,
+clusters, and outliers that a table of data will completely hide.
+* A well-crafted plot builds immediate trust, credibility, and impact with your
+audience.
+
+:::notes
+Plotting is not just is a fundamental part of the communication and translation
+of science. Anscombe's Quartet is four datasets with identical
+statistical properties (i.e., mean, variance, and correlation) but when plotted
+look completely different. This dataset is standard in R and can be loaded with
+the call `data(anscombe)`. Clear communication multiplies the impact of your 
+research value.
+:::
+
+## What is `ggplot2`?
+
+```{r}
+#| label: generate statistics on ggplot downloads
+#| echo:  FALSE
+#| cache: TRUE
+
+dl <- cran_downloads("ggplot2", when = "last-month")
+totals <- aggregate(count ~ package, data = dl, FUN = sum)
+ggplot_downloads <- totals$count
+```
+
+
+* an `R` package dedicated to visualization
+* gives researchers a common grammar for constructing visualizations
+* many extensions (e.g., `ggpubr`)
+* base `ggplot2` has had `r format(ggplot_downloads, big.mark = ",")` downloads
+in the past 30 days
+
+:::notes
+`ggplot` is one of the most downloaded packages on CRAN (don't believe me--see
+the above statistic grabbed directly from CRAN's APIs).
+:::
+
+## A skeletal ggplot call `r emoji::emoji('skeleton')`
+
+```{r demo_ggplot, eval = FALSE}
+ggplot() + # call ggplot and potentially feed in data and variables to plot to specific aesthetics
+  geom() + # pick a plot type. Data and variables to plot to specific aesthetics can also be assigned here
+  scale() + # make adjustments to the scales
+  labs() + # customize labels
+  ... + # there are other options!
+  theme() # add some style
+```
+
+:::notes
+`ggplot()` is based on a grammar graphics -- a way of approaching describing
+the construction of a graphic from common building blocks. Building a graphic
+with ggplot then follows some common patterns of construction.
+
+At its most basic, we supply ggplot with a data set and some aesthetics to map
+-- that is, the variables we wish to display on the plot and how they should
+appear. We then define a plot type.
+
+Step by step this looks like:
+
+1. call ggplot()
+2. provide ggplot with a data set
+3. provide ggplot with the variable(s) of interest and their aesthetic properties
+4. define a plot type with geom_*plotType*()
+
+After this, we continue to add on layers. We can add on additional `geoms`, we
+can add on scale adjustments, statistical summaries etc. and finally we can
+adjust how the overall presentation looks, adjusting titles, labels, legends
+etc.
+:::
+
+## **NOIR**: levels of measurement
+
+| Level        | Order | Description                 | Example          | General Note      |
+| :---         | :---  | :---                        | :---             | :---              |
+| **N**ominal  | N     | Classifies                  | Marital status   | Pick a category   |
+| **O**rdinal  | Y     | Classifies, > < comparisons | Education        | Pick a preference |
+| **I**nterval | Y     | Difference, - + comparisons | Number of people | Count something   |
+| **R**atio    | Y     | Magnitude, x / comparisons  | Height           | Measure something |
+
+:::notes
+A common taxonomy (first proposed by American psychologist Stanely Smith Stevens
+in his 1946 work entitled *On the Theory of Scales of Measurment* published in
+the journal *Science*) breaks data into four taxonomic groups: Nominal (data
+split into categories with no implicit order or hierarchy), Ordinal (categories
+with a meaningful rank or order), Interval (data have ordered measurable 
+intervals between values), and Ratio (interval scale with absolute zero point).
+
+Not all visuals are appropriate for all levels. Reflecting back on our earlier
+discussion of data types in R, nominal and ordinal data are generally
+categorical or 'factor', interval will be classified as integers, and ratio
+will be classified as double. If our data types are not properly assigned, R
+will often 'coerce' the data type to something that will
+work, but this isn't always successful, nor is very good practice to make the
+system guess!
+:::
+
+## Read in data
+
+```{r}
+gapminder <- read.csv(file = "../../data/gapminder.csv")
+gapminder_7 <- gapminder %>% filter(year == 2007) # filter to just one year
+```
+
+:::notes
+By now we should be familiar enough with reading in data that we don't need to
+talk about it, but I'm showing it here just in case. Today we will once again
+work with the gapminder dataset.
+:::
+
+## `ggplot()`: the building block
+
+```{r ggplot_data}
+ggplot(data = gapminder)
+```
+
+:::notes
+The `ggplot` call creates a 'blank slate'. It is the buildding block on which
+the rest of the call rests. 
+
+*Aside*: The core components of the `ggplot` syntax (in addition to
+visualization packages in other programming languages such as Python's 
+`plotnine`) are based off of a framework proposed by the scientist Hadely
+Wickham (New Zealand) who is the chief scientist at Posit (the parent company
+of Rstudio). The book is calle the **Grammar of Graphics**.
+:::
+
+## Adding dimensions:  `aes()` 
+
+```{r ggplot_aes}
+# aes() stands for aesthetic
+ggplot(data = gapminder_7, aes(x = gdpPercap, y = lifeExp))
+```
+
+:::notes
+The call `aes()` links variables to visual properties (or channels) such as
+shape, size, colour, or dimension. The above call sets us up with a blank grid
+with `x` and `y` axis ticks corresponding to your variable values and x and y
+axis labels corresponding to your variables.
+:::
+
+## Visualizing scatterplot data
+
+```{r ggplot_point}
+ggplot(data = filter(gapminder, year == 2007), aes(x = gdpPercap, y = lifeExp)) +
+  geom_point()
+```
+
+:::notes
+Now we call a plot type to represent our data, in this case, a scatter plot.
+:::
+
+## The `geoms`
+
+| `ggplot2` call                                          | type of                             |
+| :---                                                    | :---                                |
+| `geom_bar()`, `geom_col()`                              | bar charts                          |
+| `geom_boxplot()`                                        | box-and-whisker plots               |
+| `geom_histogram`, `geom_violion()`, `geom_boxplot()`    | distributions                       |
+| `geom_line()`, `geom_smooth()`                          | connecting observations (trends)    |
+| `geom_point()`, `geom_jitter`                           | scatter plots                       |
+| `geom_map()`, `geom_sf()`                               | spatial data (rasters)              |
+
+:::notes
+There are several `geoms_` that we can choose from. They each correspond to 
+different types of data we want plots. Some are good for plotting trends
+(scatter plots and lines), visualizing distributions (histograms), and
+understanding central tendency and spread (box-and-whisker plots).
+
+
+> There are many aesthetics that we can map to `aes()` and each `geom_` will
+accept different aesthetics. You can review available aesthetics using the help
+pages. Those aesthetics in **bold** are required.
+
+:::
+
+
+## Categorical variables: Basic Bar Chart
+
+```{r basic_bar}
+# equivalent to the number of countries in each continent in 2007
+ggplot(data = filter(gapminder, year == 2007), aes(x = continent)) +
+  geom_bar()
+```
+
+:::notes
+ggplot2 offers to geoms for plotting bar charts, `geom_bar()` and `geom_col()`.
+Use `geom_bar()` when you don't have a count of your categories (it requires a
+single categorical variable, and passes the operation off to another function
+that tallies the number of observations associated with each level). And use
+`geom_col()` when you have a tally per category (it requires two variables to be
+passed to `aes()`, a categorical variable and a numeric variable.)
+
+While `geom_bar()` is convenient, you'll likely want a frequency table of
+corresponding values anyway, which you can the plot with `geom_col()`.
+R provides an easy way to get a frequency table with the function `table()`.
+:::
+
+## Frequency table
+
+```{r freq_table}
+country_freqtable <- table(subset(gapminder, year == 2007, select = continent))
+
+country_freqtable
+```
+
+:::notes
+NA` values are dropped by default.
+
+`ggplot()` only accepts dataframes and tibbles, so we need to convert out
+table. Unless we need to preserve our dataframe, we can do this on the fly
+within our call to `ggplot()`. when converting a table to a dataframe, the
+variable name for the categorical variable is preserved and the count variable
+is names `Freq`.
+:::
+
+```{r solution_2}
+ggplot(data = as.data.frame(country_freqtable), aes(x = continent, y = Freq)) +
+  geom_col()
+```
+
+## Additional aesthetics
+
+```{r}
+ggplot(data = filter(gapminder, year == 2007), aes(x = gdpPercap, y = lifeExp, colour = continent, size = pop)) +
+  geom_point()
+```
+
+:::notes
+Beyond articulating the variables on the x and y plane, we can also articulate
+variables according to other aesthetic properties, such as colour,
+opacity (alpha), and size.
+
+Colour can be added with `fill` or `colour`; `fill` fills objects, such as bars
+on a bar chart, colour produces a line of colour, either, for examples, around
+a bar chart, or to define the colour of a line, with a point being a section of
+a line.
+:::
+
+```{r}
+# aes() can take the 'size' parameter which (in this case) tells ggplot
+# that we want to assign the points to size 'continent' (a nominal variable)
+# ...which doesn't make sense :/
+ggplot(data = filter(gapminder, year == 2007), aes(x = gdpPercap, y = lifeExp, size = continent)) +
+  geom_point()
+```
+
+:::notes
+`ggplot2` operating on a grammar of graphics, allows us to do things that are
+grammatically correct, but don't necessarily make sense, such as mapping size
+to a categorical variable. It will let you know, however, that something is
+not quite right.
+
+Colour, opacity, and size can be assigned either as a scale, where each value
+takes on a different property, or as general property of the variable. The
+former is articulated within the `aes()` call, while the latter is articulated
+outside of this call, generally within the geom. The latter will override the
+former if both are articulated. See, for example, the difference in the
+following plots.
+:::
+
+## Playing with visual channels: `size` and `colour`
+
+```{r}
+# colour and size mapped to values
+ggplot(data = filter(gapminder, year == 2007), aes(x = gdpPercap, y = lifeExp, colour = continent, size = pop)) +
+  geom_point()
+
+# colour mapped to continent values, size to the geom
+ggplot(data = filter(gapminder, year == 2007), aes(x = gdpPercap, y = lifeExp, colour = continent)) +
+  geom_point(size = 5)
+
+# colour and size mapped to values, but overriden by also being mapped to the geom, note also the loss of the legend
+ggplot(data = filter(gapminder, year == 2007), aes(x = gdpPercap, y = lifeExp, colour = continent, size = pop)) +
+  geom_point(size = 5, colour = 'pink')
+```
+
+## Much abrew about nothing: getting familiar with `RColorBrewer`
+
+```{r, fig.height= 8}
+display.brewer.all()
+```
+
+:::notes
+Our scales, or how are variables are mapped, can be adjusted in many
+different ways. There are scale adjustments for the variables mapped to fill,
+colour, alpha, size, x, and y.
+
+For colour, we'll use a common library `RColorBrewer`.
+
+To view the colour palettes available from this package.
+:::
+
+## Scaling colour with `RColorBrewer`
+
+```{r}
+ggplot(data = filter(gapminder, year == 2007), aes(x = gdpPercap, y = lifeExp, colour = continent, size = pop)) +
+  geom_point() +                           # scatterplot
+  scale_size(range = c(1,15)) +            # constrain points to a common size
+  scale_colour_brewer(palette = "Dark2") + # 'Dark2' just one available colour scheme
+  scale_x_log10()                          # scale the x-axis
+```
+
+:::notes
+In the following, we re-map the size range, the colour range, and apply a
+log transformation to the x-axis variable to make life expectancy and
+GPD per capita more comparable.
+:::
+
+## Labeling, titles, and captions
+
+```{r}
+ggplot(data = filter(gapminder, year == 2007), aes(x = gdpPercap, y = lifeExp, colour = continent, size = pop)) +
+  geom_point() +
+  scale_size(range = c(1,15)) +
+  scale_colour_brewer(palette = "Dark2") +
+  scale_x_log10() +
+  labs(x = "GDP per Capita (2007)",
+       y = "Life Expectancy",
+       title = "Gapminder 2007",
+       caption = "2007 life expectancy plotted against per capita GDP.",
+       colour = "Continent",
+       size = "Population")
+```
+
+:::notes
+Labels--on the x and y axis, as well as on the other mappings (size, colour,
+fill, alpha, etc.)--default to our variable names, which may not be what we
+want on our graph. Titles and captions are by default blank. We can override
+this with `labs()`.
+:::
+
+```{r}
+ggplot(data = filter(gapminder, year == 2007), aes(x = gdpPercap, y = lifeExp, colour = continent, size = pop)) +
+  geom_point() +
+  scale_size(range = c(1,15)) +
+  scale_colour_brewer(palette = "Dark2") +
+  scale_x_log10(labels = scales::dollar_format(),
+                breaks = breaks_width(10000)) +
+  labs(x = "GDP per Capita (2007",
+       y = "Life Expectancy",
+       title = "Gapminder 2007",
+       caption = "2007 life expectancy plotted against per capita GDP.",
+       colour = "Continent",
+       size = "Population")
+```
+
+## Tweaking the presentation
+
+```{r}
+ggplot(data = filter(gapminder, year == 2007), aes(x = gdpPercap, y = lifeExp, colour = continent, size = pop)) +
+  geom_point() +
+  scale_size(range = c(1,15)) +
+  scale_colour_brewer(palette = "Dark2") +
+  scale_x_log10(labels = scales::dollar_format(),
+                breaks = breaks_width(10000)) +
+  labs(x = "GDP per Capita (2007",
+       y = "Life Expectancy",
+       title = "Gapminder 2007",
+       caption = "2007 life expectancy plotted against per capita GDP.",
+       colour = "Continent",
+       size = "Population") +
+  theme_minimal() # this is my personal favorite
+```
+
+:::notes
+x and y axis ticks and text are auto generated. The scale options allow
+us to customize these, however. To do this, we need the `scales` library,
+which is automatically installed with `ggplot2`. We can access scales either
+by loading the library `r library(scales)` or by referencing it directly, which
+has the additional benefit of prompting auto complete options. Here, we adjust
+the x axis to indicate that the data should be formatted as a currency, and
+update the ticks to appear every $10,000.
+:::
+
+## Themes
+
+| `theme_` call     | look                     
+| :---              | :---                     
+| `theme_bw()`      | popular for publications 
+| `theme_classic()` | clean, academic look     
+| `theme_light()`   | subtle, professional     
+| `theme_dark()`    | for dark backgrounds     
+
+:::notes
+ggplot is highly customizable. Plot themes are controlled by arguments passed
+to theme. There are also several built in themes that can be used and modified.
+By calling theme, you can then access any element and customize it further.
+The call works by first identifying the element to customize--auto complete
+will present you a series of options--then indicating what aspect of that
+element you want to customize, and finally providing arguments. 
+Some commonly used themes (and my personal opinion of their 'look') are shown
+above.
+:::
+
+## Other `theme` options: axis orientation, legends, and grids
+
+```{r}
+ggplot(data = filter(gapminder, year == 2007), aes(x = gdpPercap, y = lifeExp, colour = continent, size = pop)) +
+  geom_point() +
+  scale_size(range = c(1,15)) +
+  scale_colour_brewer(palette = "Dark2") +
+  scale_x_log10(labels = scales::dollar_format(),
+                breaks = breaks_width(10000)) +
+  labs(x = "GDP per Capita (2007",
+       y = "Life Expectancy",
+       title = "Gapminder 2007",
+       caption = "2007 life expectancy plotted against per capita GDP.",
+       colour = "Continent",
+       size = "Population") +
+  theme_minimal() + # minimal theme for a clean look
+  theme(
+    # tilt x-axis tick labels to 45 degrees for a cleaner look
+    axis.text.x = element_text(angle = 45),
+    legend.position = "left", # change position of legend
+    panel.grid.minor = element_blank() # element_blank() removes visual elements
+  )
+```
+
+:::notes
+Sometimes when our picture (data) that we want to present gets complicated
+our plots can end up getting cluttered. One common problem is that axis labels
+(numbers or categories) can be quite long. `theme` gives us the option to tilt
+those labels (at whatever angle we want). Additionally it gives us a way to 
+position our legend and remove axis lines we don't want.
+:::
+
+## Statisical overlays & multiple geoms
+
+```{r}
+ggplot(data = filter(gapminder, year == 2007), aes(x = gdpPercap, y = lifeExp, colour = continent, size = pop)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) + # overlay with a linear model
+  scale_size(range = c(1,15)) +
+  scale_colour_brewer(palette = "Dark2") +
+  scale_x_log10(labels = scales::dollar_format(),
+                breaks = breaks_width(10000)) +
+  labs(x = "GDP per Capita (2007",
+       y = "Life Expectancy",
+       title = "Gapminder 2007",
+       caption = "2007 life expectancy plotted against per capita GDP.",
+       colour = "Continent",
+       size = "Population") +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 45),
+    legend.position = "left",
+    panel.grid.minor = element_blank()
+  )
+```
+
+:::notes
+We can overlay our plot with additional geoms. Some of the geoms available
+are models (for instance a linear model can be output and displayed as seen
+above).
+:::
+
+## A cleaner model  
+
+```{r}
+ggplot(data = filter(gapminder, year == 2007), aes(x = gdpPercap, y = lifeExp)) +
+  geom_point(aes(colour = continent, size = pop)) +
+  geom_smooth(method = "lm", se = FALSE) + # create a lm smooth for all countries
+  scale_size(range = c(1,15)) +
+  scale_colour_brewer(palette = "Dark2") +
+  scale_x_log10(labels = scales::dollar_format(),
+                breaks = breaks_width(10000)) +
+  labs(x = "GDP per Capita (2007)",
+       y = "Life Expectancy",
+       title = "Gapminder 2007",
+       caption = "2007 life expectancy plotted against per capita GDP.",
+       colour = "Continent",
+       size = "Population") +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 45),
+    legend.position = "left",
+    panel.grid.minor = element_blank()
+  )
+```
+:::notes
+We can better articulate our data within the representation, by passing the
+x and y variables to ggplot, but the colour and size variables to a 
+specific geom. This way, only `gdpPercap` and `lifeExp` get passed to
+`geom_smooth()`. In the previous example the smooth had inherited the grouping
+variable (continent).
+:::
+
+## More than one plot: `facet_`
+
+```{r}
+ggplot(data = filter(gapminder, year == 2007), aes(x = gdpPercap, y = lifeExp)) +
+  geom_point(aes(colour = continent, size = pop)) +
+  geom_smooth(method = "lm", se = FALSE) +
+  scale_size(range = c(1,15)) +
+  scale_colour_brewer(palette = "Dark2") +
+  scale_x_log10(labels = scales::dollar_format(),
+                n.breaks = 4) +
+  labs(x = "GDP per Capita (2007)",
+       y = "Life Expectancy",
+       title = "Gapminder 2007",
+       caption = "2007 life expectancy plotted against per capita GDP.",
+       colour = "Continent",
+       size = "Population") +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    legend.position = "left",
+    panel.grid.minor = element_blank()
+  ) +
+  # facet wrap creates one scatterplot (and model) per continent
+  # the parameter `scales = "free_x"' tells ggplot to allow each faceted
+  # plot to vary freely in the x axis (each x-axis scale is determined by the
+  # spread of the data)
+  facet_wrap(~ continent, scales = "free_x") 
+```
+
+:::notes
+There are several ways to place more than one plot side by side. The first is
+to group (facet) plots by a specific variable with either `facet_wrap()` or
+`facet_grid()`.
+:::
+
+## More than one plot: `patchwork`
+
+```{r}
+le_gdp_scatter <- ggplot(data = filter(gapminder, year == 2007), aes(x = gdpPercap, y = lifeExp)) +
+  geom_point(aes(colour = continent, size = pop)) +
+  geom_smooth(method = "lm", se = FALSE) +
+  scale_size(range = c(1,15)) +
+  scale_colour_brewer(palette = "Dark2") +
+  scale_x_log10(labels = scales::dollar_format(),
+                n.breaks = 4) +
+  labs(x = "GDP per Capita (2007",
+       y = "Life Expectancy",
+       title = "Gapminder 2007",
+       caption = "2007 life expectancy plotted against per capita GDP.",
+       colour = "Continent",
+       size = "Population") +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 45),
+    legend.position = "left",
+    panel.grid.minor = element_blank()
+  )
+
+le_gdp_box <- ggplot(data = filter(gapminder, year == 2007), aes(x = continent, y = lifeExp)) +
+  geom_boxplot(aes(fill = continent)) +
+  scale_fill_brewer(palette = "Dark2") +
+  theme_minimal() +
+  theme(
+    legend.position = "none"
+  ) +   theme(
+    axis.text.x = element_text(angle = 45),
+    legend.position = "left",
+    panel.grid.minor = element_blank()
+  )
+
+# patchwork syntax example "+" and "/"
+le_gdp_scatter + le_gdp_box # side-by-side plots
+
+le_gdp_scatter / le_gdp_box # stacked plots
+```
+
+:::notes
+The second is to print several plots in a specific arrangement. There are
+several tools to do this, one of which is `patchwork`.
+
+To use patchwork, we store plots within variables, and then use basic operators
+to define their relationship. Patchwork offers a lot of customization. In
+general we can stack ggplot objects with patchwork either horizontally or
+vertically by using the `+` or `/` operators respectively like you would
+ordinary arithmetical operations.
+:::
+
+```{r}
+#| label: knit to html
+#| echo: FALSE
+#| eval: FALSE
+
+# this will render to reveal js for presentation purposes
+rmarkdown::render(
+    input = "ws7-visualization.Rmd",
+    output_format = "revealjs::revealjs_presentation",
+    output_file = "output/ws7-visualization-js.html"
+)
+
+# this will render to a flat HTML
+rmarkdown::render(
+  input = "ws7-visualization.Rmd",
+  output_format = "md_document",
+  output_file = "output/ws7-visualization-flat.md"
+)
+```
+
+## References
+
+* [ggplot2: Elegant Graphics for Data Analysis](https://ggplot2-book.org/index.html)
+* Wilkinson, L. (2005). The grammar of graphics (2nd ed.). Springer-Verlag.
+* Stevens, S. S. (1946). On the theory of scales of measurement. Science,
+103(2684), 677–680. https://doi.org/10.1126/science.103.2684.677.

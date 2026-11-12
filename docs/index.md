@@ -229,7 +229,8 @@ html { scroll-behavior: smooth; }
           <span class="ws-item-title">R: Visualizations</span>
           <div class="ws-controls">
             <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">Visualization is critical to communicating science. In this workshop, students will become familiar with the popular data visualization package ggplot2 while learning about the importance of visualization and the types of messages data can convey.</div></details>
-            <span class="ws-links"><a href="R_visualization.html">workshop page</a></span>
+            <span class="ws-links"><a href="r-fundamentals/output/ws7-visualization-flat.html">workshop page</a></span>
+            <span class="ws-links"><a href="r-fundamentals/output/ws7-visualization-js.html">slides page</a></span>
           </div>
         </li>
 

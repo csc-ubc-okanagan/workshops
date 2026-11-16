@@ -116,6 +116,8 @@ Commit the `.Rmd`, both rendered files, and any new files in `site_libs/`.
 2. Create `ws-descriptions/wsN-short-title.txt` with a one-paragraph description.
 3. Render both formats (see above).
 4. Add an entry to the R Fundamentals section of `docs/index.md`:
+
+   {% raw %}
    ```html
    <li class="ws-item">
      <span class="ws-item-title">R: Short Title</span>
@@ -126,6 +128,7 @@ Commit the `.Rmd`, both rendered files, and any new files in `site_libs/`.
      </div>
    </li>
    ```
+   {% endraw %}
 5. Commit and push, then check the **Actions** tab to confirm the Pages build passed.
 
 ---

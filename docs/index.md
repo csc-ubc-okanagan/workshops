@@ -153,7 +153,6 @@ html { scroll-behavior: smooth; }
 
   <div class="ws-content">
 
-    <!-- ===================== BEGIN R Fundamentals Series ===================== -->
     
     <section id="r-fundamentals" class="ws-series">
       <h2>R Fundamentals for Data Analysis</h2>
@@ -237,12 +236,6 @@ html { scroll-behavior: smooth; }
       </ul>
     </section>
     
-    <!-- =================== END R Fundamentals Series =================== -->
-    
-    
-    
-    <!-- =================== BEGIN Python Basics Series =================== -->
-    
     <section id="python-basics" class="ws-series">
       <h2>Python Basics for Data Analysis</h2>
       <p class="ws-series-desc">This series of introductory workshops are intended for individuals with little to no familiarity with Python or similar tools that rely on a scripted environment. They are intended as a low barrier entry into the world of using your computer to engage with data outside of graphical tools like Excel or SPSS.</p>
@@ -250,66 +243,61 @@ html { scroll-behavior: smooth; }
         <li class="ws-item">
           <span class="ws-item-title">Python: Fundamental Concepts with Jupyter Notebook</span>
           <div class="ws-controls">
-            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">This session will introduce participants to fundamental concepts in Python that will help them excel at more advanced applications. Topics covered include the application of simple math, core data types and structures, an overview of vector operations, and how to navigate getting help. This will include data structures used in the pandas library. The workshop will be run using Jupyter Notebook. By the end of the session, participants should feel familar with Jupyter Notebook as an environemnt for interactive analsysis in Python, be able to identify and articulate use cases for common data structures, and know a few key ways to get additional help when they run into trouble.</div></details>
             <span class="ws-links"><a href="Python_fundamental-concepts-with-Jupyter-Notebook.html">workshop page</a></span>
           </div>
         </li>
         <li class="ws-item">
           <span class="ws-item-title">Python: Importing and Exporting Data with Python</span>
           <div class="ws-controls">
-            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">In this session, we’ll learn how to import data from Excel and CSV files into Python for analysis using the pandas and numpy libraries. By the end of this workshop, participants will be able to import data, handle missing values, assign appropriate data types to variables, and save the data for subsequent analyses.</div></details>
             <span class="ws-links"><a href="Python_importing-data.html">workshop page</a></span>
           </div>
         </li>
         <li class="ws-item">
           <span class="ws-item-title">Python: Exploratory Data Analysis</span>
           <div class="ws-controls">
-            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">This session will introduce participants to common tasks of initial data exploration. Topics covered include calculating missing values, basic summaries (quartiles, categories, counts, etc), single variable descriptive stats (range, length, variance, etc), and plotting distributions. By the end of the session, participants should be able to use a suite of tools to comprehensivley describe their data and establish if it meets underlying criteria for subsequent analysis.</div></details>
             <span class="ws-links"><a href="Exploratory_Data_Analysis_Workshop3.html">workshop page</a></span>
           </div>
         </li>
         <li class="ws-item">
           <span class="ws-item-title">Python: Subsetting and Filtering Data</span>
           <div class="ws-controls">
-            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">This session will explore the variety of ways that data can be filtered and subset in Python. Working with data frames and vectors, data frames, and lists, participants will learn the nuances of extracting portions of a larger data set for analysis. By the end of this session, participants will be proficient in extracting observartions, variables, and values from their data and be aware of when attributes of the extracted data will be lost or maintained for further analysis.</div></details>
             <span class="ws-links"><a href="Subsetting_and_Filtering_Data_Workshop4.html">workshop page</a></span>
           </div>
         </li>
         <li class="ws-item">
           <span class="ws-item-title">Python: Iterating Over Data</span>
           <div class="ws-controls">
-            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">This session will revisit the vector underpinnings of pandas, functions for iterating, or looping, over objects, and introduce for loops for those instances when no pre-existing solutiong exists. By the end of this session, participants will be able to efficiently apply looped constructs to their data, using pre-existing tools in pandas, and be familiar with the basics of constructing for loops to handle repeated tasks.</div></details>
             <span class="ws-links"><a href="Iterating_Over_Data_Workshop5.html">workshop page</a></span>
           </div>
         </li>
         <li class="ws-item">
           <span class="ws-item-title">Python: Conditions</span>
           <div class="ws-controls">
-            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">This session will introduce conditionals in Python, addressing those times when, for example, if something is true x needs to happen, otherwise y needs to happen. Participants will be introduced to pre-exising if / else constructs, as well as how to construct conditional statments from scratch. By the end of this session, participants will be able effectively implement simple if else constructs into their data analysis pipelines.</div></details>
             <span class="ws-links"><a href="Python_conditions.html">workshop page</a></span>
           </div>
         </li>
         <li class="ws-item">
           <span class="ws-item-title">Python: Visualizations</span>
           <div class="ws-controls">
-            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">This session will introduce data visualization in Python. Common visualizations, including bar charts, histograms, scatterplots, etc will be covered.By the end of this session participants will be able to build, annotate, and customize common data visualizations.</div></details>
             <span class="ws-links"><a href="Python_Visualization.html">workshop page</a></span>
           </div>
         </li>
         <li class="ws-item">
           <span class="ws-item-title">Python: Data Analysis and Visualization</span>
           <div class="ws-controls">
-            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">This session will continue the Python: Vizualizations workshop from the last session, where more advance visualization techniques will be introduced.</div></details>
             <span class="ws-links"><a href="Workshop8_Visualization_continued.html">workshop page</a></span>
           </div>
         </li>
       </ul>
     </section>
-
-    <!-- =================== END Python Basics Series =================== -->
-
-
-    <!-- =============== BEGIN Stat Fundamentals Series ================= -->
         
     <section id="statistical-fundamentals" class="ws-series">
       <h2>Statistical Fundamentals: A Visual Approach</h2>
@@ -318,66 +306,62 @@ html { scroll-behavior: smooth; }
         <li class="ws-item">
           <span class="ws-item-title">Population, Sampling, Sampling Distribution, and Central Limit Theorem</span>
           <div class="ws-controls">
-            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">This session will introduce participants to the foundational concepts of statistical inference, including population distributions and the process of random sampling. Attendees will learn how sampling distributions evolve towards normality as sample sizes increase and will visually explore the Central Limit Theorem. By the end of the session, participants should be able to visualize and understand population distributions, illustrate random sampling processes, recognize the normalizing effect of larger samples on sampling distributions, and demonstrate the Central Limit Theorem visually.</div></details>
             <span class="ws-links"><a href="statistical-distribution-and-central-limit-theorem.html">workshop page</a></span>
           </div>
         </li>
         <li class="ws-item">
           <span class="ws-item-title">Visualizing Errors and Common Pitfalls</span>
           <div class="ws-controls">
-            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">This session will address the visualization of standard deviation (s.d.), standard error of the mean (s.e.m.), and confidence interval (CI) error bars to enhance the understanding of uncertainty in data analysis. The interpretation of error bars for statistical significance will be discussed, along with common misinterpretations to avoid. By the end of the session, participants should be able to visualize and interpret error bars, understand the implications of their spacing and width, and be cautious of common pitfalls such as misinterpreting non-overlapping error bars as evidence of significance.</div></details>
             <span class="ws-links"><a href="error-bars-and-misconceptions.html">workshop page</a></span>
           </div>
         </li>
         <li class="ws-item">
           <span class="ws-item-title">P value, Significance, and T-test</span>
           <div class="ws-controls">
-            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">This session will introduce participants to the concept of P values and their role in hypothesis testing, highlighting that P values reflect the probability of observing the data under the null hypothesis, not the biological significance of the findings. The session will cover the computation of P values and delve into the nuances of one-sample t-tests. By the end of the session, participants should be able to comprehend the meaning of P values, understand how hypothesis tests calculate P values, recognize when small P values indicate unlikely events under the null hypothesis, and explore the assumptions behind one-sample t-tests.</div></details>
             <span class="ws-links"><a href="P_values.md">workshop page</a></span>
           </div>
         </li>
         <li class="ws-item">
           <span class="ws-item-title">Bar, Box, and Violin: Navigating Data Visualization for Insightful Analysis</span>
           <div class="ws-controls">
-            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">This session will address the advantages of box plots over bar charts for displaying the spread and variability in data. Participants will learn how box plots can be used to compare multiple samples, the impact of sample size on data representation, and the efficient identification of outliers. By the end of the session, participants should be able to create and interpret box plots, appreciate their usefulness in comparing multiple samples, understand the implications of sample size, and identify outliers and median confidence intervals through notches in box plots.</div></details>
             <span class="ws-links"><a href="Bar_Box_and_Violin_Navigating_Data_Visualization_for_Insightful_Analysis.html">workshop page</a></span>
           </div>
         </li>
         <li class="ws-item">
           <span class="ws-item-title">All about t-tests and visualizations</span>
           <div class="ws-controls">
-            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">
+            This session will introduce participants to the various types of t-tests, including one-sample, two-sample, paired, and one-sided tests. Attendees will learn about the appropriate applications for each type and the visualization techniques that can enhance the interpretation of t-test results. By the end of the session, participants should be able to apply and visually represent different t-tests, interpret their results, understand the implications of multiple testing corrections, and select the appropriate test for their data.</div></details>
             <span class="ws-links"><a href="T_tests.html">workshop page</a></span>
           </div>
         </li>
         <li class="ws-item">
           <span class="ws-item-title">Non-parametric tests and visualizations</span>
           <div class="ws-controls">
-            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">This session will introduce participants to non-parametric tests, which are useful when data distributions do not meet the assumptions of parametric tests. Attendees will learn to compare the adaptability of these tests with different data distributions and to visualize their operation. By the end of the session, participants should be able to choose and apply the appropriate non-parametric tests for their data, visualize the operation of these tests, and understand the challenges of multiple testing with non-parametric methods.</div></details>
             <span class="ws-links"><a href="Non_parametric_tests.html">workshop page</a></span>
           </div>
         </li>
         <li class="ws-item">
           <span class="ws-item-title">ANOVA and Blocking</span>
           <div class="ws-controls">
-            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">This session will introduce participants to the Analysis of Variance (ANOVA), a statistical method used for comparing the means of three or more groups. The concept of blocking will also be introduced to reduce noise and isolate sources of variation. By the end of the session, participants should be able to use ANOVA for multi-treatment analysis, implement blocking in experimental design, calculate the F statistic for assessing significance, and appreciate how blocking can improve the efficiency of a study.</div></details>
             <span class="ws-links"><a href="Anova_blocks.html">workshop page</a></span>
           </div>
         </li>
         <li class="ws-item">
           <span class="ws-item-title">Correlation, causation, and association</span>
           <div class="ws-controls">
-            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">This session will address the concepts of correlation, causation, and association in data. Participants will learn to differentiate between these concepts and to recognize and interpret various types of correlations. By the end of the session, participants should be able to distinguish between correlation and causation, recognize the impact of confounding variables on associations, evaluate correlation reliability, and understand the significance of correlation results.</div></details>
             <span class="ws-links"><a href="Correlation_Causation.html">workshop page</a></span>
           </div>
         </li>
       </ul>
     </section>
-    
-    <!-- ================= END Stat Fundamentals Series ==================== -->
-
-
-    <!-- =================== BEGIN Clustering Series ======================= -->
 
     <section id="clustering-classification" class="ws-series">
       <h2>Clustering &amp; Classification in R</h2>
@@ -422,12 +406,7 @@ html { scroll-behavior: smooth; }
           </div>
         </li>
       </ul>
-    </section
-    
-    <!-- =================== END Clustering Series ======================= -->
-
-
-    <!-- ================= BEGIN Dimensionality Series ===================== -->
+    </section>
 
     <section id="dimensionality-reduction" class="ws-series">
       <h2>Dimensionality Reduction in R</h2>
@@ -473,11 +452,6 @@ html { scroll-behavior: smooth; }
         </li>
       </ul>
     </section>
-    
-    <!-- ================= END Dimensionality Series ====================== -->
-
-
-    <!-- =============== BEGIN Linear Regression Series =================== -->
 
     <section id="linear-regression" class="ws-series">
       <h2>Linear Regression in R</h2>
@@ -529,11 +503,6 @@ html { scroll-behavior: smooth; }
         </li>
       </ul>
     </section>
-    
-    <!-- =============== BEGIN Linear Regression Series =================== -->
-
-
-    <!-- =============== BEGIN GLM/GAM Series =================== -->
 
     <section id="glms-gams" class="ws-series">
       <h2>GLMs and GAMs in R</h2>
@@ -625,8 +594,6 @@ html { scroll-behavior: smooth; }
       </ul>
     </section>
 
-    <!-- =============== END GLM/GAM Series =================== -->
-
     <section id="rdm" class="ws-series">
       <h2>Research Data Management (RDM)</h2>
       <p class="ws-series-desc">These sessions address fundamental concepts in research data management (RDM), including its relevance in the context of research, approaches to implementing effective management through documentation and file system organization, and how to use the Data Management Plan (DMP) Assistant, an online tool, to help researchers adhere to funder requirements to submit a DMP.</p>
@@ -634,14 +601,14 @@ html { scroll-behavior: smooth; }
         <li class="ws-item">
           <span class="ws-item-title">RDM Part 1: The Basics</span>
           <div class="ws-controls">
-            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">This session will begin by giving an introduction of core RDM concepts, and then will shift into how to manage your own files by exploring some best practices in file naming and structuring your folders. By the end of this session, participants will be familiar with fundamental concepts of RDM, and will be able to implement best practices in file naming and directory structures. Research Data Management (RDM) is a key aspect of the research lifecycle. With the release of the Tri-Agencies’ Policy on Research Data Management, and the upcoming requirement of data management plans (DMPs) in Tri-Agency applications, it is more important than ever for researchers to implement RDM fundamentals. This session is the first of a three-part series on RDM, and is part of the larger Researcher Toolkit series, an eight-part series which aims to introduce participants to a variety of research tools and concepts, and build core competencies applicable across the research lifecycle. There is no obligation to take every course, but as some courses build on content from previous sessions, it is expected that you have sufficient knowledge of key concepts relevant to certain courses (any courses with pre-requisites will send participants links to necessary information).</div></details>
             <span class="ws-links"><a href="RDM_pt1-the-basics.html">workshop page</a></span>
           </div>
         </li>
         <li class="ws-item">
           <span class="ws-item-title">RDM Part 2: Documentation</span>
           <div class="ws-controls">
-            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">This session will build upon the concepts covered in RDM pt. 1, and will focus on the importance of making your work interpretable and reusable to others through documentation. After covering why documentation is important for research materials, we will explore how to create README files as well as data dictionaries. By the end of this session, participants will gain an understanding of how to make data interpretable and reusable, and will be able to create a README file and a data dictionary. Research Data Management (RDM) is a key aspect of the research lifecycle. With the release of the Tri-Agencies’ Policy on Research Data Management, and the upcoming requirement of data management plans (DMPs) in Tri-Agency applications, it is more important than ever for researchers to implement RDM fundamentals. This session is the second of a three-part series on RDM, and is part of the larger Researcher Toolkit series, an eight-part series which aims to introduce participants to a variety of research tools and concepts, and build core competencies applicable across the research lifecycle. There is no obligation to take every course, but as some courses build on content from previous sessions, it is expected that you have sufficient knowledge of key concepts relevant to certain courses (any courses with pre-requisites will send participants links to necessary information).</div></details>
             <span class="ws-links"><a href="RDM_pt2-documentation.html">workshop page</a></span>
           </div>
         </li>
@@ -662,14 +629,14 @@ html { scroll-behavior: smooth; }
         <li class="ws-item">
           <span class="ws-item-title">Introduction to the Bash shell Part 1: Navigating Files and Directories</span>
           <div class="ws-controls">
-            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">This session is aimed at those who have little to no experience with the command line, and will begin by introducing the Unix Shell and its functions, and then will cover the basics of navigating files and directories. By the end of this session, participants will become familiar with the command line interface and file paths, and will be able to execute Unix commands to navigate through the files and folders in their computers. The command line interface can seem daunting to new users, but it is a very powerful tool that, with some foundational understanding, can be used for a number of different computational and data management tasks. This session is the first of a two-part series on the Unix Shell, and is part of the larger Researcher Toolkit series, an eight-part series which aims to introduce participants to a variety of research tools and concepts, and build core competencies applicable across the research lifecycle. There is no obligation to take every course, but as some courses build on content from previous sessions, it is expected that you have sufficient knowledge of key concepts relevant to certain courses (any courses with pre-requisites will send participants links to necessary information).</div></details>
             <span class="ws-links"><a href="UNIX_pt1.html">workshop page</a></span>
           </div>
         </li>
         <li class="ws-item">
           <span class="ws-item-title">Introduction to the Bash shell Part 2: Working with Files and Directories</span>
           <div class="ws-controls">
-            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body"></div></details>
+            <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">This session will build up concepts covered in the Unix Shell pt. 1, and will shift to working with files and directories, focusing on how to create, edit, move, and remove files and directories. By the end of this session, participants will be able to create, edit, move, and remove files and directories using Unix commands. The command line interface can seem daunting to new users, but it is a very powerful tool that, with some foundational understanding, can be used for a number of different computational and data management tasks. This session is the second of a two-part series on the Unix Shell, and is part of the larger Researcher Toolkit series, an eight-part series which aims to introduce participants to a variety of research tools and concepts, and build core competencies applicable across the research lifecycle. There is no obligation to take every course, but as some courses build on content from previous sessions, it is expected that you have sufficient knowledge of key concepts relevant to certain courses (any courses with pre-requisites will send participants links to necessary information).</div></details>
             <span class="ws-links"><a href="UNIX_pt2.html">workshop page</a></span>
           </div>
         </li>

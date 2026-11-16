@@ -517,6 +517,7 @@ html { scroll-behavior: smooth; }
           <span class="ws-item-title">Part 5: Interaction Terms and Hierarchical Linear Models</span>
           <div class="ws-controls">
             <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">Relationships can change across groups, settings, or levels of another variable, and observations collected within the same group may not be independent. Participants will use interaction terms to model changing effects and hierarchical linear models to account for grouped or repeated observations. Emphasis is placed on interpreting conditional effects and understanding the roles of fixed and random effects.</div></details>
+            <span class="ws-links"><a href="Linear-Regression-Series/linear-regression-part-5.html">workshop page</a></span>
           </div>
         </li>
         <li class="ws-item">

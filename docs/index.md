@@ -524,6 +524,7 @@ html { scroll-behavior: smooth; }
           <span class="ws-item-title">Part 6: Penalized Models</span>
           <div class="ws-controls">
             <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">Models with many or strongly related predictors can become unstable and difficult to interpret. Penalized regression controls model complexity by shrinking coefficient estimates and, in some cases, selecting variables. Participants will fit ridge, lasso, and elastic-net models in R, use cross-validation to choose the amount of penalization, and compare their predictive performance.</div></details>
+            <span class="ws-links"><a href="Linear-Regression-Series/linear-regression-part-6.html">workshop page</a></span>
           </div>
         </li>
       </ul>

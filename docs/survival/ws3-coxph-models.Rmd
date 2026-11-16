@@ -1,0 +1,396 @@
+---
+title: "Time-to-Event (Survival) Analysis in R (Part 3): Cox Proportional Hazards Models"
+format: revealjs
+editor: visual
+---
+
+```{r}
+#| label: load packages and setup
+#| echo: FALSE
+
+knitr::opts_chunk$set(echo = TRUE,
+                      eval = TRUE,
+                      attr.source = 'custom-style="CodeDark"')
+
+suppressPackageStartupMessages({
+  library(survival)  # for survival modelling
+  library(dplyr)     # for data wrangling
+  library(ggplot2)   # for plotting
+  library(patchwork) # for side-by-side plots
+})
+
+options(tidyverse.quiet = TRUE)
+```
+
+```{r}
+#| label: load dataset
+#| echo: FALSE
+
+survdat   <- readRDS("./survival_workshop_data.rds")
+constants <- survdat$constants
+raw       <- survdat$raw
+```
+
+```{r}
+#| label: create data frame
+#| echo: FALSE
+
+# same derivation as Parts 1 and 2
+analysis <- raw |>
+  mutate(
+    time   = as.numeric(date_last_contact - date_considered) / constants$days_per_month,
+    status = as.integer(outcome == "Relapsed")
+  ) |>
+  arrange(date_considered)
+
+analysis <- analysis |>
+  mutate(group = relevel(factor(group), ref = "placebo"),
+         stage = factor(stage, levels = c("I", "II", "III")))
+```
+
+## Where we left off
+
+- Kaplan-Meier **describes** survival
+- The log-rank test **compares** survival curves
+- Neither tells us about the effect of our dependent variables:
+  - **By how much** do the groups differ?
+  - What if patients also differ in age, stage, biomarker...?
+
+::: notes
+In the previous lecture we looked at Kaplan-Meier (KM) curves. We discussed
+that these curves *describe* a survival curve (the probability of surviving
+past time $t$ given that you have survived up to that point). The log-rank 
+test 
+:::
+
+## From survival to hazard
+
+- **Survival** $S(t)$: probability of being event-free past time $t$
+- **Instantaneous hazard** $h(t)$: the risk of the event at $t$, **given** 
+you've made it to $t$
+- **Cumulative hazard** $H(t)$: the cumulative probability of subjects
+experiencing the event up to a give time $t$
+
+
+## Instantaneous to cumulative hazard
+
+$$
+\begin{aligned}
+h(t) &= \frac{\text{rate at which survival declines}}{\text{proportion still surviving}}
+      = -\frac{S'(t)}{S(t)}
+      = -\frac{d}{dt}\log S(t) \\[6pt]
+H(t) &= \int_0^{t} h(u)\,du = -\log S(t) \\[6pt]
+S(t) &= e^{-H(t)}
+\end{aligned}
+$$
+
+## Calculating cumulative hazard
+
+```{r}
+#| label: cumulative hazard by group
+#| echo: false
+#| fig-width: 10
+#| fig-height: 5
+
+km_group  <- survfit(Surv(time, status) ~ group, data = analysis)
+cumhaz_df <- km_df(km_group) |>
+  mutate(cumhaz = -log(surv)) |>
+  filter(is.finite(cumhaz))
+
+ggplot(cumhaz_df, aes(time, cumhaz, colour = strata)) +
+  geom_step(linewidth = 1) +
+  scale_colour_manual(values = c("#d6604d", "#4393c3")) +
+  coord_cartesian(xlim = c(0, max(analysis$time))) +
+  labs(x = "Months since study entry",
+       y = "Cumulative hazard  H(t) = −log S(t)",
+       colour = NULL,
+       title = "Risk accumulated over follow-up",
+       subtitle = "Slope (derivative) at any point is the instantaneous hazard") +
+  theme(legend.position = "bottom")
+```
+
+::: notes
+TODO: Link to Part 2: d_j / n_j at each event time is a raw estimate of the
+hazard. Survival goes down as hazard accumulates.
+:::
+
+## What "proportional" means
+
+$$h(t \mid x) = h_0(t)\, e^{\beta x}$$
+- $h(t \mid x)$ the instantaneous hazard at time $t$ given some covariates $x$
+product of:
+  - $h_0(t)$: the **baseline hazard**, the hazard when $x = 0$ (the reference
+  group) AND
+  - $e^{\beta x}$: how much the covariates $x$ multiply the baseline $h_0(t)$
+- curves can have any shape
+  - upshot: one is always a fixed multiple of the other and so are
+  *proportional*
+
+## How Cox fits the model: risk sets again
+
+- At each event time: of everyone **at risk**, how likely was it that
+*this* person had the event, given their covariates?
+- Multiply over event times the **partial likelihood**
+- $h_0(t)$ cancels out, which is why we never have to specify it
+
+$$
+\begin{aligned}
+L_i(\beta) &= \frac{h_0(t_i)\, e^{\beta x_i}}{\sum_{j \in R(t_i)} h_0(t_i)\, e^{\beta x_j}}
+            = \frac{e^{\beta x_i}}{\sum_{j \in R(t_i)} e^{\beta x_j}} \\[8pt]
+\end{aligned}
+$$
+
+::: notes
+When working with Cox-PH models we never estimate the baseline hazard $h_0$
+directly; instead, we calculate the partial likelihood ($\mathcal{L}_i(\beta)$).
+This is simply the relative probability of an individual $i$ with given
+covariates $x_i$ of experiencing the event at time $t$. NOtice that this is just
+the ratio between the multiplier $e^{\beta x_i}$ and the others in the risk 
+set.
+:::
+
+## One covariate: treatment group
+
+```{r}
+#| label: cox group
+cox_group <- coxph(Surv(time, status) ~ group, data = analysis)
+summary(cox_group)
+```
+
+::: notes
+Now that we've touched on the background material needed to understand CoxPH
+models let's actually start looking at (and interpreting) some output. First,
+the `coef`. This is on the scale and is 
+log($\frac{h_{\text{maintenance}}}{h_{\text{placebo}}}$). It can be interpreted
+as showing that our intervention (maintenance) decreased the risk of 
+experiencing the event (given the negative sign of the coefficient), but not 
+too much more than than that (easily anyway). To get a real sense of how much
+our intervention affected the probability of relapse, we can look one output 
+to the right `exp(coef)`. This is the exponentiated version of the hazard 
+ratio seen to the left. Recall that the null hypothesis for this statistical
+test predicts that there should be no effect of the treatment (maintenance) 
+on the hazard so the ratio $\frac{h_{\text{maintenance}}}{h_{\text{placebo}}}$
+is 1 by our null hypothesis. So,
+$\frac{h_{\text{maintenance}}}{h_{\text{placebo}}} < 1$ implies that our
+treatment decreased the hazard. To see by how much we need subtract this ratio
+from 1 which leads to a 46% reduction in the hazard (or instantaneous rate) of
+relapse.
+:::
+
+## Log-rank reloaded
+
+```{r}
+#| label: score vs log-rank
+summary(cox_group)$sctest                                     # Cox score test
+survdiff(Surv(time, status) ~ group, data = analysis)$chisq   # Part 2 log-rank
+```
+
+::: notes
+The Cox model reproduces the log-rank test, then adds what it couldn't give us:
+an effect size.
+:::
+
+## Hazard ratios `r emoji::emoji('not')` survival probabilities
+
+- HR = 0.6 does **not** mean 40% fewer people relapse
+  - instead: a 40% lower **rate** at every moment in risk set
+- survival probabilities: go back to $S(t)$
+
+```{r}
+#| label: hr vs survival
+#| eval: false
+
+nd <- data.frame(group = levels(analysis$group))
+summary(survfit(cox_group, newdata = nd), times = 24)
+```
+
+::: notes
+Show the HR next to the 24-month survival in each group. Probability of
+surviving past month 24 is 79% for the placebo and 88% for the maintenance 
+group (about 9% difference).
+:::
+
+## Categorical covariates: disease stage
+
+```{r}
+#| label: cox stage
+#| eval: false
+
+# TODO: replace `stage` with the actual column name
+cox_stage <- coxph(Surv(time, status) ~ stage, data = analysis)
+summary(cox_stage)
+```
+
+- One HR per level, each relative to the **reference** level
+- TODO: interpret stage II vs I and III vs I
+
+::: notes
+TODO: Link back to the stage exercise in Part 2: the log-rank test said the stages differ; Cox says by how much, and which from which.
+:::
+
+## Continuous covariates: age
+
+```{r}
+#| label: cox age
+#| eval: false
+
+# HR per 10 years
+# I() = 'Inhibit Interpretation'
+# I(age / 10) creates a new column age/10
+# without I() R would try to 'group' age by 10 which would not make sense
+# so each per-unit (1) increase in age actually correponds to 10 years :)
+cox_age <- coxph(Surv(time, status) ~ I(age / 10), data = analysis) 
+summary(cox_age)
+```
+
+::: notes
+The model assumes each extra 10 years multiplies the hazard by the
+same amount (log-linear). Now that we've touched on the background material
+needed to understand CoxPH models let's actually start looking at (and
+interpreting) some output. First, the `coef`. This is on the scale and is 
+log($\frac{h_{\text{age} + 10}}{h_{\text{age}}}$). It can be interpreted
+as showing that our age increased the risk of 
+experiencing the event (given the positive sign of the coefficient), but not 
+too much more than than that (easily anyway). To get a real sense of how much
+our intervention affected the probability of relapse, we can look one output 
+to the right `exp(coef)`. This is the exponentiated version of the hazard 
+ratio seen to the left. Recall that the null hypothesis for this statistical
+test predicts that there should be no effect of the treatment (maintenance) 
+on the hazard so the ratio log($\frac{h_{\text{age} + 10}}{h_{\text{age}}}$)
+is 1 by our null hypothesis. So,
+$\frac{h_{\text{age} + 10}}{h_{\text{age}}} < 1$ implies that our
+age increased the hazard. To see by how much we need subtract this ratio
+from 1 which leads to a 7% increase in the hazard (or instantaneous rate) of
+relapse per 10 years increase of age. However, our p-value is highly
+insignificant at `p = 0.302`, so we cannot definitely say that age affects
+relapse time (or it at least does not do so log-linearly).
+:::
+
+## Add the biomarker covariate
+
+```{r}
+#| label: cox ph with biomarker
+#| eval: false
+
+# Note that: log_2(2x) = log_2(x) + 1 (a one-unit increase on the log2 scale)
+# This model asks how the hazard changes when the biomarker doubles:
+# HR = h(2 * biomarker) / h(biomarker)
+cox_bio <- coxph(Surv(time, status) ~ log2(biomarker), data = analysis) 
+summary(cox_bio)
+```
+
+::: notes
+The model assumes each extra 10 years multiplies the hazard by the
+same amount (log-linear). Now that we've touched on the background material
+needed to understand CoxPH models let's actually start looking at (and
+interpreting) some output. First, the `coef`. This is on the scale and is 
+log($\frac{h_{\text{biomarker} * 2}}{h_{\text{biomarker}}}$). It can be interpreted
+as showing that our age increased the risk of 
+experiencing the event (given the positive sign of the coefficient), but not 
+too much more than than that (easily anyway). To get a real sense of how much
+our intervention affected the probability of relapse, we can look one output 
+to the right `exp(coef)`. This is the exponentiated version of the hazard 
+ratio seen to the left. Recall that the null hypothesis for this statistical
+test predicts that there should be no effect of the treatment (maintenance) 
+on the hazard so the ratio 
+log($\frac{h_{\text{biomarker} * 2}}{h_{\text{biomarker}}}$)
+is 1 by our null hypothesis. So,
+$\log(\frac{h_{\text{biomarker} * 2}}{h_{\text{biomarker}}}) < 1$ implies that
+our age increased the hazard. To see by how much we need subtract this ratio
+from 1 which leads to a 7% increase in the hazard (or instantaneous rate) of
+relapse per 10 years increase of age. However, our p-value is highly
+significant, so we can definitely say that biomarker affects
+relapse time.
+:::
+
+## The multivariable model
+
+```{r}
+#| label: cox full
+#| eval: false
+
+cox_full <- coxph(Surv(time, status) ~ group + I(age / 10) + sex + stage + log2(biomarker),
+                  data = analysis)
+summary(cox_full)
+```
+
+- Each HR is **adjusted** for every other covariate in the model
+- TODO: compare the treatment HR with and without adjustment
+
+::: notes
+Now we are looking at the full multivariable model, which evaluates each
+predictor while holding all other variables constant (`n = 513`, `212` events). 
+
+* **Treatment (`groupmaintenance`):** After adjusting for age, sex, 
+disease stage, and biomarker levels, maintenance therapy still shows a strong 
+protective effect—cutting the relapse hazard by about **52%** (`HR = 0.48`,
+`p < 0.001`), which is even stronger than the 46% reduction we saw in the
+unadjusted model.
+
+* **Age (`I(age/10)`):** Each 10-year increase in age is associated with
+roughly a **9% higher hazard** (`HR = 1.09`), but this remains statistically
+non-significant (`p = 0.22`).
+* **Sex (`sexMale`):** Compared to the reference group (Female), males
+have a **32% higher hazard** of relapse (`HR = 1.32`, `p = 0.046`).
+* **Disease Stage (`stageII` & `stageIII`):** Compared to Stage I (the
+reference group), Stage II patients have a **45% higher hazard** (`HR = 1.45`,
+`p = 0.018`), while Stage III patients face more than 
+**2.6 times the hazard** (`HR = 2.61`, `p < 0.001`).
+* **Biomarker (`log2(biomarker)`):** Every **doubling** of the biomarker
+increases the relapse hazard by about **31%** (`HR = 1.31`, `p = 0.0015`).
+
+Treatment group, disease stage, and baseline biomarker levels are our
+strongest independent predictors of relapse time.
+:::
+
+## Plot survival curves
+
+```{r}
+#| label: predicted curves
+#| eval: false
+
+nd <- data.frame(group = c("placebo", "maintenance"),
+                 age = 60,
+                 sex = "Female",
+                 stage = "II",
+                 biomarker = median(analysis$biomarker))
+fit_adj <- survfit(cox_full, newdata = nd)
+plot(fit_adj, col = c("#E64B35", "#4DBBD5"), lwd = 2,
+     xlab = "Time", ylab = "Relapse-Free Survival Probability")
+legend("bottomleft", legend = c("Placebo", "Maintenance"),
+       col = c("#E64B35", "#4DBBD5"), lwd = 2, bty = "n")
+```
+
+::: notes
+These are adjusted survival curves for a specific type of patient 
+(a 60-year-old female with Stage II disease and median biomarker levels), 
+rather than a raw population average—isolating the treatment effect while
+accounting for confounding variables (e.g., disease-stage) that we are 
+interested in accounting for but not necessarily making inference on.
+:::
+
+## What we assumed
+
+- The hazard ratio is the **same at every point in follow-up**
+- Continuous covariates act **log-linearly** on the hazard
+- Censoring is **non-informative** (same as Parts 1–2)
+
+## Summary
+
+- The **hazard** is the instantaneous risk of the event among those still at
+risk
+- Cox: $h(t \mid x) = h_0(t)\, e^{\beta x}$, with the baseline hazard left
+unspecified (semi-parametric)
+- Fitted from the same risk sets as KM and the log-rank test
+- Output: **hazard ratios**, adjusted for the other covariates
+- HRs are **not** survival probabilities
+
+## References
+
+Columbia University: Time-To-Event Data Analysis
+
+Ho, Nhan T. Introduction to Bio-Medical data analysis with R. https://bookdown.org/nhanhocumc/biodata-r/. 2025.
+
+Cox, D. R. (1972). Regression models and life-tables. *Journal of the Royal Statistical Society: Series B*, 34(2), 187–220.
+
+Therneau, T. M., & Grambsch, P. M. (2000). *Modeling Survival Data: Extending the Cox Model*. Springer.

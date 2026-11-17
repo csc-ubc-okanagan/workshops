@@ -1,0 +1,4 @@
+Visualization is critical to communicating science. In this workshop, students
+will become familiar with the popular data visualization package ggplot2 while
+learning about the importance of visualization and the types of messages data
+can convey.

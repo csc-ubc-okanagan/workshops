@@ -1,0 +1,3 @@
+This workshop introduces students to foundational computing concepts such as
+data structures, data types, variables, and directory structures while building
+confidence in R and RStudio.

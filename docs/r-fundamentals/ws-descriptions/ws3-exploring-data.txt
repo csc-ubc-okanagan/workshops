@@ -1,0 +1,5 @@
+Once data are imported, the next step is getting familiar with them. This
+workshop covers functionality R offers for exploring a dataset before diving
+into formal analysis. Students will be introduced to missing data, basic
+plotting in R (e.g., histograms and boxplots), and options for quickly scanning
+datasets with tidyverse syntax.

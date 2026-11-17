@@ -1,0 +1,5 @@
+Iteration (repeatedly executing a command until some condition is met) is part
+of what makes computer-based computation so powerful, but not all styles of
+iteration are created equal. This workshop introduces students to the
+advantages and pitfalls of different types of iteration in R, as well as the
+concept of vectorization in the R language.

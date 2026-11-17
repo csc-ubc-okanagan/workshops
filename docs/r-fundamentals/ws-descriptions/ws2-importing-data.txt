@@ -1,0 +1,4 @@
+This workshop walks students through the basics of reading data using the
+menagerie of tools available in R. Students will learn to bring their data into
+R and, in the process, touch on concepts such as the working directory and wide-
+versus long-formatted data.

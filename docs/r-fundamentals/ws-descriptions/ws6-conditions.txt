@@ -1,0 +1,4 @@
+Conditions are logical statements that allow computers to respond to different
+cases in a dataset in a predictable way. This workshop introduces students to
+common conditional statements in R, including if/else statements, switch
+statements, and their vectorized equivalents.

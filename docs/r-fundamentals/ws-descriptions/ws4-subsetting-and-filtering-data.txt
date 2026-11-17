@@ -1,0 +1,6 @@
+Researchers often do not need their entire dataset at once, whether because of
+computation time, hierarchically structured (non-independent) data, or study
+design choices. Being able to quickly and efficiently split data into the
+subsets or groups most important for an analysis is an essential skill. This
+workshop walks students through recipes for subsetting and filtering data
+using tidyverse, data.table, and base R.

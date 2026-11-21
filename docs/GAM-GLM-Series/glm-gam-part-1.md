@@ -86,6 +86,8 @@ output:
   }
 </style>
 
+# GLMs and GAMs in R (Part 1): Intro to Generalized Linear Models
+
 <div class="ws-page">
 
   <aside class="ws-toc">

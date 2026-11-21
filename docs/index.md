@@ -514,6 +514,7 @@ html { scroll-behavior: smooth; }
           <span class="ws-item-title">Part 1: Intro to Generalized Linear Models</span>
           <div class="ws-controls">
             <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">Generalized linear models extend linear regression to outcomes such as binary responses and counts. Participants will learn how the response distribution and link function define a model, fit introductory logistic and Poisson regression models in R, and recognize when an ordinary linear model is not appropriate.</div></details>
+            <span class="ws-links"><a href="GAM-GLM-Series/glm-gam-part-1.html">workshop page</a></span>
           </div>
         </li>
         <li class="ws-item">

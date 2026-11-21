@@ -202,7 +202,7 @@ round(c(minimumFit = min(fitted(lmBinary)),
 
 Eight of the 189 mothers are given a negative probability of a small baby. The smallest is -0.1396.
 
-![](../assets/images/glms-and-gams/1-binary-lm-fail.png)
+![](../assets/images/gam-glm-series-plots/1-binary-lm-fail.png)
 
 The left panel sorts the fitted values and marks the eight that cannot exist. The right panel is the reason the usual residual plots are no help here. A residual is $y_i - \hat{y}_i$, and $y_i$ is 0 or 1, so every residual sits on one of two parallel lines. Nothing about that pattern tells you whether the model is any good. It is what a binary outcome looks like no matter what you fit.
 
@@ -241,7 +241,7 @@ round(c(crossesZeroAtLwt = unname(-coef(lmOne)[1] / coef(lmOne)[2]),
 
 The straight line hits zero at 250.9 pounds. The heaviest mother in the data weighs 250. The linear model runs out of valid probabilities at the edge of its own data. Although we should not extrapolate, a 0.9 pounds extrapolation would be reasonable in many cases.
 
-![](../assets/images/glms-and-gams/1-binary-curves.png)
+![](../assets/images/gam-glm-series-plots/1-binary-curves.png)
 
 The grey strip marks the observed weights. Inside it the two fits agree well enough. Outside it one of them keeps going and the other flattens, because it was built to.
 
@@ -293,7 +293,7 @@ data.frame(spray = levels(InsectSprays$spray), round(countPred, 2))
 
 Three of the six prediction intervals start below zero. Spray C is expected to leave about two insects, give or take six in the negative direction. The model is being asked for one variance and it returns the average of a wide group and a narrow one, which fits neither.
 
-![](../assets/images/glms-and-gams/1-count-lm-fail.png)
+![](../assets/images/gam-glm-series-plots/1-count-lm-fail.png)
 
 The left panel is the fan that a constant variance assumption leaves behind. The right panel plots each group's mean against its variance, with the line where the two would be equal. The points track that line rather than a flat one.
 
@@ -335,7 +335,7 @@ For a probability, $0 < \mu < 1$. The logit sends $(0,1)$ to the whole real line
 
 $$\log\!\left(\frac{\mu_i}{1 - \mu_i}\right) = \eta_i \qquad \Longrightarrow \qquad \mu_i = \frac{1}{1 + e^{-\eta_i}} \in (0,1) \text{ for any } \eta_i$$
 
-![](../assets/images/glms-and-gams/1-links.png)
+![](../assets/images/gam-glm-series-plots/1-links.png)
 
 Below is the 'anatomy' of the logistic regression case.
 
@@ -471,7 +471,7 @@ profiles[, c("lwt", "smoke", "probability")]
 
 One odds ratio, two different stories. For a 120-pound mother, smoking moves the risk from 0.117 to 0.236, a rise of about 12 percentage points. For a 180-pound mother, it moves from 0.051 to 0.112, a rise of about 6 percentage points. The odds ratio is 2.33 in both rows, and so is constant by construction. The risk difference is not. **Report the odds ratio for the model and a predicted probability for the reader**, and say which profile the probability belongs to.
 
-![](../assets/images/glms-and-gams/1-logistic-prob.png)
+![](../assets/images/gam-glm-series-plots/1-logistic-prob.png)
 
 ## Sidenote: Where Is racewhite? {#indicators}
 
@@ -515,7 +515,7 @@ The second interval ends at 1.0272. The model has reported a probability above o
 
 The reason is the same one the link was introduced for. Adding and subtracting standard errors is a straight-line operation, and it belongs on the scale where the quantity is free to move. On the link scale the estimate is -3.47 with a symmetric interval around it. Pushing that interval through `plogis()` gives 0.8192 to 0.9956, which is squeezed against the upper bound and cannot cross it.
 
-![](../assets/images/glms-and-gams/1-ci-scales.png)
+![](../assets/images/gam-glm-series-plots/1-ci-scales.png)
 
 **Build the interval on the link scale, then transform both ends.** This holds for every GLM and every link. Part 5 of this series returns to it with prediction rather than confidence intervals.
 
@@ -677,7 +677,7 @@ ui       1   199.15 215.15 2.3177 0.127909
 
 The model as a whole beats an intercept, with a deviance drop of 37.8 on 8 degrees of freedom. `drop1()` tests one term at a time against the full model, and it is the right tool for a factor with more than two levels. `race` costs two degrees of freedom, so no single row of `summary()` tests it. Here it matters at 0.041 while neither of its two coefficients clears 0.05 on its own.
 
-![](../assets/images/glms-and-gams/1-logistic-diagnostics.png)
+![](../assets/images/gam-glm-series-plots/1-logistic-diagnostics.png)
 
 # Part C: Poisson Regression {#part-c}
 
@@ -764,7 +764,7 @@ F     F        16.67  16.67 14.51 19.14
 
 The fitted values equal the group means, the same as the linear model gave. With one factor and nothing else, both models have a parameter for each group, so neither can do anything but reproduce the means. What differs is everything around them. The intervals here are asymmetric, they are narrow where the count is small, and no lower bound goes below zero.
 
-![](../assets/images/glms-and-gams/1-poisson-fit.png)
+![](../assets/images/gam-glm-series-plots/1-poisson-fit.png)
 
 ## Does the Model Hold Up? {#poisson-diagnostics}
 
@@ -855,7 +855,7 @@ round(c(mean = mean(qResid), sd = sd(qResid),
 
 The mean is near zero and the test gives no reason to doubt normality. The standard deviation is 1.186 rather than 1, which is the same overdispersion showing up a second way. These residuals carry a random component, so a different seed gives slightly different numbers. Draw them a few times before drawing a conclusion.
 
-![](../assets/images/glms-and-gams/1-poisson-diagnostics.png)
+![](../assets/images/gam-glm-series-plots/1-poisson-diagnostics.png)
 
 ## When the Check Fails {#overdispersion}
 
@@ -906,7 +906,7 @@ Nothing changes here, in the sense that a $t$ of 59.9 and a $z$ of 101.5 lead to
 
 On the magnitude coefficient, $e^{1.18885} = 3.28$, so each extra point of magnitude multiplies the expected number of reporting stations by about 3.3.
 
-![](../assets/images/glms-and-gams/1-quakes.png)
+![](../assets/images/gam-glm-series-plots/1-quakes.png)
 
 The left panel shows what the log link bought. A straight line cannot bend, so it runs above the data at low magnitudes and below it at high ones, while the exponential curve follows the shape. It also shows the cost. Above magnitude 6 there are few earthquakes, and the curve climbs steeply through that gap on the strength of very little. The right panel bins the events by magnitude and plots each bin's mean against its variance. Every bin sits well above the line where the two would be equal.
 

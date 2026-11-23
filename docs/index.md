@@ -521,6 +521,7 @@ html { scroll-behavior: smooth; }
           <span class="ws-item-title">Part 2: Interpreting Generalized Linear Models</span>
           <div class="ws-controls">
             <details class="ws-desc"><summary>Description</summary><div class="ws-desc-body">Coefficients from a generalized linear model are not always expressed on the scale researchers care about most. This session shows how to move between the link and response scales and interpret quantities such as odds ratios, rate ratios, fitted probabilities, and expected counts. Participants will also examine uncertainty, model fit, and common diagnostics.</div></details>
+            <span class="ws-links"><a href="GAM-GLM-Series/glm-gam-part-2.html">workshop page</a></span>
           </div>
         </li>
         <li class="ws-item">

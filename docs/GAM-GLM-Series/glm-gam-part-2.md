@@ -1009,6 +1009,15 @@ guess the shape in advance. Part 3 replaces the guess.
 
 $$D = 2\left(\ell_{\text{saturated}} - \ell_{\text{model}}\right)$$
 
+Deviance measures how far a model sits from a saturated model that reproduces
+every observation exactly, $D = 2(\ell_{\text{saturated}} - \ell_{\text{model}})$.
+On its own it says how much surprise is left, not why. The difference in deviance
+between two nested models is a likelihood ratio test, and that is where deviance
+earns its keep. Lastly, a null deviance test subtracts the likelihood of the
+saturated model $\ell_{\text{saturated}}$ from the likelihood of a null model
+$\ell_{\text{null}}$. Note that deviance is a measure of goodness-of-fit but 
+not a statistical test.
+
 # YOU TRY! {#you-try}
 
 Work through these for the next 15 minutes. Both datasets come with R.
